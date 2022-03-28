@@ -60,7 +60,7 @@
 
 ​       骨干节点接入主链分为**线上注册申请**和**线下开发**两部分内容，具体流程如下图所示，蓝色标记部分需要骨干节点登录超级节点业务系统进行操作 ：
 
-​                 ![img](https://docimg4.docs.qq.com/image/R03FgqK6WPdarFu39bXA8Q.png?w=807&h=768)        
+​                 ![img](../images/main_node_1.png)        
 
 
 
@@ -90,19 +90,19 @@
 
 第一步：访问星火·链网业务系统 注册**企业账户**。（用户想要接入哪个超级节点，就登录该超级节点系统执行申请操作）
 
-​                 ![img](https://docimg3.docs.qq.com/image/-FzDXdLlOr_EOPvzYICeYg?w=1108&h=907)        
+​                 ![img](../images/main_node_2.png)        
 
 第二步：登录后，进入账户中心 获取数字身份
 
-​                 ![img](https://docimg5.docs.qq.com/image/s7o6pY5LQ2qDp8DC2wZNlg.png?w=1280&h=534.7708894878706)        
+​                 ![img](../images/main_node_3.png)        
 
-​                 ![img](https://docimg3.docs.qq.com/image/Fi-9GeuZ40f5GvzsmHwzUw.png?w=1280&h=510.9158284806776)        
+​                 ![img](../images/main_node_4.png)        
 
 第三步：完成企业可信认证申请，申请完成后，等待所属超级节点审核企业可信认证，审核通过后，才能进行下一步申请骨干节点。
 
 说明：测试期间，授权书等资料不需要上传真实文件。
 
-​                 ![img](https://docimg7.docs.qq.com/image/hbAihgGsy89CZqGiaE0jMQ.png?w=1280&h=472.95597484276726)        
+​                 ![img](../images/main_node_5.png)        
 
 ​                 ![img](https://docimg10.docs.qq.com/image/zGY7V86j-AkkP6QG3bi43w.png?w=1280&h=576.9773565034228)        
 

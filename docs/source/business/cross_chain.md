@@ -6,7 +6,7 @@
 
 ​       数据互联互通后，需要开发骨干节点与超级节点之间的跨链互操作功能，实现数据跨链、资产跨链和智能合约跨链互操作过程。骨干节点接入跨链的具体流程如下图所示：
 
-<img src="https://docimg9.docs.qq.com/image/1-iiM1wqAPU2FW7bCxFgZQ?w=1184&h=904" alt="img" style="zoom: 50%;" />        
+![image.png](../images/cross_chain_1.png)
 
 流程说明：
 
@@ -60,7 +60,7 @@
 
 ​    本方案架构的模块包含如下内容：包括中继链（主链）、平行链（子链）、跨链网关（骨干节点网关）。中继链即现有的国家主链，国家超级节点负责维护区块链安全稳定的运行，其高效的共识算法，保证跨链的效率，满足平行链跨链对性能的不同要求。平行链是所有参与接入跨链生态的同构/异构区块链，可以是各种公链、联盟链、私链等。跨链网关是中继链和平行链的适配网关，实现平行链/中继链互联互通跨链通信，一般由骨干节点承担网关功能。
 
-![img](https://docimg8.docs.qq.com/image/yuTR2TZheXtu-GDSGzGgTA?w=1773&h=928)        
+![img](../images/cross_chain_2.png)        
 
 以子链A上的用户Alice向子链B上的用户Bob转移跨链资产为例，其流程如下：
 
@@ -433,7 +433,7 @@ srcAmount/srcTokenRate = destAmount/destTokenRate;  源链积分/源链汇率 = 
 
 跨链的数据流向分为三种场景，一是主链到子链方向的跨链；二是子链到主链方向的跨链；三是子链到其他子链的跨链。无论是积分转移、兑换、合约互操作、数据转移任何一种类型的跨链，都会在这三种场景下，进行数据流向。我们将抽象成统一类型的数据流，来阐述跨链过程。
 
-（1）主链到子链的跨链          <img src="https://docimg9.docs.qq.com/image/6rZP6UhKY1SnkPt5wf4pqg?w=1122&h=1005" alt="img" style="zoom:67%;" />        
+（1）主链到子链的跨链          ![img](../images/cross_chain_3.png)    
 
 1. 主链用户通过超级节点API，发起跨链交易，源链为主链，目标链是子链A，目标用户为子链A下的用户A；
 2. 超级节点API接收到跨链交易后，将交易转发到主链；
@@ -449,7 +449,7 @@ srcAmount/srcTokenRate = destAmount/destTokenRate;  源链积分/源链汇率 = 
 
 1. 子链到主链的跨链
 
-​                 <img src="https://docimg2.docs.qq.com/image/e68YRM7CB05RLJuaG4shrQ?w=1158&h=768" alt="img" style="zoom:67%;" />        
+​                 ![img](../images/cross_chain_4.png)      
 
 1. 子链用户A发起跨链交易，源链为子链A，目标链是主链，目标用户为主链下的用户；
 2. 子链网关A获取跨链交易；
@@ -466,7 +466,7 @@ srcAmount/srcTokenRate = destAmount/destTokenRate;  源链积分/源链汇率 = 
 
 （2）子链到其他子链的跨链
 
-​                 <img src="https://docimg1.docs.qq.com/image/S_1ylIae9mK27m7c_WN2Dg?w=1455&h=1024" alt="img" style="zoom:80%;" />        
+​                 ![img](../images/cross_chain_5.png)       
 
 1. 子链用户A发起跨链交易，源链为子链A，目标链是子链B，目标用户为子链B下的用户B；
 2. 子链网关A，在主链A上查询到跨链交易；
