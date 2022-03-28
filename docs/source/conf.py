@@ -2,7 +2,7 @@
 
 # -- Project information
 
-project = 'OpenZeppelin合约分析'
+project = '星火·链网开放文档'
 copyright = '2021, 中国信息通信研究院'
 author = '中国信息通信研究院'
 
