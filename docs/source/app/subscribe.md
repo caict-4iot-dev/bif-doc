@@ -4,18 +4,7 @@
 
 ​**github**代码库地址：https://github.com/CAICT-DEV/bif-core-subscribe-tool
 
-## 环境要求
-
-<h2 id="min-content" style="display:none;"> </h2>
-
-​本节描述订阅服务环境要求。
-
-- JDK1.8以上的版本。更多信息，请参见[安装JDK](https://www.oracle.com/java/technologies/javase-downloads.html)。
-
-- 安装Maven。更多信息，请参见[安装Maven](https://maven.apache.org/download.cgi)。
-
 ## 方法说明
-​		
 ### AddChainResponseMethod
 
 > 接口说明
