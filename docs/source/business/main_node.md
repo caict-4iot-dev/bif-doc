@@ -104,13 +104,13 @@
 
 ​                 ![img](../images/main_node_5.png)        
 
-​                 ![img](https://docimg10.docs.qq.com/image/zGY7V86j-AkkP6QG3bi43w.png?w=1280&h=576.9773565034228)        
+​                 ![img](../images/main_node_6.png)        
 
-​                 ![img](https://docimg2.docs.qq.com/image/L_aVwjVKiDOBNMTQKTPNEw.png?w=1280&h=373.7572866984632)        
+​                 ![img](../images/main_node_7.png)        
 
 完成可信认证后，可查看证书：
 
-​                 ![img](https://docimg7.docs.qq.com/image/jRYSXjsfAdWKjT02Pm5zdA.png?w=1280&h=569.7228144989339)        
+​                 ![img](../images/main_node_8.png) 
 
 #### 4.2.2 申请骨干节点
 
@@ -120,7 +120,7 @@
 
 第一步：申请骨干节点，登录星火·链平台选择业务管理平台，节点管理--节点申请--申请骨干节点； 申请完成后，等待所属超级节点审核；审核通过后才能进行下一步操作。（准备工作中生成的网关地址写到服务器信息的“数据网关BID列表中”）
 
-​                 ![img](https://docimg1.docs.qq.com/image/P_RvsZiNQl-VGiUiDuXOnA.png?w=1280&h=445.9267126925119)        
+​                 ![img](../images/main_node_9.png)     
 
 说明：
 
@@ -128,11 +128,11 @@
 - 解析服务网络地址：子链解析服务网络地址（子链开发bid注册解析服务时用到）
 - 链架构类型：如链架构类型中，没有子链的链结构类型，可联系信通院同事进行添加
 
-​                 ![img](https://docimg6.docs.qq.com/image/XKH3OvoulwNcMz7rtS0fUA.png?w=1280&h=609.6522655426764)        
+​                 ![img](../images/main_node_10.png)
 
 第二步：导出骨干节点账户（地址、私钥）为后续骨干节点向主链发交易时使用
 
-​                 ![img](https://docimg3.docs.qq.com/image/yFg1E9wK6lZkxs5vCioghQ?w=1654&h=420)        
+​                 ![img](../images/main_node_11.png)
 
 超级节点审核完成后，即生成骨干节点账户，骨干节点相关业务以骨干节点身份开展。
 
@@ -142,13 +142,11 @@
 
 第一步：申请骨干节点API_key和API_secret，在业务管理平台-开发者管理模块中进行APIKey申请，
 
-​                 ![img](https://docimg5.docs.qq.com/image/TFD0r8BRAen0nUq5G8k7uQ?w=1545&h=462)        
+​                 ![img](../images/main_node_12.png)        
 
 第二步：申请完成后，等待所属超级节点审核，审核完成后 可以在 APIKey管理里面查询开发者信息。
 
-​                 ![img](https://docimg7.docs.qq.com/image/090098z8MLKpz92HkNMIgA?w=1599&h=730)        
-
-
+​                 ![img](../images/main_node_13.png)
 
 ### 4.3 底层链锚定
 
