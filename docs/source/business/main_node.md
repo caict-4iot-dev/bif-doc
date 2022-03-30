@@ -199,7 +199,7 @@
 
 （1）请求示例：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/info/syn
 {
@@ -242,7 +242,7 @@ https://{url}/v1/chain/info/syn
 
 a. 接口调用成功，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": 0,
     "message": "成功"
@@ -251,7 +251,7 @@ a. 接口调用成功，则返回JSON数据示例为：
 
 b. 接口调用失败，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": 940000,
     "message": "系统内部错误"
@@ -297,7 +297,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/status/syn/blob
 {
@@ -322,7 +322,7 @@ https://{url}/v1/chain/status/syn/blob
 
 a. 接口调用成功，则返回JSON数据示例为：
 
-```plain
+```
 {
   "errorCode": 0,
   "message": "操作成功",
@@ -336,7 +336,7 @@ a. 接口调用成功，则返回JSON数据示例为：
 
 b. 接口调用失败，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": 940000,
     "message": "系统内部错误"
@@ -368,7 +368,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/status/syn/submit
 {
@@ -387,7 +387,7 @@ https://{url}/v1/chain/status/syn/submit
 
 a. 接口调用成功，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": "0",
     "message": "操作成功",
@@ -399,7 +399,7 @@ a. 接口调用成功，则返回JSON数据示例为：
 
 b. 接口调用失败，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": 940000,
     "message": "系统内部错误"
@@ -451,7 +451,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/nodeInfo/syn/blob
 {
@@ -483,7 +483,7 @@ https://{url}/v1/chain/nodeInfo/syn/blob
 
 a. 接口调用成功，则返回JSON数据示例为：
 
-```plain
+```
 {
   "errorCode": 0,
   "message": "操作成功",
@@ -497,7 +497,7 @@ a. 接口调用成功，则返回JSON数据示例为：
 
 b. 接口调用失败，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": 940000,
     "message": "系统内部错误"
@@ -529,7 +529,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/nodeInfo/syn/submit
 {
@@ -548,7 +548,7 @@ https://{url}/v1/chain/nodeInfo/syn/submit
 
 a. 接口调用成功，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": "0",
     "message": "操作成功",
@@ -560,7 +560,7 @@ a. 接口调用成功，则返回JSON数据示例为：
 
 b. 接口调用失败，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": 940000,
     "message": "系统内部错误"
@@ -622,7 +622,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/nodeRunningStatus/syn
 {
@@ -670,7 +670,7 @@ https://{url}/v1/chain/nodeRunningStatus/syn
 
 a. 接口调用成功，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": "0",
     "message": "操作成功"
@@ -679,7 +679,7 @@ a. 接口调用成功，则返回JSON数据示例为：
 
 b. 接口调用失败，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": 940000,
     "message": "系统内部错误"
@@ -728,7 +728,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/block/syn/blob
 
@@ -757,7 +757,7 @@ https://{url}/v1/chain/block/syn/blob
 
 a. 接口调用成功，则返回JSON数据示例为：
 
-```plain
+```
 {
   "errorCode": 0,
   "message": "操作成功",
@@ -771,7 +771,7 @@ a. 接口调用成功，则返回JSON数据示例为：
 
 b. 接口调用失败，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": 940000,
     "message": "系统内部错误"
@@ -803,7 +803,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/block/syn/submit
 {
@@ -822,7 +822,7 @@ https://{url}/v1/chain/block/syn/submit
 
 a. 接口调用成功，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": "0",
     "message": "操作成功",
@@ -834,7 +834,7 @@ a. 接口调用成功，则返回JSON数据示例为：
 
 b. 接口调用失败，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": 940000,
     "message": "系统内部错误"
@@ -875,7 +875,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/tx/syn
 
@@ -903,7 +903,7 @@ https://{url}/v1/chain/tx/syn
 
 a. 接口调用成功，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": "0",
     "message": "操作成功"
@@ -912,7 +912,7 @@ a. 接口调用成功，则返回JSON数据示例为：
 
 b. 接口调用失败，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": 940000,
     "message": "系统内部错误"
@@ -967,7 +967,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/contract/syn/blob
 {
@@ -996,7 +996,7 @@ https://{url}/v1/chain/contract/syn/blob
 
 a. 接口调用成功，则返回JSON数据示例为：
 
-```plain
+```
 {
   "errorCode": 0,
   "message": "操作成功",
@@ -1010,7 +1010,7 @@ a. 接口调用成功，则返回JSON数据示例为：
 
 b. 接口调用失败，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": 940000,
     "message": "系统内部错误"
@@ -1042,7 +1042,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/contract/syn/submit
 {
@@ -1061,7 +1061,7 @@ https://{url}/v1/chain/contract/syn/submit
 
 a. 接口调用成功，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": "0",
     "message": "操作成功",
@@ -1073,7 +1073,7 @@ a. 接口调用成功，则返回JSON数据示例为：
 
 b. 接口调用失败，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": 940000,
     "message": "系统内部错误"
@@ -1137,7 +1137,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/update/blob
 {
@@ -1205,7 +1205,7 @@ https://{url}/v1/chain/update/blob
 
 a. 接口调用成功，则返回JSON数据示例为：
 
-```plain
+```
 {
  "data":{
   "blobId": "232975729572",
@@ -1268,7 +1268,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）提交获取到的更新子链blob数据，示例如下：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/update/submit
 {
@@ -1290,7 +1290,7 @@ a. 成功：
 
 接口调用成功，则返回JSON数据示例如下：
 
-```plain
+```
 {
   "data":{
         "txHash": "985ac10a6cda2f4b6c910f11bffed35fa504e53125c045d1fbbade6b335da50"
@@ -1302,7 +1302,7 @@ a. 成功：
 
 b. 接口调用失败，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": 940000,
     "message": "系统内部错误"
@@ -1340,7 +1340,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/bid/area/info/list
 {
@@ -1355,7 +1355,7 @@ https://{url}/v1/bid/area/info/list
 
 a. 接口调用成功，则返回JSON数据示例为：
 
-```plain
+```
 {
   "errorCode": 0,
   "message": "操作成功",
@@ -1495,7 +1495,7 @@ a. 接口调用成功，则返回JSON数据示例为：
 
 b. 接口调用失败，则返回JSON数据示例为：
 
-```plain
+```
 {
     "errorCode": 940000,
     "message": "系统内部错误"
@@ -1526,11 +1526,11 @@ b. 接口调用失败，则返回JSON数据示例为：
 | dataList.time  |       Long | 是           | 毫秒级时间戳，用于数据查询时排序                             |
 | dataList.value |     Object | 是           | 业务数据对象，具体结构详见后表                               |
 
-###### 1） 溯源类应用服务同步数据
+##### 1） 溯源类应用服务同步数据
 
-####### 1.1）**同步溯源产品记录**：
+###### 1.1）**同步溯源产品记录**：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/appService/info/syn
 {
@@ -1568,7 +1568,7 @@ https://{url}/v1/chain/appService/info/syn
 
 ####### 1.2）**同步生产环节记录**：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/appService/info/syn
 {
@@ -1618,11 +1618,11 @@ https://{url}/v1/chain/appService/info/syn
 | lastStatus  |  Integer | 是           | 最近状态， 0：操作中 1：已完成                              |
 | num         |   String | 是           | 产品信息编号，子链上唯一                                    |
 
-###### 2） 存证类应用服务同步数据
+##### 2） 存证类应用服务同步数据
 
-####### 2.1）**同步存证作品记录**：
+###### 2.1）**同步存证作品记录**：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/appService/info/syn
 {
@@ -1670,7 +1670,7 @@ https://{url}/v1/chain/appService/info/syn
 
 ####### 2.2）**同步作品权利列表**：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/appService/info/syn
 {
@@ -1716,7 +1716,7 @@ https://{url}/v1/chain/appService/info/syn
 
 ####### 2.3）**同步作品侵权列表**：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/appService/info/syn
 {
@@ -1754,11 +1754,11 @@ https://{url}/v1/chain/appService/info/syn
 | num         |   String | 是           | 作品编号，子链上唯一         |
 | certHash    |   String | 是           | 证书哈希                     |
 
-###### 3） 供应链金融类应用服务同步数据
+##### 3） 供应链金融类应用服务同步数据
 
-####### 3.1）**同步参与主体记录**：
+###### 3.1）**同步参与主体记录**：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/appService/info/syn
 {
@@ -1802,7 +1802,7 @@ https://{url}/v1/chain/appService/info/syn
 
 ####### 3.2）**同步供应链金融流程记录**：
 
-```plain
+```
 http请求方式：POST
 https://{url}/v1/chain/appService/info/syn
 {
@@ -1962,7 +1962,7 @@ BID标识应用的对接内容包含：
 
 （1）请求示例：
 
-```plain
+```
 http请求方式：GET
 https://{url}/public/resolve/did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2
 ```
@@ -1971,7 +1971,7 @@ https://{url}/public/resolve/did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2
 
 a. 普通BID文档 数据示例为：
 
-```plain
+```
 {
     "errorCode": 0,
     "data": {
@@ -2018,7 +2018,7 @@ a. 普通BID文档 数据示例为：
 
 b. 凭证BID文档 数据示例为：
 
-```plain
+```
 {
     "errorCode": 0,
     "message": "success",
@@ -2092,7 +2092,7 @@ b. 凭证BID文档 数据示例为：
 
 C. 包含子链解析服务地址BID文档 示例为：
 
-```plain
+```
 {
     "errorCode": 0,
     "message": "success",

@@ -59,7 +59,7 @@ if (infoRsp.getErrorCode() == 0) {
 
 正常账户查询返回示例:
 
-```json
+```
 {
     "address":"did:bid:efKkF5uKsopAishxkYja4ULRJhrhrJQU",    //账户地址
     "balance":10000000000,                                   //账户余额

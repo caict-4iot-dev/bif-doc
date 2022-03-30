@@ -14,7 +14,7 @@ JavaScript智能合约是一段 JavaScript 代码，标准(ECMAScript as specifi
 
 下面是一个简单的例子：
 
-```javascript
+```
 "use strict";
 function init(input)
 {
@@ -157,7 +157,7 @@ function query(input)
     | topic   | 日志主题，必须为字符串类型,参数长度(0,128]                   |
     | args... | 最多可以包含5个参数，参数类型可以是字符串、数值或者布尔类型,每个参数长度(0,1024] |
 
-    ```javascript
+    ```
     Chain.tlog('transfer',sender +' transfer 1000',true);
     /*
         权限：可写
@@ -174,7 +174,7 @@ function query(input)
     | account_address | 账号地址      |
     | metadata_key    | metadata的key |
 
-    ```javascript
+    ```
     let value = Chain.getAccountMetadata('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK', 'abc');
     
     /*
@@ -191,7 +191,7 @@ function query(input)
     | ------- | -------- |
     | address | 账号地址 |
 
-    ```javascript
+    ```
     let balance = Chain.getBalance('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
     /*
         权限：只读
@@ -207,7 +207,7 @@ function query(input)
     | --------------- | -------- |
     | account_address | 账号地址 |
 
-    ```javascript
+    ```
     let privilege = Chain.getAccountPrivilege('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
     
     /*
@@ -224,7 +224,7 @@ function query(input)
     | ---------------- | -------- |
     | contract_address | 合约地址 |
 
-    ```javascript
+    ```
     let value = Chain.getContractProperty('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
     
     /*
@@ -245,7 +245,7 @@ function query(input)
     | input    | 可选，合约参数，如果用户未填入，默认为空字符串               |
     | metadata | 可选，转账备注，显示为十六进制字符串，需要转换为明文 |
 
-    ```javascript
+    ```
     Chain.payCoin("did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK", "10000", "", "vote reward");
     /*
         权限：可写
@@ -264,7 +264,7 @@ function query(input)
 
     `Chain.delegateCall` 函数会触发被调用的合约`main`函数入口，并且把当前合约的执行环境赋予被调用的合约。如合约A委托调用合约B，即执行B(main入口)的代码，读写A的数据。
 
-    ```javascript
+    ```
     let ret = Chain.delegateCall('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，'{}');
     /*
         权限：可写
@@ -284,7 +284,7 @@ function query(input)
 
     `Chain.delegateQuery` 函数会触发被调用的合约`query`函数入口，且把当前合约的执行环境赋予被调用的合约。如合约A委托查询合约B，即执行B(query入口)的代码，读取A的数据。
 
-    ```javascript
+    ```
     let ret = Chain.delegateQuery('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，"");
     /*
         权限：只读
@@ -306,7 +306,7 @@ function query(input)
 
     `Chain.contractCall` 函数会触发被调用的合约`main`函数入口。
 
-    ```javascript
+    ```
     let ret = Chain.contractCall('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，true, toBaseUnit("10"), "");
     /*
         权限：可写
@@ -326,7 +326,7 @@ function query(input)
 
     `Chain.contractQuery` 会调用合约的查询接口。
 
-    ```javascript
+    ```
     let ret = Chain.contractQuery('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，"");
     /*
         权限：只读
@@ -348,7 +348,7 @@ function query(input)
 
     `Chain.contractCreate` 创建合约。
 
-    ```javascript
+    ```
     let ret = Chain.contractCreate(toBaseUnit("10"), 0, "'use strict';function init(input){return input;} function main(input){return input;} function query(input){return input;} ", "");
     /*
         权限：可写
@@ -402,7 +402,7 @@ function query(input)
 
         例如某账号发起了一笔交易，该交易中有个操作是调用合约Y（该操作的source_address是x），那么合约Y执行过程中，sender的值就是x账号的地址。
 
-        ```javascript
+        ```
         let bar = Chain.tx.sender;
         /*
         那么bar的值是x的账号地址。
@@ -441,7 +441,7 @@ function query(input)
 
         例如某账号发起了一笔交易，该交易中有个操作是调用合约Y（该操作的source_address是x），那么合约Y执行过程中，sender的值就是x账号的地址。
 
-        ```javascript
+        ```
         let bar = Chain.msg.sender;
         /*
         那么bar的值是x的账号地址。
@@ -460,7 +460,7 @@ function query(input)
 
         例如某账号A发起了一笔交易tx0，tx0中第0（从0开始计数）个操作是给某个合约账户转移星火令（调用合约），那么`Chain.msg.operationIndex`的值就是0。
 
-        ```javascript
+        ```
         let bar = Chain.msg.operationIndex;
         /* bar 是一个非负整数*/
         ```
@@ -513,7 +513,7 @@ function query(input)
   | ---- | -------- |
   | info | 日志内容 |
 
-  ```javascript
+  ```
   let ret = Utils.log('hello');
   /*
     权限：只读

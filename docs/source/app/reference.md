@@ -178,7 +178,7 @@ contract TokenERC20 {
 
 ### Solidity合约
 
-```solidity
+```
 pragma solidity ^0.4.26;
 
 contract XHERC721  {
@@ -862,7 +862,7 @@ ERC1155在一定程度上融合了ERC-20和ERC-721的功能。其主要用途包
 
 - **合约文件**
 
-```solidity
+```
 pragma solidity ^0.4.26;
 
 contract ERC1155 {
