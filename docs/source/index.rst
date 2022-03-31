@@ -29,6 +29,14 @@
 
 .. toctree::
    :maxdepth: 0
+   :hidden:
+   :caption: 星火·链网RFC
+   :glob:
+
+   rfcs/*
+   
+.. toctree::
+   :maxdepth: 0
    :caption:  星火·链网工具:
    :titlesonly:
    :glob:

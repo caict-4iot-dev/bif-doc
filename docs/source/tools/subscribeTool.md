@@ -1,8 +1,6 @@
 # 订阅服务
 
-<a name="RPOky"></a>
-
-## GitHub地址：[https://github.com/caict-4iot-dev/BID-SDK-JAVA](https://github.com/caict-4iot-dev/BID-SDK-JAVA)
+**GitHub地址：[https://github.com/caict-4iot-dev/BID-SDK-JAVA](https://github.com/caict-4iot-dev/BID-SDK-JAVA)**
 
 <a name="mzYWs"></a>
 
