@@ -31,8 +31,8 @@
    :glob:
 
    business/main_node
-   business/digital_id
    business/cross_chain
+   business/digital_id
    business/chanrong
    business/vc
    business/bio_carbo
@@ -51,7 +51,7 @@
    :caption: 星火·链网治理
    :glob:
 
-   星火·链网 RFC <https://github.com/caict-4iot-dev/bif-rfcs>   
+   星火·链网RFC Github <https://github.com/caict-4iot-dev/bif-rfcs>   
 
 .. toctree::
    :maxdepth: 0
