@@ -16,7 +16,12 @@
    :caption:  星火·链网应用开发文档:
    :glob:
 
-   app/*
+   app/brief
+   app/quick_start
+   app/develop_basics
+   app/javascript
+   app/solidity
+   app/reference
 
 .. toctree::
    :maxdepth: 0
@@ -25,16 +30,13 @@
    :titlesonly:
    :glob:
 
-   business/*
+   business/main_node
+   business/digital_id
+   business/cross_chain
+   business/chanrong
+   business/vc
+   business/bio_carbo
 
-.. toctree::
-   :maxdepth: 0
-   :hidden:
-   :caption: 星火·链网RFC
-   :glob:
-
-   rfcs/*
-   
 .. toctree::
    :maxdepth: 0
    :caption:  星火·链网工具:
@@ -45,9 +47,21 @@
 
 .. toctree::
    :maxdepth: 0
+   :hidden:
+   :caption: 星火·链网治理
+   :glob:
+
+   星火·链网 RFC <https://github.com/caict-4iot-dev/bif-rfcs>   
+
+.. toctree::
+   :maxdepth: 0
    :caption:  星火·链网社区:
    :titlesonly:
    :glob:
 
-   community
+   星火·链网 Github <https://github.com/caict-4iot-dev>
+   community/dev
+   community/wechat
+   community/cases
+   community/support
 
