@@ -21,7 +21,8 @@
    app/develop_basics
    app/javascript
    app/solidity
-
+   app/reference
+   
 .. toctree::
    :maxdepth: 0
    :hidden:
