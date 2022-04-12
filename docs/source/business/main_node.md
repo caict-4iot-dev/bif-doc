@@ -1,20 +1,17 @@
 骨干节点接入
 =========================
 
+## 前言
 
-## 1 前言
-
-​      文档目的：指导骨干节点/骨干链接入，包含接入流程、接入内容和开发规范。接入方式**先通过星火·链网超级节点测试网络平台进行测试验证**，接入测试成功后再接入超级节点正式系统。
+​文档目的：指导骨干节点/骨干链接入，包含接入流程、接入内容和开发规范。接入方式**先通过星火·链网超级节点测试网络平台进行测试验证**，接入测试成功后再接入超级节点正式系统。
 
 **测试系统** 超级节点测试网络平台地址：http://test-boss.bitfactory.cn/
 
 **生产系统** 超级节点区块链网络平台地址：https://boss.bitfactory.cn/
 
+## 通用说明
 
-
-## 2 通用说明
-
-### 2.1 名词解释
+### 名词解释
 
 **API_key** 开发者的身份ID，可用于获取骨干节点的调用凭证（access_token），然后通过接口调用凭证再来访问开放平台API。
 
@@ -49,19 +46,17 @@
 **服务调用剩余次数** 是指用户在星火市场上购买设置按次计费的API类开发服务，在已购服务详情中可以查看该服务的剩余次数。
 
 
-## 3 接入流程
+## 接入流程
 
-​       骨干节点接入主链分为**线上注册申请**和**线下开发**两部分内容，具体流程如下图所示，蓝色标记部分需要骨干节点登录超级节点业务系统进行操作 ：
+​骨干节点接入主链分为**线上注册申请**和**线下开发**两部分内容，具体流程如下图所示，蓝色标记部分需要骨干节点登录超级节点业务系统进行操作 ：
 
-​                 ![img](../images/main_node_1.png)        
+​![img](../images/main_node_1.png)        
 
+## 接入内容
 
+### 接入内容概述
 
-## 4 接入内容
-
-### 4.1 接入内容概述
-
-​     骨干节点需根据本文档及[《BID协议》](https://bid-resolution-protocol-doc.readthedocs.io/zh_CN/v1.9.4/)要求开发接入主链，将骨干节点及其子链信息同步至主链锚定，实现与主链的互联互通，并且在实际业务中应用BID。为实现以上目标，至少需要接入以下内容：
+骨干节点需根据本文档及[《BID协议》](https://bid-resolution-protocol-doc.readthedocs.io/zh_CN/v1.9.4/)要求开发接入主链，将骨干节点及其子链信息同步至主链锚定，实现与主链的互联互通，并且在实际业务中应用BID。为实现以上目标，至少需要接入以下内容：
 
 1. 注册申请：包含企业账号注册、获取数字身份、可信认证申请、骨干节点申请、API调用权限申请。该接入内容，需要登录到超级节点业务系统中进行操作。
 
@@ -80,43 +75,31 @@
 
 
 
-### 4.2 注册申请
+### 注册申请
 
-#### 4.2.1 注册企业账号
+#### 注册企业账号
 
 第一步：访问星火·链网业务系统 注册**企业账户**。（用户想要接入哪个超级节点，就登录该超级节点系统执行申请操作）
 
-​                 ![img](../images/main_node_2.png)        
 
 第二步：登录后，进入账户中心 获取数字身份
 
-​                 ![img](../images/main_node_3.png)        
-
-​                 ![img](../images/main_node_4.png)        
+​![img](../images/main_node_4.png)        
 
 第三步：完成企业可信认证申请，申请完成后，等待所属超级节点审核企业可信认证，审核通过后，才能进行下一步申请骨干节点。
 
 说明：测试期间，授权书等资料不需要上传真实文件。
 
-​                 ![img](../images/main_node_5.png)        
-
-​                 ![img](../images/main_node_6.png)        
-
-​                 ![img](../images/main_node_7.png)        
-
+​![img](../images/main_node_5.png)        
+​
 完成可信认证后，可查看证书：
-
-​                 ![img](../images/main_node_8.png) 
+​
 
 #### 4.2.2 申请骨干节点
 
 准备工作：使用BID-SDK-JAVA线下生成一个网关账户地址（公钥私钥也要保存好），为下一步申请成为骨干节点时配置接入网关地址时使用（可以生成多个）
 
-
-
 第一步：申请骨干节点，登录星火·链平台选择业务管理平台，节点管理--节点申请--申请骨干节点； 申请完成后，等待所属超级节点审核；审核通过后才能进行下一步操作。（准备工作中生成的网关地址写到服务器信息的“数据网关BID列表中”）
-
-​                 ![img](../images/main_node_9.png)     
 
 说明：
 
@@ -124,11 +107,8 @@
 - 解析服务网络地址：子链解析服务网络地址（子链开发bid注册解析服务时用到）
 - 链架构类型：如链架构类型中，没有子链的链结构类型，可联系信通院同事进行添加
 
-​                 ![img](../images/main_node_10.png)
 
 第二步：导出骨干节点账户（地址、私钥）为后续骨干节点向主链发交易时使用
-
-​                 ![img](../images/main_node_11.png)
 
 超级节点审核完成后，即生成骨干节点账户，骨干节点相关业务以骨干节点身份开展。
 
@@ -254,11 +234,11 @@ b. 接口调用失败，则返回JSON数据示例为：
 }
 ```
 
-#### 4.3.2 链状态信息同步
+#### 链状态信息同步
 
 骨干节点将子链的动态信息同步到主链，需要两步操作：4.3.1获取链动态信息同步交易blob；4.3.2链动态信息同步提交。要求每隔5分钟同步一次数据。
 
-##### 4.3.2.1  获取子链状态信息同步blob
+##### 获取子链状态信息同步blob
 
 接口说明：
 
@@ -339,7 +319,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 }
 ```
 
-##### 4.3.2.2 子链的状态信息提交（上链）
+##### 子链的状态信息提交（上链）
 
 接口说明：
 
@@ -402,11 +382,11 @@ b. 接口调用失败，则返回JSON数据示例为：
 }
 ```
 
-#### 4.3.3 链节点信息同步
+#### 链节点信息同步
 
 骨干节点将链的信息同步到主链，需要两步操作：4.4.1获取链节点信息同步交易blob；4.4.2链节点信息同步提交。节点有新增和修改时需要同步至主链。
 
-##### 4.3.3.1  获取链节点信息同步blob
+##### 获取链节点信息同步blob
 
 接口说明：
 
@@ -486,7 +466,7 @@ a. 接口调用成功，则返回JSON数据示例为：
   "data": {
     "blobId": "15",
     "txHash": "d60c15bacbb7f98f00921d5ad17d49fafe0c65ea706d5d4ced25e490ac35e9e0",
-    "blob": "0A286469643A6269643A65663477776B727A53564650545A4A627257433439446B416554535169377241101E228304080712286469643A6269643A656662384568753953475643546D32426276705069516A7A4E576F344C51414152D4030A286469643A6269643A6566427070397753676564315A5A72437566426D36374A4C55635255396375321AA7037B226D6574686F64223A227375626D6974426C6F636B486561646572222C22706172616D73223A7B22626C6F636B486561646572223A7B226163636F756E745F747265655F68617368223A22222C22636C6F73655F74696D65223A2231353933333338343030303032303030222C22636F6E73656E7375735F76616C75655F68617368223A22222C22666565735F68617368223A22222C2268617368223A2235323134303538363966626533633132396237383434383232333566616365633435656438653432313666633834653962623665336136386661653430636232222C2270726576696F75735F68617368223A2231323334363966626533633132396237383434383232333566616365633435656438653233313435363537646161313233343131326136386661653430636232222C22736571223A223938222C2274785F636F756E74223A223132222C2276616C696461746F72735F68617368223A22696E7465726E616C436861696E496432222C2276657273696F6E223A22227D2C22636861696E436F6465223A2262793031222C2264796E616D6963496E666F223A7B7D7D7D3080EAADE907"
+    "blob": "0A2864696..."
   }
 }
 ```
@@ -500,7 +480,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 }
 ```
 
-##### 4.3.3.2 子链节点信息提交（上链）
+##### 子链节点信息提交（上链）
 
 接口说明：
 
@@ -529,11 +509,11 @@ b. 接口调用失败，则返回JSON数据示例为：
 http请求方式：POST
 https://{url}/v1/chain/nodeInfo/syn/submit
 {
-  "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiJDcHB0NHRuMFlFZkIyMHJXIiwiaXNzIjoiQklGLUNIQUlOIiwiZXhwIjoxNjE5MzQyNDIyLCJiaWQiOiJkaWQ6YmlkOmVmMjhwTTlNRzNUR1hHeVdBVzRKcFdDRnNKRGQ1TUJuYyJ9.3gcQQBqvqtZH1q-TfUiGne68R1TnBcvLAA6nIJ8qDGU",
+  "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9....3gcQQBqvqtZH1q-TfUiGne68R1TnBcvLAA6nIJ8qDGU",
   "params": {
     "blobId": "1",
     "signerList": [{
-      "signBlob": "BDE955FF0A0F52A39E95815962836D13172D6EF92C55A72A97ECCF2CE882E2E2EAC73FA1A624D73C959E18126B4A35947375621D819F539DDC0692EEF0F4D702",
+      "signBlob": "BDE955FF0A0...",
       "publicKey": "b06566086febd16adf6553cc9c000dba5f9f410d34f8541392303561dddc045b15ef4c"
     }]
   }
@@ -563,7 +543,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 }
 ```
 
-#### 4.3.4 链节点运行状态同步
+#### 链节点运行状态同步
 
 接口说明：
 
@@ -682,11 +662,11 @@ b. 接口调用失败，则返回JSON数据示例为：
 }
 ```
 
-#### 4.3.5 链的区块信息同步
+#### 链的区块信息同步
 
 骨干节点将链的区块信息同步到主链锚定，需要两步操作：4.6.1获取链的区块信息同步blob ；4.6.2链的区块信息提交（上链）。（要求每隔5分钟同步一次数据。）
 
-##### 4.3.5.1 获取链的区块信息同步blob
+##### 获取链的区块信息同步blob
 
 接口说明：
 
@@ -729,7 +709,7 @@ http请求方式：POST
 https://{url}/v1/chain/block/syn/blob
 
 {
-  "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiJDcHB0NHRuMFlFZkIyMHJXIiwiaXNzIjoiQklGLUNIQUlOIiwiZXhwIjoxNjIxNTcxMjg0LCJiaWQiOiJkaWQ6YmlkOmVmMjhwTTlNRzNUR1hHeVdBVzRKcFdDRnNKRGQ1TUJuYyJ9.9tTPWasYgCs1yC3qYJYSjCGvd9Syl1mr6G2EVrKeq2E",
+  "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...9tTPWasYgCs1yC3qYJYSjCGvd9Syl1mr6G2EVrKeq2E",
   "params": {
     "ACSN": "ynjr",
     "gatewayAddress": "did:bid:efb8Ehu9SGVCTm2BbvpPiQjzNWo4LQAA",
@@ -760,7 +740,7 @@ a. 接口调用成功，则返回JSON数据示例为：
   "data": {
     "blobId": "15",
     "txHash": "d60c15bacbb7f98f00921d5ad17d49fafe0c65ea706d5d4ced25e490ac35e9e0",
-    "blob": "0A286469643A6269643A65663477776B727A53564650545A4A627257433439446B416554535169377241101E228304080712286469643A6269643A656662384568753953475643546D32426276705069516A7A4E576F344C51414152D4030A286469643A6269643A6566427070397753676564315A5A72437566426D36374A4C55635255396375321AA7037B226D6574686F64223A227375626D6974426C6F636B486561646572222C22706172616D73223A7B22626C6F636B486561646572223A7B226163636F756E745F747265655F68617368223A22222C22636C6F73655F74696D65223A2231353933333338343030303032303030222C22636F6E73656E7375735F76616C75655F68617368223A22222C22666565735F68617368223A22222C2268617368223A2235323134303538363966626533633132396237383434383232333566616365633435656438653432313666633834653962623665336136386661653430636232222C2270726576696F75735F68617368223A2231323334363966626533633132396237383434383232333566616365633435656438653233313435363537646161313233343131326136386661653430636232222C22736571223A223938222C2274785F636F756E74223A223132222C2276616C696461746F72735F68617368223A22696E7465726E616C436861696E496432222C2276657273696F6E223A22227D2C22636861696E436F6465223A2262793031222C2264796E616D6963496E666F223A7B7D7D7D3080EAADE907"
+    "blob": "0A286469643A626..."
   }
 }
 ```
@@ -774,7 +754,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 }
 ```
 
-##### 4.3.5.2 链的区块信息提交（上链）
+##### 链的区块信息提交（上链）
 
 接口说明：
 
@@ -837,7 +817,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 }
 ```
 
-#### 4.3.6 交易信息同步
+#### 交易信息同步
 
 接口说明：
 
@@ -915,11 +895,11 @@ b. 接口调用失败，则返回JSON数据示例为：
 }
 ```
 
-#### 4.3.7 合约信息同步
+#### 合约信息同步
 
 骨干节点将合约信息同步到主链，便于备案审查。需要两步操作：4.8.1获取合约信息同步blob ；4.8.2合约信息同步提交（上链）。要求每隔5分钟同步一次数据。
 
-##### 4.3.7.1 获取合约信息同步blob
+##### 获取合约信息同步blob
 
 接口说明：
 
@@ -999,7 +979,7 @@ a. 接口调用成功，则返回JSON数据示例为：
   "data": {
     "blobId": "15",
     "txHash": "d60c15bacbb7f98f00921d5ad17d49fafe0c65ea706d5d4ced25e490ac35e9e0",
-    "blob": "0A286469643A6269643A65663477776B727A53564650545A4A627257433439446B416554535169377241101E228304080712286469643A6269643A656662384568753953475643546D32426276705069516A7A4E576F344C51414152D4030A286469643A6269643A6566427070397753676564315A5A72437566426D36374A4C55635255396375321AA7037B226D6574686F64223A227375626D6974426C6F636B486561646572222C22706172616D73223A7B22626C6F636B486561646572223A7B226163636F756E745F747265655F68617368223A22222C22636C6F73655F74696D65223A2231353933333338343030303032303030222C22636F6E73656E7375735F76616C75655F68617368223A22222C22666565735F68617368223A22222C2268617368223A2235323134303538363966626533633132396237383434383232333566616365633435656438653432313666633834653962623665336136386661653430636232222C2270726576696F75735F68617368223A2231323334363966626533633132396237383434383232333566616365633435656438653233313435363537646161313233343131326136386661653430636232222C22736571223A223938222C2274785F636F756E74223A223132222C2276616C696461746F72735F68617368223A22696E7465726E616C436861696E496432222C2276657273696F6E223A22227D2C22636861696E436F6465223A2262793031222C2264796E616D6963496E666F223A7B7D7D7D3080EAADE907"
+    "blob": "0A286469643A6269643A..."
   }
 }
 ```
@@ -1013,7 +993,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 }
 ```
 
-##### 4.3.7.2 合约信息同步提交（上链）
+##### 合约信息同步提交（上链）
 
 接口说明：
 
@@ -1076,9 +1056,9 @@ b. 接口调用失败，则返回JSON数据示例为：
 }
 ```
 
-#### 4.3.8 更新子链信息
+#### 更新子链信息
 
-##### 4.3.8.1获取更新子链blob
+##### 获取更新子链blob
 
 接口说明：
 
@@ -1206,7 +1186,7 @@ a. 接口调用成功，则返回JSON数据示例为：
  "data":{
   "blobId": "232975729572",
   "txHash": "985ac10a6cda2f4b6c910f11bffed35fa504e53125c045d1fbbade6b335da50",
- "blob":"A296469643A6269643A6652665770673644675A6B3232346F7A5570644343654C5A6231394635705238511001225A080712296469643A6269643A666D6E7A42315A724156375966727933665759795071646B6A57776F7458635258622B0A296469643A6269643A6841706E5959474C4550614678467A35543946383374485A6242474338483776513080DAC40938E807"
+ "blob":"A296469643A..."
  }, 
  "errorCode": 0,
  "message": "操作成功"
@@ -1222,7 +1202,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 }
 ```
 
-##### 4.3.8.2更新子链提交交易（上链）
+##### 更新子链提交交易（上链）
 
 接口说明：
 
@@ -1309,7 +1289,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 
 
-#### 4.3.9 获取区域信息
+#### 获取区域信息
 
 接口说明：
 
@@ -1500,11 +1480,11 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 
 
-### 4.4 底层链业务接入
+### 底层链业务接入
 
  
 
-#### 4.4.1 链应用服务信息同步
+#### 链应用服务信息同步
 
 接口说明：
 
@@ -1561,583 +1541,3 @@ https://{url}/v1/chain/appService/info/syn
 | num        |   String | 是           | 产品信息编号，子链上唯一 |
 | creator    |   String | 是           | 创建用户                 |
 | picture    |   String | 是           | 产品图片                 |
-
-# 1.2）**同步生产环节记录**：
-
-```
-http请求方式：POST
-https://{url}/v1/chain/appService/info/syn
-{
-    "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiJDcHB0NHRuMFlFZkIyMHJXIiwiaXNzIjoiQklGLUNIQUlOIiwiZXhwIjoxNjE5MzQyNDIyLCJiaWQiOiJkaWQ6YmlkOmVmMjhwTTlNRzNUR1hHeVdBVzRKcFdDRnNKRGQ1TUJuYyJ9.3gcQQBqvqtZH1q-TfUiGne68R1TnBcvLAA6nIJ8qDGU",
-    "params": {
-        "ACSN": "cc11",
-        "businessType": 1,
-        "dataType": 1,
-        "dataList": [{
-            "key": "{key}",
-            "time": 1593338217000,
-            "value": {
-                "productName": "名称",
-                "stepName": "名称",
-                "stepType": 0,
-                "infoType": 0,
-                "operator": "123",
-                "lastOps": "123",
-                "totalOps": 89,
-                "blockHeight": 78668,
-                "txHash": "{txHash}",
-                "lastStatus": 0,
-                "time": 1593338217000,
-                "num": ""
-            }
-        }]
-    }
-}
-```
-
-
-
-业务数据对象：溯源类生产环节记录核心字段说明
-
-| **字段名**  | **类型** | **是否必填** | **描述**                                                    |
-| :---------- | -------: | :----------- | :---------------------------------------------------------- |
-| productName |   String | 是           | 产品名称                                                    |
-| stepName    |   String | 是           | 环节名称                                                    |
-| stepType    |  Integer | 是           | 环节类型，0：生产 1：加工 2：运输 3：销售                   |
-| infoType    |  Integer | 是           | 录入信息，0：产品信息 1：生产信息 2：溯源信息 3：溯源码导出 |
-| operator    |   String | 是           | 操作人员名称                                                |
-| lastOps     |   String | 是           | 最近操作                                                    |
-| totalOps    |  Integer | 是           | 操作总数                                                    |
-| blockHeight |  Integer | 是           | 区块高度                                                    |
-| txHash      |   String | 是           | 交易哈希                                                    |
-| time        |  Integer | 是           | 毫秒级时间戳，记录时间                                      |
-| lastStatus  |  Integer | 是           | 最近状态， 0：操作中 1：已完成                              |
-| num         |   String | 是           | 产品信息编号，子链上唯一                                    |
-
-##### 2） 存证类应用服务同步数据
-
- 2.1）**同步存证作品记录**：
-
-```
-http请求方式：POST
-https://{url}/v1/chain/appService/info/syn
-{
-    "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiJDcHB0NHRuMFlFZkIyMHJXIiwiaXNzIjoiQklGLUNIQUlOIiwiZXhwIjoxNjE5MzQyNDIyLCJiaWQiOiJkaWQ6YmlkOmVmMjhwTTlNRzNUR1hHeVdBVzRKcFdDRnNKRGQ1TUJuYyJ9.3gcQQBqvqtZH1q-TfUiGne68R1TnBcvLAA6nIJ8qDGU",
-    "params": {
-        "ACSN": "cc11",
-        "businessType": 2,
-        "dataType": 1,
-        "dataList": [{
-            "key": "{key}",
-            "time": 1593338217000,
-            "value": {
-                "name": "名称",
-                "businessType": "",
-                "type": 0,
-                "nature": 0,
-                "creator": "贾平凹",
-                "notaryOffice": "陕西省文学认证机构",
-                "issueStatus": 1,
-                "blockHeight": 148838,
-                "txHash": "590f278351091ed924e70f7611558bae0b7d6faaade3f3cc8ad16c1242573fa3",
-                "time": 1623032433,
-                "num": "ffd6baaed492b3195764b4b2febfde73"
-            }
-        }]
-    }
-}
-```
-
-业务数据对象：（存证业务）存证作品列表核心字段说明
-
-| **字段名**   | **类型** | **是否必填** | **描述**                                                     |
-| :----------- | -------: | :----------- | :----------------------------------------------------------- |
-| name         |   String | 是           | 作品名称                                                     |
-| businessType |   String | 是           | 业务类型                                                     |
-| type         |  Integer | 是           | 作品类别，0：文学 1：歌曲 2：视频 3：电影 4：其他            |
-| nature       |  Integer | 是           | 作品性质， 0：原创 1：改编 2：翻译 3：汇编 4：注释 5：整理 6：其他 |
-| creator      |   String | 是           | 作者名称                                                     |
-| notaryOffice |   String | 是           | 公证机构                                                     |
-| issueStatus  |  Integer | 是           | 发表状态，0：未发表，1：已发表                               |
-| blockHeight  |  Integer | 是           | 区块高度                                                     |
-| txHash       |   String | 是           | 交易哈希                                                     |
-| time         |  Integer | 是           | 存证时间（Unix时间戳 毫秒）                                  |
-| num          |   String | 是           | 作品编号，子链上唯一                                         |
-
-# 2.2）**同步作品权利列表**：
-
-```
-http请求方式：POST
-https://{url}/v1/chain/appService/info/syn
-{
-    "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiJDcHB0NHRuMFlFZkIyMHJXIiwiaXNzIjoiQklGLUNIQUlOIiwiZXhwIjoxNjE5MzQyNDIyLCJiaWQiOiJkaWQ6YmlkOmVmMjhwTTlNRzNUR1hHeVdBVzRKcFdDRnNKRGQ1TUJuYyJ9.3gcQQBqvqtZH1q-TfUiGne68R1TnBcvLAA6nIJ8qDGU",
-    "params": {
-        "ACSN": "cc11",
-        "businessType": 2,
-        "dataType": 1,
-        "dataList": [{
-            "key": "{key}",
-            "time": 1593338217000,
-            "value": {
-                "name": "名称",
-                "rightName": [{
-                  "type": 0,
-                  "trans": "张三",
-                  "proxies":[{
-                    "key":"{key}",
-                    "value":"{value}"
-                  }]
-                }],
-                "time": 1593338217000,
-                "num": "11e9c0a13f2cef98d366929de72be286"
-            }
-        }]
-    }
-}
-```
-
-
-
-业务数据对象：（存证业务）作品权利列表核心字段说明
-
-| **字段名**        |           **类型** | **是否必填** | **描述**                                                     |
-| :---------------- | -----------------: | :----------- | :----------------------------------------------------------- |
-| name              |             String | 是           | 作品名称                                                     |
-| rightName         |       List<Object> | 是           | 权益名称                                                     |
-| rightName.type    |            Integer | 是           | 权利类型，0：复制权、1：发行权、2：出租权、3：展览权、4：表演权、5：放映权、6：广播权、7：信息网络传播权、8：摄影权、9：改编权、10：翻译权、11：汇编权、12：其他权利 |
-| rightName.trans   |             String | 是           | 转让人                                                       |
-| rightName.proxies | Map<String,String> | 是           | 代理人列表，Map结构的key用于排序                             |
-| time              |            Integer | 是           | 权益创建时间 （Unix 时间戳 毫秒）                            |
-| num               |             String | 是           | 作品编号，子链上唯一                                         |
-
-# 2.3）**同步作品侵权列表**：
-
-```
-http请求方式：POST
-https://{url}/v1/chain/appService/info/syn
-{
-    "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiJDcHB0NHRuMFlFZkIyMHJXIiwiaXNzIjoiQklGLUNIQUlOIiwiZXhwIjoxNjE5MzQyNDIyLCJiaWQiOiJkaWQ6YmlkOmVmMjhwTTlNRzNUR1hHeVdBVzRKcFdDRnNKRGQ1TUJuYyJ9.3gcQQBqvqtZH1q-TfUiGne68R1TnBcvLAA6nIJ8qDGU",
-    "params": {
-        "ACSN": "cc11",
-        "businessType": 2,
-        "dataType": 1,
-        "dataList": [{
-            "key": "{key}",
-            "time": 1593338217000,
-            "value": {
-                "name": "名称",
-                "website": "",
-                "blockHeight": 869855,
-                "txHash": "5016e1e7cca7b83c3d0a89d90e01e50ed587d2a6b6fbabae9105584015c9ab87",
-                "certHash": "15970183d8aa7538bf06030f7784f91e220a6d05b80c6aedeb89e030756e26b3",
-                "time": 1593338217000,
-                "num": "11e9c0a13f2cef98d366929de72be286"
-            }
-        }]
-    }
-}
-```
-
-业务数据对象：（存证业务）作品侵权列表核心字段说明
-
-| **字段名**  | **类型** | **是否必填** | **描述**                     |
-| :---------- | -------: | :----------- | :--------------------------- |
-| name        |   String | 是           | 作品名称                     |
-| website     |   String | 是           | 侵权网站                     |
-| blockHeight |  Integer | 是           | 区块高度                     |
-| txHash      |   String | 是           | 交易哈希                     |
-| time        |  Integer | 是           | 取证时间（Unix 时间戳 毫秒） |
-| num         |   String | 是           | 作品编号，子链上唯一         |
-| certHash    |   String | 是           | 证书哈希                     |
-
-##### 3） 供应链金融类应用服务同步数据
-
- 3.1）**同步参与主体记录**：
-
-```
-http请求方式：POST
-https://{url}/v1/chain/appService/info/syn
-{
-    "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiJDcHB0NHRuMFlFZkIyMHJXIiwiaXNzIjoiQklGLUNIQUlOIiwiZXhwIjoxNjE5MzQyNDIyLCJiaWQiOiJkaWQ6YmlkOmVmMjhwTTlNRzNUR1hHeVdBVzRKcFdDRnNKRGQ1TUJuYyJ9.3gcQQBqvqtZH1q-TfUiGne68R1TnBcvLAA6nIJ8qDGU",
-    "params": {
-        "ACSN": "cc11",
-        "businessType": 2,
-        "dataType": 1,
-        "dataList": [{
-            "key": "{key}",
-            "time": 1593338217000,
-            "value": {
-                "name": "名称",
-                "type": 0,
-                "quota": 869855,
-                "invoiceAmount": "5487",
-                "financingAmount": "3453",
-                "time": 1593338217000,
-                "repaymentAmount": "3456",
-                "overdueAmount": "4234",
-                "blockHeight": 499884
-            }
-        }]
-    }
-}
-```
-
-业务数据对象：（供金业务）参与主体列表核心字段说明
-
-| **字段名**      | **类型** | **是否必填** | **描述**                                               |
-| :-------------- | -------: | :----------- | :----------------------------------------------------- |
-| name            |   String | 是           | 主体名称，子链上唯一                                   |
-| type            |  Integer | 是           | 主体类型， 0：国有企业 1：私有企业 2：国外企业 3：其他 |
-| quota           |   String | 是           | 授信额度                                               |
-| invoiceAmount   |   String | 是           | 开具金额                                               |
-| financingAmount |   String | 是           | 融资金额                                               |
-| repaymentAmount |   String | 是           | 还款金额                                               |
-| overdueAmount   |   String | 是           | 逾期金额                                               |
-| time            |  Integer | 是           | 毫秒级时间戳，上链时间                                 |
-| blockHeight     |  Integer | 是           | 区块高度                                               |
-
-# 3.2）**同步供应链金融流程记录**：
-
-```
-http请求方式：POST
-https://{url}/v1/chain/appService/info/syn
-{
-    "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiJDcHB0NHRuMFlFZkIyMHJXIiwiaXNzIjoiQklGLUNIQUlOIiwiZXhwIjoxNjE5MzQyNDIyLCJiaWQiOiJkaWQ6YmlkOmVmMjhwTTlNRzNUR1hHeVdBVzRKcFdDRnNKRGQ1TUJuYyJ9.3gcQQBqvqtZH1q-TfUiGne68R1TnBcvLAA6nIJ8qDGU",
-    "params": {
-        "ACSN": "cc11",
-        "businessType": 2,
-        "dataType": 1,
-        "dataList": [{
-            "key": "{key}",
-            "time": 1593338217000,
-            "value": {
-                "amount": "名称",
-                "num": "0d77d483634cd4e8e4ddd712e0a15910",
-                "type": 0,
-                "from": "did:bid:eftnSnkPZQhoUnaySFhKgGAuK4gxUeFc",
-                "to": "did:bid:efhX1bSmnC8pwd7KW8SHxeFLQYB6UwTg",
-                "preNum": "07d38c31850033fff867094cf05b8308",
-                "status": 0,
-                "txHash": "9b687618d61a61e3c9caaf8039f486a3b6be8f87447935200f9bc810930298e5",
-                "blockHeight": 499884,
-                "time": 1593338217000
-            }
-        }]
-    }
-}
-```
-
-业务数据对象：（供金业务）供金流程列表
-
-| **字段名**  | **类型** | **是否必填** | **描述**                                          |
-| :---------- | -------: | :----------- | :------------------------------------------------ |
-| amount      |   String | 是           | 资金额                                            |
-| num         |   String | 是           | 单据编号                                          |
-| type        |  Integer | 是           | 流程类型，0：授信 1：开具 2：融资 3：转让 4：还款 |
-| from        |   String | 是           | 转出主体名称                                      |
-| to          |   String | 是           | 转入主体名称                                      |
-| preNum      |   String | 是           | 上一环节编号                                      |
-| status      |  Integer | 是           | 状态，0：未完成 1：已完成                         |
-| txHash      |   String | 是           | 交易哈希                                          |
-| blockHeight |  Integer | 是           | 区块高度                                          |
-| time        |  Integer | 是           | 上链时间（Unix时间戳 毫秒）                       |
-
-
-
-
-
-### 4.5 BID标识应用于实际业务
-
-BID标识应用的对接内容包含：
-
-（1）标识注册、标识解析
-
-（2）将BID标识应用于当前的业务中。由于不同骨干节点/骨干链上业务不同，需和信通院详细沟通，可能需要对骨干链上现有业务进行改造。
-
-#### 4.5.1 BID注册
-
-结合子链AC号，按照星火·链网开放的BID-SDK开发BID标识注册功能，并按照《BID协议》管理BID标识数据信息
-
-#### 4.5.2  BID解析
-
-按照BID解析协议规范，为骨干节点(或骨干链)设计BID解析功能，骨干节点的标识数据存放在其所在基础子链，通过基础子链实现BID标识全网解析能力
-
-接口说明：
-
-通过该接口可以直接解析出BID DDO文档信息。
-
-请求参数：
-
-| **字段名** | **类型** | **是否必填** | **描述** |
-| :--------- | -------: | :----------- | :------- |
-| bid        |   String | 是           | bid标识  |
-
-
-返回数据：
-
-| **字段名**                                        | **类型** | **描述**                                            |
-| :------------------------------------------------ | :------- | :-------------------------------------------------- |
-| didDocument                                       | Object   | 文档内容                                            |
-| didDocument.@context                              | List     | 一组url数组                                         |
-| didDocument.version                               | String   | BID文档的版本                                       |
-| didDocument.id                                    | String   | 解析的BID                                           |
-| didDocument.publicKey                             | List     | 一组公钥                                            |
-| didDocument.publicKey.id                          | String   | 公钥id                                              |
-| didDocument.publicKey.type                        | String   | 公钥算法类型                                        |
-| didDocument.publicKey.controller                  | String   | 一个BID,表明此公钥的归属                            |
-| didDocument.publicKey.publicKeyHex                | String   | 十六进制公钥                                        |
-| didDocument.authentication                        | List     | 一组公钥id                                          |
-| didDocument.alsoKnownAs                           | String   | 关联id                                              |
-| didDocument.alsoKnownAs.type                      | int      | 关联id的类型 **见 11BID对象类型表**                 |
-| didDocument.extension                             | Object   | 扩展字段                                            |
-| didDocument.extension.recovery                    | List     | 一组公钥id                                          |
-| didDocument.extension.ttl                         | Long     | 缓存时间，单位秒                                    |
-| didDocument.extension.delegateSign                | Object   | 第三方对publicKey的签名，可信解析使用               |
-| didDocument.extension.delegateSign.signer         | String   | 签名公钥id                                          |
-| didDocument.extension.delegateSign.signatureValue | String   | 签名的base64编码                                    |
-| didDocument.extension.type                        | int      | **见 12BID对象类型表**                              |
-| didDocument.extension.attributes                  | List     | 一组属性,属性结构见属性结构章节                     |
-| didDocument.extension.ACSNList                    | List     | AC号列表                                            |
-| didDocument.extension.ACSNList.ACSN               | String   | AC号                                                |
-| didDocument.extension.ACSNList.ACSNAddress        | String   | AC号对应的子链的解析地址BID                         |
-| didDocument.extension.verifiableCredentials       | List     | 凭证列表，只有主链是凭证类型的BID文档才可能有本字段 |
-| didDocument.extension.verifiableCredentials.id    | String   | 凭ID                                                |
-| didDocument.extension.verifiableCredentials.type  | Int      | 凭证类型 14凭证类型表                               |
-| didDocument.service                               | List     | 一组服务地址                                        |
-| didDocument.service.id                            | String   | 服务地址的ID                                        |
-| didDocument.service.type                          | String   | 服务的类型 **见15服务类型表**                       |
-| didDocument.service.serviceEndpoint               | String   | 服务的URL地址                                       |
-| didDocument.created                               | String   | 创建时间                                            |
-| didDocument.updated                               | String   | 上次的更新时间                                      |
-| didDocument.proof                                 | Object   | 签名信息                                            |
-| didDocument.proof.creator                         | String   | 签名公钥id                                          |
-| didDocument.proof.signatureValue                  | String   | 签名的base64编码                                    |
-
-**当文档属性为凭证类型时，attributes结构如下**
-
-| **字段名**                                                   | **类型** | **描述**                          |
-| :----------------------------------------------------------- | :------- | :-------------------------------- |
-| didDocument.extension.attributes.issuer                      | String   | 发证者BID                         |
-| didDocument.extension.attributes.issuanceDate                | String   | 发证日期                          |
-| didDocument.extension.attributes.effectiveDate               | String   | 生效日期                          |
-| didDocument.extension.attributes.expirationDate              | String   | 失效日期                          |
-| didDocument.extension.attributes.revocationId                | String   | 凭证吊销服务地址ID                |
-| didDocument.extension.attributes.credentialSubject           | Object   | 凭证主体                          |
-| didDocument.extension.attributes.credentialSubject.id        | String   | 凭证拥有者的BID                   |
-| didDocument.extension.attributes.credentialSubject.type      | Int      | 凭证类型                          |
-| didDocument.extension.attributes.credentialSubject.name      | String   | 被颁发者机构名称                  |
-| didDocument.extension.attributes.credentialSubject.description | String   | 描述                              |
-| didDocument.extension.attributes.content                     | Object   | 凭证的具体内容                    |
-| didDocument.extension.attributes.proof                       | List     | 签名证明                          |
-| didDocument.extension.attributes.proof.creator               | String   | proof的创建者，这里是一个公钥的id |
-| didDocument.extension.attributes.proof.signatureValue        | String   | 使用相应私钥对凭证内容的签名      |
-
-**当文档属性为其他类型时，attributes结构如下**
-
-| **字段名**                               | **类型** | **描述**                              |
-| :--------------------------------------- | :------- | :------------------------------------ |
-| didDocument.extension.attributes.key     | String   | 属性的key                             |
-| didDocument.extension.attributes.desc    | String   | 属性的描述                            |
-| didDocument.extension.attributes.encrypt | int      | 是否加密,0非加密，1加密               |
-| didDocument.extension.attributes.format  | String   | image、text、video、mixture等数据类型 |
-| didDocument.extension.attributes.value   | String   | 属性自定义value                       |
-
-**当service.type为子链解析服务时,service结构如下：**
-
-| **字段名**                          | **类型** | **描述**                      |
-| :---------------------------------- | :------- | :---------------------------- |
-| didDocument.service.id              | String   | 服务地址的ID                  |
-| didDocument.service.type            | String   | 服务的类型 **见16服务类型表** |
-| didDocument.service.version         | int      | 解析服务支持的BID协议版本     |
-| didDocument.service.protocol        | String   | 解析服务支持的传输协议        |
-| didDocument.service.serverType      | String   | 解析地址类型                  |
-| didDocument.service.serviceEndpoint | String   | 解析地址                      |
-| didDocument.service.port            | int      | 解析端口                      |
-
-示例：
-
-（1）请求示例：
-
-```
-http请求方式：GET
-https://{url}/public/resolve/did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2
-```
-
-（2）返回结果示例：
-
-a. 普通BID文档 数据示例为：
-
-```
-{
-    "errorCode": 0,
-    "data": {
-        "didDocument": {
-            "@context": ["https://www.w3.org/ns/did/v1"],
-            "version": "1.0.0",
-            "id": "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2",
-            "publicKey": [{
-                "id": "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2#key-1",
-                "type": "Ed25519",
-                "controller": "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2",
-                "publicKeyHex": "b9906e1b50e81501369cc777979f8bcf27bd1917d794fa6d5e320b1ccc4f48bb"
-            }],
-            "authentication": ["did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2#key-1"],
-            "extension": {
-                "recovery": ["did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2#key-2"],
-                "ttl": 86400,
-                "delegateSign ": {
-                    "signer": "did:bid:efJgt44mNDewKK1VEN454R17cjso3mSG#key-1",
-                    "signatureValue": "eyJhbGciOiJSUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19"
-                },
-                "type": 206
-            },
-            "service": [{
-                "id": "did:bid:ef24NBA7au48UTZrUNRHj2p3bnRzF3YCH#subResolve",
-                "type": "DIDSubResolve",
-                "version": "1.0.0",
-                "serverType": 1,
-                "protocol": 3,
-                "serviceEndpoint": "192.168.1.23",
-                "port": 8080
-            }],
-           "created": "2021-05-10T06:23:38Z",
-           "updated": "2021-05-10T06:23:38Z",
-            "proof": {
-                "creator": "did:bid:efJgt44mNDewKK1VEN454R17cjso3mSG#key-1",
-                "signatureValue": "eyJhbGciOiJSUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19"
-            }
-        }
-    },
-    "message": "success"
-}
-```
-
-b. 凭证BID文档 数据示例为：
-
-```
-{
-    "errorCode": 0,
-    "message": "success",
-    "data": {
-        "didDocument": {
-            "@context": [
-                "https://www.w3.org/ns/did/v1"
-            ],
-            "version": "1.0.0",
-            "id": "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2",
-            "publicKey": [
-                {
-                    "id": "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2#key-1",
-                    "type": "Ed25519",
-                    "controller": "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2",
-                    "publicKeyHex": "b9906e1b50e81501369cc777979f8bcf27bd1917d794fa6d5e320b1ccc4f48bb"
-                }
-            ],
-            "authentication": [
-                "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2#key-1"
-            ],
-            "extension": {
-                "recovery": [
-                    "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2#key-2"
-                ],
-                "ttl": 86400,
-                "delegateSign ": {
-                    "signer": "did:bid:efJgt44mNDewKK1VEN454R17cjso3mSG#key-1",
-                    "signatureValue": "eyJhbGciOiJSUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19"
-                },
-                "type": 205,
-                "attributes": [
-                    {
-                        "issuer": "did:bid:efJgt44mNDewKK1VEN454R17cjso3mSG",
-                        "issuanceDate": "2021-01-20T12:01:20Z",
-                        "effectiveDate": "2021-01-20T12:01:20Z",
-                        "expirationDate": "2021-04-02T12:01:20Z",
-                        "revocationId": "did:bid:efJgt44mNDewKK1VEN454R17cjso3mSG#revocation",
-                        "credentialSubject": {
-                            "id": "did:bid:efJgt44mNDewKK1VEN454R17cjso3mSG",
-                            "type": 202,
-                            "name": "北京大学",
-                            "content": ""
-                        },
-                        "proof": [
-                            {
-                                "creator": "did:bid:efJgt44mNDewKK1VEN454R17cjso3mSG#key-1",
-
-                                "signatureValue": "eyJhbGciOiJSUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19"
-                            }
-                        ]
-                    }
-                ]
-            },
-            "service": [
-                {
-                    "id": "did:bid:ef24NBA7au48UTZrUNRHj2p3bnRzF3YCH#revocation",
-                    "type": " DIDRevocation",
-                    "serviceEndpoint": "https://did.bif.com"
-                }
-            ],
-            "proof": {
-                "creator": "did:bid:efJgt44mNDewKK1VEN454R17cjso3mSG#key-1",
-
-                "signatureValue": "eyJhbGciOiJSUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19"
-            }
-        }
-    }
-}
-```
-
-C. 包含子链解析服务地址BID文档 示例为：
-
-```
-{
-    "errorCode": 0,
-    "message": "success",
-    "data": {
-        "didDocument": {
-            "@context": [
-                "https://www.w3.org/ns/did/v1"
-            ],
-            "version": "1.0.0",
-            "id": "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2",
-            "publicKey": [
-                {
-                    "id": "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2#key-1",
-                    "type": "Ed25519",
-                    "controller": "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2",
-                    "publicKeyHex": "b9906e1b50e81501369cc777979f8bcf27bd1917d794fa6d5e320b1ccc4f48bb"
-                }
-            ],
-            "authentication": [
-                "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2#key-1"
-            ],
-            "extension": {
-                "recovery": [
-                    "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2#key-2"
-                ],
-                "ttl": 86400,
-                "delegateSign ": {
-                    "signer": "did:bid:efJgt44mNDewKK1VEN454R17cjso3mSG#key-1",
-                    "signatureValue": "eyJhbGciOiJSUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19"
-                },
-                "type": 206
-            },
-            "service": [
-                {
-                    "id": "did:bid:ef24NBA7au48UTZrUNRHj2p3bnRzF3YCH#subResolve",
-                    "type": "DIDSubResolve",
-                    "version": "1.0.0",
-                    "serverType": 1,
-                    "protocol": 3,
-                    "serviceEndpoint": "192.168.1.23",
-                    "port": 8080
-                }
-            ],
-            "proof": {
-                "creator": "did:bid:efJgt44mNDewKK1VEN454R17cjso3mSG#key-1",
-
-                "signatureValue": "eyJhbGciOiJSUzI1NiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19"
-            }
-        }
-    }
-}
-```

@@ -23,8 +23,14 @@
    app/solidity
    app/reference
    
-   
+.. toctree::
+   :maxdepth: 0
+   :hidden:
+   :caption:  星火·链网业务接入手册:
+   :titlesonly:
+   :glob:
 
+   business/main_node
 
 .. toctree::
    :maxdepth: 0
