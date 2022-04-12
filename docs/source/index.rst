@@ -32,7 +32,11 @@
 
    business/main_node
    business/cross_chain
-
+   business/digital_id
+   business/chanrong
+   business/vc
+   business/bio_carbo  
+   
 .. toctree::
    :maxdepth: 0
    :caption:  星火·链网工具:
