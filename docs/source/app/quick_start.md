@@ -29,7 +29,7 @@ System.out.printf("private key %s\n", entity.getEncPrivateKey());      //账户�
 ```java
 import cn.bif.api.BIFSDK;
 
-public static final String NODE_URL = "http://test-bif-core.xinghuo.space";  //星火链测试网RPC地址
+public static final String NODE_URL = "http://test.bifcore.bitfactory.cn";  //星火链测试网RPC地址
 
 public staitc BIFSDK sdk = BIFSDK.getInstance(NODE_URL);
 ```

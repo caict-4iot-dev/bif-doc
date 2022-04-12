@@ -48,7 +48,7 @@
 1. 星火链RPC地址
 
     * 主网:
-    * 测试网: http://test-bif-core.xinghuo.space
+    * 测试网: http://test.bifcore.bitfactory.cn
 
 ## 快速上手
 
@@ -76,7 +76,7 @@
     ```java
     import cn.bif.api.BIFSDK;
 
-    public static final String NODE_URL = "http://test-bif-core.xinghuo.space";  //星火链测试网RPC地址
+    public static final String NODE_URL = "http://test.bifcore.bitfactory.cn";  //星火链测试网RPC地址
 
     public staitc BIFSDK sdk = BIFSDK.getInstance(NODE_URL);
     ```

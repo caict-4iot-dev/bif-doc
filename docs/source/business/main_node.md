@@ -624,7 +624,7 @@ https://{url}/v1/chain/nodeRunningStatus/syn
 {
   "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiJDcHB0NHRuMFlFZkIyMHJXIiwiaXNzIjoiQklGLUNIQUlOIiwiZXhwIjoxNjIxNTEzODE4LCJiaWQiOiJkaWQ6YmlkOmVmMjhwTTlNRzNUR1hHeVdBVzRKcFdDRnNKRGQ1TUJuYyJ9.kqeuSumhvdHLnrvw0WkWxrY3Cy6bThVKBmv7h2-a1po",
   "params": {
-    "chainCode": "ASCN",
+    "ASCN": "ynjr",
     "nodeRunningList": [{
       "nodeAddress": "did:bid:ynjr:ef6bRF4FDPzjvatNmFu6YAvegBtcv86r",
       "status": 1,

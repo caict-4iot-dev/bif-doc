@@ -51,4 +51,4 @@ SDK提供功能包括:
 ### 2.5 星火链RPC地址
 
 * 主网:  **尚未对外**
-* 测试网: <http://test-bif-core.xinghuo.space>
+* 测试网: <http://test.bifcore.bitfactory.cn>
