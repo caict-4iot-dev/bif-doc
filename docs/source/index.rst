@@ -31,6 +31,7 @@
    :glob:
 
    business/main_node
+   business/cross_chain
 
 .. toctree::
    :maxdepth: 0
