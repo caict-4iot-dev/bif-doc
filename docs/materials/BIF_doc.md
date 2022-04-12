@@ -701,7 +701,9 @@ message Account
         let ret = Chain.contractCall('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，true, toBaseUnit("10"), "");
         /*
             权限：可写
-            返回：如果目标账户为普通账户，则返回true，如果目标账户为合约，成功会返回被委托者合约main函数执行的结果，调用失败则抛出异常
+            返回：如果目标账户为普通账户，则返回true，
+                 如果目标账户为合约，成功会返回被委托者合约main函数执行的结果，
+                 调用失败则抛出异常
         */
         
         ```
