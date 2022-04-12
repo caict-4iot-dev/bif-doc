@@ -1,8 +1,7 @@
 # 订阅服务
 
-**GitHub地址：[https://github.com/caict-4iot-dev/BID-SDK-JAVA](https://github.com/caict-4iot-dev/BID-SDK-JAVA)**
+**GitHub地址：[https://github.com/caict-4iot-dev/bif-core-subscribe-tool](https://github.com/caict-4iot-dev/bif-core-subscribe-tool)**
 
-<a name="mzYWs"></a>
 
 ## 简介
 

@@ -5,7 +5,7 @@
 
 ## SDK下载
 
-请到<https://github.com/CAICT-DEV/BIF-Core-SDK>下载java版本的SDK.
+请到<https://github.com/caict-4iot-dev/BIF-Core-SDK>下载java版本的SDK.
 
 ## 账号创建
 
@@ -20,13 +20,13 @@ System.out.printf("private key %s\n", entity.getEncPrivateKey());      //账户�
 
 ## 获取星火令
 
-账户需要拥有星火令才能正常使用星火链功能, 测试网星火令可以通过 **待定** 获取.
+账户需要拥有星火令才能正常使用星火链功能, 测试网星火令可以通过邮件联系**niefanjie@caict.ac.cn** 获取.
 
 ## 初始化SDK
 
 通过配置星火链RPC地址连接SDK到星火链, 本次demo里链接到星火链测试网.
 
-```java
+```
 import cn.bif.api.BIFSDK;
 
 public static final String NODE_URL = "http://test.bifcore.bitfactory.cn";  //星火链测试网RPC地址
