@@ -624,7 +624,7 @@ https://{url}/v1/chain/nodeRunningStatus/syn
 {
   "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcGlLZXkiOiJDcHB0NHRuMFlFZkIyMHJXIiwiaXNzIjoiQklGLUNIQUlOIiwiZXhwIjoxNjIxNTEzODE4LCJiaWQiOiJkaWQ6YmlkOmVmMjhwTTlNRzNUR1hHeVdBVzRKcFdDRnNKRGQ1TUJuYyJ9.kqeuSumhvdHLnrvw0WkWxrY3Cy6bThVKBmv7h2-a1po",
   "params": {
-    "chainCode": "ynjr",
+    "chainCode": "ASCN",
     "nodeRunningList": [{
       "nodeAddress": "did:bid:ynjr:ef6bRF4FDPzjvatNmFu6YAvegBtcv86r",
       "status": 1,
@@ -1524,7 +1524,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 ##### 1） 溯源类应用服务同步数据
 
-###### 1.1）**同步溯源产品记录**：
+ 1.1）**同步溯源产品记录**：
 
 ```
 http请求方式：POST
@@ -1562,7 +1562,7 @@ https://{url}/v1/chain/appService/info/syn
 | creator    |   String | 是           | 创建用户                 |
 | picture    |   String | 是           | 产品图片                 |
 
-####### 1.2）**同步生产环节记录**：
+# 1.2）**同步生产环节记录**：
 
 ```
 http请求方式：POST
@@ -1616,7 +1616,7 @@ https://{url}/v1/chain/appService/info/syn
 
 ##### 2） 存证类应用服务同步数据
 
-###### 2.1）**同步存证作品记录**：
+ 2.1）**同步存证作品记录**：
 
 ```
 http请求方式：POST
@@ -1664,7 +1664,7 @@ https://{url}/v1/chain/appService/info/syn
 | time         |  Integer | 是           | 存证时间（Unix时间戳 毫秒）                                  |
 | num          |   String | 是           | 作品编号，子链上唯一                                         |
 
-####### 2.2）**同步作品权利列表**：
+# 2.2）**同步作品权利列表**：
 
 ```
 http请求方式：POST
@@ -1710,7 +1710,7 @@ https://{url}/v1/chain/appService/info/syn
 | time              |            Integer | 是           | 权益创建时间 （Unix 时间戳 毫秒）                            |
 | num               |             String | 是           | 作品编号，子链上唯一                                         |
 
-####### 2.3）**同步作品侵权列表**：
+# 2.3）**同步作品侵权列表**：
 
 ```
 http请求方式：POST
@@ -1752,7 +1752,7 @@ https://{url}/v1/chain/appService/info/syn
 
 ##### 3） 供应链金融类应用服务同步数据
 
-###### 3.1）**同步参与主体记录**：
+ 3.1）**同步参与主体记录**：
 
 ```
 http请求方式：POST
@@ -1796,7 +1796,7 @@ https://{url}/v1/chain/appService/info/syn
 | time            |  Integer | 是           | 毫秒级时间戳，上链时间                                 |
 | blockHeight     |  Integer | 是           | 区块高度                                               |
 
-####### 3.2）**同步供应链金融流程记录**：
+# 3.2）**同步供应链金融流程记录**：
 
 ```
 http请求方式：POST

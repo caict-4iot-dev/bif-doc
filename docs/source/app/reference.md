@@ -4,8 +4,6 @@
 
 ## ERC20合约
 
-<h2 id="min-content" style="display:none;"> </h2>
-​
 本节描述通过星火链网实现并部署ERC20智能合约。
 
 ​ERC20可以简单理解成以太坊上的一个代币协议，所有基于以太坊开发的代币合约都遵守这个协议。有关ERC20标准可以参考[官方文档](https://theethereum.wiki/w/index.php/ERC20_Token_Standard)。
@@ -28,7 +26,7 @@
 
 ### Solidity 合约
 
-```solidity
+```
 pragma solidity ^0.4.26;
 
 contract TokenERC20 {

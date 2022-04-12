@@ -1,6 +1,6 @@
 # 星火网区块链浏览器
 
-**[星火测试网区块链浏览器](http://test-explorer.bitfactory.cn/)**
+**[星火·链网区块链浏览器](http://test-explorer.bitfactory.cn/)**
 
 <a name="mzYWs"></a>
 ## **产品概述**
