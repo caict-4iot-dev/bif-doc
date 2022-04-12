@@ -56,7 +56,7 @@
 
 1. 账号创建
 
-    ```java
+    ```
 
     import cn.bif.model.crypto.KeyPairEntity;
 
@@ -73,7 +73,7 @@
 
     通过配置星火链RPC地址连接SDK到星火链.
 
-    ```java
+    ```
     import cn.bif.api.BIFSDK;
 
     public static final String NODE_URL = "http://test.bifcore.bitfactory.cn";  //星火链测试网RPC地址
@@ -83,7 +83,7 @@
 
 1. 查看账户状态
 
-    ```java
+    ```
     BIFAccountGetInfoRequest infoReq = new BIFAccountGetInfoRequest();
     infoReq.setAddress(publicKey);                                        //要查看账户的地址
 
@@ -98,7 +98,7 @@
 
     注意, 新创建的账户查询会失败, 因为没有任何转入转出的交易记录. 成功获取星火令后, 查询账户状态返回应该是:
 
-    ```json
+    ```
     {
         "address":"did:bid:efKkF5uKsopAishxkYja4ULRJhrhrJQU",    //账户地址
         "balance":10000000000,                                   //账户余额
@@ -112,7 +112,7 @@
 
         合约开发资料可以参见高级话题部分,这里先用一个示例的javascript合约代码:
 
-        ```javascript
+        javascript
         "use strict";
 
         function queryById(id) {                        //合约内部函数
@@ -143,7 +143,7 @@
 
         合约编写完毕后, 需要将合约部署到链上, **注意这里需要账户内有足够的XHT**, 部署示例代码如下:
 
-        ```java
+        ```
         //部署合约
 
         //合约代码，注意转义
@@ -180,7 +180,7 @@
 
         如果部署成功, 调用返回里会拿到这个交易的HASH.
 
-        ```json
+        ```
         {
             "hash":"b25567a482e674d79ac5f9b5f6601f27b676dde90a6a56539053ec882a99854f"
         }
@@ -190,7 +190,7 @@
 
         用SDK查询交易详细信息, 并且可以从中获取到刚创建的合约地址.
 
-        ```java
+        ```
         BIFContractGetAddressRequest cAddrReq = new BIFContractGetAddressRequest();
         cAddrReq.setHash(cTxHash);
 
@@ -202,7 +202,7 @@
         }
         ```
 
-        ```json
+        ```
         {
             "contract_address_infos":[
                 {
@@ -217,7 +217,7 @@
 
     合约成功部署并且获取到地址后, 就可以调用合约的main函数, 这里我们存储一个值到合约里:
 
-    ```json
+    ```
     {
         "id":"test",
         "data": "test"
@@ -226,7 +226,7 @@
 
     合约调用的代码如下:
 
-    ```java
+    ```
     //转义后input
     String input = "{\"id\":\"test\", \"data\": \"test\"}";
 
@@ -258,7 +258,7 @@
 
     调用成功后，我们会得到调用交易的HASH：
 
-    ```json
+    ```
     {
         "hash":"c79835265e908f7f06d4fc2c61ef3fd046ae5252675e4671271bd921ad8fde89"
     }
@@ -267,7 +267,7 @@
 1. 查询合约
 
     不同于调用合约, 查询合约为只读操作, 因此不需要发出上链交易和耗费gas, 这里我们查询刚刚设置的key, 查询input为:
-    ```json
+    ```
     {
         "id":"test"
     }
@@ -275,7 +275,7 @@
 
     Java查询代码如下:
 
-    ```java
+    ```
     BIFContractCallRequest cCallReq = new BIFContractCallRequest();             //查询请求
 
     String callInput = "{\"id\":\"test\"}";                                     //查询input
@@ -294,7 +294,7 @@
 
     查询的返回如下:
 
-    ```json
+    ```
     {
         "query_rets":[
             {
@@ -402,7 +402,7 @@ message Account
 
     下面是一个简单的例子：
 
-    ```javascript
+    ```
     "use strict";
     function init(input)
     {
@@ -472,7 +472,7 @@ message Account
         | ------------ | ------------- |
         | metadata_key | metadata的key |
 
-        ```javascript
+        ```
         let value = Chain.load('abc');
         /*
             权限：只读
@@ -490,7 +490,7 @@ message Account
         | metadata_key   | metadata的key     |
         | metadata_value | metadata 的 value |
 
-        ```javascript
+        ```
         Chain.store('abc', 'values');
         /*
             权限：可写
@@ -509,7 +509,7 @@ message Account
         | ------------ | ------------- |
         | metadata_key | metadata的key |
 
-        ```javascript
+        ```
         Chain.del('abc');
         /*
             权限：可写
@@ -526,7 +526,7 @@ message Account
         | ---------- | ---------------------------------------- |
         | offset_seq | 距离最后一个区块的偏移量，范围：[0,1024) |
 
-        ```javascript
+        ```
         let ledger = Chain.getBlockHash(4);
         /*
             权限：只读
@@ -546,7 +546,7 @@ message Account
         | topic   | 日志主题，必须为字符串类型,参数长度(0,128]                   |
         | args... | 最多可以包含5个参数，参数类型可以是字符串、数值或者布尔类型,每个参数长度(0,1024] |
 
-        ```javascript
+        ```
         Chain.tlog('transfer',sender +' transfer 1000',true);
         /*
             权限：可写
@@ -563,7 +563,7 @@ message Account
         | account_address | 账号地址      |
         | metadata_key    | metadata的key |
 
-        ```javascript
+        ```
         let value = Chain.getAccountMetadata('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK', 'abc');
         
         /*
@@ -580,7 +580,7 @@ message Account
         | ------- | -------- |
         | address | 账号地址 |
 
-        ```javascript
+        ```
         let balance = Chain.getBalance('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
         /*
             权限：只读
@@ -596,7 +596,7 @@ message Account
         | --------------- | -------- |
         | account_address | 账号地址 |
 
-        ```javascript
+        ```
         let privilege = Chain.getAccountPrivilege('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
         
         /*
@@ -613,7 +613,7 @@ message Account
         | ---------------- | -------- |
         | contract_address | 合约地址 |
 
-        ```javascript
+        ```
         let value = Chain.getContractProperty('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
         
         /*
@@ -636,7 +636,7 @@ message Account
 
         ​		注意，如果提供metadata参数，那么也必须提供input参数，否则内置接口无法区分该参数是谁，因为两者都是可选的。如果没有input，可以传入空字符串**""**占位,以防止内置接口将metadata参数误认为inut参数。
 
-        ```javascript
+        ```
         Chain.payCoin("did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK", "10000", "", "vote reward");
         /*
             权限：可写
@@ -655,7 +655,7 @@ message Account
 
         `Chain.delegateCall` 函数会触发被调用的合约`main`函数入口，并且把当前合约的执行环境赋予被调用的合约。如合约A委托调用合约B，即执行B(main入口)的代码，读写A的数据。
 
-        ```javascript
+        ```
         let ret = Chain.delegateCall('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，'{}');
         /*
             权限：可写
@@ -675,7 +675,7 @@ message Account
 
         `Chain.delegateQuery` 函数会触发被调用的合约`query`函数入口，且把当前合约的执行环境赋予被调用的合约。如合约A委托查询合约B，即执行B(query入口)的代码，读取A的数据。
 
-        ```javascript
+        ```
         let ret = Chain.delegateQuery('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，"");
         /*
             权限：只读
@@ -697,7 +697,7 @@ message Account
 
         `Chain.contractCall` 函数会触发被调用的合约`main`函数入口。
 
-        ```javascript
+        ```
         let ret = Chain.contractCall('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，true, toBaseUnit("10"), "");
         /*
             权限：可写
@@ -717,7 +717,7 @@ message Account
 
         `Chain.contractQuery` 会调用合约的查询接口。
 
-        ```javascript
+        ```
         let ret = Chain.contractQuery('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，"");
         /*
             权限：只读
@@ -739,7 +739,7 @@ message Account
 
         `Chain.contractCreate` 创建合约。
 
-        ```javascript
+        ```
         let ret = Chain.contractCreate(toBaseUnit("10"), 0, "'use strict';function init(input){return input;} function main(input){return input;} function query(input){return input;} ", "");
         /*
             权限：可写
@@ -795,7 +795,7 @@ message Account
     交易最原始的触发者，即交易里触发合约执行的操作的账户。
     例如某账号发起了一笔交易，该交易中有个操作是调用合约Y（该操作的source_address是x），那么合约Y执行过程中，sender的值就是x账号的地址。
 
-  ```javascript
+  ```
   let bar = Chain.tx.sender;
   /*
   那么bar的值是x的账号地址。
@@ -836,7 +836,7 @@ message Account
 
     例如某账号发起了一笔交易，该交易中有个操作是调用合约Y（该操作的source_address是x），那么合约Y执行过程中，sender的值就是x账号的地址。
 
-  ```javascript
+  ```
   let bar = Chain.msg.sender;
   /*
   那么bar的值是x的账号地址。
@@ -855,7 +855,7 @@ message Account
 
     例如某账号A发起了一笔交易tx0，tx0中第0（从0开始计数）个操作是给某个合约账户转移星火令（调用合约），那么`Chain.msg.operationIndex`的值就是0。
 
-  ```javascript
+  ```
   let bar = Chain.msg.operationIndex;
   /* bar 是一个非负整数*/
   ```
@@ -868,7 +868,7 @@ message Account
 
   例如账号x发起了一笔交易调用合约Y，本次执行过程中，该值就是Y合约账号的地址。
 
-  ```text
+  ```
   let bar = Chain.msg.thisAddress;
   /*
   bar的值是Y合约的账号地址。
@@ -1091,7 +1091,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
     * 镜像下载
 
-        ```shell
+        ```
         docker pull caictdevelop/bif-solidity:v0.4.26
         ```
 
@@ -1101,7 +1101,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
         常用选项说明：
 
-        ```bash
+        ```
         --opcodes            Opcodes of the contracts.
         --bin                Binary of the contracts in hex.
         --abi                ABI specification of the contracts.
@@ -1111,14 +1111,14 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
         * 启动镜像
 
-            ```shell
+            ```
             # docker相关操作需要root权限
             docker run -it caictdevelop/bif-solidity:v0.4.26 /bin/bash
             ```
 
         * 编写合约test.sol
 
-            ```solidity
+            ```
             pragma solidity ^0.4.26;
 
             contract test{
@@ -1130,7 +1130,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
         * 编译合约
 
-            ```bash
+            ```
             #cd /root/solidity/build/solc
             #./solc --bin test.sol
 
@@ -1143,7 +1143,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
     使用星火solidity工具编译合约后, 使用Java SDK将合约部署到链上.
 
-    ```java
+    ```
     public void contractCreate() {
         // 初始化参数
         String senderAddress = "did:bid:efuEAGFPJMsojwPGKzjD8vZX1wbaUrVV";
@@ -1174,7 +1174,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
     调用星火链Solidity合约时, 可以直接用命名字符串形式调用指定接口, 星火链会将的input编译成字节码然后调用solidity合约.
 
-    ```json
+    ```
     {
         "function":"xxx",//待调用函数声明 入setKey(int256,string)，仅包含函数名（形参类型）
         "args":{ 
@@ -1185,7 +1185,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
     示例Java SDK代码如下：
 
-    ```java
+    ```
     public void contractInvokeByGas() {
         // 初始化参数
         String senderAddress = "did:bid:efuEAGFPJMsojwPGKzjD8vZX1wbaUrVV";

@@ -86,7 +86,7 @@ function query(input)
     | ------------ | ------------- |
     | key | metadata的key |
 
-    ```javascript
+    ```
     let value = Chain.load('test');
     /*
         权限：只读
@@ -104,7 +104,7 @@ function query(input)
     | metadata_key   | metadata的key     |
     | metadata_value | metadata 的 value |
 
-    ```javascript
+    ```
     Chain.store('test', 'values');
     /*
         权限：可写
@@ -121,7 +121,7 @@ function query(input)
     | ------------ | ------------- |
     | key | data的key |
 
-    ```javascript
+    ```
     Chain.del('abc');
     /*
         权限：可写
@@ -139,7 +139,7 @@ function query(input)
     | ---------- | ---------------------------------------- |
     | offset_seq | 距离最后一个区块的偏移量，范围：[0,1024) |
 
-    ```javascript
+    ```
     let ledger = Chain.getBlockHash(4);
     /*
         权限：只读
@@ -530,7 +530,7 @@ function query(input)
   | --------- | -------------- |
   | strNumber | 字符串数字参数 |
 
-  ```javascript
+  ```
   let ret = Utils.stoI64Check('12345678912345');
   /*
     权限：只读
@@ -546,7 +546,7 @@ function query(input)
   | left_value  | 左值 |
   | right_value | 右值 |
 
-  ```javascript
+  ```
   let ret = Utils.int64Add('12345678912345', 1);
   /*
     权限：只读
@@ -562,7 +562,7 @@ function query(input)
   | left_value  | 左值 |
   | right_value | 右值 |
 
-  ```javascript
+  ```
   let ret = Utils.int64Sub('12345678912345', 1);
   /*
     权限：只读
@@ -578,7 +578,7 @@ function query(input)
   | left_value  | 左值 |
   | right_value | 右值 |
 
-  ```javascript
+  ```
   let ret = Utils.int64Mul('12345678912345', 2);
   /*
     权限：只读
@@ -594,7 +594,7 @@ function query(input)
   | left_value  | 左值 |
   | right_value | 右值 |
 
-  ```javascript
+  ```
   let ret = Utils.int64Mod('12345678912345', 2);
   /*
     权限：只读
@@ -610,7 +610,7 @@ function query(input)
   | left_value  | 左值 |
   | right_value | 右值 |
 
-  ```javascript
+  ```
   let ret = Utils.int64Div('12345678912345', 2);
   /*
     权限：只读
@@ -628,7 +628,7 @@ function query(input)
 
   返回值：  1：左值大于右值； 0：等于； -1 ：小于。
 
-  ```javascript
+  ```
   let ret = Utils.int64Compare('12345678912345', 2);
   /*
     权限：只读
@@ -644,7 +644,7 @@ function query(input)
   | condition | 断言变量                 |
   | message   | 可选，失败时抛出异常的消 |
 
-  ```javascript
+  ```
   Utils.assert(1===1, "Not valid");
   /*
     权限：只读
@@ -661,7 +661,7 @@ function query(input)
 
   返回值:  成功会hash之后的base16编码后的字符串，失败会返回 false。
 
-  ```javascript
+  ```
   let ret = Utils.sha256('61626364');
   /*
     权限：只读
@@ -679,7 +679,7 @@ function query(input)
 
   返回值: 成功会返回乘以 10^8 的字符串，失败会返回 false。
 
-  ```javascript
+  ```
   let ret = Utils.toBaseUnit('12345678912');
   /*
     权限：只读
@@ -694,7 +694,7 @@ function query(input)
   | ------- | ---------------- |
   | address | 地址参数，字符串 |
 
-  ```javascript
+  ```
   let ret = Utils.addressCheck('bid:did:zfadxSio3m7C7D84GzgmtTXa9azQB');
   /*
     权限：只读
@@ -711,7 +711,7 @@ function query(input)
 
   返回值：成功，返回账号地址；失败返回false。
 
-  ```javascript
+  ```
   let ret = Utils.toAddress('b0014e067cdae290c47a558cd0438e6361d11b2cf48863be1cde030fe0a41ae23eff8e1533a1');
   /*
     权限：只读

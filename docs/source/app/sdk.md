@@ -16,7 +16,7 @@
 
 1. 示例
 
-    ```java
+    ```
     import cn.bif.model.crypto.KeyPairEntity;
 
     KeyPairEntity keypair = KeyPairEntity.getBidAndKeyPair();
@@ -39,7 +39,7 @@
 
 1. 示例
 
-    ```java
+    ```
     package cn.bif.sdkSamples.encryption.example;
 
     import cn.bif.common.JsonUtils;
@@ -89,7 +89,7 @@
 
 1. 示例
 
-    ```java
+    ```
     import cn.bif.api.BIFSDK;
 
     BIFSDK sdk = BIFSDK.getInstance(SDK_INSTANCE_URL);   //SDK_INSTANCE_URL为星火链RPC地址
@@ -106,7 +106,7 @@
         用来获取一个账户当前信息
 
     1. 示例
-        ```java
+        ```
         String accountAddress = "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2";
         BIFAccountGetInfoRequest request = new BIFAccountGetInfoRequest();
         request.setAddress(accountAddress);
@@ -129,7 +129,7 @@
         用来获取一个账户当前nonce值, 有关nonce含义, 请参照星火链开发基础章节.
 
     1. 示例:
-        ```java
+        ```
         String accountAddress = "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2";
         BIFAccountGetNonceRequest request = new BIFAccountGetNonceRequest();
         request.setAddress(accountAddress);
@@ -151,7 +151,7 @@
 
     1. 示例:
 
-        ```java
+        ```
         String accountAddress = "did:bid:efzE8AcDgWUeNbgujA5hK3oUeuG9k19b";
         BIFAccountGetBalanceRequest request = new BIFAccountGetBalanceRequest();
         request.setAddress(accountAddress);
@@ -176,7 +176,7 @@
 
     1. 示例:
 
-        ```java
+        ```
         BIFBlockGetNumberResponse response = sdk.getBIFBlockService().getBlockNumber();
         System.out.println(JsonUtils.toJSONString(response));
         ```
@@ -191,7 +191,7 @@
 
     1. 示例:
 
-        ```java
+        ```
         Long blockNumber = 1L;
         BIFBlockGetTransactionsRequest request = new BIFBlockGetTransactionsRequest();
         request.setBlockNumber(blockNumber);
@@ -213,7 +213,7 @@
 
     1. 示例:
 
-        ```java
+        ```
          BIFBlockGetInfoRequest blockGetInfoRequest = new BIFBlockGetInfoRequest();
         blockGetInfoRequest.setBlockNumber(10L);
         BIFBlockGetInfoResponse lockGetInfoResponse = sdk.getBIFBlockService().getBlockInfo(blockGetInfoRequest);
@@ -235,7 +235,7 @@
 
     1. 示例:
 
-        ```java
+        ```
         BIFBlockGetLatestInfoResponse lockGetLatestInfoResponse = sdk.getBIFBlockService().getBlockLatestInfo();
         if (lockGetLatestInfoResponse.getErrorCode() == 0) {
             BIFBlockGetLatestInfoResult lockGetLatestInfoResult = lockGetLatestInfoResponse.getResult();
@@ -257,7 +257,7 @@
 
     1. 示例:
 
-        ```java
+        ```
         BIFTransactionGetInfoRequest request = new BIFTransactionGetInfoRequest();
         request.setHash("8f3d53f0dfb5ae652d6ed93ca9512f57c2203fe0ffefdc7649908945ad96a730");
         BIFTransactionGetInfoResponse response = sdk.getBIFTransactionService().getTransactionInfo(request);
@@ -279,7 +279,7 @@
 
     1. 示例:
 
-        ```java
+        ```
         // 初始化参数
         String senderPrivateKey = "priSPKkWVk418PKAS66q4bsiE2c4dKuSSafZvNWyGGp2sJVtXL";
         //序列化交易
@@ -313,7 +313,7 @@
 
     1. 示例:
 
-        ```java
+        ```
         String senderAddress = "did:bid:ef21AHDJWnFfYQ3Qs3kMxo64jD2KATwBz";
         String senderPrivateKey = "priSPKkL8XpxHiRLuNoxph2ThSbexeRUGEETprvuVHkxy2yBDp";
         String payload = "\"use strict\";function init(bar){/*init whatever you want*/return;}function main(input){let para = JSON.parse(input);if (para.do_foo)\n            {\n              let x = {\n                \'hello\' : \'world\'\n              };\n            }\n          }\n          \n          function query(input)\n          { \n            return input;\n          }\n        ";
@@ -347,7 +347,7 @@
 
     1. 示例
 
-        ```java
+        ```
         // Init request
         String hash = "ff6a9d1a0c0011fbb9f51cfb99e4cd5e7c31380046fda3fd6e0daae44d1d4648";
         BIFContractGetAddressRequest request = new BIFContractGetAddressRequest();
@@ -372,7 +372,7 @@
 
     1. 示例
 
-        ```java
+        ```
         // Init request
         BIFContractGetInfoRequest request = new BIFContractGetInfoRequest();
         request.setContractAddress("did:bid:efiBacNvVSnr5QxgB282XGWkg4RXLLxL");
@@ -396,7 +396,7 @@
 
     1. 示例:
 
-        ```java
+        ```
         // Init variable
         // Contract address
         String contractAddress = "did:bid:ef2gAT82SGdnhj87wQWb9suPKLbnk9NP";
@@ -425,7 +425,7 @@
 
     1. 示例:
 
-        ```java
+        ```
         String senderAddress = "did:bid:efVmotQW28QDtQyupnKTFvpjKQYs5bxf";
         String contractAddress = "did:bid:ef2gAT82SGdnhj87wQWb9suPKLbnk9NP";
         String senderPrivateKey = "priSPKnDue7AJ42gt7acy4AVaobGJtM871r1eukZ2M6eeW5LxG";

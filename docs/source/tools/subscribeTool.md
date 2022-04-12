@@ -22,7 +22,7 @@
 
 > 调用方法
 
-```java
+```
 BlockChainAdapter AddChainResponseMethod(Overlay.ChainMessageType.CHAIN_HELLO_VALUE,new BlockChainAdapterProc() {public void ChainMethod (byte[] msg, int length) {}});
 ```
 
@@ -35,7 +35,7 @@ BlockChainAdapter AddChainResponseMethod(Overlay.ChainMessageType.CHAIN_HELLO_VA
 
 > 示例
 
-```java
+```
 //接收hello响应消息
 BlockChainAdapter.AddChainResponseMethod(Overlay.ChainMessageType.CHAIN_HELLO_VALUE, new BlockChainAdapterProc() {
             public void ChainMethod (byte[] msg, int length) {
@@ -54,7 +54,7 @@ BlockChainAdapter.AddChainResponseMethod(Overlay.ChainMessageType.CHAIN_HELLO_VA
 
 > 调用方法
 
-```java
+```
 BlockChainAdapter AddChainMethod(Overlay.ChainMessageType.CHAIN_TX_ENV_STORE_VALUE,,new BlockChainAdapterProc() {public void ChainMethod (byte[] msg, int length) {}});
 ```
 
@@ -67,7 +67,7 @@ BlockChainAdapter AddChainMethod(Overlay.ChainMessageType.CHAIN_TX_ENV_STORE_VAL
 
 > 示例
 
-```java
+```
  //接收区块链实时推送的消息-交易信息
         BlockChainAdapter.AddChainMethod(Overlay.ChainMessageType.CHAIN_TX_ENV_STORE_VALUE, new BlockChainAdapterProc() {
             public void ChainMethod (byte[] msg, int length) {
@@ -93,7 +93,7 @@ BlockChainAdapter AddChainMethod(Overlay.ChainMessageType.CHAIN_TX_ENV_STORE_VAL
 
 > 调用方法
 
-```java
+```
 BlockChainAdapter Send(Overlay.ChainMessageType.CHAIN_SUBSCRIBE_TX.getNumber(), tx.build().toByteArray()));
 ```
 
@@ -105,7 +105,7 @@ BlockChainAdapter Send(Overlay.ChainMessageType.CHAIN_SUBSCRIBE_TX.getNumber(), 
 
 > 示例
 
-```java
+```
 //订阅指定账号交易信息
 String srcAddress="";
 Overlay.ChainSubscribeTx.Builder tx=Overlay.ChainSubscribeTx.newBuilder();
@@ -123,7 +123,7 @@ if (!BlockChainAdapter.Send(Overlay.ChainMessageType.CHAIN_SUBSCRIBE_TX.getNumbe
 
 > 示例
 
-```java
+```
 
     private static chain_test chainTest;
     /**

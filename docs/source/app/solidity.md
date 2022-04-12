@@ -174,7 +174,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
 1. 镜像下载
 
-    ```shell
+    ```
     docker pull caictdevelop/bif-solidity:v0.4.26
     ```
 
@@ -194,7 +194,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
     用一个最简单的测试合约做例子.
 
-    ```solidity
+    ```
     pragma solidity ^0.4.26;
 
     contract test{
@@ -206,7 +206,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
 4. 编译合约
 
-    ```shell
+    ```
     # 启动镜像
     docker run -it caictdevelop/bif-solidity:v0.4.26 /bin/bash
     cd /root/solidity/build/solc

@@ -11,7 +11,7 @@
 
 调用JavaSDK接口离线创建一个账户.
 
-```java
+```
 import cn.bif.model.crypto.KeyPairEntity;
 entity = KeyPairEntity.getBidAndKeyPair();                             //离线创建一个新账号
 System.out.printf("public BID %s\n", entity.getEncAddress());          //账户地址, 可以公开
@@ -36,7 +36,7 @@ public staitc BIFSDK sdk = BIFSDK.getInstance(NODE_URL);
 
 ## 查看账户状态
 
-```java
+```
 //构建查看账户请求
 BIFAccountGetInfoRequest infoReq = new BIFAccountGetInfoRequest();
 //要查看账户的地址
@@ -73,7 +73,7 @@ if (infoRsp.getErrorCode() == 0) {
 
     本次demo用的示例Javascript智能合约代码如下
 
-    ```javascript
+    ```
     "use strict";
 
     function queryById(id) {                        //合约内部函数
@@ -104,7 +104,7 @@ if (infoRsp.getErrorCode() == 0) {
 
     合约编写完毕后, 需要将合约部署到链上, **注意这里需要账户内有足够的XHT**, 部署代码如下:
 
-    ```java
+    ```
     //部署合约
 
     //合约代码，注意转义
@@ -141,7 +141,7 @@ if (infoRsp.getErrorCode() == 0) {
 
     如果部署成功, 调用返回里会拿到这个交易的HASH.
 
-    ```json
+    ```
     {
         "hash":"b25567a482e674d79ac5f9b5f6601f27b676dde90a6a56539053ec882a99854f"
     }
@@ -151,7 +151,7 @@ if (infoRsp.getErrorCode() == 0) {
 
     用SDK查询部署合约的交易详细信息, 可以从中获取到创建的合约地址.
 
-    ```java
+    ```
     BIFContractGetAddressRequest cAddrReq = new BIFContractGetAddressRequest();
     cAddrReq.setHash(cTxHash);
 
@@ -165,7 +165,7 @@ if (infoRsp.getErrorCode() == 0) {
 
     合约部署信息示例如下:
 
-    ```json
+    ```
     {
         "contract_address_infos":[
             {
@@ -184,7 +184,7 @@ if (infoRsp.getErrorCode() == 0) {
 
 调用合约input如下
 
-```json
+```
 {
     "id":"test",
     "data": "test"
@@ -193,7 +193,7 @@ if (infoRsp.getErrorCode() == 0) {
 
 调用合约代码如下:
 
-```java
+```
 //转义后input
 String input = "{\"id\":\"test\", \"data\": \"test\"}";
 
@@ -225,7 +225,7 @@ if (cIvkRsp.getErrorCode() == 0) {
 
 调用成功后，我们会得到调用交易的HASH：
 
-```json
+```
 {
     "hash":"c79835265e908f7f06d4fc2c61ef3fd046ae5252675e4671271bd921ad8fde89"
 }
@@ -235,7 +235,7 @@ if (cIvkRsp.getErrorCode() == 0) {
 
 不同于调用合约, 查询合约为只读操作, 因此不需要发出上链交易和耗费gas, 这里我们查询刚刚设置的key, 查询input为:
 
-```json
+```
 {
     "id":"test"
 }
@@ -243,7 +243,7 @@ if (cIvkRsp.getErrorCode() == 0) {
 
 Java查询代码如下:
 
-```java
+```
 BIFContractCallRequest cCallReq = new BIFContractCallRequest();             //查询请求
 
 String callInput = "{\"id\":\"test\"}";                                     //查询input
@@ -262,7 +262,7 @@ if (cCallRsp.getErrorCode() == 0) {
 
 查询的返回如下:
 
-```json
+```
 {
     "query_rets":[
         {
