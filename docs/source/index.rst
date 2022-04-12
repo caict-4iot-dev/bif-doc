@@ -24,19 +24,7 @@
    app/reference
    
    
-.. toctree::
-   :maxdepth: 0
-   :hidden:
-   :caption:  星火·链网业务接入手册:
-   :titlesonly:
-   :glob:
 
-   business/main_node
-   business/cross_chain
-   business/digital_id
-   business/chanrong
-   business/vc
-   business/bio_carbo
 
 .. toctree::
    :maxdepth: 0
