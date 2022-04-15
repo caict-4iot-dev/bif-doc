@@ -180,7 +180,7 @@ contract TokenERC20 {
 ```
 pragma solidity ^0.4.26;
 
-contract XHERC721  {
+contract DNA721  {
 
     address public fundation; // 管理员  
     
@@ -190,63 +190,128 @@ contract XHERC721  {
     // 代币符号
     string private _symbol;
 
-    // NFT 属于哪个账户的
-    mapping(uint256 => address) private _tokens;
+    // metadata uri
+    string private _tokenUri;
+
+    // NFT 属于哪个账户的  tokenId => owner
+    mapping(address => address) private _tokens;
 
     // 账户有 几个NFT
     mapping(address => uint256) private _balanceOf;
 
-    // 授权集合
-    mapping(uint256 => address) private _allowances;
+    // 授权集合 tokenId => approve
+    mapping(address => address) private _allowances;
 
     // Mapping from owner to operator approvals 全部 NFT 的授权集合
     mapping(address => mapping(address => bool)) private _isAllApproved;
 
+    // enumeration
+    mapping(address => address[]) private _ownedTokens;
+    mapping(address => uint256) private _ownedTokensIndex;
+    address[] private _allTokens;
+    mapping(address => uint256) private _allTokensIndex;
+
     
     // 三个事件
-    event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
-    event Approval(address indexed _owner, address indexed _approved, uint256 indexed _tokenId);
+    event Transfer(address indexed _from, address indexed _to, address indexed _tokenId);
+    event Approval(address indexed _owner, address indexed _approved, address indexed _tokenId);
     event ApprovalForAll(address indexed _owner, address indexed _operator, bool _approved);
 
     /**
      * 初始化构造
      */
-    function TokenERC721(string memory name_, string memory symbol_) public {
+    function DNA721(string name_, string symbol_, string tokenUri_) public {
+        require(bytes(name_).length != 0, "DNA721: mint to the zero name_");
+        require(bytes(symbol_).length != 0, "DNA721: mint to the zero symbol_");
+        require(bytes(tokenUri_).length != 0, "DNA721: mint to the zero tokenUri_");
+
         _name = name_;
         _symbol = symbol_;
 	    fundation = msg.sender; 
-    }
-    
-    constructor() {
-        fundation = msg.sender;    
-    }
-    
+        _setTokenURI(tokenUri_);                         
+    }  
 
     modifier onlyFundation() {
-        require(msg.sender == fundation);
+        require(msg.sender == fundation,"onlyFundation can call this");
         _;
     }
 
-    // 可选
+    // metadata
     function name() public view returns (string memory) {
         return _name;
     }
+
     function symbol() public view returns (string memory) {
         return _symbol;
     }
+
+    function _setTokenURI(string memory newuri) internal {
+        _tokenUri = newuri;
+    }
+
+    function setTokenURI(string memory uri) onlyFundation public {
+        _setTokenURI(uri);
+    }
     
-    //function url() virtual public view returns (uint8);
+    function tokenURI(address tokenId) public view  returns (string memory) {
+        require(_exists(tokenId), "DNA721: URI query for nonexistent token");
+        return bytes(_tokenUri).length > 0 ? string(abi.encodePacked(_tokenUri, _toHexString(uint192(tokenId), 24))) : "";
+    }
+
+    function _toHexString(uint256 value) internal pure returns (string memory) {
+        if (value == 0) {
+            return "0x00";
+        }
+        uint256 temp = value;
+        uint256 length = 0;
+        while (temp != 0) {
+            length++;
+            temp >>= 8;
+        }
+        return _toHexString(value, length);
+    }
+
+    function _toHexString(uint256 value, uint256 length) internal pure returns (string memory) {
+        bytes16 _HEX_SYMBOLS = "0123456789abcdef";
+        bytes memory buffer = new bytes(2 * length + 2);
+        buffer[0] = "0";
+        buffer[1] = "x";
+        for (uint256 i = 2 * length + 1; i > 1; --i) {
+            buffer[i] = _HEX_SYMBOLS[value & 0xf];
+            value >>= 4;
+        }
+        require(value == 0, "Strings: hex length insufficient");
+        return string(buffer);
+    }
+
+    // enumeration
+    function totalSupply() public view returns (uint256) {
+        return _allTokens.length;
+    }
+
+    function tokenByIndex(uint256 index) public view returns (address) {
+        require(index >= 0, "DNA721 tokenByIndex: your index <= 0");
+        require(index < totalSupply(), "DNA721 tokenByIndex: global index out of bounds");
+
+        return _allTokens[index];
+    }
+
+    function tokenOfOwnerByIndex(address owner, uint256 index) public view returns (address) {
+        require(index >= 0, "DNA721 tokenOfOwnerByIndex: your index <= 0");
+        require(index < balanceOf(owner), "DNA721 tokenOfOwnerByIndex: owner index out of bounds");
+        return _ownedTokens[owner][index];
+    }
 
     // 必须实现 ----  9个方法
     function balanceOf(address owner) public view returns (uint256) {
-        require(owner != address(0), "ERC721: balance query for the zero address");
+        require(owner != address(0), "DNA721: balance query for the zero address");
         return _balanceOf[owner];
     }
 
     // 代币的地址
-    function ownerOf(uint256 tokenId) public view returns (address) {
+    function ownerOf(address tokenId) public view returns (address) {
         address owner = _tokens[tokenId];
-        require(owner != address(0), "ERC721: owner query for nonexistent token");
+        require(owner != address(0), "DNA721: owner query for nonexistent token");
         return owner;
     }
 
@@ -255,18 +320,22 @@ contract XHERC721  {
      * @param to 接收方
      * @param tokenId 代币的标识符
      */
-    function mint(address to, uint256 tokenId) public onlyFundation {
-        require(to != address(0), "ERC721: mint to the zero address");
-        require(!_exists(tokenId), "ERC721: token already minted");
+    function mint(address to, address tokenId) public onlyFundation {
+        require(to != address(0), "DNA721: mint to the zero address");
+        require(!_exists(tokenId), "DNA721: token already minted");
 
         _balanceOf[to] += 1;
         _tokens[tokenId] = to;
 
+        // for enumeration
+        _addTokenToOwnerEnumeration(to, tokenId);
+        _addTokenToAllTokensEnumeration(tokenId);
+
         emit Transfer(address(0), to, tokenId);
     }
     
-    function _burn(uint256 tokenId) internal {
-        address owner = XHERC721.ownerOf(tokenId);
+    function _burn(address tokenId) internal {
+        address owner = DNA721.ownerOf(tokenId);
 
         // Clear approvals
         _approve(address(0), tokenId);
@@ -280,9 +349,9 @@ contract XHERC721  {
     function transferFrom(
         address from,
         address to,
-        uint256 tokenId
+        address tokenId
     ) public {
-        require(_isApprovedOrOwner(msg.sender, tokenId), "ERC721: transfer caller is not owner nor approved");
+        require(_isApprovedOrOwner(msg.sender, tokenId), "DNA721: transfer caller is not owner nor approved");
         _transfer(from, to, tokenId);
     }
     
@@ -295,16 +364,20 @@ contract XHERC721  {
     function _transfer(
         address from,
         address to,
-        uint256 tokenId
+        address tokenId
     ) internal {
-        require(XHERC721.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
-        require(to != address(0), "ERC721: transfer to the zero address");
+        require(DNA721.ownerOf(tokenId) == from, "DNA721: transfer from incorrect owner");
+        require(to != address(0), "DNA721: transfer to the zero address");
 
         _approve(address(0), tokenId);
 
         _balanceOf[from] -= 1;
         _balanceOf[to] += 1;
         _tokens[tokenId] = to;
+
+        // for enumeration
+        _removeTokenFromOwnerEnumeration(from, tokenId);
+        _addTokenToOwnerEnumeration(to, tokenId);
 
         emit Transfer(from, to, tokenId);
     }
@@ -313,7 +386,7 @@ contract XHERC721  {
     function safeTransferFrom(
         address from,
         address to,
-        uint256 tokenId
+        address tokenId
     ) public {
         safeTransferFrom(from, to, tokenId, "");
     }
@@ -321,17 +394,17 @@ contract XHERC721  {
     function safeTransferFrom(
         address from,
         address to,
-        uint256 tokenId,
+        address tokenId,
         bytes memory _data
     ) public {
-        require(_isApprovedOrOwner(msg.sender, tokenId), "ERC721: transfer caller is not owner nor approved");
+        require(_isApprovedOrOwner(msg.sender, tokenId), "DNA721: transfer caller is not owner nor approved");
         _safeTransfer(from, to, tokenId, _data);
     }
     
     function _safeTransfer(
         address from,
         address to,
-        uint256 tokenId,
+        address tokenId,
         bytes memory _data
     ) internal {
         _transfer(from, to, tokenId);
@@ -343,35 +416,34 @@ contract XHERC721  {
      * @param to 接受授权的账户地址
      * @param tokenId 代币的标识符
      */
-    function approve(address to, uint256 tokenId) public  {
-        address owner = XHERC721.ownerOf(tokenId);
-        require(to != owner, "ERC721: approval to current owner");
+    function approve(address to, address tokenId) public  {
+        address owner = DNA721.ownerOf(tokenId);
+        require(to != owner, "DNA721: approval to current owner");
 
         require(
             msg.sender == owner || isApprovedForAll(owner, msg.sender),
-            "ERC721: approve caller is not owner nor approved for all"
+            "DNA721: approve caller is not owner nor approved for all"
         );
 
         _approve(to, tokenId);
     }
     
-    function _approve(address to, uint256 tokenId) internal {
+    function _approve(address to, address tokenId) internal {
         _allowances[tokenId] = to;
-        emit Approval(XHERC721.ownerOf(tokenId), to, tokenId);
+        emit Approval(DNA721.ownerOf(tokenId), to, tokenId);
     }
 
     /**
      * 查看接受授权的账户地址
      * @param tokenId 代币的标识符
      */
-    function getApproved(uint256 tokenId) public view  returns (address) {
-        require(_exists(tokenId), "ERC721: approved query for nonexistent token");
+    function getApproved(address tokenId) public view  returns (address) {
+        require(_exists(tokenId), "DNA721: approved query for nonexistent token");
 
         return _allowances[tokenId];
     }
-
     
-    function _exists(uint256 tokenId) internal view returns (bool) {
+    function _exists(address tokenId) internal view returns (bool) {
         return _tokens[tokenId] != address(0);
     }
 
@@ -389,7 +461,7 @@ contract XHERC721  {
         address operator,
         bool approved
     ) internal {
-        require(owner != operator, "ERC721: approve to caller");
+        require(owner != operator, "DNA721: approve to caller");
         _isAllApproved[owner][operator] = approved;
         emit ApprovalForAll(owner, operator, approved);
     }
@@ -401,12 +473,57 @@ contract XHERC721  {
 
         return  _isAllApproved[owner][operator];
     }
-
         
-    function _isApprovedOrOwner(address spender, uint256 tokenId) internal view returns (bool) {
-        require(_exists(tokenId), "ERC721: operator query for nonexistent token");
-        address owner = XHERC721.ownerOf(tokenId);
+    function _isApprovedOrOwner(address spender, address tokenId) internal view returns (bool) {
+        require(_exists(tokenId), "DNA721: operator query for nonexistent token");
+        address owner = DNA721.ownerOf(tokenId);
         return (spender == owner || getApproved(tokenId) == spender || isApprovedForAll(owner, spender));
+    }
+
+    function _tokensOfOwner(address owner) internal view returns (address[] storage) {
+        return _ownedTokens[owner];
+    }
+
+    // enumeration
+    function _addTokenToOwnerEnumeration(address to, address tokenId) private {
+        _ownedTokensIndex[tokenId] = _ownedTokens[to].length;
+        _ownedTokens[to].push(tokenId);
+    }
+
+    function _addTokenToAllTokensEnumeration(address tokenId) private {
+        _allTokensIndex[tokenId] = _allTokens.length;
+        _allTokens.push(tokenId);
+    }
+
+    // 用于transfer的
+    function _removeTokenFromOwnerEnumeration(address from, address tokenId) private {
+        // 为了保护数组的顺序，将最后一个元素挪到 要删除的元素 的角标处
+        uint256 lastTokenIndex = _ownedTokens[from].length - 1;
+        uint256 tokenIndex = _ownedTokensIndex[tokenId];
+
+        if (tokenIndex != lastTokenIndex) {
+            address lastTokenId = _ownedTokens[from][lastTokenIndex];
+
+            _ownedTokens[from][tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
+            _ownedTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
+        }
+
+        _ownedTokens[from].length--;
+    }
+    // 用于销毁机制的
+    function _removeTokenFromAllTokensEnumeration(address tokenId) private {
+        // 为了保护数组的顺序，将最后一个元素挪到 要删除的元素 的角标处
+        uint256 lastTokenIndex = _allTokens.length - 1;
+        uint256 tokenIndex = _allTokensIndex[tokenId];
+
+        address lastTokenId = _allTokens[lastTokenIndex];
+
+        _allTokens[tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
+        _allTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
+
+        // This also deletes the contents at the last position of the array
+        _allTokens.length--;
+        _allTokensIndex[tokenId] = 0;
     }
 
 }
@@ -420,14 +537,16 @@ contract XHERC721  {
 'use strict';
 
 // 管理员  
-const _fundation = "_fundation";
+const FUNDATION = "_fundation";
 
 // 代币名称
-const _name = "_name";
+const NAME = "_name";
 
 // 代币符号
-const _symbol = "_symbol";
+const SYMBOL = "_symbol";
 
+// metadata uri
+const TOKENURI = "_tokenUri";
 
 // 账户有 几个NFT      address => uint256
 const BALANCEOF = "_balanceOf";
@@ -441,6 +560,19 @@ const ALLOWANCES = "_allowances";
 // 全部 NFT 的授权集合    address => mapping(address => bool)
 const ISALLAPPROVED = "_isAllApproved";
 
+// enumeration
+// 所有nft的tokenId 数组     address[]
+const ALLTOKENS = "_allTokens";
+
+// tokenId  => 在所有nft中的 index      address => uint256
+const ALLTOKENSINDEX = "_allTokensIndex";
+
+// tokenId => owner里面的index    address => uint256
+const OWNEDTOKENSINDEX = "_ownedTokensIndex";
+
+// 账户地址  => nft的tokenId 数组     address => address[]
+const OWNEDTOKENS = "_ownedTokens";
+
 const sender_g = Chain.msg.sender;
 const chainCode_g = Chain.chainCode;
 
@@ -448,13 +580,29 @@ const chainCode_g = Chain.chainCode;
 	是否为合约所有者
 */
 function isContractOwner(){
-    var owner = Chain.load(_fundation);
+    var owner = Chain.load(FUNDATION);
     if(Chain.msg.sender === owner){
         return true;
     }
     else{
+        Utils.log("onlyFundation can call this method!");
         return false;
     }
+}
+
+function _setTokenURI(newuri) {
+    Chain.store(TOKENURI, newuri);
+}
+
+function setTokenURI(params) {
+
+    if(isContractOwner() === false){
+        Utils.log('setTokenURI' + Chain.msg.sender);
+        return;
+    }
+
+    var tokenUri = params.tokenUri;
+    _setTokenURI(tokenUri);
 }
 
 function init(input_str){
@@ -464,16 +612,21 @@ function init(input_str){
 
     Utils.log('input_str: (' + input_str + ').');
 
-    Chain.store("_name", params.name);
-    Chain.store("_symbol", params.symbol);
-    Chain.store("_fundation", sender_g);
-        
+    if(params.name=== undefined || params.symbol === undefined || params.tokenUri === undefined ||
+        !params.name.length || !params.symbol.length || !params.tokenUri.length){     
+        Utils.assert(false , "DNA721: init  params is invalid, please check!");
+    }
+
+    Chain.store(NAME, params.name);
+    Chain.store(SYMBOL, params.symbol);
+    _setTokenURI(params.tokenUri);
+    Chain.store(FUNDATION, sender_g);
     return;
 } 
 
 
-// 可选
-function nameOfNFT() {
+// metadata
+function name() {
     return Chain.load("_name");
 }
 function symbol() {
@@ -495,12 +648,29 @@ function _exists(tokenId) {
     }
 }
 
+// return string
+function tokenURI(params) {
+    
+    var tokenId = params.tokenId;
+    Utils.assert(Utils.addressCheck(tokenId) , "DNA721: tokenURI for params: tokenId is invalid bid address");
+    Utils.log('tokenId: ' + params.tokenId);
+
+    Utils.assert(_exists(tokenId), "DNA721: URI query for nonexistent token");
+    var tokenUri = Chain.load(TOKENURI);
+
+    if(tokenUri.length > 0){
+        
+        return tokenUri + tokenId;
+    }
+    return "";
+}
+
 // 必须实现 ----  9个方法
 function balanceOf(params) {
 
     var owner = params.owner; 
 
-    Utils.assert(owner.length !== 0 , "ERC721: balance query for the zero address");
+    Utils.assert(Utils.addressCheck(owner) , "DNA721: balanceOf query for params: owner is invalid bid address");
 
     var balances = {};
     var data = JSON.parse(Chain.load(BALANCEOF));
@@ -529,7 +699,7 @@ function _ownerOf(tokenId) {
         owner = tokens[tokenId];  
     }
     
-    Utils.assert(owner.length !== 0, "ERC721: owner query for nonexistent token");
+    Utils.assert(owner.length !== 0, "DNA721: owner query for nonexistent token");
     return owner;
 }
 
@@ -542,7 +712,101 @@ function _ownerOf(tokenId) {
 function ownerOf(params) {
 
     var tokenId = params.tokenId;
+    Utils.assert(Utils.addressCheck(tokenId) , "DNA721: ownerOf for params: tokenId is invalid bid address");
     return _ownerOf(tokenId);
+}
+
+
+// for enumeration
+function _addTokenToOwnerEnumeration(to, tokenId) {
+
+    // 1 
+    var ownedTokens = {}; 
+    var data = JSON.parse(Chain.load(OWNEDTOKENS));
+    if (data) {
+        ownedTokens = data;
+    }
+    
+    var ownedTokensIndex = {}; 
+    var dataIndex = JSON.parse(Chain.load(OWNEDTOKENSINDEX));
+    if (dataIndex) {
+        ownedTokensIndex = dataIndex;
+    }
+
+    if (ownedTokens[to] !== undefined){
+        ownedTokensIndex[tokenId] = ownedTokens[to].length;   
+    }else{
+        ownedTokens[to] = [];
+        ownedTokensIndex[tokenId] = 0;
+    }
+
+    // 2 
+    ownedTokens[to].push(tokenId);
+
+    // 3. store ownedTokens、_ownedTokensIndex
+    Chain.store(OWNEDTOKENS, JSON.stringify(ownedTokens));
+    Chain.store(OWNEDTOKENSINDEX, JSON.stringify(ownedTokensIndex));
+}
+
+function _addTokenToAllTokensEnumeration(tokenId) {
+
+    // 1 
+    var allTokens = []; 
+    var dataAll = JSON.parse(Chain.load(ALLTOKENS));
+    if (dataAll) {
+        allTokens = dataAll;
+    }
+
+    var allTokensIndex = {}; 
+    var data = JSON.parse(Chain.load(ALLTOKENSINDEX));
+    if (data) {
+        allTokensIndex = data;
+    }
+
+    // 2
+    allTokensIndex[tokenId] = allTokens.length;
+    allTokens.push(tokenId);
+
+    // 3. store ownedTokens、_ownedTokensIndex
+    Chain.store(ALLTOKENS, JSON.stringify(allTokens));
+    Chain.store(ALLTOKENSINDEX, JSON.stringify(allTokensIndex));
+}
+
+
+function _removeTokenFromOwnerEnumeration(from, tokenId) {
+
+    // 1
+    var ownedTokens = {}; 
+    var data = JSON.parse(Chain.load(OWNEDTOKENS));
+    if (data) {
+        ownedTokens = data;
+    }else{
+        Utils.assert(false, "DNA721: removeTokenFromOwnerEnumeration ownedTokens is null");
+    }
+
+    var ownedTokensIndex = {}; 
+    var dataIndex = JSON.parse(Chain.load(OWNEDTOKENSINDEX));
+    if (dataIndex) {
+        ownedTokensIndex = dataIndex;
+    }
+
+    // 2
+    // 为了保护数组的顺序，将最后一个元素挪到 要删除的元素 的角标处
+    var lastTokenIndex = ownedTokens[from].length - 1;
+    var tokenIndex = ownedTokensIndex[tokenId];
+
+    if (tokenIndex !== lastTokenIndex) {
+        var lastTokenId = ownedTokens[from][lastTokenIndex];
+
+        ownedTokens[from][tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
+        ownedTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
+    }
+
+    ownedTokens[from].length = ownedTokens[from].length - 1;
+
+    // 3. store ownedTokens、_ownedTokensIndex
+    Chain.store(OWNEDTOKENS, JSON.stringify(ownedTokens));
+    Chain.store(OWNEDTOKENSINDEX, JSON.stringify(ownedTokensIndex));
 }
 
 /**
@@ -561,8 +825,9 @@ function mint(params) {
     var tokenId = params.tokenId;
     Utils.log('mint-params: ' + params);
 
-    Utils.assert(to.length !== 0 , "ERC721: mint to the zero address");
-    Utils.assert(!_exists(tokenId), "ERC721: token already minted");
+    Utils.assert(Utils.addressCheck(to) , "DNA721: mint to is not bid address");
+    Utils.assert(Utils.addressCheck(tokenId) , "DNA721: mint tokenId is not bid address");
+    Utils.assert(!_exists(tokenId), "DNA721: token already minted");
 
     var balances = {}; 
     var data = JSON.parse(Chain.load(BALANCEOF));
@@ -588,6 +853,10 @@ function mint(params) {
 
     Chain.store(BALANCEOF, JSON.stringify(balances));
     Chain.store(TOKENS, JSON.stringify(tokens));
+
+    // for enumeration
+    _addTokenToOwnerEnumeration(to, tokenId);
+    _addTokenToAllTokensEnumeration(tokenId);
      
     Chain.tlog('Transfer', '', to, tokenId);
 }
@@ -614,7 +883,7 @@ function _approve( to, tokenId)  {
 
 function _getApproved(tokenId) {
 
-    Utils.assert(_exists(tokenId), "ERC721: approved query for nonexistent token");
+    Utils.assert(_exists(tokenId), "DNA721: approved query for nonexistent token");
     
     // 读取 allowance 集合
     var allowances = {};
@@ -655,8 +924,8 @@ function __getIsAllApproved(owner, to){
 
 function _isApprovedForAll( owner, operator) {
 
-    Utils.assert(owner.length !== 0, "_owner can not be empty!");
-    Utils.assert(operator.length !== 0, "_operator can not be empty!");
+    Utils.assert(Utils.addressCheck(owner) , "DNA721: _isApprovedForAll params: owner is invalid bid address");
+    Utils.assert(Utils.addressCheck(operator) , "DNA721: _isApprovedForAll params: operator is invalid bid address");
 
     return  __getIsAllApproved(owner, operator);
 }
@@ -664,10 +933,8 @@ function _isApprovedForAll( owner, operator) {
 function isApprovedForAll(params) {
 
     var input = params; // owner, operator
-
     return _isApprovedForAll(input.owner, input.operator);
 }
-
 
 function __setAllApproved(owner, to, isAllApproved){
     
@@ -694,7 +961,10 @@ function __setAllApproved(owner, to, isAllApproved){
 }
 
 function _setApprovalForAll(owner, operator, isApproved) {
-    Utils.assert(owner !== operator, "ERC721: approve to caller");
+
+    Utils.assert(Utils.addressCheck(owner) , "DNA721: _setApprovalForAll params: owner is invalid bid address");
+    Utils.assert(Utils.addressCheck(operator) , "DNA721: _setApprovalForAll params: operator is invalid bid address");
+    Utils.assert(owner !== operator, "DNA721: approve to caller");
     // 设置 全部授权
     __setAllApproved(owner, operator, isApproved);
     Chain.tlog('ApprovalForAll', owner, operator, isApproved);
@@ -709,14 +979,18 @@ function setApprovalForAll( params )  {
 function _transfer(
      from,
      to,
-     tokenId
+     tokenId,
+     data_params
 )  {
 
     Utils.log('_ownerOf(tokenId): (' + _ownerOf(tokenId) + ').');
     Utils.log('from: (' + from + ').');
 
-    Utils.assert(_ownerOf(tokenId) === from, "ERC721: transfer from incorrect owner");
-    Utils.assert(to.length !== 0, "ERC721: transfer to the zero address");
+    Utils.assert(Utils.addressCheck(from) , "DNA721: transfer params: from is invalid bid address");
+    Utils.assert(Utils.addressCheck(to) , "DNA721: transfer params: to is invalid bid address");
+    Utils.assert(Utils.addressCheck(tokenId) , "DNA721: transfer params: tokenId is invalid bid address");
+
+    Utils.assert(_ownerOf(tokenId) === from, "DNA721: transfer from incorrect owner");
 
     _approve('', tokenId);
 
@@ -750,13 +1024,17 @@ function _transfer(
     Chain.store(BALANCEOF, JSON.stringify(balances));
     Chain.store(TOKENS, JSON.stringify(tokens));
 
+    // for enumeration
+    _removeTokenFromOwnerEnumeration(from, tokenId);
+    _addTokenToOwnerEnumeration(to, tokenId);
+
     Chain.tlog('Transfer', from, to, tokenId);
 }
 
 function _isApprovedOrOwner(spender, tokenId)  {
 
     Utils.log("_exists(tokenId): " + _exists(tokenId));
-    Utils.assert(_exists(tokenId), "ERC721: operator query for nonexistent token");
+    Utils.assert(_exists(tokenId), "DNA721: operator query for nonexistent token");
 
     var owner = _ownerOf(tokenId);
     Utils.log("owner: " + owner);
@@ -769,12 +1047,15 @@ function approve( params )  {
 
     var input = params; // to,  tokenId
 
+    Utils.assert(Utils.addressCheck(input.to), "DNA721: approve params: to is invalid bid address");
+    Utils.assert(Utils.addressCheck(input.tokenId), "DNA721: approve params: tokenId is invalid bid address");
+
     var owner = _ownerOf(input.tokenId);
-    Utils.assert(input.to !== owner, "ERC721: approval to current owner");
+    Utils.assert(input.to !== owner, "DNA721: approval to current owner");
     Utils.log("approve-sender_g:" + sender_g + "  owner:" + owner);
     Utils.assert(
         sender_g === owner || _isApprovedForAll(owner, sender_g),
-        "ERC721: approve caller is not owner nor approved for all"
+        "DNA721: approve caller is not owner nor approved for all"
     );
 
     _approve(input.to, input.tokenId);
@@ -783,10 +1064,70 @@ function approve( params )  {
 function transferFrom(params) {
 
     var input = params; // from、to、tokenId
+    
+    Utils.assert(_isApprovedOrOwner(sender_g, input.tokenId), "DNA721: transfer caller is not owner nor approved");
 
-    Utils.assert(_isApprovedOrOwner(sender_g, input.tokenId), "ERC721: transfer caller is not owner nor approved");
+    _transfer(input.from, input.to, input.tokenId, "");
+}
 
-    _transfer(input.from, input.to, input.tokenId);
+function safeTransferFrom(params) {
+
+    var from = params.from; // from
+    var to = params.to; // to
+    var tokenId = params.tokenId; // tokenId
+    var data = params.data; // data
+
+    // safe check
+
+    // _transfer
+    Utils.assert(_isApprovedOrOwner(sender_g, tokenId), "DNA721: transfer caller is not owner nor approved");
+    _transfer(from, to, tokenId, data);
+}
+
+
+// enumeration
+// return int
+function totalSupply() {
+    
+    var allTokens = []; 
+    var dataAll = JSON.parse(Chain.load(ALLTOKENS));
+    if (dataAll) {
+        allTokens = dataAll;
+    }
+    return allTokens.length;
+}
+
+// return tokenId -> address
+function tokenByIndex(params) {
+    var index = params.index;
+    
+    Utils.assert(index%1 === 0, "DNA721 tokenByIndex: your index should be int");
+    Utils.assert(index >= 0, "DNA721 tokenByIndex: your index <= 0");
+    Utils.assert(index < totalSupply(), "DNA721 tokenByIndex: global index out of bounds");
+
+    var allTokens = []; 
+    var dataAll = JSON.parse(Chain.load(ALLTOKENS));
+    if (dataAll) {
+        allTokens = dataAll;
+    }
+    return allTokens[index];
+}
+
+// return tokenId -> address
+function tokenOfOwnerByIndex(params) {
+    var owner = params.owner;
+    var index = params.index;
+
+    Utils.assert(index%1 === 0, "DNA721 tokenOfOwnerByIndex: your index should be int");
+    Utils.assert(Utils.addressCheck(owner) , "DNA721: tokenOfOwnerByIndex params: owner is invalid bid address");
+    Utils.assert(index >= 0, "DNA721 tokenOfOwnerByIndex: your index <= 0");
+    Utils.assert(index < balanceOf(params), "DNA721 Enumerable: owner index out of bounds"); // 注意：使用 params
+    var ownedTokens = {}; 
+    var data = JSON.parse(Chain.load(OWNEDTOKENS));
+    if (data) {
+        ownedTokens = data;
+    }
+    return ownedTokens[owner][index];
 }
 
 function main(input_str){
@@ -797,8 +1138,9 @@ function main(input_str){
     }
     else if(input.method === 'transferFrom'){
         transferFrom(input.params);
-    }
-    else if(input.method === 'approve') {
+    }else if(input.method === 'safeTransferFrom'){
+        safeTransferFrom(input.params);
+    }else if(input.method === 'approve') {
         approve(input.params);
     }else if(input.method === 'setApprovalForAll') {
         setApprovalForAll(input.params);
@@ -812,10 +1154,18 @@ function main(input_str){
 function query(input_str){
     var input  = JSON.parse(input_str);
     var object ={};
-    if(input.method === 'nameOfNFT'){
-        object = nameOfNFT();
+    if(input.method === 'name'){
+        object = name();
     }else if(input.method === 'symbol'){
         object = symbol();
+    }else if(input.method === 'tokenURI'){
+        object = tokenURI(input.params);
+    }else if(input.method === 'totalSupply'){
+        object = totalSupply();
+    }else if(input.method === 'tokenByIndex'){
+        object = tokenByIndex(input.params);
+    }else if(input.method === 'tokenOfOwnerByIndex'){
+        object = tokenOfOwnerByIndex(input.params);
     }else if(input.method === 'balanceOf'){
         object = balanceOf(input.params);
     }else if(input.method === 'ownerOf'){
@@ -864,49 +1214,110 @@ ERC1155在一定程度上融合了ERC-20和ERC-721的功能。其主要用途包
 ```
 pragma solidity ^0.4.26;
 
-contract ERC1155 {
+contract DNA1155 {
+
+    // 代币名称
+    string private _name;
+
+    // 代币符号
+    string private _symbol;
+
+    // metadata uri
+    string private _uri;
+
+    // enumeration
+    mapping(address => uint256) private _allTokens;
+
 
     // Mapping from token ID to account balances （某个代币 -- 某个账户地址 -- 金额）
-    mapping(uint256 => mapping(address => uint256)) private _balances;
+    mapping(address => mapping(address => uint256)) private _balances;
 
     // Mapping from account to operator approvals （账户地址A ---- 对账户地址B是否进行了授权） 
     mapping(address => mapping(address => bool)) private _operatorApprovals;
 
-    // 链下的资源链接，用于记录保存token的具体介绍信息   https://token-cdn-domain/{id}.json
-    string private _uri;
-
     // 单个转账时的事件
-    event TransferSingle(address indexed operator, address indexed from, address indexed to, uint256 id, uint256 value);
+    event TransferSingle(address indexed operator, address indexed from, address indexed to, address id, uint256 value);
     // 批量转账时的事件
-    event TransferBatch( address indexed operator, address indexed from, address indexed to, uint256[] ids, uint256[] values
+    event TransferBatch( address indexed operator, address indexed from, address indexed to, address[] ids, uint256[] values
     );
     // 授权时的事件
     event ApprovalForAll(address indexed account, address indexed operator, bool approved);
     // 更新uri时的事件
-    event URI(string value, uint256 indexed id);
+    event URI(string value, address indexed id);
     
     address public fundation; // 管理员
-
-    modifier onlyFundation() {
-        require(msg.sender == fundation);
-        _;
-    }
 
     /**
      * 初始化构造
      */
-    function TokenERC1155(string memory uri_) public {
+    function DNA1155(string memory name_, string memory symbol_, string memory uri_) public {
+        require(bytes(name_).length != 0, "DNA1155: mint to the zero name_");
+        require(bytes(symbol_).length != 0, "DNA1155: mint to the zero symbol_");
+        require(bytes(uri_).length != 0, "DNA1155: mint to the zero uri_");
+        
+        _name = name_;
+        _symbol = symbol_;
         fundation = msg.sender;    
         _setURI(uri_);                         
     }
-    
-    constructor(string memory uri_) {
-        fundation = msg.sender;    
-        _setURI(uri_);
+
+    modifier onlyFundation() {
+        require(msg.sender == fundation,"onlyFundation can call this");
+        _;
     }
 
-    function uri(uint256) public view  returns (string memory) {
-        return _uri;
+    // metadata
+    function name() public view returns (string memory) {
+        return _name;
+    }
+
+    function symbol() public view returns (string memory) {
+        return _symbol;
+    }
+
+    function uri(address tokenId) public view  returns (string memory) {
+        require(_exists(tokenId), "DNA1155: URI query for nonexistent token");
+
+        return bytes(_uri).length > 0 ? string(abi.encodePacked(_uri, _toHexString(uint192(tokenId), 24))) : "";
+    }
+
+    function _toHexString(uint256 value) internal pure returns (string memory) {
+        if (value == 0) {
+            return "0x00";
+        }
+        uint256 temp = value;
+        uint256 length = 0;
+        while (temp != 0) {
+            length++;
+            temp >>= 8;
+        }
+        return _toHexString(value, length);
+    }
+
+    function _toHexString(uint256 value, uint256 length) internal pure returns (string memory) {
+        bytes16 _HEX_SYMBOLS = "0123456789abcdef";
+        bytes memory buffer = new bytes(2 * length + 2);
+        buffer[0] = "0";
+        buffer[1] = "x";
+        for (uint256 i = 2 * length + 1; i > 1; --i) {
+            buffer[i] = _HEX_SYMBOLS[value & 0xf];
+            value >>= 4;
+        }
+        require(value == 0, "Strings: hex length insufficient");
+        return string(buffer);
+    }
+
+    // enumeration
+    function totalSupply(address tokenId) public view returns (uint256) {
+        return _allTokens[tokenId];
+    }
+
+    function _addTokenToAllTokensEnumeration(address tokenId, uint256 amount) private  {
+            _allTokens[tokenId] += amount;     
+    }
+
+    function _exists(address tokenId) internal view returns (bool) {
+        return _allTokens[tokenId] > 0;
     }
 
     /**
@@ -914,8 +1325,8 @@ contract ERC1155 {
      * @param account 查询的账户地址
      * @param id 代币的标识符
      */
-    function balanceOf(address account, uint256 id) public view returns (uint256) {
-        require(account != address(0), "ERC1155: balance query for the zero address");
+    function balanceOf(address account, address id) public view returns (uint256) {
+        require(account != address(0), "DNA1155: balance query for the zero address");
         return _balances[id][account];
     }
   
@@ -924,12 +1335,12 @@ contract ERC1155 {
      * @param accounts 查询的账户地址 数组
      * @param ids 代币的标识符 数组
      */
-    function balanceOfBatch(address[] memory accounts, uint256[] memory ids)
+    function balanceOfBatch(address[] memory accounts, address[] memory ids)
         public
         view    
         returns (uint256[] memory)
     {
-        require(accounts.length == ids.length, "ERC1155: accounts and ids length mismatch");
+        require(accounts.length == ids.length, "DNA1155: accounts and ids length mismatch");
 
         uint256[] memory batchBalances = new uint256[](accounts.length);
 
@@ -962,13 +1373,13 @@ contract ERC1155 {
     function safeTransferFrom(
         address from,
         address to,
-        uint256 id,
+        address id,
         uint256 amount,
         bytes memory data
     ) public  {
         require(
             from == msg.sender || isApprovedForAll(from, msg.sender),
-            "ERC1155: caller is not owner nor approved"
+            "DNA1155: caller is not owner nor approved"
         );
         _safeTransferFrom(from, to, id, amount, data);
     }
@@ -979,13 +1390,13 @@ contract ERC1155 {
     function safeBatchTransferFrom(
         address from,
         address to,
-        uint256[] memory ids,
+        address[] memory ids,
         uint256[] memory amounts,
         bytes memory data
     ) public  {
         require(
             from == msg.sender || isApprovedForAll(from, msg.sender),
-            "ERC1155: transfer caller is not owner nor approved"
+            "DNA1155: transfer caller is not owner nor approved"
         );
         _safeBatchTransferFrom(from, to, ids, amounts, data);
     }
@@ -1001,15 +1412,16 @@ contract ERC1155 {
     function _safeTransferFrom(
         address from,
         address to,
-        uint256 id,
+        address id,
         uint256 amount,
         bytes memory data
     ) internal {
-        require(to != address(0), "ERC1155: transfer to the zero address");
+        require(to != address(0), "DNA1155: transfer to the zero address");
+        require(amount > 0, "DNA1155: amount must > zero");
 
         address operator = msg.sender;
         uint256 fromBalance = _balances[id][from];
-        require(fromBalance >= amount, "ERC1155: insufficient balance for transfer");
+        require(fromBalance >= amount, "DNA1155: insufficient balance for transfer");
         _balances[id][from] = fromBalance - amount;
         _balances[id][to] += amount;
 
@@ -1027,20 +1439,22 @@ contract ERC1155 {
     function _safeBatchTransferFrom(
         address from,
         address to,
-        uint256[] memory ids,
+        address[] memory ids,
         uint256[] memory amounts,
         bytes memory data
     ) internal {
-        require(ids.length == amounts.length, "ERC1155: ids and amounts length mismatch");
-        require(to != address(0), "ERC1155: transfer to the zero address");
+        require(ids.length == amounts.length, "DNA1155: ids and amounts length mismatch");
+        require(to != address(0), "DNA1155: transfer to the zero address");
 
         address operator = msg.sender;
         for (uint256 i = 0; i < ids.length; ++i) {
-            uint256 id = ids[i];
+            require(amounts[i] > 0, "DNA1155: amount must > zero");
+
+            address id = ids[i];
             uint256 amount = amounts[i];
 
             uint256 fromBalance = _balances[id][from];
-            require(fromBalance >= amount, "ERC1155: insufficient balance for transfer");
+            require(fromBalance >= amount, "DNA1155: insufficient balance for transfer");
             _balances[id][from] = fromBalance - amount;
             _balances[id][to] += amount;
         }
@@ -1049,7 +1463,13 @@ contract ERC1155 {
     }
   
     function _setURI(string memory newuri) internal {
+        emit URI(newuri, 0);
+
         _uri = newuri;
+    }
+
+    function setURI(string memory uri) onlyFundation public {
+        _setURI(uri);
     }
 
    /**
@@ -1059,16 +1479,21 @@ contract ERC1155 {
      * @param amount 转账的数量     
      * @param data 转账的信息
      */
-    function mint (
+    function mint(
         address to,
-        uint256 id,
+        address id,
         uint256 amount,
         bytes memory data
-    ) onlyFundation public {
-        require(to != address(0), "ERC1155: mint to the zero address");
+    ) onlyFundation public payable{
+        require(to != address(0), "DNA1155: mint to the zero address");
+        require(amount > 0, "DNA1155: amount must > zero");
 
         address operator = msg.sender;
         _balances[id][to] += amount;
+
+        // for enumeration
+        _addTokenToAllTokensEnumeration(id, amount);
+
         emit TransferSingle(operator, address(0), to, id, amount);
     }
 
@@ -1081,17 +1506,21 @@ contract ERC1155 {
      */
     function mintBatch(
         address to,
-        uint256[] memory ids,
+        address[] memory ids,
         uint256[] memory amounts,
         bytes memory data
-    ) onlyFundation public {
-        require(to != address(0), "ERC1155: mint to the zero address");
-        require(ids.length == amounts.length, "ERC1155: ids and amounts length mismatch");
+    ) onlyFundation public payable {
+        require(to != address(0), "DNA1155: mint to the zero address");
+        require(ids.length == amounts.length, "DNA1155: ids and amounts length mismatch");
 
         address operator = msg.sender;
 
         for (uint256 i = 0; i < ids.length; i++) {
-            _balances[ids[i]][to] += amounts[i];
+            require(amounts[i] > 0, "DNA1155: amount must > zero");
+            _balances[ids[i]][to] += amounts[i];   
+            
+            // for enumeration
+            _addTokenToAllTokensEnumeration(ids[i], amounts[i]);
         }
         emit TransferBatch(operator, address(0), to, ids, amounts);
     }
@@ -1107,7 +1536,7 @@ contract ERC1155 {
         address operator,
         bool approved
     ) internal {
-        require(owner != operator, "ERC1155: setting approval status for self");
+        require(owner != operator, "DNA1155: setting approval status for self");
         _operatorApprovals[owner][operator] = approved;
         emit ApprovalForAll(owner, operator, approved);
     } 
@@ -1119,12 +1548,24 @@ contract ERC1155 {
 **合约文件 - JavaScript**
 
 ```
+
 'use strict';
 
 // 管理员  
 const FUNDATION = "_fundation";
-// uri
+
+// 代币名称
+const NAME = "_name";
+
+// 代币符号
+const SYMBOL = "_symbol";
+
+// metadata uri
 const URI = "_uri";
+
+// enumeration
+// tokenId => counter
+const ALLTOKENS = "_allTokens";
 
 // 账户有 几个NFT      ( uint256(代币类型), map(address, uint256))
 const BALANCES = "_balances";
@@ -1135,10 +1576,6 @@ const OPERATORAPPROVALS = "_operatorApprovals";
 const sender_g = Chain.msg.sender;
 const chainCode_g = Chain.chainCode;
 
-function _setURI(newuri) {
-    Chain.store(URI, JSON.stringify(newuri));
-}
-
 /*
 	是否为合约所有者
 */
@@ -1148,25 +1585,88 @@ function isContractOwner(){
         return true;
     }
     else{
+        Utils.log("onlyFundation can call this method!");
         return false;
     }
+}
+
+function _setURI(newuri) {
+    Chain.tlog('URI', newuri);
+    Chain.store(URI, newuri);
+}
+
+function setURI(params) {
+
+    if(isContractOwner() === false){
+        Utils.log('setURI' + Chain.msg.sender);
+        return;
+    }
+
+    var uri = params.uri;
+    _setURI(uri);
 }
 
 function init(input_str) {
 
     var input = JSON.parse(input_str);
-    var params = input.params; // uri
+    var params = input.params;
 
     Utils.log('input_str: (' + input_str + ').');
 
+    if(params.name === undefined || params.symbol === undefined || params.uri === undefined ||
+        !params.name.length || !params.symbol.length || !params.uri.length){     
+        Utils.assert(false , "DNA1155: init  params is invalid, please check!");
+    }
+
+    Chain.store(NAME, params.name);
+    Chain.store(SYMBOL, params.symbol);
     _setURI(params.uri);
     Chain.store(FUNDATION, sender_g);
-
-    return;
 }
 
-function uri(id) {
-    return JSON.parse(Chain.load(URI));
+// metadata
+function name() {
+    return Chain.load(NAME);
+}
+function symbol() {
+    return Chain.load(SYMBOL);
+}
+
+function _exists(tokenId) {
+
+    var tokens = {}; 
+    var dataToken = JSON.parse(Chain.load(ALLTOKENS));
+    if (dataToken) {
+        tokens = dataToken;
+    }
+    
+    if (tokens[tokenId] === undefined || tokens[tokenId] === 0){
+        return false;
+    }else{
+        return true;  
+    }
+}
+
+// get metadata
+function _uri(tokenId) {
+    
+    Utils.log('tokenId: ' + tokenId);
+
+    Utils.assert(_exists(tokenId), "DNA1155: URI query for nonexistent token");
+    var uri = Chain.load(URI);
+
+    if(uri.length > 0){
+        
+        return uri + tokenId;
+    }
+    return "";
+}
+
+function uri(params) {
+
+    var tokenId = params.tokenId;
+    Utils.assert(Utils.addressCheck(tokenId) , "DNA1155: uri params: tokenId is invalid bid address");
+    return _uri(tokenId);
 }
 
 function _getBalanceOf(id, account) {
@@ -1218,7 +1718,8 @@ function balanceOf(params) {
     var account = params.account;
     var id = params.id;
 
-    Utils.assert(account.length !== 0, "ERC1155: balance query for the zero address");
+    Utils.assert(Utils.addressCheck(account) , "DNA1155: balanceOf params: owner is invalid bid address");
+    Utils.assert(Utils.addressCheck(id) , "DNA1155: balanceOf params: tokenId is invalid bid address");
 
     return _getBalanceOf(id, account);
 }
@@ -1233,6 +1734,8 @@ function balanceOfBatch(params) {
     var batchBalances = [];
     var i = 0;
     for (i = 0; i < accounts.length; i += 1) {
+        Utils.assert(Utils.addressCheck(accounts[i]) , "DNA1155: balanceOfBatch params: owner is invalid bid address");
+        Utils.assert(Utils.addressCheck(ids[i]) , "DNA1155: balanceOfBatch params: tokenId is invalid bid address");
         batchBalances[i] = _getBalanceOf(ids[i], accounts[i]);
     }
    
@@ -1274,6 +1777,8 @@ function setApprovalForAll( params ) {
     var operator = params.operator;
     var isApproved = params.isApproved; // bool 类型
 
+    Utils.assert(Utils.addressCheck(operator), "ERC1155: setApprovalForAll params: operator is invalid bid address");
+
     _setApprovalForAll(sender_g, operator, isApproved);
 }
 
@@ -1301,8 +1806,8 @@ function __getIsAllApproved(owner, to){
 
 function _isApprovedForAll( owner, operator) {
 
-    Utils.assert(owner.length !== 0, "_owner can not be empty!");
-    Utils.assert(operator.length !== 0, "_operator can not be empty!");
+    Utils.assert(Utils.addressCheck(owner), "ERC1155: _isApprovedForAll params: owner is invalid bid address");
+    Utils.assert(Utils.addressCheck(operator), "ERC1155: _isApprovedForAll params: operator is invalid bid address");
 
     return  __getIsAllApproved(owner, operator);
 }
@@ -1332,13 +1837,24 @@ function _safeTransferFrom(from, to, id, amount, data) {
     Chain.tlog('TransferSingle', operator, from, to, id, amount);
 }
 
+function _checkAmount (amount){
+    Utils.assert(amount !== undefined, "ERC1155: params: amount must have a value");
+    Utils.assert(amount > 0, "ERC1155: params: amount must > 0");
+    Utils.assert(amount%1 === 0, "ERC1155 params: your amount should be int");
+}
+
 function safeTransferFrom( params ) {
 
     var from = params.from;
     var to = params.to; 
-    var id = params.id; // int
+    var id = params.id; // address
     var amount = params.amount; // int
     var data = params.data; 
+
+    Utils.assert(Utils.addressCheck(from), "ERC1155: safeTransferFrom params: from is invalid bid address");
+    Utils.assert(Utils.addressCheck(to), "ERC1155: safeTransferFrom params: to is invalid bid address");
+    Utils.assert(Utils.addressCheck(id), "ERC1155: safeTransferFrom params: id is invalid bid address");
+    _checkAmount(amount);
 
     Utils.assert(from === sender_g || _isApprovedForAll(from, sender_g), "ERC1155: caller is not owner nor approved");
 
@@ -1361,6 +1877,8 @@ function _safeBatchTransferFrom( from, to, ids, amounts, data )  {
         id = ids[i];
         amount = amounts[i];
 
+        _checkAmount(amount);
+
         fromBalance = _getBalanceOf(id, from);
         Utils.assert(fromBalance >= amount, "ERC1155:  insufficient balance for transfer");
 
@@ -1380,9 +1898,37 @@ function safeBatchTransferFrom( params ) {
     var amounts = params.amounts;
     var data = params.data; 
 
+    Utils.assert(Utils.addressCheck(from), "ERC1155: safeBatchTransferFrom params: from is invalid bid address");
+    Utils.assert(Utils.addressCheck(to), "ERC1155: safeBatchTransferFrom params: to is invalid bid address");
+    var i = 0;
+    for ( i = 0; i < ids.length; i += 1) {
+        Utils.assert(Utils.addressCheck(ids[i]), "ERC1155: safeBatchTransferFrom params: id is invalid bid address");
+    }
+
     Utils.assert(from === sender_g || _isApprovedForAll(from, sender_g), "ERC1155: caller is not owner nor approved");
 
     _safeBatchTransferFrom(from, to, ids, amounts, data);
+}
+
+function _addTokenToAllTokensEnumeration(tokenId,amount) {
+
+    // 1 
+    var allTokens = {}; 
+    var dataAll = JSON.parse(Chain.load(ALLTOKENS));
+    if (dataAll) {
+        allTokens = dataAll;
+    }
+
+    var counter = 0; 
+    if (allTokens[tokenId] === undefined) {
+        allTokens[tokenId] = counter;
+    }
+
+    // 2
+    allTokens[tokenId] += amount;
+
+    // 3. store 
+    Chain.store(ALLTOKENS, JSON.stringify(allTokens));
 }
 
 function mint( params ) {
@@ -1393,16 +1939,20 @@ function mint( params ) {
     }
 
     var to = params.to;
-    var id = params.id; //int 
+    var id = params.id; //address 
     var amount = params.amount; //int 
     var data = params.data;
 
-    Utils.assert(to.length > 0 , "ERC1155: mint to the zero address");
+    Utils.assert(Utils.addressCheck(to), "ERC1155: mint params: to is invalid bid address");
+    Utils.assert(Utils.addressCheck(id), "ERC1155: mint params: id is invalid bid address");
+    _checkAmount(amount);
 
     var operator = sender_g;
 
     var toBalance = _getBalanceOf(id, to);
     _setBalanceOfForKey(id, to , toBalance + amount);
+
+    _addTokenToAllTokensEnumeration(id, amount);
 
     Chain.tlog('TransferSingle', operator, "", to, id, amount);
 }
@@ -1414,12 +1964,12 @@ function mintBatch( params ) {
         return;
     }
 
-    var to = params.to;
-    var ids = params.ids; 
+    var to = params.to; //address
+    var ids = params.ids; //address[]
     var amounts = params.amounts; 
     var data = params.data;
 
-    Utils.assert(to.length > 0 , "ERC1155: mint to the zero address");
+    Utils.assert(Utils.addressCheck(to), "ERC1155: mintBatch params: to is invalid bid address");
     Utils.assert(ids.length === amounts.length, "ERC1155: ids and amounts length mismatch");
 
     Utils.log('mintBatch-ids: (' + ids + ').');
@@ -1430,11 +1980,41 @@ function mintBatch( params ) {
     var i = 0;
     var toBalance;
     for ( i = 0; i < ids.length; i += 1) {
+         Utils.assert(Utils.addressCheck(ids[i]), "ERC1155: mintBatch params: id is invalid bid address");
+         _checkAmount(amounts[i]);
+
          toBalance = _getBalanceOf(ids[i], to);
          _setBalanceOfForKey(ids[i], to , toBalance + amounts[i]);
+         _addTokenToAllTokensEnumeration(ids[i], amounts[i]);
     }
 
     Chain.tlog('TransferBatch', operator, "", to, JSON.stringify(ids), JSON.stringify(amounts));
+}
+
+// enumeration
+// return int
+function _totalSupply(tokenId) {
+    
+    var allTokens = {}; 
+    var dataAll = JSON.parse(Chain.load(ALLTOKENS));
+    if (dataAll) {
+        allTokens = dataAll;
+    }
+
+    var counter = 0; 
+    if (allTokens[tokenId] === undefined) {
+        allTokens[tokenId] = counter;
+    }
+
+    return allTokens[tokenId];
+}
+
+function totalSupply(params) {
+    
+    var tokenId = params.tokenId; //address
+    Utils.assert(Utils.addressCheck(tokenId), "ERC1155: totalSupply params: tokenId is invalid bid address");
+
+    return _totalSupply(tokenId); 
 }
 
 function main(input_str){
@@ -1453,6 +2033,8 @@ function main(input_str){
         safeBatchTransferFrom(input.params);
     }else if(input.method === 'setApprovalForAll') {
         setApprovalForAll(input.params);
+    }else if(input.method === 'setURI') {
+        setURI(input.params);
     }
  
     else{
@@ -1463,8 +2045,14 @@ function main(input_str){
 function query(input_str){
     var input  = JSON.parse(input_str);
     var object ={};
-    if(input.method === 'uri'){
+    if(input.method === 'name'){
+        object = name();
+    }else if(input.method === 'symbol'){
+        object = symbol();
+    }else if(input.method === 'uri'){
         object = uri(input.params);
+    }else if(input.method === 'totalSupply'){
+        object = totalSupply(input.params);
     }else if(input.method === 'balanceOf'){
         object = balanceOf(input.params);
     }else if(input.method === 'balanceOfBatch'){
