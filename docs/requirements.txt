@@ -1,2 +1,2 @@
-attrs=21.4.0
+attrs==21.4.0
 myst-parser==0.17.0
