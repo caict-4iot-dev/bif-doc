@@ -129,12 +129,12 @@ if (!BlockChainAdapter.Send(Overlay.ChainMessageType.CHAIN_SUBSCRIBE_TX.getNumbe
     /**
      * BIF-Core-SDK
      */
-    String httpUrl = "http://172.19.6.22:37002";
+    String httpUrl = "http://test.bifcore.bitfactory.cn";
     BIFSDK sdk = BIFSDK.getInstance(httpUrl);
     /**
      * 订阅服务
      */
-    String webSocketUrl = "ws://172.19.6.22:810";
+    String webSocketUrl = "ws://test.bifcore.bitfactory.cn:7053";
     boolean isConnected = false;
     /**
      * 订阅账号
