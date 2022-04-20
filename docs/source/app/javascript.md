@@ -337,7 +337,7 @@ function query(input)
 
     `Chain.contractCreate(balance, type, code, input);`
 
-    创建合约
+    - 创建合约
 
     | 参数        | 说明                                   |
     | ----------- | -------------------------------------- |
