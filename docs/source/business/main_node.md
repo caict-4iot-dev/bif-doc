@@ -124,7 +124,7 @@
 
 ​                 ![img](../images/main_node_13.png)
 
-### 4.3 [底层链锚定]
+### 4.3 底层链锚定
 
 #### 4.3.1 [链基础信息同步](https://bif-open-api-doc.readthedocs.io/zh_CN/latest/docs/API%E6%8E%A5%E5%8F%A3/4-%E5%BA%95%E5%B1%82%E9%93%BE%E9%94%9A%E5%AE%9A.html#id2)
 
