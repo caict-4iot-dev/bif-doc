@@ -1,6 +1,6 @@
 # 快速上手
 
-以Java SDK为例, 在星火链测试网上部署, 调用, 查询一个Javascript智能合约.
+以Java SDK为例, 在星火链测试网上部署, 调用, 查询一个Javascript、Solidity智能合约.
 
 ## SDK下载
 
@@ -181,6 +181,72 @@ if (infoRsp.getErrorCode() == 0) {
 
 
 
+#### Solidity智能合约代码
+
+* Solidity智能合约代码如下:
+
+  ```solidity
+  pragma solidity ^0.4.26;
+  
+  contract demo  {
+  
+    mapping(uint256 => string) private _datas;
+  
+    function queryById(uint256 id) public view returns (string) {                      
+      
+      return _datas[id];
+    }
+  
+    function setById(uint256 id, string data) public {                      
+      
+      _datas[id] = data;
+    }
+  
+  }
+  ```
+
+  该合约实现了一个简单的存储功能, 用户可以调用setById接口存储自定义Key-Value信息, 然后通过queryById接口查询已经存入的Key-Value信息.
+
+* 部署合约
+
+  合约编写完毕后, 需要将合约部署到链上, **注意这里需要账户内有足够的XHT**, 部署代码如下:
+
+  solidity智能合约和Javascript智能合约的部署，区别在于：
+
+  type的设置：0代表Javascript智能合约，1代表solidity智能合约。
+
+  setPayload时，设置的不是solidity智能合约代码本身，而是对合约代码进行编译之后，得到的bytecode中的object值。可以参考[星火链Solidity编译器](https://bif-doc.readthedocs.io/zh_CN/latest/app/solidity.html#id5)章节。
+
+  ```java
+  //部署合约  -- 参照 Javascript 的代码，下面展示了差异点。
+  
+  //合约代码，注意转义
+  String contractCode = "6080604052348015610.....................47da4090029";
+  
+  ........
+  
+  //type，javascript合约type为0，solidity合约type为1
+  createCReq.setType(1);
+  
+  ........
+  ```
+
+  如果部署成功, 调用返回里会拿到这个交易的HASH.
+
+  ```json
+  {
+      "hash":"7cbc5345f80d250c0086bb04f974c9f648345f3d8d86f074907e07f1cc02615a"
+  }
+  ```
+
+* 交易信息和合约地址查询
+
+  同Javascript。
+
+
+
+
+
 ## 合约调用
 
 #### Javascript智能合约的合约调用:
@@ -238,6 +304,45 @@ if (cIvkRsp.getErrorCode() == 0) {
 
 
 
+
+
+#### Solidity智能合约的合约调用:
+
+合约成功部署并且获取到合约地址后, 就可以通过SDK发送交易调用合约接口, 我们存储一个Key-Value对到合约里:
+
+调用合约input如下
+
+```json
+{
+    "id":123,
+    "data": "abc"
+}
+```
+
+调用合约代码如下:
+
+```java
+//合约调用  -- 参照 Javascript 的代码，下面展示了差异点。
+
+//转义后input
+String input = "{\"function\":\"setById(uint256,string)\", \"args\":\"123,'abc'\"}";
+......
+//设置费用上限
+request.setFeeLimit(100000000L);
+request.setGasPrice(10L);
+......
+```
+
+调用成功后，我们会得到调用交易的HASH：
+
+```json
+{
+    "hash":"0606cc9e910028bb5918bcf79934d02c81665c6819d6f5ee51b99f3ce95b5f82"
+}
+```
+
+
+
 ## 查询合约
 
 #### Javascript智能合约的合约查询:
@@ -284,6 +389,43 @@ if (cCallRsp.getErrorCode() == 0) {
     ]
 }
 ```
+
+
+
+#### Solidity智能合约的合约查询:
+
+不同于调用合约, 查询合约为只读操作, 因此不需要发出上链交易和耗费gas, 这里我们查询刚刚设置的key, 查询input为:
+
+```json
+{
+    "id":123
+}
+```
+
+Java查询代码如下:
+
+```java
+//合约调用  -- 参照 Javascript 的代码，下面展示了差异点。
+......
+String callInput = "{\"function\":\"queryById(uint256)\",\"args\":123,\"return\":\"returns(string)\"}";                                     //查询input
+......
+```
+
+查询的返回如下:
+
+```json
+{
+    "query_rets":[
+        {
+            "result":{
+                "data":"[abc]",
+            }
+        }
+    ]
+}
+```
+
+
 
 
 
