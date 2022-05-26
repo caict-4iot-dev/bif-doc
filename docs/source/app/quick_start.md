@@ -353,67 +353,6 @@ if (cIvkRsp.getErrorCode() == 0) {
 
 
 
-
-
-#### Solidity智能合约的合约调用:
-
-合约成功部署并且获取到合约地址后, 就可以通过SDK发送交易调用合约接口, 我们存储一个Key-Value对到合约里:
-
-调用合约input如下
-
-```json
-{
-    "id":123,
-    "data": "abc"
-}
-```
-
-调用合约代码如下:
-
-```java
-//转义后input
-String input = "{\"function\":\"setById(uint256,string)\", \"args\":\"123,'abc'\"}";
-
-BIFContractInvokeRequest cIvkReq = new BIFContractInvokeRequest();
-
-//调用者地址和私钥
-cIvkReq.setSenderAddress(publicKey);
-cIvkReq.setPrivateKey(privateKey);
-
-//合约地址
-cIvkReq.setContractAddress(cAddr);
-
-//调用交易XHT金额
-cIvkReq.setBIFAmount(0L);
-
-//设置费用上限
-request.setFeeLimit(100000000L);
-request.setGasPrice(10L);
-
-//标记
-cIvkReq.setRemarks("contract invoke");
-
-//调用input
-cIvkReq.setInput(input);
-
-BIFContractInvokeResponse cIvkRsp = sdk.getBIFContractService().contractInvoke(cIvkReq);
-if (cIvkRsp.getErrorCode() == 0) {
-    System.out.println(JsonUtils.toJSONString(cIvkRsp.getResult()));
-} else {
-    System.out.println(cIvkRsp.getErrorDesc());
-}
-```
-
-调用成功后，我们会得到调用交易的HASH：
-
-```json
-{
-    "hash":"0606cc9e910028bb5918bcf79934d02c81665c6819d6f5ee51b99f3ce95b5f82"
-}
-```
-
-
-
 ## 查询合约
 
 #### Javascript智能合约的合约查询:
@@ -460,53 +399,6 @@ if (cCallRsp.getErrorCode() == 0) {
     ]
 }
 ```
-
-
-
-#### Solidity智能合约的合约查询:
-
-不同于调用合约, 查询合约为只读操作, 因此不需要发出上链交易和耗费gas, 这里我们查询刚刚设置的key, 查询input为:
-
-```json
-{
-    "id":123
-}
-```
-
-Java查询代码如下:
-
-```java
-BIFContractCallRequest cCallReq = new BIFContractCallRequest();             //查询请求
-
-String callInput = "{\"function\":\"queryById(uint256)\",\"args\":123,\"return\":\"returns(string)\"}";                                     //查询input
-
-cCallReq.setContractAddress(cAddr);
-cCallReq.setInput(callInput);
-
-BIFContractCallResponse cCallRsp = sdk.getBIFContractService().contractQuery(cCallReq); //查询
-
-if (cCallRsp.getErrorCode() == 0) {
-    System.out.println(JsonUtils.toJSONString(cCallRsp.getResult()));
-} else {
-    System.out.println(cCallRsp.getErrorDesc());
-}
-```
-
-查询的返回如下:
-
-```json
-{
-    "query_rets":[
-        {
-            "result":{
-                "data":"[abc]",
-            }
-        }
-    ]
-}
-```
-
-
 
 
 
