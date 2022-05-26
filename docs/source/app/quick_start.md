@@ -2,6 +2,8 @@
 
 以Java SDK为例, 在星火链测试网上部署, 调用, 查询一个Javascript、Solidity智能合约.
 
+## Javascript智能合约.
+
 ## SDK下载
 
 请到<https://github.com/caict-4iot-dev/BIF-Core-SDK>下载java版本的SDK.
@@ -235,13 +237,15 @@ if (infoRsp.getErrorCode() == 0) {
 
   ```json
   {
-      "hash":"7cbc5345f80d250c0086bb04f974c9f648345f3d8d86f074907e07f1cc02615a"
+      "hash":"d6cd7be46964e4b4c46899cb96ec86737eb76af3941896e341686716a23057e6"
   }
   ```
 
 * 交易信息和合约地址查询
 
-  同Javascript。
+  查询方式同Javascript。
+
+​       可以查询到刚刚创建的合约链上地址: did:bid:efexVGPgx8Brxmv68TnTic9TU8kAA9Hd
 
 
 
@@ -275,7 +279,7 @@ cIvkReq.setSenderAddress(publicKey);
 cIvkReq.setPrivateKey(privateKey);
 
 //合约地址
-cIvkReq.setContractAddress(cAddr);
+cIvkReq.setContractAddress(cAddr); // cAddr为 上述生成的 did:bid:efexVGPgx8Brxmv68TnTic9TU8kAA9Hd
 
 //调用交易XHT金额
 cIvkReq.setBIFAmount(0L);
@@ -327,6 +331,8 @@ if (cIvkRsp.getErrorCode() == 0) {
 //转义后input
 String input = "{\"function\":\"setById(uint256,string)\", \"args\":\"123,'abc'\"}";
 ......
+//合约地址
+cIvkReq.setContractAddress(cAddr); // cAddr为 上述生成的 did:bid:efSvDJivc2A4iqurRkUPzmpT5kB3nkNg
 //设置费用上限
 request.setFeeLimit(100000000L);
 request.setGasPrice(10L);
@@ -337,7 +343,7 @@ request.setGasPrice(10L);
 
 ```json
 {
-    "hash":"0606cc9e910028bb5918bcf79934d02c81665c6819d6f5ee51b99f3ce95b5f82"
+    "hash":"43eabecdcd1059163ec4766e7ea90f3a0ac49a35293990fa3bb4e4e0b05acf3c"
 }
 ```
 
@@ -362,7 +368,7 @@ BIFContractCallRequest cCallReq = new BIFContractCallRequest();             //�
 
 String callInput = "{\"id\":\"test\"}";                                     //查询input
 
-cCallReq.setContractAddress(cAddr);
+cCallReq.setContractAddress(cAddr); // cAddr为 上述生成的 did:bid:efexVGPgx8Brxmv68TnTic9TU8kAA9Hd
 cCallReq.setInput(callInput);
 
 BIFContractCallResponse cCallRsp = sdk.getBIFContractService().contractQuery(cCallReq); //查询
@@ -408,6 +414,7 @@ Java查询代码如下:
 //合约调用  -- 参照 Javascript 的代码，下面展示了差异点。
 ......
 String callInput = "{\"function\":\"queryById(uint256)\",\"args\":123,\"return\":\"returns(string)\"}";                                     //查询input
+cCallReq.setContractAddress(cAddr); // cAddr为 上述生成的 did:bid:efSvDJivc2A4iqurRkUPzmpT5kB3nkNg
 ......
 ```
 
