@@ -43,8 +43,10 @@
    :titlesonly:
    :glob:
 
-   tools/*
-
+   tools/bidsdk
+   tools/bifsdk
+   tools/subscribeTool
+   tools/explorer
 .. toctree::
    :maxdepth: 0
    :hidden:

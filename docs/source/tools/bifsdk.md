@@ -33,7 +33,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
 
 1. 示例
 
-    ```
+    ```java
     import cn.bif.model.crypto.KeyPairEntity;
 
     KeyPairEntity keypair = KeyPairEntity.getBidAndKeyPair();
@@ -56,7 +56,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
 
 1. 示例
 
-    ```
+    ```java
     package cn.bif.sdkSamples.encryption.example;
 
     import cn.bif.common.JsonUtils;
@@ -65,38 +65,41 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
 
     import java.util.HashMap;
     import java.util.Map;
+    ```
 
 
-    public class TestCrypto {
-        public static void main(String argv[]) {
-            String encPrivateKey = "priSPKqru2zMzeb14XWxPNM1sassFeqyyUZotCAYcvCjhNof7t";
-            String password = "bif8888";
-            TestKeyStoreWithPrivateKey(encPrivateKey, password);
-
-        }
-
-        public static void TestKeyStoreWithPrivateKey(String encPrivateKey, String password) {
-            try {
-                int n = (int) Math.pow(2, 16);
-                //生成keystore-1
-                KeyStoreEty returEencPrivateKey = KeyStore.generateKeyStore(password,encPrivateKey, 2, 1, 1, n);
-                System.out.println(JsonUtils.toJSONString(returEencPrivateKey));
-
-                //生成keystore-2
-                KeyStoreEty keyStore1 = KeyStore.generateKeyStore(password, encPrivateKey, n);
-                System.out.println(JsonUtils.toJSONString(keyStore1));
-
-                //从keystore反解出私钥
-                String keyStoreStr="{\"address\":\"did:bid:efEScJgGPf54vfU8ciEjjugkJLB4xYzp\",\"aesctr_iv\":\"EEDDD37CEB6864030124142CEB081BCD\",\"cypher_text\":\"7274705F65388E30338A2D69AE2241DBABCF66550C0453BEE30CFA45F02E04D08FAC551B46171531CA067B6E85BC342F43C8\",\"scrypt_params\":{\"n\":16384,\"p\":1,\"r\":8,\"salt\":\"82D37133C13525EDE4EF19DCD692592FC1685B5EDAABA8C943EA2C1AD4596FB3\"},\"version\":2}";
-                String privateKey = KeyStore.decipherKeyStore(password, JsonUtils.toJavaObject(keyStoreStr,KeyStoreEty.class));
-                System.out.println(privateKey);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+~~~java
+public class TestCrypto {
+    public static void main(String argv[]) {
+        String encPrivateKey = "priSPKqru2zMzeb14XWxPNM1sassFeqyyUZotCAYcvCjhNof7t";
+        String password = "bif8888";
+        TestKeyStoreWithPrivateKey(encPrivateKey, password);
 
     }
-    ```
+
+    public static void TestKeyStoreWithPrivateKey(String encPrivateKey, String password) {
+        try {
+            int n = (int) Math.pow(2, 16);
+            //生成keystore-1
+            KeyStoreEty returEencPrivateKey = KeyStore.generateKeyStore(password,encPrivateKey, 2, 1, 1, n);
+            System.out.println(JsonUtils.toJSONString(returEencPrivateKey));
+
+            //生成keystore-2
+            KeyStoreEty keyStore1 = KeyStore.generateKeyStore(password, encPrivateKey, n);
+            System.out.println(JsonUtils.toJSONString(keyStore1));
+
+            //从keystore反解出私钥
+            String keyStoreStr="{\"address\":\"did:bid:efEScJgGPf54vfU8ciEjjugkJLB4xYzp\",\"aesctr_iv\":\"EEDDD37CEB6864030124142CEB081BCD\",\"cypher_text\":\"7274705F65388E30338A2D69AE2241DBABCF66550C0453BEE30CFA45F02E04D08FAC551B46171531CA067B6E85BC342F43C8\",\"scrypt_params\":{\"n\":16384,\"p\":1,\"r\":8,\"salt\":\"82D37133C13525EDE4EF19DCD692592FC1685B5EDAABA8C943EA2C1AD4596FB3\"},\"version\":2}";
+            String privateKey = KeyStore.decipherKeyStore(password, JsonUtils.toJavaObject(keyStoreStr,KeyStoreEty.class));
+            System.out.println(privateKey);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+```
+~~~
 
 ## SDK 在线API
 
@@ -106,11 +109,107 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
 
 1. 示例
 
-    ```
+    ```java
     import cn.bif.api.BIFSDK;
 
     BIFSDK sdk = BIFSDK.getInstance(SDK_INSTANCE_URL);   //SDK_INSTANCE_URL为星火链RPC地址
     ```
+
+### 广播交易
+
+广播交易是指通过广播的方式发起交易。广播交易包括以下步骤：
+
+1. [获取账户nonce值](#获取账户nonce值)
+
+1. [构建操作](#构建操作)
+
+1. [序列化交易](#序列化交易)
+
+1. [签名交易](#签名交易)
+
+1. [提交交易](#提交交易)
+
+   #### 获取账户nonce值
+
+   开发者可自己维护各个账户`nonce`，在提交完一个交易后，自动为`nonce`值递增1，这样可以在短时间内发送多笔交易，否则，必须等上一个交易执行完成后，账户的`nonce`值才会加1。调用如下：
+
+   ```java
+   // 初始化请求参数
+   String senderAddress = "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2";
+   BIFAccountGetNonceRequest request = new BIFAccountGetNonceRequest();
+   request.setAddress(senderAddress);
+   // 调用getNonce接口
+   BIFAccountGetNonceResponse response = sdk.getBIFAccountService().getNonce(request);
+   if (0 == response.getErrorCode()) {
+       System.out.println("Account nonce:" + response.getResult().getNonce());
+   }else {
+       System.out.println(JsonUtils.toJSONString(response));
+   }
+   ```
+
+   #### 构建操作
+
+   这里的操作是指在交易中做的一些动作，便于序列化交易和评估费用。例如，构建创建账号操作(BIFAccountActivateOperation)，接口调用如下：
+
+   ```java
+   String senderAddress = "adxSa4oENoQCc66JRouZu1rKu4RWjgS69YD4S";
+   String destAddress = "adxSgTxU1awVzNUeR8xcnd3K75XKU8ziNHcWW";
+   
+   BIFAccountActivateOperation operation = new BIFAccountActivateOperation();
+   operation.setDestAddress(destAddress);
+   operation.setInitBalance(initBalance);
+   ```
+
+   #### 序列化交易
+
+   该接口用于序列化交易，并生成交易Blob串，便于网络传输。其中nonce和operation是上面接口得到的。调用如下：
+
+   ```java
+   // 初始化变量
+   String senderAddress = "adxSa4oENoQCc66JRouZu1rKu4RWjgS69YD4S";
+   Long gasPrice = 1000L;
+   Long feeLimit = ToBaseUnit.ToUGas("0.01");
+   
+   // 初始化请求参数
+   BIFTransactionSerializeRequest serializeRequest = new BIFTransactionSerializeRequest();
+      serializeRequest.setSourceAddress(senderAddress);
+      serializeRequest.setNonce(nonce + 1);
+      serializeRequest.setFeeLimit(feeLimit);
+      serializeRequest.setGasPrice(gasPrice);
+      serializeRequest.setOperation(operation);
+   // 调用buildBlob接口
+    BIFTransactionSerializeResponse serializeResponse = BIFSerializable(serializeRequest);
+           if (!serializeResponse.getErrorCode().equals(Constant.SUCCESS)) {
+               throw new SDKException(serializeResponse.getErrorCode(), serializeResponse.getErrorDesc());
+           }
+    String transactionBlob = serializeResponse.getResult().getTransactionBlob();
+   ```
+
+   #### 签名交易
+
+   该接口用于交易发起者使用其账户私钥对交易进行签名。其中transactionBlob是上面接口得到的。调用如下：
+
+   ```java
+   // 初始化请求参数
+   String senderPrivateKey = "privbwAQyE2vWwzt9NuC8vecqpZm7DS8kfiMPsKPcrTatUkmkxkVhfaf";
+   // 三、签名
+    byte[] signBytes = PrivateKeyManager.sign(HexFormat.hexToByte(transactionBlob), senderPrivateKey);
+   ```
+
+   #### 提交交易
+
+   该接口用于向BIF-Core区块链发送交易请求，触发交易的执行。其中transactionBlob和signBytes是上面接口得到的。调用如下：
+
+   ```java
+   BIFTransactionSubmitRequest submitRequest = new BIFTransactionSubmitRequest();
+     submitRequest.setSerialization(transactionBlob);
+     submitRequest.setPublicKey(publicKey);
+     submitRequest.setSignData(HexFormat.byteToHex(signBytes));
+           // 调用bifSubmit接口
+     BIFTransactionSubmitResponse transactionSubmitResponse = BIFSubmit(submitRequest);
+   ```
+
+   
 
 ### 账户处理接口
 
@@ -168,7 +267,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
 
     1. 示例:
 
-        ```
+        ```java
         String accountAddress = "did:bid:efzE8AcDgWUeNbgujA5hK3oUeuG9k19b";
         BIFAccountGetBalanceRequest request = new BIFAccountGetBalanceRequest();
         request.setAddress(accountAddress);
