@@ -131,41 +131,39 @@ public class TestCrypto {
 
    #### 获取账户nonce值
 
-   开发者可自己维护各个账户`nonce`，在提交完一个交易后，自动为`nonce`值递增1，这样可以在短时间内发送多笔交易，否则，必须等上一个交易执行完成后，账户的`nonce`值才会加1。
+   开发者可自己维护各个账户`nonce`，在提交完一个交易后，自动为`nonce`值递增1，这样可以在短时间内发送多笔交易，否则，必须等上一个交易执行完成后，账户的`nonce`值才会加1。调用如下：
 
-   调用如下：
-   
    ```java
    // 初始化请求参数
-   String senderAddress="did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2";
-   Long nonce=0L;
+   String senderAddress = "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2";
    BIFAccountGetNonceRequest request = new BIFAccountGetNonceRequest();
    request.setAddress(senderAddress);
    // 调用getNonce接口
    BIFAccountGetNonceResponse response = sdk.getBIFAccountService().getNonce(request);
    if (0 == response.getErrorCode()) {
-      	  nonce=response.getResult().getNonce();
-      }
-}
+       System.out.println("Account nonce:" + response.getResult().getNonce());
+   }else {
+       System.out.println(JsonUtils.toJSONString(response));
+   }
    ```
 
    #### 构建操作
 
    这里的操作是指在交易中做的一些动作，便于序列化交易和评估费用。例如，构建创建账号操作(BIFAccountActivateOperation)，接口调用如下：
-   
+
    ```java
    String senderAddress = "adxSa4oENoQCc66JRouZu1rKu4RWjgS69YD4S";
    String destAddress = "adxSgTxU1awVzNUeR8xcnd3K75XKU8ziNHcWW";
    
    BIFAccountActivateOperation operation = new BIFAccountActivateOperation();
    operation.setDestAddress(destAddress);
-operation.setInitBalance(initBalance);
+   operation.setInitBalance(initBalance);
    ```
 
    #### 序列化交易
 
    该接口用于序列化交易，并生成交易Blob串，便于网络传输。其中nonce和operation是上面接口得到的。调用如下：
-   
+
    ```java
    // 初始化变量
    String senderAddress = "adxSa4oENoQCc66JRouZu1rKu4RWjgS69YD4S";
@@ -175,7 +173,7 @@ operation.setInitBalance(initBalance);
    // 初始化请求参数
    BIFTransactionSerializeRequest serializeRequest = new BIFTransactionSerializeRequest();
       serializeRequest.setSourceAddress(senderAddress);
-      serializeRequest.setNonce(nonce+1);
+      serializeRequest.setNonce(nonce + 1);
       serializeRequest.setFeeLimit(feeLimit);
       serializeRequest.setGasPrice(gasPrice);
       serializeRequest.setOperation(operation);
@@ -184,36 +182,33 @@ operation.setInitBalance(initBalance);
            if (!serializeResponse.getErrorCode().equals(Constant.SUCCESS)) {
                throw new SDKException(serializeResponse.getErrorCode(), serializeResponse.getErrorDesc());
            }
- String transactionBlob = serializeResponse.getResult().getTransactionBlob();
+    String transactionBlob = serializeResponse.getResult().getTransactionBlob();
    ```
 
    #### 签名交易
 
    该接口用于交易发起者使用其账户私钥对交易进行签名。其中transactionBlob是上面接口得到的。调用如下：
-   
+
    ```java
    // 初始化请求参数
    String senderPrivateKey = "privbwAQyE2vWwzt9NuC8vecqpZm7DS8kfiMPsKPcrTatUkmkxkVhfaf";
    // 三、签名
- byte[] signBytes = PrivateKeyManager.sign(HexFormat.hexToByte(transactionBlob), senderPrivateKey);
+    byte[] signBytes = PrivateKeyManager.sign(HexFormat.hexToByte(transactionBlob), senderPrivateKey);
    ```
 
    #### 提交交易
 
    该接口用于向BIF-Core区块链发送交易请求，触发交易的执行。其中transactionBlob和signBytes是上面接口得到的。调用如下：
-   
+
    ```java
    BIFTransactionSubmitRequest submitRequest = new BIFTransactionSubmitRequest();
      submitRequest.setSerialization(transactionBlob);
      submitRequest.setPublicKey(publicKey);
      submitRequest.setSignData(HexFormat.byteToHex(signBytes));
            // 调用bifSubmit接口
-  BIFTransactionSubmitResponse transactionSubmitResponse = BIFSubmit(submitRequest);
-   if (response.getErrorCode() == 0) {
-       System.out.println(JsonUtils.toJSONString(transactionSubmitResponse.getResult()));
-   }
+     BIFTransactionSubmitResponse transactionSubmitResponse = BIFSubmit(submitRequest);
    ```
-   
+
    
 
 ### 账户处理接口
