@@ -19,6 +19,7 @@
    app/brief
    app/quick_start
    app/develop_basics
+   app/advanced
    app/javascript
    app/solidity
    app/reference
