@@ -65,41 +65,37 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
 
     import java.util.HashMap;
     import java.util.Map;
-    ```
-
-
-~~~java
-public class TestCrypto {
-    public static void main(String argv[]) {
-        String encPrivateKey = "priSPKqru2zMzeb14XWxPNM1sassFeqyyUZotCAYcvCjhNof7t";
-        String password = "bif8888";
-        TestKeyStoreWithPrivateKey(encPrivateKey, password);
-
-    }
-
-    public static void TestKeyStoreWithPrivateKey(String encPrivateKey, String password) {
-        try {
-            int n = (int) Math.pow(2, 16);
-            //生成keystore-1
-            KeyStoreEty returEencPrivateKey = KeyStore.generateKeyStore(password,encPrivateKey, 2, 1, 1, n);
-            System.out.println(JsonUtils.toJSONString(returEencPrivateKey));
-
-            //生成keystore-2
-            KeyStoreEty keyStore1 = KeyStore.generateKeyStore(password, encPrivateKey, n);
-            System.out.println(JsonUtils.toJSONString(keyStore1));
-
-            //从keystore反解出私钥
-            String keyStoreStr="{\"address\":\"did:bid:efEScJgGPf54vfU8ciEjjugkJLB4xYzp\",\"aesctr_iv\":\"EEDDD37CEB6864030124142CEB081BCD\",\"cypher_text\":\"7274705F65388E30338A2D69AE2241DBABCF66550C0453BEE30CFA45F02E04D08FAC551B46171531CA067B6E85BC342F43C8\",\"scrypt_params\":{\"n\":16384,\"p\":1,\"r\":8,\"salt\":\"82D37133C13525EDE4EF19DCD692592FC1685B5EDAABA8C943EA2C1AD4596FB3\"},\"version\":2}";
-            String privateKey = KeyStore.decipherKeyStore(password, JsonUtils.toJavaObject(keyStoreStr,KeyStoreEty.class));
-            System.out.println(privateKey);
-        } catch (Exception e) {
-            e.printStackTrace();
+    
+    public class TestCrypto {
+        public static void main(String argv[]) {
+            String encPrivateKey = "priSPKqru2zMzeb14XWxPNM1sassFeqyyUZotCAYcvCjhNof7t";
+            String password = "bif8888";
+            TestKeyStoreWithPrivateKey(encPrivateKey, password);
+    
         }
+    
+        public static void TestKeyStoreWithPrivateKey(String encPrivateKey, String password) {
+            try {
+                int n = (int) Math.pow(2, 16);
+                //生成keystore-1
+                KeyStoreEty returEencPrivateKey = KeyStore.generateKeyStore(password,encPrivateKey, 2, 1, 1, n);
+                System.out.println(JsonUtils.toJSONString(returEencPrivateKey));
+    
+                //生成keystore-2
+                KeyStoreEty keyStore1 = KeyStore.generateKeyStore(password, encPrivateKey, n);
+                System.out.println(JsonUtils.toJSONString(keyStore1));
+    
+                //从keystore反解出私钥
+                String keyStoreStr="{\"address\":\"did:bid:efEScJgGPf54vfU8ciEjjugkJLB4xYzp\",\"aesctr_iv\":\"EEDDD37CEB6864030124142CEB081BCD\",\"cypher_text\":\"7274705F65388E30338A2D69AE2241DBABCF66550C0453BEE30CFA45F02E04D08FAC551B46171531CA067B6E85BC342F43C8\",\"scrypt_params\":{\"n\":16384,\"p\":1,\"r\":8,\"salt\":\"82D37133C13525EDE4EF19DCD692592FC1685B5EDAABA8C943EA2C1AD4596FB3\"},\"version\":2}";
+                String privateKey = KeyStore.decipherKeyStore(password, JsonUtils.toJavaObject(keyStoreStr,KeyStoreEty.class));
+                System.out.println(privateKey);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    
     }
-
-}
-```
-~~~
+    ```
 
 ## SDK 在线API
 
