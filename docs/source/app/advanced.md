@@ -8,109 +8,175 @@
 
 <img src="../_static/images/image-20220613173444612.png" alt="image-20220613173444612" style="zoom:80%;" />
 
-## 广播交易
+# 分布式锁之Redisson
 
-广播交易是指通过广播的方式发起交易。广播交易包括以下步骤：
+使用Redisson框架实现分布式锁。
 
-1. [获取账户nonce值](#获取账户nonce值)
-1. [构建操作](#构建操作)
-1. [序列化交易](#序列化交易)
-1. [签名交易](#签名交易)
-1. [提交交易](#提交交易)
-
-#### 获取账户nonce值
-
-开发者可自己维护各个账户`nonce`，在提交完一个交易后，自动为`nonce`值递增1，这样可以在短时间内发送多笔交易，否则，必须等上一个交易执行完成后，账户的`nonce`值才会加1。
-
-调用如下：
+#### 1.加入jar包依赖
 
 ```java
-// 初始化请求参数
-String senderAddress="did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2";
-Long nonce=0L;
-BIFAccountGetNonceRequest request = new BIFAccountGetNonceRequest();
-request.setAddress(senderAddress);
-HashOperations<String, String, String> redisHash = redis.opsForHash();
-   Boolean isExist=redishash.hasKey(senderAddress,"nonce");
- if(isExist){
-    nonce=Long.parseLong(redisHash.get(senderAddress,"nonce"));
- }else{
-    // 调用getNonce接口
-   BIFAccountGetNonceResponse response = sdk.getBIFAccountService().getNonce(request);
-	if (0 == response.getErrorCode()) {
-   	    nonce=response.getResult().getNonce()+1;
-        redisHash.put(senderAddress,"nonce",Long.toString(nonce));
-	}
+<dependency>
+   <groupId>org.redisson</groupId>
+   <artifactId>redisson</artifactId>
+   <version>3.11.0</version>
+</dependency>
+```
+
+#### 2.配置Redisson
+
+```java
+public class RedissonManager {
+    private static Config config = new Config();
+    //声明redisso对象
+    private static Redisson redisson = null;
+   //实例化redisson
+ static{
+     config.useSingleServer().setAddress("redis://127.0.0.1:6379");
+          //得到redisson对象
+        redisson = (Redisson) Redisson.create(config);
+
+}
+
+ //获取redisson对象的方法
+    public static Redisson getRedisson(){
+        return redisson;
+    }
 }
 ```
 
-#### 构建操作
-
-这里的操作是指在交易中做的一些动作，便于序列化交易和评估费用。例如，构建创建账号操作(BIFAccountActivateOperation)，接口调用如下：
+#### 3.锁的获取和释放
 
 ```java
-String senderAddress = "adxSa4oENoQCc66JRouZu1rKu4RWjgS69YD4S";
-String destAddress = "adxSgTxU1awVzNUeR8xcnd3K75XKU8ziNHcWW";
-
-BIFAccountActivateOperation operation = new BIFAccountActivateOperation();
-operation.setDestAddress(destAddress);
-operation.setInitBalance(initBalance);
+public class RedissonLock {
+    //从配置类中获取redisson对象
+    private static Redisson redisson = RedissonManager.getRedisson();
+    private static final String LOCK_TITLE = "redisLock_";
+    //加锁
+    public static boolean acquire(String lockName){
+        //声明key对象
+        String key = LOCK_TITLE + lockName;
+        //获取锁对象
+        RLock mylock = redisson.getLock(key);
+        //加锁，并且设置锁过期时间，防止死锁的产生
+        mylock.lock(2, TimeUnit.MINUTES);
+        System.err.println("======lock======"+Thread.currentThread().getName());
+        //加锁成功
+        return  true;
+    }
+    //锁的释放
+    public static void release(String lockName){
+        //必须是和加锁时的同一个key
+        String key = LOCK_TITLE + lockName;
+        //获取所对象
+        RLock mylock = redisson.getLock(key);
+        //释放锁（解锁）
+        mylock.unlock();
+        System.err.println("======unlock======"+Thread.currentThread().getName());
+    }
+}
 ```
 
-#### 序列化交易
-
-该接口用于序列化交易，并生成交易Blob串，便于网络传输。其中nonce和operation是上面接口得到的。调用如下：
+#### 4.模拟获取分布式锁
 
 ```java
-// 初始化变量
-String senderAddress = "adxSa4oENoQCc66JRouZu1rKu4RWjgS69YD4S";
-Long gasPrice = 1000L;
-Long feeLimit = ToBaseUnit.ToUGas("0.01");
+/**
+ * 获取分布式锁
+ */
+public class TransactionDemo {
+    private static BIFSDK sdk = BIFSDK.getInstance(SampleConstant.SDK_INSTANCE_URL);
+    private static Redisson redisson = RedissonManager.getRedisson();
 
-// 初始化请求参数
-BIFTransactionSerializeRequest serializeRequest = new BIFTransactionSerializeRequest();
-   serializeRequest.setSourceAddress(senderAddress);
-   serializeRequest.setNonce(nonce);
-   serializeRequest.setFeeLimit(feeLimit);
-   serializeRequest.setGasPrice(gasPrice);
-   serializeRequest.setOperation(operation);
-// 调用buildBlob接口
- BIFTransactionSerializeResponse serializeResponse = BIFSerializable(serializeRequest);
-        if (!serializeResponse.getErrorCode().equals(Constant.SUCCESS)) {
-            throw new SDKException(serializeResponse.getErrorCode(), serializeResponse.getErrorDesc());
+    public static void main(String[] args) {
+        int N = 4;
+        String senderAddress="did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2";
+        String senderPrivateKey="priSPKkWVk418PKAS66q4bsiE2c4dKuSSafZvNWyGGp2sJVtXL";
+        String destAddress="did:bid:efXkBsC2nQN6PJLjT9nv3Ah7S3zJt2WW";
+        Long feeLimit=1000000L;
+        Long gasPrice=100L;
+        BIFGasSendOperation gasSendOperation= new BIFGasSendOperation();
+        gasSendOperation.setAmount(1L);
+        gasSendOperation.setDestAddress(destAddress);
+        for(int i=0;i<N;i++){
+            new transaction(senderAddress,senderPrivateKey,feeLimit,gasPrice,0,gasSendOperation).start();
         }
- String transactionBlob = serializeResponse.getResult().getTransactionBlob();
-```
+        System.out.println("END");
+    }
 
-#### 签名交易
+    static class transaction extends Thread{
+        String senderAddress;
+        String senderPrivateKey;
+        Long feeLimit;
+        Long gasPrice;
+        BIFBaseOperation operation;
+        Integer domainId;
+        public transaction(String senderAddress, String senderPrivateKey,Long feeLimit,Long gasPrice,Integer domainId,BIFBaseOperation operation ) {
+            this.senderAddress = senderAddress;
+            this.senderPrivateKey = senderPrivateKey;
+            this.feeLimit = feeLimit;
+            this.gasPrice = gasPrice;
+            this.domainId = domainId;
+            this.operation = operation;
+        }
 
-该接口用于交易发起者使用其账户私钥对交易进行签名。其中transactionBlob是上面接口得到的。调用如下：
-
-```java
-// 初始化请求参数
-String senderPrivateKey = "privbwAQyE2vWwzt9NuC8vecqpZm7DS8kfiMPsKPcrTatUkmkxkVhfaf";
-// 三、签名
- byte[] signBytes = PrivateKeyManager.sign(HexFormat.hexToByte(transactionBlob), senderPrivateKey);
-```
-
-#### 提交交易
-
-该接口用于向BIF-Core区块链发送交易请求，触发交易的执行。其中transactionBlob和signBytes是上面接口得到的。调用如下：
-
-```java
-BIFTransactionSubmitRequest submitRequest = new BIFTransactionSubmitRequest();
-  submitRequest.setSerialization(transactionBlob);
-  submitRequest.setPublicKey(publicKey);
-  submitRequest.setSignData(HexFormat.byteToHex(signBytes));
-        // 调用bifSubmit接口
-  BIFTransactionSubmitResponse transactionSubmitResponse = BIFSubmit(submitRequest);
-if (response.getErrorCode() == 0) {
-    //更新nonce值
-    nonce=nonce+1;
-    redisHash.put(senderAddress,"nonce",Long.toString(nonce));
+        @Override
+        public void run() {
+            //加锁
+            RedissonLock.acquire(senderAddress);
+            System.out.println("线程"+ Thread.currentThread().getName() +"获得分布式锁");
+            try {
+                //获取账号nonce值
+                Long nonce=0L;
+                BIFAccountGetNonceRequest request = new BIFAccountGetNonceRequest();
+                request.setAddress(senderAddress);
+                RMap<Object, Object> redisHash = redisson.getMap(senderAddress);
+                if(!redisHash.isEmpty()){
+                    nonce=Long.parseLong(redisHash.get("nonce").toString());
+                }else{
+                     // 调用getNonce接口
+                    BIFAccountGetNonceResponse response = sdk.getBIFAccountService().getNonce(request);
+                    if (0 == response.getErrorCode()) {
+                        nonce=response.getResult().getNonce()+1;
+                    }
+                }
+                //序列化交易
+                BIFTransactionSerializeRequest serializeRequest = new BIFTransactionSerializeRequest();
+                serializeRequest.setSourceAddress(senderAddress);
+                serializeRequest.setNonce(nonce);
+                serializeRequest.setFeeLimit(feeLimit);
+                serializeRequest.setGasPrice(gasPrice);
+                serializeRequest.setOperation(operation);
+                serializeRequest.setDomainId(domainId);
+                // 调用buildBlob接口
+                BIFTransactionSerializeResponse serializeResponse = sdk.getBIFTransactionService().BIFSerializable(serializeRequest);
+                System.out.println("serializeResponse:"+ JsonUtils.toJSONString(serializeResponse.getResult()));
+                if (!serializeResponse.getErrorCode().equals(Constant.SUCCESS)) {
+                    throw new SDKException(serializeResponse.getErrorCode(), serializeResponse.getErrorDesc());
+                }
+                String transactionBlob = serializeResponse.getResult().getTransactionBlob();
+                System.out.println("transactionBlob:"+transactionBlob);
+                //签名交易
+                byte[] signBytes = PrivateKeyManager.sign(HexFormat.hexToByte(transactionBlob), senderPrivateKey);
+                String publicKey = PrivateKeyManager.getEncPublicKey(senderPrivateKey);
+                //提交交易
+                BIFTransactionSubmitRequest submitRequest = new BIFTransactionSubmitRequest();
+                submitRequest.setSerialization(transactionBlob);
+                submitRequest.setPublicKey(publicKey);
+                submitRequest.setSignData(HexFormat.byteToHex(signBytes));
+                // 调用bifSubmit接口
+                BIFTransactionSubmitResponse transactionSubmitResponse = sdk.getBIFTransactionService().BIFSubmit(submitRequest);
+                if (transactionSubmitResponse.getErrorCode() == 0) {
+                    //更新nonce值
+                    nonce=nonce+1;
+                    redisHash.put("nonce",Long.toString(nonce));
+                    RedissonLock.release(senderAddress);
+                    System.out.println("线程"+Thread.currentThread().getName()+"释放分布式锁");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 ```
-
-
 
 ### 

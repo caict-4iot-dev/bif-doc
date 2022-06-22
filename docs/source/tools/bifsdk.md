@@ -173,38 +173,41 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
       serializeRequest.setFeeLimit(feeLimit);
       serializeRequest.setGasPrice(gasPrice);
       serializeRequest.setOperation(operation);
+      serializeRequest.setDomainId(0);
    // 调用buildBlob接口
     BIFTransactionSerializeResponse serializeResponse = BIFSerializable(serializeRequest);
            if (!serializeResponse.getErrorCode().equals(Constant.SUCCESS)) {
                throw new SDKException(serializeResponse.getErrorCode(), serializeResponse.getErrorDesc());
            }
     String transactionBlob = serializeResponse.getResult().getTransactionBlob();
+
    ```
 
    #### 签名交易
 
    该接口用于交易发起者使用其账户私钥对交易进行签名。其中transactionBlob是上面接口得到的。调用如下：
-
+   
    ```java
    // 初始化请求参数
-   String senderPrivateKey = "privbwAQyE2vWwzt9NuC8vecqpZm7DS8kfiMPsKPcrTatUkmkxkVhfaf";
-   // 三、签名
-    byte[] signBytes = PrivateKeyManager.sign(HexFormat.hexToByte(transactionBlob), senderPrivateKey);
+    String senderPrivateKey = "privbwAQyE2vWwzt9NuC8vecqpZm7DS8kfiMPsKPcrTatUkmkxkVhfaf";
+    byte[] signBytes = PrivateKeyManager.sign(HexFormat.hexToByte(transactionBlob), senderPrivateKey); 
+
    ```
 
    #### 提交交易
 
    该接口用于向BIF-Core区块链发送交易请求，触发交易的执行。其中transactionBlob和signBytes是上面接口得到的。调用如下：
-
+   
    ```java
+   String publicKey = PrivateKeyManager.getEncPublicKey(senderPrivateKey);
    BIFTransactionSubmitRequest submitRequest = new BIFTransactionSubmitRequest();
      submitRequest.setSerialization(transactionBlob);
      submitRequest.setPublicKey(publicKey);
      submitRequest.setSignData(HexFormat.byteToHex(signBytes));
-           // 调用bifSubmit接口
+        // 调用bifSubmit接口
      BIFTransactionSubmitResponse transactionSubmitResponse = BIFSubmit(submitRequest);
    ```
-
+   
    
 
 ### 账户处理接口
