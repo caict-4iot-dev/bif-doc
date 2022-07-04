@@ -2,17 +2,19 @@
 
 星火链网底层区块链平台（下文简称星火链)作为“许可””公有“链，拥有一部分的公有属性，使用星火令（类似于以太坊的gas）作为智能合约执行的消耗，同时不同账户之间可以通过交易相互转移星火令，星火链的账户模型设计了连续递增的nonce值的方式来防止出现重放攻击。
 
-同一账户的发送的交易需要保证nonce值的连续递增，否则交易会因为nonce值太小或者太大导致失败。我们推荐用户对同一账户的nonce值在本地全局维护，这样可以保证上链交易的成功率和性能。
+同一账户的发送的交易需要保证nonce值的连续递增，否则交易会因为nonce值太小或者太大导致失败。我们推荐用户建立账号池，随机使用某一未被加锁账号进行交易，交易完成时释放该账号锁，这样可以保证上链交易的成功率和性能。
 
 ## 具体方案
 
-<img src="../_static/images/image-20220613173444612.png" alt="image-20220613173444612" style="zoom:80%;" />
+<img src="../_static/images/image-20220704175507796.png" alt="image-20220704175507796.png" style="zoom:80%;" />
 
-# 分布式锁之Redisson
+
+
+## 分布式锁之Redisson
 
 使用Redisson框架实现分布式锁。
 
-#### 1.加入jar包依赖
+### 1.加入jar包依赖
 
 ```java
 <dependency>
@@ -22,7 +24,7 @@
 </dependency>
 ```
 
-#### 2.配置Redisson
+### 2.配置Redisson
 
 ```java
 public class RedissonManager {
@@ -44,7 +46,7 @@ public class RedissonManager {
 }
 ```
 
-#### 3.锁的获取和释放
+### 3.锁的获取和释放
 
 ```java
 public class RedissonLock {
@@ -76,9 +78,10 @@ public class RedissonLock {
 }
 ```
 
-#### 4.模拟获取分布式锁
+### 4.模拟获取分布式锁
 
 ```java
+
 /**
  * 获取分布式锁
  */
@@ -88,30 +91,46 @@ public class TransactionDemo {
 
     public static void main(String[] args) {
         int N = 4;
+        //参数
         String senderAddress="did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2";
         String senderPrivateKey="priSPKkWVk418PKAS66q4bsiE2c4dKuSSafZvNWyGGp2sJVtXL";
+
+        String senderAddress1="did:bid:efLrPu7LNR4YwA5M1Kfx6BYb1JP7aPKp";
+        String senderPrivateKey1="priSPKteVqGoNgtKE68ZjNHAbGJsNvV9nTBkTLMYTGhVjsBY5R";
+
+        String senderAddress2="did:bid:efBdagu8sVkJWEw5kLt1w69bxa85Kuag";
+        String senderPrivateKey2="priSPKmCQMrjCcRgV3u2VsYhujf7QsG7Kr6Tgm94AbzCge46d8";
+        //账号集合
+        List<String> availableAccAddr = new ArrayList<String>();
+        availableAccAddr.add(senderAddress+";"+senderPrivateKey);
+        availableAccAddr.add(senderAddress1+";"+senderPrivateKey1);
+        availableAccAddr.add(senderAddress2+";"+senderPrivateKey2);
+        //目的地址
         String destAddress="did:bid:efXkBsC2nQN6PJLjT9nv3Ah7S3zJt2WW";
         Long feeLimit=1000000L;
         Long gasPrice=100L;
+        //交易对象
         BIFGasSendOperation gasSendOperation= new BIFGasSendOperation();
         gasSendOperation.setAmount(1L);
         gasSendOperation.setDestAddress(destAddress);
         for(int i=0;i<N;i++){
-            new transaction(senderAddress,senderPrivateKey,feeLimit,gasPrice,0,gasSendOperation).start();
+            new transaction(availableAccAddr,feeLimit,gasPrice,0,gasSendOperation).start();
+        }
+
+        for(int i=0;i<N;i++){
+            new transaction(availableAccAddr,feeLimit,gasPrice,0,gasSendOperation).start();
         }
         System.out.println("END");
     }
 
     static class transaction extends Thread{
-        String senderAddress;
-        String senderPrivateKey;
+        List<String> availableAccAddr;
         Long feeLimit;
         Long gasPrice;
         BIFBaseOperation operation;
         Integer domainId;
-        public transaction(String senderAddress, String senderPrivateKey,Long feeLimit,Long gasPrice,Integer domainId,BIFBaseOperation operation ) {
-            this.senderAddress = senderAddress;
-            this.senderPrivateKey = senderPrivateKey;
+        public transaction(List<String> availableAccAddr,Long feeLimit,Long gasPrice,Integer domainId,BIFBaseOperation operation ) {
+            this.availableAccAddr = availableAccAddr;
             this.feeLimit = feeLimit;
             this.gasPrice = gasPrice;
             this.domainId = domainId;
@@ -120,9 +139,13 @@ public class TransactionDemo {
 
         @Override
         public void run() {
+            //随机获取交易账号
+            int index = new Random().nextInt(availableAccAddr.size());
+            String senderAddress=availableAccAddr.get(index).split(";")[0];
+            String senderPrivateKey=availableAccAddr.get(index).split(";")[1];
             //加锁
             RedissonLock.acquire(senderAddress);
-            System.out.println("线程"+ Thread.currentThread().getName() +"获得分布式锁");
+            System.out.println("线程"+ Thread.currentThread().getName() +"获得分布式锁:"+senderAddress);
             try {
                 //获取账号nonce值
                 Long nonce=0L;
@@ -132,7 +155,7 @@ public class TransactionDemo {
                 if(!redisHash.isEmpty()){
                     nonce=Long.parseLong(redisHash.get("nonce").toString());
                 }else{
-                     // 调用getNonce接口
+//                    // 调用getNonce接口
                     BIFAccountGetNonceResponse response = sdk.getBIFAccountService().getNonce(request);
                     if (0 == response.getErrorCode()) {
                         nonce=response.getResult().getNonce()+1;
@@ -165,6 +188,7 @@ public class TransactionDemo {
                 // 调用bifSubmit接口
                 BIFTransactionSubmitResponse transactionSubmitResponse = sdk.getBIFTransactionService().BIFSubmit(submitRequest);
                 if (transactionSubmitResponse.getErrorCode() == 0) {
+                    System.out.println(senderAddress+ " ,hash: "+transactionSubmitResponse.getResult().getHash());
                     //更新nonce值
                     nonce=nonce+1;
                     redisHash.put("nonce",Long.toString(nonce));
