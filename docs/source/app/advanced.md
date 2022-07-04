@@ -114,11 +114,11 @@ public class TransactionDemo {
         gasSendOperation.setAmount(1L);
         gasSendOperation.setDestAddress(destAddress);
         for(int i=0;i<N;i++){
-            new transaction(availableAccAddr,feeLimit,gasPrice,0,gasSendOperation).start();
+            new transaction(availableAccAddr,feeLimit,gasPrice,gasSendOperation).start();
         }
 
         for(int i=0;i<N;i++){
-            new transaction(availableAccAddr,feeLimit,gasPrice,0,gasSendOperation).start();
+            new transaction(availableAccAddr,feeLimit,gasPrice,gasSendOperation).start();
         }
         System.out.println("END");
     }
@@ -128,12 +128,10 @@ public class TransactionDemo {
         Long feeLimit;
         Long gasPrice;
         BIFBaseOperation operation;
-        Integer domainId;
-        public transaction(List<String> availableAccAddr,Long feeLimit,Long gasPrice,Integer domainId,BIFBaseOperation operation ) {
+        public transaction(List<String> availableAccAddr,Long feeLimit,Long gasPrice,BIFBaseOperation operation ) {
             this.availableAccAddr = availableAccAddr;
             this.feeLimit = feeLimit;
             this.gasPrice = gasPrice;
-            this.domainId = domainId;
             this.operation = operation;
         }
 
@@ -168,7 +166,7 @@ public class TransactionDemo {
                 serializeRequest.setFeeLimit(feeLimit);
                 serializeRequest.setGasPrice(gasPrice);
                 serializeRequest.setOperation(operation);
-                serializeRequest.setDomainId(domainId);
+     
                 // 调用buildBlob接口
                 BIFTransactionSerializeResponse serializeResponse = sdk.getBIFTransactionService().BIFSerializable(serializeRequest);
                 System.out.println("serializeResponse:"+ JsonUtils.toJSONString(serializeResponse.getResult()));
