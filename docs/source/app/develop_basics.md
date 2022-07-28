@@ -61,10 +61,11 @@
 1. 账户balance - 账户最低reserve_balance > fee_limit
 
 2. 账户balance - 账户最低reserve_balance > gas * gas_price
-    
+   
     注意: 
         
         对于javascript合约, 系统会提前根据交易类型计算需要gas, 如果账户余额不足, 交易提交失败不予入链; 
         
         对于EVM合约, 会实时消耗XHT到余额不足时交易失败, 耗费的fee不会返还;
     
+

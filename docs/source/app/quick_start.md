@@ -2,7 +2,7 @@
 
 以Java SDK为例, 在星火链测试网上部署, 调用, 查询一个Javascript、Solidity智能合约.
 
-## Javascript智能合约.
+## Javascript智能合约
 
 ## SDK下载
 
@@ -436,6 +436,6 @@ cCallReq.setContractAddress(cAddr); // cAddr为 上述生成的 did:bid:efSvDJiv
 
 
 
-## 接下来
+#### 接下来
 
 至此我们就完成了一个链上javascript合约从部署到操作的全过程, 有关合约的更高阶开发和星火链体系模型, 请参见后续专栏.
