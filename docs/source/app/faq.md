@@ -8,7 +8,7 @@
 
 ​    在宿主机上先执行命令：lsof -i:27002，根据查出的PID然后执行kill -9 PID确保端口可映射使用即可继续，如下图所示：
 
-<img src="D:\gitHup\bif-doc\docs\source\_static\images\2022-08-01-16-16-20.png"/>
+<img src="../_static/images/2022-08-01-16-16-20.png"  />
 
 #### 1.1.2 部署节点运行时p2p，共识等公网不通导致同步数据失败
 
@@ -16,7 +16,7 @@ a.进入docker镜像容器中查看服务错误日志
 	vi ./log/bif-err.log
 	看到日志文件中有很多关于p2p的链接失败日志信息如含有Got a network failed event 信息。
 
-<img src="D:\gitHup\bif-doc\docs\source\_static\images\2022-07-29-18-10-04.png"/>
+<img src="../_static/images/2022-07-29-18-10-04.png"  />
 
 b.通过请求http://宿主机ip:27002/getLedger查看部署节点的区块高度是否变化以及和测试网差别是否很大判断节点运行是否正常。
 
@@ -39,7 +39,7 @@ b.通过请求http://宿主机ip:27002/getLedger查看部署节点的区块高�
 
 详细返回值格式以及操作如下图：
 
-<img src="D:\gitHup\bif-doc\docs\source\_static\images\2022-08-01-10-35-47.png"/>
+<img src="../_static/images/2022-08-01-10-35-47.png"  />
 
 综上所述的两点如果区块高度一直不同步并且版本不一致则此时需要进行升级节点版本，根据测试网接口返回的chain_version在宿主机重新执行第一步的拉取命令如docker pull caictdevelop/bif-core:v1.2.1-4重新升级部署即可(最后的:v1.2.1-4就是拼接的上述接口返回的测试网中版本号保持一致即可，所有升级部署如最开始步骤，区别在于此处版本号不同，具体不在赘述)。
 
@@ -52,7 +52,7 @@ b.通过请求http://宿主机ip:27002/getLedger查看部署节点的区块高�
 df -h
 ```
 
-<img src="D:\gitHup\bif-doc\docs\source\_static\images\2022-07-29-18-31-27.png"/>
+<img src="../_static/images/2022-07-29-18-31-27.png"  />
 
 根据上述查看部署节点的区块高度以及测试网高度一直差别很大并且不在同步了或者上述的问题排查后再查看bif进程已不存在了
 
@@ -124,7 +124,7 @@ input参数格式校验，需校验JSON规范。
 
 * 查询示例：
 
-  <img src="D:/gitHup/bif-doc/docs/source/_static/images/image-20220729095900368.png" alt="image-20220729095900368.png" style="zoom:80%;" />
+  <img src="../_static/images/image-20220729095900368.png"  />
 
 ## 5.消息订阅
 
