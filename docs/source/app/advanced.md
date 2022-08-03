@@ -203,4 +203,203 @@ public class TransactionDemo {
 }
 ```
 
-### 
+## 2.账号权限管理
+
+该操作用于设置账户权限。包括签名者权重列表、交易门限、指定类型交易门限。
+
+### 初始化SDK
+
+```java
+import cn.bif.api.BIFSDK;
+
+BIFSDK sdk = BIFSDK.getInstance("http://test.bifcore.bitfactory.cn");   //星火链测试网RPC地址
+```
+
+### 设置账号权限
+
+#### 获取账户nonce值
+
+```java
+// 初始化请求参数
+String senderAddress = "did:bid:ef3LqNzb4ssNf2vqwNwBfqngrA3Sx8yD";
+BIFAccountGetNonceRequest request = new BIFAccountGetNonceRequest();
+request.setAddress(senderAddress);
+
+// 调用getNonce接口
+Long nonce=0L;
+BIFAccountGetNonceResponse response = sdk.getBIFAccountService().getNonce(request);
+if (0 == response.getErrorCode()) {
+    nonce=response.getResult().getNonce();
+    System.out.println("Account nonce:" + response.getResult().getNonce());
+}else {
+    System.out.println(JsonUtils.toJSONString(response));
+}
+```
+
+#### 构建操作
+
+```java
+ BIFSigner[] signers = new BIFSigner[1];
+ BIFSigner s=new BIFSigner();
+ s.setAddress("did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK");
+ s.setWeight(8L);
+ signers[0]=s;
+
+ String txThreshold = "2";
+  BIFTypeThreshold[] typeThresholds = new BIFTypeThreshold[1];
+  BIFTypeThreshold d=new BIFTypeThreshold();
+        d.setThreshold(8L);
+        d.setType(1);
+  typeThresholds[0]=d;
+
+String masterWeight = "";
+
+BIFAccountSetPrivilegeOperation operation = new BIFAccountSetPrivilegeOperation();
+   operation.setSigners(signers);
+   operation.setTxThreshold(txThreshold);
+   operation.setMasterWeight(masterWeight);
+   operation.setTypeThresholds(typeThresholds);
+
+```
+
+#### 序列化交易
+
+```java
+// 初始化变量
+String senderAddress = "did:bid:ef3LqNzb4ssNf2vqwNwBfqngrA3Sx8yD";
+Long gasPrice = 1000L;
+Long feeLimit = ToBaseUnit.ToUGas("0.01");
+
+// 初始化请求参数
+BIFTransactionSerializeRequest serializeRequest = new BIFTransactionSerializeRequest();
+   serializeRequest.setSourceAddress(senderAddress);
+   serializeRequest.setNonce(nonce + 1);
+   serializeRequest.setFeeLimit(feeLimit);
+   serializeRequest.setGasPrice(gasPrice);
+   serializeRequest.setOperation(operation);
+   serializeRequest.setDomainId(0);
+// 调用buildBlob接口
+ BIFTransactionSerializeResponse serializeResponse = sdk.getBIFTransactionService().BIFSerializable(serializeRequest);
+        if (!serializeResponse.getErrorCode().equals(Constant.SUCCESS)) {
+            throw new SDKException(serializeResponse.getErrorCode(), serializeResponse.getErrorDesc());
+        }
+ String transactionBlob = serializeResponse.getResult().getTransactionBlob();
+
+```
+
+#### 签名交易
+
+```java
+// 初始化请求参数
+ String senderPrivateKey = "priSPKp3sPmLcwK8qXS3PGZjFr2xTJk8TmpsZs2W6GfEaA9aDs";
+ byte[] signBytes = PrivateKeyManager.sign(HexFormat.hexToByte(transactionBlob), senderPrivateKey); 
+
+```
+
+#### 提交交易
+
+```java
+String publicKey = PrivateKeyManager.getEncPublicKey(senderPrivateKey);
+BIFTransactionSubmitRequest submitRequest = new BIFTransactionSubmitRequest();
+  submitRequest.setSerialization(transactionBlob);
+  submitRequest.setPublicKey(publicKey);
+  submitRequest.setSignData(HexFormat.byteToHex(signBytes));
+     // 调用bifSubmit接口
+  BIFTransactionSubmitResponse transactionSubmitResponse = sdk.getBIFTransactionService().BIFSubmit(submitRequest);
+//交易hash
+String transactionHash=transactionSubmitResponse.getResult().getHash();
+
+```
+
+### 查询账号权限
+
+```java
+// 初始化请求参数
+String accountAddress = "did:bid:ef3LqNzb4ssNf2vqwNwBfqngrA3Sx8yD";
+BIFAccountPrivRequest request = new BIFAccountPrivRequest();
+request.setAddress(accountAddress);
+
+// 调用getAccountPriv接口
+BIFAccountPrivResponse response = sdk.getBIFAccountService().getAccountPriv(request);
+if (response.getErrorCode() == 0) {
+            System.out.println(JsonUtils.toJSONString(response.getResult()));
+} else {
+            System.out.println(JsonUtils.toJSONString(response));
+}
+```
+
+## 3.合约批量调用
+
+该操作用于转移星火令并触发合约。
+
+### 请求参数
+
+| 参数          | 类型                             | 描述                                                         |
+| ------------- | -------------------------------- | ------------------------------------------------------------ |
+| senderAddress | string                           | 必填，交易源账号，即交易的发起方                             |
+| gasPrice      | Long                             | 选填，打包费用 (单位是PT)默认，默认100L                      |
+| feeLimit      | Long                             | 选填，交易花费的手续费(单位是PT)，默认1000000L               |
+| BIFAmount     | Long                             | 必填，转账金额                                               |
+| privateKey    | String                           | 必填，交易源账户私钥                                         |
+| ceilLedgerSeq | Long                             | 选填，区块高度限制, 如果大于0，则交易只有在该区块高度之前（包括该高度）才有效 |
+| remarks       | String                           | 选填，用户自定义给交易的备注                                 |
+| domainId      | Integer                          | 选填，指定域ID，默认主共识域id(0)                            |
+| operations    | List<BIFContractInvokeOperation> | 必填，合约调用集合                                           |
+
+| BIFContractInvokeOperation |        |                                |
+| -------------------------- | ------ | ------------------------------ |
+| contractAddress            | String | 必填，合约账户地址             |
+| BIFAmount                  | Long   | 必填，转账金额                 |
+| input                      | String | 选填，待触发的合约的main()入参 |
+
+### 响应数据
+
+| 参数 | 类型   | 描述     |
+| ---- | ------ | -------- |
+| hash | string | 交易hash |
+
+### 示例
+
+```java
+		// 初始化参数
+        String senderAddress = "did:bid:ef7zyvBtyg22NC4qDHwehMJxeqw6Mmrh";
+        String contractAddress = "did:bid:eftzENB3YsWymQnvsLyF4T2ENzjgEg41";
+        String senderPrivateKey = "priSPKr2dgZTCNj1mGkDYyhyZbCQhEzjQm7aEAnfVaqGmXsW2x";
+        Long amount = 0L;
+        String destAddress1 = KeyPairEntity.getBidAndKeyPair().getEncAddress();
+        String destAddress2 = KeyPairEntity.getBidAndKeyPair().getEncAddress();
+        String input1 = "{\"method\":\"creation\",\"params\":{\"document\":{\"@context\": [\"https://w3.org/ns/did/v1\"],\"context\": \"https://w3id.org/did/v1\"," +
+                "\"id\": \""+destAddress1+"\", \"version\": \"1\"}}}";
+        String input2 = "{\"method\":\"creation\",\"params\":{\"document\":{\"@context\": [\"https://w3.org/ns/did/v1\"],\"context\": \"https://w3id.org/did/v1\"," +
+                "\"id\": \""+destAddress2+"\", \"version\": \"1\"}}}";
+
+        List<BIFContractInvokeOperation> operations = new ArrayList<BIFContractInvokeOperation>();
+        //操作对象1
+        BIFContractInvokeOperation operation1=new BIFContractInvokeOperation();
+        operation1.setContractAddress(contractAddress);
+        operation1.setBIFAmount(amount);
+        operation1.setInput(input1);
+        //操作对象2
+        BIFContractInvokeOperation operation2=new BIFContractInvokeOperation();
+        operation2.setContractAddress(contractAddress);
+        operation2.setBIFAmount(amount);
+        operation2.setInput(input2);
+
+        operations.add(operation1);
+        operations.add(operation2);
+
+        BIFBatchContractInvokeRequest request = new BIFBatchContractInvokeRequest();
+        request.setSenderAddress(senderAddress);
+        request.setPrivateKey(senderPrivateKey);
+        request.setOperations(operations);
+        request.setRemarks("contract invoke");
+
+        // 调用 bifContractInvoke 接口
+        BIFContractInvokeResponse response = sdk.getBIFContractService().batchContractInvoke(request);
+        if (response.getErrorCode() == 0) {
+            System.out.println(JsonUtils.toJSONString(response.getResult()));
+        } else {
+            System.out.println(JsonUtils.toJSONString(response));
+        }
+```
+

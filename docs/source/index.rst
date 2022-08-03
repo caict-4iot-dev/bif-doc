@@ -13,20 +13,20 @@
 
 .. toctree::
    :maxdepth: 1
-   :caption:  星火·链网应用开发文档:
+   :caption:  星火·链网主链应用开发指南
    :glob:
 
    app/brief
    app/quick_start
-   app/advanced
    app/javascript
    app/solidity
    app/reference
+   app/advanced
    app/faq
 
 .. toctree::
    :maxdepth: 1
-   :caption:  星火·链网业务接入手册:
+   :caption:  星火·链网主链业务接入指南
    :glob:
 
    business/main_node
@@ -38,7 +38,7 @@
 
 .. toctree::
    :maxdepth: 1
-   :caption:  星火·链网工具:
+   :caption:  星火·链网工具
    :titlesonly:
    :glob:
 
@@ -57,7 +57,7 @@
 
 .. toctree::
    :maxdepth: 1
-   :caption:  星火·链网社区:
+   :caption:  星火·链网社区
    :titlesonly:
    :glob:
 

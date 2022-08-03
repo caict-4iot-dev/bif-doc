@@ -1123,20 +1123,58 @@ contract ERC1155 {
 
 // 管理员  
 const FUNDATION = "_fundation";
-// uri
-const URI = "_uri";
 
-// 账户有 几个NFT      ( uint256(代币类型), map(address, uint256))
-const BALANCES = "_balances";
+// 代币名称
+const NAME = "_name";
 
-// 全部 NFT 的授权集合    (address, map(address, bool))
-const OPERATORAPPROVALS = "_operatorApprovals";
+// 代币符号
+const SYMBOL = "_symbol";
+
+// metadata uri
+const TOKENURI = "_tokenUri";
+
+// 账户有 几个NFT      address => uint256
+const BALANCEOF = "_balanceOf";
+
+// NFT 属于哪个账户的    uint256 => address
+var TOKENS = "_tokens";
+
+// 授权集合    uint256 => address
+const ALLOWANCES = "_allowances";
+
+// 全部 NFT 的授权集合    address => mapping(address => bool)
+const ISALLAPPROVED = "_isAllApproved";
+
+// enumeration
+// 所有nft的tokenId 数组     address[]
+const ALLTOKENS = "_allTokens";
+
+// tokenId  => 在所有nft中的 index      address => uint256
+const ALLTOKENSINDEX = "_allTokensIndex";
+
+// tokenId => owner里面的index    address => uint256
+const OWNEDTOKENSINDEX = "_ownedTokensIndex";
+
+// 账户地址  => nft的tokenId 数组     address => address[]
+const OWNEDTOKENS = "_ownedTokens";
 
 const sender_g = Chain.msg.sender;
 const chainCode_g = Chain.chainCode;
 
-function _setURI(newuri) {
-    Chain.store(URI, JSON.stringify(newuri));
+
+function hashCode(str)
+{
+  var hash = 0;
+  if (str.length === 0) {
+     return hash;
+  }
+  var i;
+  var char;
+  for (i = 0; i < str.length; i+=1) {
+    char = str.charCodeAt(i);
+    hash += char;
+  }
+  return hash%100;
 }
 
 /*
@@ -1148,152 +1186,348 @@ function isContractOwner(){
         return true;
     }
     else{
+        Utils.log("onlyFundation can call this method!");
         return false;
     }
 }
 
-function init(input_str) {
+function _setTokenURI(newuri) {
+    Chain.store(TOKENURI, newuri);
+}
+
+function setTokenURI(params) {
+
+    if(isContractOwner() === false){
+        Utils.log('setTokenURI' + Chain.msg.sender);
+        return;
+    }
+
+    var tokenUri = params.tokenUri;
+    _setTokenURI(tokenUri);
+}
+
+function init(input_str){
 
     var input = JSON.parse(input_str);
-    var params = input.params; // uri
+    var params = input.params;
 
     Utils.log('input_str: (' + input_str + ').');
 
-    _setURI(params.uri);
+    if(params.name=== undefined || params.symbol === undefined || params.tokenUri === undefined ||
+        !params.name.length || !params.symbol.length || !params.tokenUri.length){     
+        Utils.assert(false , "DNA721: init  params is invalid, please check!");
+    }
+
+    Chain.store(NAME, params.name);
+    Chain.store(SYMBOL, params.symbol);
+    _setTokenURI(params.tokenUri);
     Chain.store(FUNDATION, sender_g);
-
     return;
+} 
+
+
+// metadata
+function name() {
+    return Chain.load("_name");
+}
+function symbol() {
+    return Chain.load("_symbol");
 }
 
-function uri(id) {
-    return JSON.parse(Chain.load(URI));
+function _exists(tokenId) {
+    var index=hashCode(tokenId);
+    var tokens = {}; // 二维数组
+    var dataToken = JSON.parse(Chain.load(TOKENS+'_'+index));
+    if (dataToken) {
+        tokens = dataToken;
+    }
+
+    if (tokens[tokenId] !== undefined){
+        return true;
+    }else{
+        return false;  
+    }
 }
 
-function _getBalanceOf(id, account) {
-
-    //读取 数组集合
-    var balances = {}; 
-    var data = JSON.parse(Chain.load(BALANCES));
-    if (data) {
-        balances = data;
-    }
-
-    var inner_balances = {};
-
-    if (balances[id] === undefined ){
-        balances[id] = inner_balances; 
-    }
-
-    if (balances[id][account] === undefined ){
-        return 0; 
-    }
-
-    return balances[id][account];
-}
-
-function _setBalanceOfForKey(id, account, value) {
-   
-    // 读取 全部授权的集合
-    var balances = {}; 
-    var data = JSON.parse(Chain.load(BALANCES));
-    if (data) {
-        balances = data;
-    }
-
-    var inner_balances = {};
+// return string
+function tokenURI(params) {
     
-    if (balances[id] === undefined ){
-        balances[id] = inner_balances; 
-    }
+    var tokenId = params.tokenId;
+    Utils.assert(Utils.addressCheck(tokenId) , "DNA721: tokenURI for params: tokenId is invalid bid address");
+    Utils.log('tokenId: ' + params.tokenId);
+
+    Utils.assert(_exists(tokenId), "DNA721: URI query for nonexistent token");
+    var tokenUri = Chain.load(TOKENURI);
+
+    if(tokenUri.length > 0){
         
-    balances[id][account] = value;
-
-    Utils.log("balances:" + balances);
-
-    Chain.store(BALANCES, JSON.stringify(balances));
+        return tokenUri + tokenId;
+    }
+    return "";
 }
 
+// 必须实现 ----  9个方法
 function balanceOf(params) {
 
-    var account = params.account;
-    var id = params.id;
-
-    Utils.assert(account.length !== 0, "ERC1155: balance query for the zero address");
-
-    return _getBalanceOf(id, account);
-}
-
-function balanceOfBatch(params) { 
-
-    var accounts = params.accounts;
-    var ids = params.ids;
-
-    Utils.assert(accounts.length === ids.length, "ERC1155: accounts and ids length mismatch");
-
-    var batchBalances = [];
-    var i = 0;
-    for (i = 0; i < accounts.length; i += 1) {
-        batchBalances[i] = _getBalanceOf(ids[i], accounts[i]);
-    }
-   
-    return JSON.stringify(batchBalances);
-}
-
-function __setAllApproved(owner, to, isAllApproved){
-    
-    // 读取 全部授权的集合
-    var allApproved = {}; 
-    var data = JSON.parse(Chain.load(OPERATORAPPROVALS));
+    var owner = params.owner; 
+	
+    Utils.assert(Utils.addressCheck(owner) , "DNA721: balanceOf query for params: owner is invalid bid address");
+    var index=hashCode(owner);
+    var balances = {};
+    var data = JSON.parse(Chain.load(BALANCEOF+'_'+index));
     if (data) {
-        allApproved = data;
+        balances = data;
     }
 
-    var inner_allApproved = {};
+    if (balances[owner] !== undefined){
+        return balances[owner];  
+    }else{
+        return 0;    
+    }
+}
+
+// 代币的地址
+function _ownerOf(tokenId) {
+    var index=hashCode(tokenId);
+    var tokens = {}; 
+    var dataToken = JSON.parse(Chain.load(TOKENS+'_'+index));
+    if (dataToken) {
+        tokens = dataToken;
+    }
+
+    var owner = "";
+    if (tokens[tokenId] !== undefined){
+        owner = tokens[tokenId];  
+    }
     
-    if (allApproved[owner] === undefined ){
-        allApproved[owner] = inner_allApproved; 
+    Utils.assert(owner.length !== 0, "DNA721: owner query for nonexistent token");
+    return owner;
+}
+
+/**
+* 返回NFT的 拥有者。
+* @param params 
+* @param params.tokenId 代币的标识符
+
+*/
+function ownerOf(params) {
+
+    var tokenId = params.tokenId;
+    Utils.assert(Utils.addressCheck(tokenId) , "DNA721: ownerOf for params: tokenId is invalid bid address");
+    return _ownerOf(tokenId);
+}
+
+
+// for enumeration
+function _addTokenToOwnerEnumeration(to, tokenId) {
+
+    // 1 
+	var index=hashCode(to);
+    var ownedTokens = {}; 
+    var data = JSON.parse(Chain.load(OWNEDTOKENS+'_'+index));
+    if (data) {
+        ownedTokens = data;
     }
+    
+    var ownedTokensIndex = {}; 
+    var dataIndex = JSON.parse(Chain.load(OWNEDTOKENSINDEX+'_'+index));
+    if (dataIndex) {
+        ownedTokensIndex = dataIndex;
+    }
+
+    if (ownedTokens[to] !== undefined){
+        ownedTokensIndex[tokenId] = ownedTokens[to].length;   
+    }else{
+        ownedTokens[to] = [];
+        ownedTokensIndex[tokenId] = 0;
+    }
+
+    // 2 
+    ownedTokens[to].push(tokenId);
+
+    // 3. store ownedTokens、_ownedTokensIndex
+    Chain.store(OWNEDTOKENS+'_'+index, JSON.stringify(ownedTokens));
+    Chain.store(OWNEDTOKENSINDEX+'_'+index, JSON.stringify(ownedTokensIndex));
+}
+
+function _addTokenToAllTokensEnumeration(tokenId) {
+
+    // 1 
+    var allTokensNum=1 ; 
+    var dataAllNum = JSON.parse(Chain.load(ALLTOKENS));
+    if (dataAllNum) {
+        allTokensNum = dataAllNum+1;
+    }
+    var allTokens = []; 
+   var index=hashCode(tokenId);
+   var dataAll = JSON.parse(Chain.load(ALLTOKENS+'_'+(allTokensNum-1)));
+    if (dataAll) {
+        allTokens = dataAll;
+    }
+  
+    var allTokensIndex = {}; 
+    var data = JSON.parse(Chain.load(ALLTOKENSINDEX+'_'+index));
+    if (data) {
+        allTokensIndex = data;
+    }
+
+    // 2
+    allTokensIndex[tokenId] = allTokens.length;
+    allTokens.push(tokenId);
+
+    // 3. store ownedTokens、_ownedTokensIndex
+    Chain.store(ALLTOKENS, JSON.stringify(allTokensNum));
+	  Chain.store(ALLTOKENS+'_'+(allTokensNum-1), JSON.stringify(allTokens));
+    Chain.store(ALLTOKENSINDEX+'_'+index, JSON.stringify(allTokensIndex));
+}
+
+
+function _removeTokenFromOwnerEnumeration(from, tokenId) {
+
+    // 1
+	var index=hashCode(from);
+    var ownedTokens = {}; 
+    var data = JSON.parse(Chain.load(OWNEDTOKENS+'_'+index));
+    if (data) {
+        ownedTokens = data;
+    }else{
+        Utils.assert(false, "DNA721: removeTokenFromOwnerEnumeration ownedTokens is null");
+    }
+
+    var ownedTokensIndex = {}; 
+    var dataIndex = JSON.parse(Chain.load(OWNEDTOKENSINDEX+'_'+index));
+    if (dataIndex) {
+        ownedTokensIndex = dataIndex;
+    }
+
+    // 2
+    // 为了保护数组的顺序，将最后一个元素挪到 要删除的元素 的角标处
+    var lastTokenIndex = ownedTokens[from].length - 1;
+    var tokenIndex = ownedTokensIndex[tokenId];
+
+    if (tokenIndex !== lastTokenIndex) {
+        var lastTokenId = ownedTokens[from][lastTokenIndex];
+
+        ownedTokens[from][tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
+        ownedTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
+    }
+
+    ownedTokens[from].length = ownedTokens[from].length - 1;
+
+    // 3. store ownedTokens、_ownedTokensIndex
+    Chain.store(OWNEDTOKENS+'_'+index, JSON.stringify(ownedTokens));
+    Chain.store(OWNEDTOKENSINDEX+'_'+index, JSON.stringify(ownedTokensIndex));
+}
+
+/**
+* 创建NFT。
+* @param _tokenId 代币的标识符
+* @param owner 拥有者
+*/
+function mint(params) {
+  
+    Utils.assert(isContractOwner(), ' mint is not  contract account');
+    var to = params.to;
+    var tokenId = params.tokenId;
+    Utils.log('mint-params: ' + params);
+
+    Utils.assert(Utils.addressCheck(to) , "DNA721: mint to is not bid address");
+    Utils.assert(Utils.addressCheck(tokenId) , "DNA721: mint tokenId is not bid address");
+    Utils.assert(!_exists(tokenId), "DNA721: token already minted");
+
+    var balances = {}; 
+	var ownerIndex=hashCode(to);
+    var data = JSON.parse(Chain.load(BALANCEOF+'_'+ownerIndex));
+    if (data) {
+        balances = data;
+    }
+
+    if (balances[to] !== undefined){
+        var temp = balances[to];
+        balances[to] = temp + 1;  
+    }else{
+        balances[to] = 1;  
+    }
+      
+    // 读取 tokens 集合
+    var index=hashCode(tokenId);
+    var tokens = {};
+    var dataToken = JSON.parse(Chain.load(TOKENS+'_'+index));
+    if (dataToken) {
+        tokens = dataToken;
+    }
+
+    tokens[tokenId] = to;
+
+    Chain.store(BALANCEOF+'_'+ownerIndex, JSON.stringify(balances));
+    Chain.store(TOKENS+'_'+index, JSON.stringify(tokens));
+
+    // for enumeration
+    _addTokenToOwnerEnumeration(to, tokenId);
+    _addTokenToAllTokensEnumeration(tokenId);
+     
+    Chain.tlog('Transfer', '', to, tokenId);
+}
+
+function __setApproved( tokenId, to) {
+
+    // 读取 allowance 集合
+	var index=hashCode(tokenId);
+    var allowances = {}; 
+    var data = JSON.parse(Chain.load(ALLOWANCES+'_'+index));
+    if (data) {
+        allowances = data;
+    }
+
+    allowances[tokenId] = to;
+    Chain.store(ALLOWANCES+'_'+index, JSON.stringify(allowances));
+}
+
+function _approve( to, tokenId)  {
+
+    __setApproved( tokenId, to);
+
+    Chain.tlog('Approval', _ownerOf(tokenId), to, tokenId);
+}
+
+function _getApproved(tokenId) {
+
+    Utils.assert(_exists(tokenId), "DNA721: approved query for nonexistent token");
+    
+    // 读取 allowance 集合
+	var index=hashCode(tokenId);
+    var allowances = {};
+    var data = JSON.parse(Chain.load(ALLOWANCES+'_'+index));
+    if (data) {
+        allowances = data;
+    }
+
+    if (allowances[tokenId] !== undefined){
         
-    allApproved[owner][to] = isAllApproved;
-
-    Utils.log("allApproved:" + allApproved);
-
-    Chain.store(OPERATORAPPROVALS, JSON.stringify(allApproved));
+        return allowances[tokenId]; 
+    }else{
+        return "";  
+    }
 }
 
-function _setApprovalForAll(owner, operator ,isApproved)  {
+function getApproved(params) {
+    var input = params; // tokenId
 
-    Utils.assert(owner !== operator, "ERC1155: setting approval status for self");
-
-    __setAllApproved(owner, operator, isApproved);
-    Chain.tlog('ApprovalForAll', owner, operator, isApproved);
-}
-
-function setApprovalForAll( params ) {
-
-    var operator = params.operator;
-    var isApproved = params.isApproved; // bool 类型
-
-    _setApprovalForAll(sender_g, operator, isApproved);
+    return _getApproved(input.tokenId);
 }
 
 function __getIsAllApproved(owner, to){
 
     // 读取 全部授权的集合
     var allApproved = {}; 
-    var data = JSON.parse(Chain.load(OPERATORAPPROVALS));
+	var index=hashCode(owner);
+    var data = JSON.parse(Chain.load(ISALLAPPROVED+'_'+index));
     if (data) {
         allApproved = data;
     }
-
-    var inner_allApproved = {};
-
+    
     if (allApproved[owner] === undefined ){
-        allApproved[owner] = inner_allApproved; 
-    }
-
-    if (allApproved[owner][to] === undefined ){
-        return false; 
+        return false;
     }
 
     return allApproved[owner][to];
@@ -1301,140 +1535,213 @@ function __getIsAllApproved(owner, to){
 
 function _isApprovedForAll( owner, operator) {
 
-    Utils.assert(owner.length !== 0, "_owner can not be empty!");
-    Utils.assert(operator.length !== 0, "_operator can not be empty!");
+    Utils.assert(Utils.addressCheck(owner) , "DNA721: _isApprovedForAll params: owner is invalid bid address");
+    Utils.assert(Utils.addressCheck(operator) , "DNA721: _isApprovedForAll params: operator is invalid bid address");
 
     return  __getIsAllApproved(owner, operator);
 }
 
-function isApprovedForAll( params ) {
+function isApprovedForAll(params) {
 
-    var account = params.account;
-    var operator = params.operator; 
-
-    return _isApprovedForAll(account, operator);
+    var input = params; // owner, operator
+    return _isApprovedForAll(input.owner, input.operator);
 }
 
-function _safeTransferFrom(from, to, id, amount, data) {
-
-    Utils.assert(to.length > 0, "ERC1155: transfer to the zero address");
-
-    var operator = sender_g;
-
-    var fromBalance = _getBalanceOf(id, from);
-
-    Utils.assert(fromBalance >= amount, "ERC1155: insufficient balance for transfer");
-
-    _setBalanceOfForKey(id, from, fromBalance - amount);
-    var toBalance = _getBalanceOf(id, to);
-    _setBalanceOfForKey(id, to, toBalance + amount);
-
-    Chain.tlog('TransferSingle', operator, from, to, id, amount);
-}
-
-function safeTransferFrom( params ) {
-
-    var from = params.from;
-    var to = params.to; 
-    var id = params.id; // int
-    var amount = params.amount; // int
-    var data = params.data; 
-
-    Utils.assert(from === sender_g || _isApprovedForAll(from, sender_g), "ERC1155: caller is not owner nor approved");
-
-    _safeTransferFrom(from, to, id, amount, data);
-}
-
-function _safeBatchTransferFrom( from, to, ids, amounts, data )  {
-
-    Utils.assert(ids.length === amounts.length, "ERC1155:  ids and amounts length mismatch");
-    Utils.assert(to.length > 0, "ERC1155:  transfer to the zero address");
-
-    var operator = sender_g;
-
-    var i = 0;
-    var id;
-    var amount;
-    var fromBalance;
-    var toBalance;
-    for (i = 0; i < ids.length; i += 1) {
-        id = ids[i];
-        amount = amounts[i];
-
-        fromBalance = _getBalanceOf(id, from);
-        Utils.assert(fromBalance >= amount, "ERC1155:  insufficient balance for transfer");
-
-        _setBalanceOfForKey(id, from, fromBalance - amount);
-        toBalance = _getBalanceOf(id, to);
-        _setBalanceOfForKey(id, to, toBalance + amount);
+function __setAllApproved(owner, to, isAllApproved){
+    
+    // 读取 全部授权的集合
+    var allApproved = {}; 
+	var index=hashCode(owner);
+    var data = JSON.parse(Chain.load(ISALLAPPROVED+'_'+index));
+    if (data) {
+        allApproved = data;
     }
 
-    Chain.tlog('TransferBatch', operator, from, to, JSON.stringify(ids), JSON.stringify(amounts));
+    var inner_allApproved = {};
+    
+    if (allApproved[owner] === undefined ){
+        allApproved[owner] = inner_allApproved; 
+    }
+    
+    Utils.log("allApproved:" + allApproved);
+    
+    allApproved[owner][to] = isAllApproved;
+
+    Utils.log("allApproved after:" + allApproved);
+
+    Chain.store(ISALLAPPROVED+'_'+index, JSON.stringify(allApproved));
 }
 
-function safeBatchTransferFrom( params ) {
+function _setApprovalForAll(owner, operator, isApproved) {
 
-    var from = params.from;
-    var to = params.to; 
-    var ids = params.ids; 
-    var amounts = params.amounts;
-    var data = params.data; 
-
-    Utils.assert(from === sender_g || _isApprovedForAll(from, sender_g), "ERC1155: caller is not owner nor approved");
-
-    _safeBatchTransferFrom(from, to, ids, amounts, data);
+    Utils.assert(Utils.addressCheck(owner) , "DNA721: _setApprovalForAll params: owner is invalid bid address");
+    Utils.assert(Utils.addressCheck(operator) , "DNA721: _setApprovalForAll params: operator is invalid bid address");
+    Utils.assert(owner !== operator, "DNA721: approve to caller");
+    // 设置 全部授权
+    __setAllApproved(owner, operator, isApproved);
+    Chain.tlog('ApprovalForAll', owner, operator, isApproved);
 }
 
-function mint( params ) {
+// 设置 全部授权
+function setApprovalForAll( params )  {
 
-    if(isContractOwner() === false){
-        Utils.log('mint' + Chain.msg.sender);
-        return;
-    }
-
-    var to = params.to;
-    var id = params.id; //int 
-    var amount = params.amount; //int 
-    var data = params.data;
-
-    Utils.assert(to.length > 0 , "ERC1155: mint to the zero address");
-
-    var operator = sender_g;
-
-    var toBalance = _getBalanceOf(id, to);
-    _setBalanceOfForKey(id, to , toBalance + amount);
-
-    Chain.tlog('TransferSingle', operator, "", to, id, amount);
+    return _setApprovalForAll(sender_g, params.operator, params.isApproved);
 }
 
-function mintBatch( params ) {
+function _transfer(
+     from,
+     to,
+     tokenId,
+     data_params
+)  {
 
-    if(isContractOwner() === false){
-        Utils.log('mint' + Chain.msg.sender);
-        return;
+    Utils.log('_ownerOf(tokenId): (' + _ownerOf(tokenId) + ').');
+    Utils.log('from: (' + from + ').');
+
+    Utils.assert(Utils.addressCheck(from) , "DNA721: transfer params: from is invalid bid address");
+    Utils.assert(Utils.addressCheck(to) , "DNA721: transfer params: to is invalid bid address");
+    Utils.assert(Utils.addressCheck(tokenId) , "DNA721: transfer params: tokenId is invalid bid address");
+
+    Utils.assert(_ownerOf(tokenId) === from, "DNA721: transfer from incorrect owner");
+
+    _approve('', tokenId);
+
+    var balances = {}; 
+	var fromIndex=hashCode(from);
+    var data = JSON.parse(Chain.load(BALANCEOF+'_'+fromIndex));
+    if (data) {
+        balances = data;
     }
 
-    var to = params.to;
-    var ids = params.ids; 
-    var amounts = params.amounts; 
-    var data = params.data;
-
-    Utils.assert(to.length > 0 , "ERC1155: mint to the zero address");
-    Utils.assert(ids.length === amounts.length, "ERC1155: ids and amounts length mismatch");
-
-    Utils.log('mintBatch-ids: (' + ids + ').');
-    Utils.log('mintBatch-amounts: (' + amounts + ').');
-
-    var operator = sender_g;
-
-    var i = 0;
-    var toBalance;
-    for ( i = 0; i < ids.length; i += 1) {
-         toBalance = _getBalanceOf(ids[i], to);
-         _setBalanceOfForKey(ids[i], to , toBalance + amounts[i]);
+    if (balances[from] !== undefined){
+        var temp = balances[from];
+        balances[from] = temp - 1;  
     }
 
-    Chain.tlog('TransferBatch', operator, "", to, JSON.stringify(ids), JSON.stringify(amounts));
+    if (balances[to] !== undefined){
+        var tempTo = balances[to];
+        balances[to] = tempTo + 1; 
+    }else{
+        balances[to] = 1; 
+    }
+    
+    // 读取 tokens 集合
+    var index=hashCode(tokenId);
+    var tokens = {};
+    var dataToken = JSON.parse(Chain.load(TOKENS+'_'+index));
+    if (dataToken) {
+        tokens = dataToken;
+    }
+
+    tokens[tokenId] = to;
+
+    Chain.store(BALANCEOF+'_'+fromIndex, JSON.stringify(balances));
+    Chain.store(TOKENS+'_'+index, JSON.stringify(tokens));
+
+    // for enumeration
+    _removeTokenFromOwnerEnumeration(from, tokenId);
+    _addTokenToOwnerEnumeration(to, tokenId);
+
+    Chain.tlog('Transfer', from, to, tokenId);
+}
+
+function _isApprovedOrOwner(spender, tokenId)  {
+
+    Utils.log("_exists(tokenId): " + _exists(tokenId));
+    Utils.assert(_exists(tokenId), "DNA721: operator query for nonexistent token");
+
+    var owner = _ownerOf(tokenId);
+    Utils.log("owner: " + owner);
+    Utils.log("_getApproved(tokenId): " + _getApproved(tokenId));
+    Utils.log("_isApprovedForAll(owner, spender): " + _isApprovedForAll(owner, spender));
+    return (spender === owner && (_getApproved(tokenId) === spender || _isApprovedForAll(owner, spender)));
+}
+
+function approve( params )  {
+
+    var input = params; // to,  tokenId
+
+    Utils.assert(Utils.addressCheck(input.to), "DNA721: approve params: to is invalid bid address");
+    Utils.assert(Utils.addressCheck(input.tokenId), "DNA721: approve params: tokenId is invalid bid address");
+
+    var owner = _ownerOf(input.tokenId);
+    Utils.assert(input.to !== owner, "DNA721: approval to current owner");
+    Utils.log("approve-sender_g:" + sender_g + "  owner:" + owner);
+    Utils.assert(
+        sender_g === owner || _isApprovedForAll(owner, sender_g),
+        "DNA721: approve caller is not owner nor approved for all"
+    );
+
+    _approve(input.to, input.tokenId);
+}
+
+function transferFrom(params) {
+
+    var input = params; // from、to、tokenId
+    
+    Utils.assert(_isApprovedOrOwner(sender_g, input.tokenId), "DNA721: transfer caller is not owner nor approved");
+
+    _transfer(input.from, input.to, input.tokenId, "");
+}
+
+function safeTransferFrom(params) {
+
+    var from = params.from; // from
+    var to = params.to; // to
+    var tokenId = params.tokenId; // tokenId
+    var data = params.data; // data
+
+    // safe check
+
+    // _transfer
+    Utils.assert(_isApprovedOrOwner(sender_g, tokenId), "DNA721: transfer caller is not owner nor approved");
+    _transfer(from, to, tokenId, data);
+}
+
+
+// enumeration
+// return int
+function totalSupply() {
+    
+    var allTokens; 
+    var dataAll = JSON.parse(Chain.load(ALLTOKENS));
+    if (dataAll) {
+        allTokens = dataAll;
+    }
+    return allTokens;
+}
+
+// return tokenId -> address
+function tokenByIndex(params) {
+    var index = params.index;
+    
+    Utils.assert(index%1 === 0, "DNA721 tokenByIndex: your index should be int");
+    Utils.assert(index >= 0, "DNA721 tokenByIndex: your index <= 0");
+    Utils.assert(index < totalSupply(), "DNA721 tokenByIndex: global index out of bounds");
+
+    var allTokens; 
+    var dataAll = JSON.parse(Chain.load(ALLTOKENS+'_'+index));
+    if (dataAll) {
+        allTokens = dataAll;
+    }
+    return allTokens;
+}
+
+// return tokenId -> address
+function tokenOfOwnerByIndex(params) {
+    var owner = params.owner;
+    var index = params.index;
+	var ownerIndex=hashCode(owner);
+    Utils.assert(index%1 === 0, "DNA721 tokenOfOwnerByIndex: your index should be int");
+    Utils.assert(Utils.addressCheck(owner) , "DNA721: tokenOfOwnerByIndex params: owner is invalid bid address");
+    Utils.assert(index >= 0, "DNA721 tokenOfOwnerByIndex: your index <= 0");
+    Utils.assert(index < balanceOf(params), "DNA721 Enumerable: owner index out of bounds"); // 注意：使用 params
+    var ownedTokens = {}; 
+    var data = JSON.parse(Chain.load(OWNEDTOKENS+'_'+ownerIndex));
+    if (data) {
+        ownedTokens = data;
+    }
+    return ownedTokens[owner][index];
 }
 
 function main(input_str){
@@ -1443,14 +1750,12 @@ function main(input_str){
     if(input.method === 'mint'){
         mint(input.params);
     }
-    else if(input.method === 'mintBatch'){
-        mintBatch(input.params);
-    }
-    else if(input.method === 'safeTransferFrom'){
+    else if(input.method === 'transferFrom'){
+        transferFrom(input.params);
+    }else if(input.method === 'safeTransferFrom'){
         safeTransferFrom(input.params);
-    }
-    else if(input.method === 'safeBatchTransferFrom') {
-        safeBatchTransferFrom(input.params);
+    }else if(input.method === 'approve') {
+        approve(input.params);
     }else if(input.method === 'setApprovalForAll') {
         setApprovalForAll(input.params);
     }
@@ -1463,14 +1768,26 @@ function main(input_str){
 function query(input_str){
     var input  = JSON.parse(input_str);
     var object ={};
-    if(input.method === 'uri'){
-        object = uri(input.params);
+    if(input.method === 'name'){
+        object = name();
+    }else if(input.method === 'symbol'){
+        object = symbol();
+    }else if(input.method === 'tokenURI'){
+        object = tokenURI(input.params);
+    }else if(input.method === 'totalSupply'){
+        object = totalSupply();
+    }else if(input.method === 'tokenByIndex'){
+        object = tokenByIndex(input.params);
+    }else if(input.method === 'tokenOfOwnerByIndex'){
+        object = tokenOfOwnerByIndex(input.params);
     }else if(input.method === 'balanceOf'){
         object = balanceOf(input.params);
-    }else if(input.method === 'balanceOfBatch'){
-        object = balanceOfBatch(input.params);
+    }else if(input.method === 'ownerOf'){
+        object = ownerOf(input.params);
     }else if(input.method === 'isApprovedForAll'){
         object = isApprovedForAll(input.params);
+    }else if(input.method === 'getApproved'){
+        object = getApproved(input.params);
     }
     else{
        	throw '<unidentified operation type>';
