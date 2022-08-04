@@ -48,11 +48,11 @@ Transaction(0f3c99381b7bca967bcad2b55d396ff33b375c9aea1cda024f7b705aea1a2e5c) si
 
 ## 3.智能合约相关
 
-> 3.1智能合约支持什么语言？
+3.1智能合约支持什么语言？
 
 智能合约目前支持JS、Solidity
 
-> 3.2js合约调用异常
+3.2js合约调用异常
 
 ```js
 {"contract":"did:bid:efspy6btdcuzP5BH2N899Ycti5Sd7n3z","exception":"SyntaxError: Unexpected token \r in JSON at position 1457","linenum":34,"stack":"SyntaxError: Unexpected token \r in JSON at position 1457\n at JSON.parse (<anonymous>)\n at main (__enable_check_time__:83:22)"}
@@ -60,7 +60,7 @@ Transaction(0f3c99381b7bca967bcad2b55d396ff33b375c9aea1cda024f7b705aea1a2e5c) si
 
 input参数格式校验，需服务JSON规范。
 
-### 4.交易查询
+## 4.交易查询
 
 访问星火网区块链浏览器。
 
@@ -68,6 +68,6 @@ input参数格式校验，需服务JSON规范。
 
 正式网：https://explorer.bitfactory.cn/
 
-### 5.消息订阅
+## 5.消息订阅
 
 BIF-Core使用websocket接口实现指定账户地址的交易通知，交易使用protobuf结构。
