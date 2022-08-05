@@ -46,6 +46,8 @@
    tools/bifsdk
    tools/subscribeTool
    tools/explorer
+   tools/wallet
+   tools/ide
 
 .. toctree::
    :maxdepth: 1

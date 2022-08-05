@@ -1,12 +1,12 @@
-# 星火链Solidity合约开发
+# Solidity合约说明
 
 Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实现。在星火链合约账户中，Solidity编译后生成的opCode指令码会存储到合约账户中，用于合约的执行。
 
 本目录的文档主要介绍在星火链合约平台中支持的 Solidity 合约的特性、语法、功能等。星火链平台支持的solidity语法基本与官方solidity基本一致，目前支持0.4.26版本，可以参考官方文档：<https://solidity.readthedocs.io/en/v0.4.26/>
 
-## 星火链Solidity新特性
+## 星火链Solidity合约特性
 
-### 星火链Solidity语言主要变动
+### 星火链Solidity和以太坊solidity区别
 
 1. **星火链bid地址支持**: 
 
@@ -117,7 +117,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 | JUMPDEST       | 是             | 是             |
 | INVALID        | 是             | 是             |
 
-## 星火链Solidity开发基础
+## 星火链Solidity合约规范
 
 ### 数据类型
 
@@ -168,9 +168,9 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
     | enum                 | enum a {a,b,c}             | 是               | 否               |
     | struct               | struct a { string name;}   | 是               | 否               |
 
-### 星火链Solidity编译器
+## 星火链Solidity编译器
 
-​由于指令集支持和地址表示法的区别, 星火链提供了专门的编译器来编译星火链Solidity合约. 本章指导开发者使用官方编译器编译星火链智能合约.
+由于指令集支持和地址表示法的区别, 星火链提供了专门的编译器来编译星火链Solidity合约. 本章指导开发者使用官方编译器编译星火链智能合约.
 
 1. 镜像下载
 
@@ -231,4 +231,4 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
 5. 部署调用
 
-    后续的合约部署调用流程与javascript合约类似, 可以参见星火链SDK说明.
+    后续的合约部署调用流程参见**快速上手**章节.

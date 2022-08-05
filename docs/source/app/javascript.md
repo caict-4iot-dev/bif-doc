@@ -1,6 +1,6 @@
-# 星火链Javascript合约开发
+# Javascript合约说明
 
-## 星火链Javascript智能合约规范
+## Javascript合约规范
 
 JavaScript智能合约是一段 JavaScript 代码，标准(ECMAScript as specified in ECMA-262)，使用Spark-V8引擎。
 
@@ -47,9 +47,9 @@ function query(input)
 
 * 使用 +=, -=, 禁用 ++ 和 -- .
 
-## 星火区块链 API
+## 星火链合约内置 API
 
-为星火链JavaScript智能合约的高效执行，星火链实现了部分预编译JavaScript指令，可通过智能合约直接进行调用。
+为JavaScript智能合约的高效执行，星火链实现了部分预编译JavaScript指令，可通过智能合约直接进行调用。
 
 智能合约内提供了全局对象 `Chain` 和 `Utils`, 这两个对象提供了多样的方法和变量，可以获取区块链的一些信息，也可驱动账号发起交易。
 
@@ -79,13 +79,13 @@ function query(input)
 
 
     `Chain.load(key);`
-
+    
     读取该合约内Key对应的存储数据.
-
+    
     | 参数         | 说明          |
     | ------------ | ------------- |
     | key | metadata的key |
-
+    
     ```
     let value = Chain.load('test');
     /*
@@ -94,16 +94,16 @@ function query(input)
     */
     
     ```
-
+    
     `Chain.store(key, metadata_value);`
-
+    
     在合约内按key为索引存储数据.
-
+    
     | 参数           | 说明              |
     | -------------- | ----------------- |
     | metadata_key   | metadata的key     |
     | metadata_value | metadata 的 value |
-
+    
     ```
     Chain.store('test', 'values');
     /*
@@ -112,15 +112,15 @@ function query(input)
     */
     
     ```
-
+    
     `Chain.del(key);`
-
+    
     删除合约内key对应的数据
-
+    
     | 参数         | 说明          |
     | ------------ | ------------- |
     | key | data的key |
-
+    
     ```
     Chain.del('abc');
     /*
@@ -132,13 +132,13 @@ function query(input)
 
 
     `Chain.getBlockHash(offset_seq);`
-
+    
     获取指定区块的Hash值
-
+    
     | 参数       | 说明                                     |
     | ---------- | ---------------------------------------- |
     | offset_seq | 距离最后一个区块的偏移量，范围：[0,1024) |
-
+    
     ```
     let ledger = Chain.getBlockHash(4);
     /*
@@ -147,16 +147,16 @@ function query(input)
     */
     
     ```    
-
+    
     `Chain.tlog(topic,args...);`
-
+    
     记录event log事件, event log会与交易一起存储在链上供查询.
-
+    
     | 参数    | 说明                                                         |
     | ------- | ------------------------------------------------------------ |
     | topic   | 日志主题，必须为字符串类型,参数长度(0,128]                   |
     | args... | 最多可以包含5个参数，参数类型可以是字符串、数值或者布尔类型,每个参数长度(0,1024] |
-
+    
     ```
     Chain.tlog('transfer',sender +' transfer 1000',true);
     /*
@@ -164,16 +164,16 @@ function query(input)
         返回：成功返回 true，失败抛异常
     */
     ```
-
+    
     `Chain.getAccountMetadata(account_address, metadata_key);`
-
+    
     获取指定账号的metadata
-
+    
     | 参数            | 说明          |
     | --------------- | ------------- |
     | account_address | 账号地址      |
     | metadata_key    | metadata的key |
-
+    
     ```
     let value = Chain.getAccountMetadata('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK', 'abc');
     
@@ -182,15 +182,15 @@ function query(input)
         返回：成功返回字符串，如 'values', 失败返回false
     */
     ```
-
+    
     `Chain.getBalance(address);`
-
+    
     查询指定账号的XHT余额
-
+    
     | 参数    | 说明     |
     | ------- | -------- |
     | address | 账号地址 |
-
+    
     ```
     let balance = Chain.getBalance('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
     /*
@@ -198,15 +198,15 @@ function query(input)
         返回：字符串格式数字 '9999111100000'
     */
     ```
-
+    
     `Chain.getAccountPrivilege(account_address);`
-
+    
     获取指定账号的权限信息
-
+    
     | 参数            | 说明     |
     | --------------- | -------- |
     | account_address | 账号地址 |
-
+    
     ```
     let privilege = Chain.getAccountPrivilege('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
     
@@ -215,15 +215,15 @@ function query(input)
         返回：成功返回权限json字符串如'{"master_weight":1,"thresholds":{"tx_threshold":1}}'，失败返回 falses
     */
     ```
-
+    
     `Chain.getContractProperty(contract_address);`
-
+    
     获取指定账号是否为合约账号, 如果为合约账号则返回更多详细信息.
-
+    
     | 参数             | 说明     |
     | ---------------- | -------- |
     | contract_address | 合约地址 |
-
+    
     ```
     let value = Chain.getContractProperty('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
     
@@ -233,18 +233,18 @@ function query(input)
         失败返回false
     */
     ```
-
+    
     `Chain.payCoin(address, amount[, input], [, metadata]);`
-
+    
     从当前账号向指定账户转账
-
+    
     | 参数     | 说明                                                         |
     | -------- | ------------------------------------------------------------ |
     | address  | 发送星火令的目标地址                                             |
     | amount   | 发送星火令的数量                                                 |
     | input    | 可选，合约参数，如果用户未填入，默认为空字符串               |
     | metadata | 可选，转账备注，显示为十六进制字符串，需要转换为明文 |
-
+    
     ```
     Chain.payCoin("did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK", "10000", "", "vote reward");
     /*
@@ -252,18 +252,18 @@ function query(input)
         返回：成功返回 true，失败抛异常  
     */
     ```
-
+    
     `Chain.delegateCall(contractAddress, input);`
-
+    
     委托调用
-
+    
     | 参数            | 说明             |
     | --------------- | ---------------- |
     | contractAddress | 被调用的合约地址 |
     | input           | 调用参数         |
-
+    
     `Chain.delegateCall` 函数会触发被调用的合约`main`函数入口，并且把当前合约的执行环境赋予被调用的合约。如合约A委托调用合约B，即执行B(main入口)的代码，读写A的数据。
-
+    
     ```
     let ret = Chain.delegateCall('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，'{}');
     /*
@@ -272,18 +272,18 @@ function query(input)
     */
     
     ```
-
+    
     `Chain.delegateQuery(contractAddress, input);`
-
+    
     委托查询
-
+    
     | 参数            | 说明             |
     | --------------- | ---------------- |
     | contractAddress | 被调用的合约地址 |
     | input           | 调用参数         |
-
+    
     `Chain.delegateQuery` 函数会触发被调用的合约`query`函数入口，且把当前合约的执行环境赋予被调用的合约。如合约A委托查询合约B，即执行B(query入口)的代码，读取A的数据。
-
+    
     ```
     let ret = Chain.delegateQuery('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，"");
     /*
@@ -292,20 +292,20 @@ function query(input)
     */
     
     ```
-
+    
     - 调用合约
-
+    
     `Chain.contractCall(contractAddress, asset, amount, input);`
-
+    
     | 参数            | 说明                       |
     | --------------- | -------------------------- |
     | contractAddress | 被调用的合约地址           |
     | asset           | 仅支持传入true，代表星火令 |
     | amount          | 星火令数量                 |
     | input           | 调用参数                   |
-
+    
     `Chain.contractCall` 函数会触发被调用的合约`main`函数入口。
-
+    
     ```
     let ret = Chain.contractCall('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，true, toBaseUnit("10"), "");
     /*
@@ -314,18 +314,18 @@ function query(input)
     */
     
     ```
-
+    
     - 查询合约
-
+    
     `Chain.contractQuery(contractAddress, input);`
-
+    
     | 参数            | 说明             |
     | --------------- | ---------------- |
     | contractAddress | 被调用的合约地址 |
     | input           | 调用参数         |
-
+    
     `Chain.contractQuery` 会调用合约的查询接口。
-
+    
     ```
     let ret = Chain.contractQuery('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，"");
     /*
@@ -334,20 +334,20 @@ function query(input)
     */
     
     ```
-
+    
     `Chain.contractCreate(balance, type, code, input);`
-
+    
     - 创建合约
-
+    
     | 参数        | 说明                                   |
     | ----------- | -------------------------------------- |
     | balance     | 字符串类型，转移给被创建的合约的星火令 |
     | type        | 整型，0代表javascript                  |
     | code        | 字符串类型， 合约代码                  |
     | input：init | init函数初始化参数                     |
-
+    
     `Chain.contractCreate` 创建合约。
-
+    
     ```
     let ret = Chain.contractCreate(toBaseUnit("10"), 0, "'use strict';function init(input){return input;} function main(input){return input;} function query(input){return input;} ", "");
     /*

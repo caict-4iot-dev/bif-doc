@@ -205,7 +205,35 @@ public class TransactionDemo {
 
 ## 2.账号权限管理
 
+场景说明：账号A可授权账号B权利值，通过设定权利值可限制账号B的交易权限，账号B可替账号A完成交易操作。
+
 该操作用于设置账户权限。包括签名者权重列表、交易门限、指定类型交易门限。
+
+```json
+"source_address": "adxSn8xpL7c2xkxwbreVCs6EZ7KZbBvtDaLtV",//操作源账户，即操作的执行方--账号A
+"set_privilege": {
+        "master_weight": "10",//可选，当前账户的自身权力值
+        "signers"://可选，需要操作的签名者列表
+        [
+          {
+            "address": "adxSj9kGyXR2YpyxwZVMrnGcLWoG3Hf9qXne8",//需要操作的签名者地址,--账号B
+            "weight": 8 //可选，签名者的权力值
+          }
+        ],
+        "tx_threshold": "2",//可选，发起交易需要权力值
+        "type_thresholds"://可选，不同操作需要的权力值
+        [
+          {
+            "type": 1,//创建账户操作类型
+            "threshold": 8 //可选，该操作需要的权力值
+          },
+          {
+            "type": 2,//发行资产操作类型
+            "threshold": 9 //可选该操作需要的权力值
+          }
+        ]
+      }
+```
 
 ### 初始化SDK
 
@@ -330,33 +358,9 @@ if (response.getErrorCode() == 0) {
 
 ## 3.合约批量调用
 
+场景说明：用户处理事件过程中涉及多个合约调用、同一合约多次调用时，可使用该接口，保证事务的一致性，同时可减少交易次数，节省交易费用。
+
 该操作用于转移星火令并触发合约。
-
-### 请求参数
-
-| 参数          | 类型                             | 描述                                                         |
-| ------------- | -------------------------------- | ------------------------------------------------------------ |
-| senderAddress | string                           | 必填，交易源账号，即交易的发起方                             |
-| gasPrice      | Long                             | 选填，打包费用 (单位是PT)默认，默认100L                      |
-| feeLimit      | Long                             | 选填，交易花费的手续费(单位是PT)，默认1000000L               |
-| BIFAmount     | Long                             | 必填，转账金额                                               |
-| privateKey    | String                           | 必填，交易源账户私钥                                         |
-| ceilLedgerSeq | Long                             | 选填，区块高度限制, 如果大于0，则交易只有在该区块高度之前（包括该高度）才有效 |
-| remarks       | String                           | 选填，用户自定义给交易的备注                                 |
-| domainId      | Integer                          | 选填，指定域ID，默认主共识域id(0)                            |
-| operations    | List<BIFContractInvokeOperation> | 必填，合约调用集合                                           |
-
-| BIFContractInvokeOperation |        |                                |
-| -------------------------- | ------ | ------------------------------ |
-| contractAddress            | String | 必填，合约账户地址             |
-| BIFAmount                  | Long   | 必填，转账金额                 |
-| input                      | String | 选填，待触发的合约的main()入参 |
-
-### 响应数据
-
-| 参数 | 类型   | 描述     |
-| ---- | ------ | -------- |
-| hash | string | 交易hash |
 
 ### 示例
 
