@@ -177,7 +177,7 @@ contract TokenERC20 {
 
 ### Solidity合约
 
-```
+```javascript
 pragma solidity ^0.4.26;
 
 contract XHERC721  {
@@ -416,7 +416,7 @@ contract XHERC721  {
 
 **合约文件 - JavaScript**
 
-```
+```javascript
 'use strict';
 
 // 管理员  
@@ -861,7 +861,7 @@ ERC1155在一定程度上融合了ERC-20和ERC-721的功能。其主要用途包
 
 - **合约文件**
 
-```
+```javascript
 pragma solidity ^0.4.26;
 
 contract ERC1155 {
@@ -1118,7 +1118,7 @@ contract ERC1155 {
 
 **合约文件 - JavaScript**
 
-```
+```javascript
 'use strict';
 
 // 管理员  
@@ -1820,7 +1820,7 @@ function query(input_str){
 
 + **合约示例**
 
-```
+```javascript
 'use strict';
 
 
@@ -2095,13 +2095,13 @@ function query(input){
 }
 ```
 
-### 5.4.3 合约部署
+###  合约部署
 
 运行链节点服务之后就可以部署合约到链上，生成对应的合约账户，合约账户可以后续进行合约管理，部署合约是通过调用SDK接口。
 
 + **GHR合约部署**
 
-```
+```java
 // 初始化参数
 String senderAddress = "did:bid:efuEAGFPJMsojwPGKzjD8vZX1wbaUrVV";
 String senderPrivateKey = "priSPKnDue7AJ42gt7acy4AVaobGJtM871r1eukZ2M6eeW5LxG";
@@ -2126,7 +2126,7 @@ if (response.getErrorCode() == 0) {
 }
 ```
 
-其中`payload`参数即是对应合约源码压缩后的值，`input`参数里的类型填写对应的类型值即可。
+其中`payload`参数即是对应合约源码压缩(参照**Javascript合约说明-合约开发工具**章节)后的值，`input`参数里的类型填写对应的类型值即可。
 
 合约部署完后返回对应的hash值，可以根据hash查询对应详细交易信息。
 
@@ -2134,7 +2134,7 @@ if (response.getErrorCode() == 0) {
 
 只需要将`setInitInput`的合约类型换成SHR的即可。
 
-```
+```java
 // 初始化参数
 String senderAddress = "did:bid:efuEAGFPJMsojwPGKzjD8vZX1wbaUrVV";
 String senderPrivateKey = "priSPKnDue7AJ42gt7acy4AVaobGJtM871r1eukZ2M6eeW5LxG";
@@ -2165,7 +2165,7 @@ if (response.getErrorCode() == 0) {
 
 ​		只需要修改`setInitInput`的合约类型值即可。
 
-```
+```java
 // 初始化参数
 String senderAddress = "did:bid:efVmotQW28QDtQyupnKTFvpjKQYs5bxf";
 String senderPrivateKey = "priSPKnDue7AJ42gt7acy4AVaobGJtM871r1eukZ2M6eeW5LxG";
@@ -2192,11 +2192,11 @@ if (response.getErrorCode() == 0) {
 
 ​		合约部署完后返回对应的hash值，可以根据hash查询对应详细交易信息。
 
-### 5.4.4 合约调用
+### 合约调用
 
 + **设置白名单**
 
-```
+```java
 // 初始化参数
 String senderAddress = "did:bid:efVmotQW28QDtQyupnKTFvpjKQYs5bxf";
 String contractAddress = "did:bid:ef2gAT82SGdnhj87wQWb9suPKLbnk9NP";
@@ -2224,7 +2224,7 @@ if (response.getErrorCode() == 0) {
 
 + **标识创建**
 
-```
+```java
 // 初始化参数
 String senderAddress = "did:bid:efVmotQW28QDtQyupnKTFvpjKQYs5bxf";
 String contractAddress = "did:bid:ef2gAT82SGdnhj87wQWb9suPKLbnk9NP";
@@ -2298,7 +2298,7 @@ if (response.getErrorCode() == 0) {
 
 + **标识删除**
 
-```
+```java
 // 初始化参数
 String senderAddress = "did:bid:efVmotQW28QDtQyupnKTFvpjKQYs5bxf";
 String contractAddress = "did:bid:ef2gAT82SGdnhj87wQWb9suPKLbnk9NP";
@@ -2323,7 +2323,7 @@ if (response.getErrorCode() == 0) {
 
 ​		标识删除接口与标识创建的核心参数基本相同，差异在input合约调用参数里，method字段为删除操作的合约函数名，params里是要删除的zid标识名，type标识类型（GHR, SHR是contract_address, LHS的是URL等类型）以及opFlag值（此处为1删除标志）。
 
-### 5.4.5 合约查询
+###  合约查询
 
 + **标识查询**
 
@@ -2333,7 +2333,7 @@ if (response.getErrorCode() == 0) {
 
 ​		params：含有type类型参数(GHR以及SHR的是contract_address，LHS可以是URL或其他自定义类型)，以及对应zid名。
 
-```
+```java
 // 初始化请求参数
 String contractAddress = "did:bid:ef2gAT82SGdnhj87wQWb9suPKLbnk9NP";
 BIFContractCallRequest request = new BIFContractCallRequest();
@@ -2353,7 +2353,7 @@ if (response.getErrorCode() == 0) {
 
 ​		返回信息：
 
-```
+```java
 {
     "query_rets":[
         {
@@ -2370,7 +2370,7 @@ if (response.getErrorCode() == 0) {
 
 ​		标识合约操作的过程中可能需要查询账户详细信息，所以需要此接口。
 
-```
+```java
 // 待查询的账户地址
 String accountAddress = "did:bid:efVmotQW28QDtQyupnKTFvpjKQYs5bxf";
 BIFAccountGetInfoRequest request = new BIFAccountGetInfoRequest();
@@ -2390,7 +2390,7 @@ if (response.getErrorCode() == 0) {
 
 ​		标识合约创建，修改等接口操作后，需要根据生成的hash查询交易是否成功等信息，故需要此接口查询。
 
-```
+```java
 // 初始化请求参数
 String txHash = "1653f54fbba1134f7e35acee49592a7c29384da10f2f629c9a214f6e54747705";
 BIFTransactionGetInfoRequest request = new BIFTransactionGetInfoRequest();
@@ -2407,7 +2407,7 @@ if (response.getErrorCode() == 0) {
 
 ​		返回信息：
 
-```
+```json
 {
 	"total_count":1,
 	"transactions":[{
@@ -2442,4 +2442,3 @@ if (response.getErrorCode() == 0) {
 }
 ```
 
-### 

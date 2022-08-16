@@ -77,285 +77,287 @@ function query(input)
 
 * Chain对象方法详细说明:
 
+  ```
+  `Chain.load(key);`
+  
+  读取该合约内Key对应的存储数据.
+  
+  | 参数         | 说明          |
+  | ------------ | ------------- |
+  | key | metadata的key |
+  
+  ​```
+  let value = Chain.load('test');
+  /*
+      权限：只读
+      返回：成功返回字符串，如 'values', 失败返回false
+  */
+  
+  ​```
+  
+  `Chain.store(key, metadata_value);`
+  
+  在合约内按key为索引存储数据.
+  
+  | 参数           | 说明              |
+  | -------------- | ----------------- |
+  | metadata_key   | metadata的key     |
+  | metadata_value | metadata 的 value |
+  
+  ​```
+  Chain.store('test', 'values');
+  /*
+      权限：可写
+      返回：成功返回true, 失败抛异常
+  */
+  
+  ​```
+  
+  `Chain.del(key);`
+  
+  删除合约内key对应的数据
+  
+  | 参数         | 说明          |
+  | ------------ | ------------- |
+  | key | data的key |
+  
+  ​```
+  Chain.del('abc');
+  /*
+      权限：可写
+      返回：成功返回true, 失败抛异常
+  */
+  
+  ​```
+  ```
 
-    `Chain.load(key);`
-    
-    读取该合约内Key对应的存储数据.
-    
-    | 参数         | 说明          |
-    | ------------ | ------------- |
-    | key | metadata的key |
-    
-    ```
-    let value = Chain.load('test');
-    /*
-        权限：只读
-        返回：成功返回字符串，如 'values', 失败返回false
-    */
-    
-    ```
-    
-    `Chain.store(key, metadata_value);`
-    
-    在合约内按key为索引存储数据.
-    
-    | 参数           | 说明              |
-    | -------------- | ----------------- |
-    | metadata_key   | metadata的key     |
-    | metadata_value | metadata 的 value |
-    
-    ```
-    Chain.store('test', 'values');
-    /*
-        权限：可写
-        返回：成功返回true, 失败抛异常
-    */
-    
-    ```
-    
-    `Chain.del(key);`
-    
-    删除合约内key对应的数据
-    
-    | 参数         | 说明          |
-    | ------------ | ------------- |
-    | key | data的key |
-    
-    ```
-    Chain.del('abc');
-    /*
-        权限：可写
-        返回：成功返回true, 失败抛异常
-    */
-    
-    ```
-
-
-    `Chain.getBlockHash(offset_seq);`
-    
-    获取指定区块的Hash值
-    
-    | 参数       | 说明                                     |
-    | ---------- | ---------------------------------------- |
-    | offset_seq | 距离最后一个区块的偏移量，范围：[0,1024) |
-    
-    ```
-    let ledger = Chain.getBlockHash(4);
-    /*
-        权限：只读
-        返回：成功返回字符串，如 'c2f6892eb934d56076a49f8b01aeb3f635df3d51aaed04ca521da3494451afb3'，失败返回 false
-    */
-    
-    ```    
-    
-    `Chain.tlog(topic,args...);`
-    
-    记录event log事件, event log会与交易一起存储在链上供查询.
-    
-    | 参数    | 说明                                                         |
-    | ------- | ------------------------------------------------------------ |
-    | topic   | 日志主题，必须为字符串类型,参数长度(0,128]                   |
-    | args... | 最多可以包含5个参数，参数类型可以是字符串、数值或者布尔类型,每个参数长度(0,1024] |
-    
-    ```
-    Chain.tlog('transfer',sender +' transfer 1000',true);
-    /*
-        权限：可写
-        返回：成功返回 true，失败抛异常
-    */
-    ```
-    
-    `Chain.getAccountMetadata(account_address, metadata_key);`
-    
-    获取指定账号的metadata
-    
-    | 参数            | 说明          |
-    | --------------- | ------------- |
-    | account_address | 账号地址      |
-    | metadata_key    | metadata的key |
-    
-    ```
-    let value = Chain.getAccountMetadata('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK', 'abc');
-    
-    /*
-        权限：只读
-        返回：成功返回字符串，如 'values', 失败返回false
-    */
-    ```
-    
-    `Chain.getBalance(address);`
-    
-    查询指定账号的XHT余额
-    
-    | 参数    | 说明     |
-    | ------- | -------- |
-    | address | 账号地址 |
-    
-    ```
-    let balance = Chain.getBalance('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
-    /*
-        权限：只读
-        返回：字符串格式数字 '9999111100000'
-    */
-    ```
-    
-    `Chain.getAccountPrivilege(account_address);`
-    
-    获取指定账号的权限信息
-    
-    | 参数            | 说明     |
-    | --------------- | -------- |
-    | account_address | 账号地址 |
-    
-    ```
-    let privilege = Chain.getAccountPrivilege('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
-    
-    /*
-        权限：只读
-        返回：成功返回权限json字符串如'{"master_weight":1,"thresholds":{"tx_threshold":1}}'，失败返回 falses
-    */
-    ```
-    
-    `Chain.getContractProperty(contract_address);`
-    
-    获取指定账号是否为合约账号, 如果为合约账号则返回更多详细信息.
-    
-    | 参数             | 说明     |
-    | ---------------- | -------- |
-    | contract_address | 合约地址 |
-    
-    ```
-    let value = Chain.getContractProperty('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
-    
-    /*
-        权限：只读
-        返回：成功返回JSON对象，如 {"type":0, "length" : 416},  type 指合约类型， length 指合约代码长度，如果该账户不是合约则，length 为0.
-        失败返回false
-    */
-    ```
-    
-    `Chain.payCoin(address, amount[, input], [, metadata]);`
-    
-    从当前账号向指定账户转账
-    
-    | 参数     | 说明                                                         |
-    | -------- | ------------------------------------------------------------ |
-    | address  | 发送星火令的目标地址                                             |
-    | amount   | 发送星火令的数量                                                 |
-    | input    | 可选，合约参数，如果用户未填入，默认为空字符串               |
-    | metadata | 可选，转账备注，显示为十六进制字符串，需要转换为明文 |
-    
-    ```
-    Chain.payCoin("did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK", "10000", "", "vote reward");
-    /*
-        权限：可写
-        返回：成功返回 true，失败抛异常  
-    */
-    ```
-    
-    `Chain.delegateCall(contractAddress, input);`
-    
-    委托调用
-    
-    | 参数            | 说明             |
-    | --------------- | ---------------- |
-    | contractAddress | 被调用的合约地址 |
-    | input           | 调用参数         |
-    
-    `Chain.delegateCall` 函数会触发被调用的合约`main`函数入口，并且把当前合约的执行环境赋予被调用的合约。如合约A委托调用合约B，即执行B(main入口)的代码，读写A的数据。
-    
-    ```
-    let ret = Chain.delegateCall('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，'{}');
-    /*
-        权限：可写
-        返回：成功会返回被委托者合约main函数执行的结果，失败抛出异常
-    */
-    
-    ```
-    
-    `Chain.delegateQuery(contractAddress, input);`
-    
-    委托查询
-    
-    | 参数            | 说明             |
-    | --------------- | ---------------- |
-    | contractAddress | 被调用的合约地址 |
-    | input           | 调用参数         |
-    
-    `Chain.delegateQuery` 函数会触发被调用的合约`query`函数入口，且把当前合约的执行环境赋予被调用的合约。如合约A委托查询合约B，即执行B(query入口)的代码，读取A的数据。
-    
-    ```
-    let ret = Chain.delegateQuery('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，"");
-    /*
-        权限：只读
-        返回：调用成功则返回JSON对象 {"result":"4"}，其中 result 字段的值即查询的具体结果，调用失败返回JSON对象 {"error":true} 。
-    */
-    
-    ```
-    
-    - 调用合约
-    
-    `Chain.contractCall(contractAddress, asset, amount, input);`
-    
-    | 参数            | 说明                       |
-    | --------------- | -------------------------- |
-    | contractAddress | 被调用的合约地址           |
-    | asset           | 仅支持传入true，代表星火令 |
-    | amount          | 星火令数量                 |
-    | input           | 调用参数                   |
-    
-    `Chain.contractCall` 函数会触发被调用的合约`main`函数入口。
-    
-    ```
-    let ret = Chain.contractCall('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，true, toBaseUnit("10"), "");
-    /*
-        权限：可写
-        返回：如果目标账户为普通账户，则返回true，如果目标账户为合约，成功会返回被委托者合约main函数执行的结果，调用失败则抛出异常
-    */
-    
-    ```
-    
-    - 查询合约
-    
-    `Chain.contractQuery(contractAddress, input);`
-    
-    | 参数            | 说明             |
-    | --------------- | ---------------- |
-    | contractAddress | 被调用的合约地址 |
-    | input           | 调用参数         |
-    
-    `Chain.contractQuery` 会调用合约的查询接口。
-    
-    ```
-    let ret = Chain.contractQuery('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，"");
-    /*
-        权限：只读
-        返回：调用成功则返回JSON对象 {"result":"xxx"}，其中 result 字段的值即查询的具体结果，调用失败返回JSON对象 {"error":true}。
-    */
-    
-    ```
-    
-    `Chain.contractCreate(balance, type, code, input);`
-    
-    - 创建合约
-    
-    | 参数        | 说明                                   |
-    | ----------- | -------------------------------------- |
-    | balance     | 字符串类型，转移给被创建的合约的星火令 |
-    | type        | 整型，0代表javascript                  |
-    | code        | 字符串类型， 合约代码                  |
-    | input：init | init函数初始化参数                     |
-    
-    `Chain.contractCreate` 创建合约。
-    
-    ```
-    let ret = Chain.contractCreate(toBaseUnit("10"), 0, "'use strict';function init(input){return input;} function main(input){return input;} function query(input){return input;} ", "");
-    /*
-        权限：可写
-        返回：创建成功返回合约地址字符串，失败则抛出异常
-    */
-    
-    ```
+  ```
+  `Chain.getBlockHash(offset_seq);`
+  
+  获取指定区块的Hash值
+  
+  | 参数       | 说明                                     |
+  | ---------- | ---------------------------------------- |
+  | offset_seq | 距离最后一个区块的偏移量，范围：[0,1024) |
+  
+  ​```
+  let ledger = Chain.getBlockHash(4);
+  /*
+      权限：只读
+      返回：成功返回字符串，如 'c2f6892eb934d56076a49f8b01aeb3f635df3d51aaed04ca521da3494451afb3'，失败返回 false
+  */
+  
+  ​```    
+  
+  `Chain.tlog(topic,args...);`
+  
+  记录event log事件, event log会与交易一起存储在链上供查询.
+  
+  | 参数    | 说明                                                         |
+  | ------- | ------------------------------------------------------------ |
+  | topic   | 日志主题，必须为字符串类型,参数长度(0,128]                   |
+  | args... | 最多可以包含5个参数，参数类型可以是字符串、数值或者布尔类型,每个参数长度(0,1024] |
+  
+  ​```
+  Chain.tlog('transfer',sender +' transfer 1000',true);
+  /*
+      权限：可写
+      返回：成功返回 true，失败抛异常
+  */
+  ​```
+  
+  `Chain.getAccountMetadata(account_address, metadata_key);`
+  
+  获取指定账号的metadata
+  
+  | 参数            | 说明          |
+  | --------------- | ------------- |
+  | account_address | 账号地址      |
+  | metadata_key    | metadata的key |
+  
+  ​```
+  let value = Chain.getAccountMetadata('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK', 'abc');
+  
+  /*
+      权限：只读
+      返回：成功返回字符串，如 'values', 失败返回false
+  */
+  ​```
+  
+  `Chain.getBalance(address);`
+  
+  查询指定账号的XHT余额
+  
+  | 参数    | 说明     |
+  | ------- | -------- |
+  | address | 账号地址 |
+  
+  ​```
+  let balance = Chain.getBalance('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
+  /*
+      权限：只读
+      返回：字符串格式数字 '9999111100000'
+  */
+  ​```
+  
+  `Chain.getAccountPrivilege(account_address);`
+  
+  获取指定账号的权限信息
+  
+  | 参数            | 说明     |
+  | --------------- | -------- |
+  | account_address | 账号地址 |
+  
+  ​```
+  let privilege = Chain.getAccountPrivilege('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
+  
+  /*
+      权限：只读
+      返回：成功返回权限json字符串如'{"master_weight":1,"thresholds":{"tx_threshold":1}}'，失败返回 falses
+  */
+  ​```
+  
+  `Chain.getContractProperty(contract_address);`
+  
+  获取指定账号是否为合约账号, 如果为合约账号则返回更多详细信息.
+  
+  | 参数             | 说明     |
+  | ---------------- | -------- |
+  | contract_address | 合约地址 |
+  
+  ​```
+  let value = Chain.getContractProperty('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
+  
+  /*
+      权限：只读
+      返回：成功返回JSON对象，如 {"type":0, "length" : 416},  type 指合约类型， length 指合约代码长度，如果该账户不是合约则，length 为0.
+      失败返回false
+  */
+  ​```
+  
+  `Chain.payCoin(address, amount[, input], [, metadata]);`
+  
+  从当前账号向指定账户转账
+  
+  | 参数     | 说明                                                         |
+  | -------- | ------------------------------------------------------------ |
+  | address  | 发送星火令的目标地址                                             |
+  | amount   | 发送星火令的数量                                                 |
+  | input    | 可选，合约参数，如果用户未填入，默认为空字符串               |
+  | metadata | 可选，转账备注，显示为十六进制字符串，需要转换为明文 |
+  
+  ​```
+  Chain.payCoin("did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK", "10000", "", "vote reward");
+  /*
+      权限：可写
+      返回：成功返回 true，失败抛异常  
+  */
+  ​```
+  
+  `Chain.delegateCall(contractAddress, input);`
+  
+  委托调用
+  
+  | 参数            | 说明             |
+  | --------------- | ---------------- |
+  | contractAddress | 被调用的合约地址 |
+  | input           | 调用参数         |
+  
+  `Chain.delegateCall` 函数会触发被调用的合约`main`函数入口，并且把当前合约的执行环境赋予被调用的合约。如合约A委托调用合约B，即执行B(main入口)的代码，读写A的数据。
+  
+  ​```
+  let ret = Chain.delegateCall('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，'{}');
+  /*
+      权限：可写
+      返回：成功会返回被委托者合约main函数执行的结果，失败抛出异常
+  */
+  
+  ​```
+  
+  `Chain.delegateQuery(contractAddress, input);`
+  
+  委托查询
+  
+  | 参数            | 说明             |
+  | --------------- | ---------------- |
+  | contractAddress | 被调用的合约地址 |
+  | input           | 调用参数         |
+  
+  `Chain.delegateQuery` 函数会触发被调用的合约`query`函数入口，且把当前合约的执行环境赋予被调用的合约。如合约A委托查询合约B，即执行B(query入口)的代码，读取A的数据。
+  
+  ​```
+  let ret = Chain.delegateQuery('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，"");
+  /*
+      权限：只读
+      返回：调用成功则返回JSON对象 {"result":"4"}，其中 result 字段的值即查询的具体结果，调用失败返回JSON对象 {"error":true} 。
+  */
+  
+  ​```
+  
+  - 调用合约
+  
+  `Chain.contractCall(contractAddress, asset, amount, input);`
+  
+  | 参数            | 说明                       |
+  | --------------- | -------------------------- |
+  | contractAddress | 被调用的合约地址           |
+  | asset           | 仅支持传入true，代表星火令 |
+  | amount          | 星火令数量                 |
+  | input           | 调用参数                   |
+  
+  `Chain.contractCall` 函数会触发被调用的合约`main`函数入口。
+  
+  ​```
+  let ret = Chain.contractCall('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，true, toBaseUnit("10"), "");
+  /*
+      权限：可写
+      返回：如果目标账户为普通账户，则返回true，如果目标账户为合约，成功会返回被委托者合约main函数执行的结果，调用失败则抛出异常
+  */
+  
+  ​```
+  
+  - 查询合约
+  
+  `Chain.contractQuery(contractAddress, input);`
+  
+  | 参数            | 说明             |
+  | --------------- | ---------------- |
+  | contractAddress | 被调用的合约地址 |
+  | input           | 调用参数         |
+  
+  `Chain.contractQuery` 会调用合约的查询接口。
+  
+  ​```
+  let ret = Chain.contractQuery('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，"");
+  /*
+      权限：只读
+      返回：调用成功则返回JSON对象 {"result":"xxx"}，其中 result 字段的值即查询的具体结果，调用失败返回JSON对象 {"error":true}。
+  */
+  
+  ​```
+  
+  `Chain.contractCreate(balance, type, code, input);`
+  
+  - 创建合约
+  
+  | 参数        | 说明                                   |
+  | ----------- | -------------------------------------- |
+  | balance     | 字符串类型，转移给被创建的合约的星火令 |
+  | type        | 整型，0代表javascript                  |
+  | code        | 字符串类型， 合约代码                  |
+  | input：init | init函数初始化参数                     |
+  
+  `Chain.contractCreate` 创建合约。
+  
+  ​```
+  let ret = Chain.contractCreate(toBaseUnit("10"), 0, "'use strict';function init(input){return input;} function main(input){return input;} function query(input){return input;} ", "");
+  /*
+      权限：可写
+      返回：创建成功返回合约地址字符串，失败则抛出异常
+  */
+  
+  ​```
+  ```
 
 * Chain对象属性列表
 
@@ -720,11 +722,88 @@ function query(input)
   
   ```
 
+## 合约开发工具
+
+### 检测工具
+
+ 星火链提供了针对JavaScript智能合约的校验工具，可用于验证星火链智能合约语法的正确性。
+
+ 星火链Spark-V8智能合约使用 `JaveScript` 语言编写，为了方便开发者更规范的，更安全的开发合约，在做合约语法检测时候，使用了 JSLint 做限制。编辑合约时候，首先需要在 JSLint 里检测通过，才可以被星火链系统检测为一个合法的合约。
+
+ 合约校验工具：[jslint.zip](https://github.com/caict-4iot-dev/BIF-Core-Doc/blob/feature/readthedocs/source/_static/tools/jslint.zip)
+
+<img src="../_static/images/jslint.png"  style="zoom: 80%;" />
+
+- 规则列表
+
+  - 严格检测声明，所有的源码在开始必须要添加 `"use strict";` 字段
+
+  - 语句块内尽量使用 `let` 声明变量
+
+  - 使用`===` 代替 `==` 判断比较；使用 `!==` 代替 `!=` 比较
+
+  - 语句必须以 `;` 结束
+
+  - 语句块必须用 `{}` 包括起来，且禁止空语句块
+
+  - `for` 的循环变量初始变量需在条件语句块之前声明，每次使用重新赋值
+
+  - 禁用 `++` 和 `--`，使用 `+=` 和 `-=` 替代
+
+  - 禁止使用 `eval`, `void` 关键字
+
+  - 禁止使用 `new` 创建 `Number`, `String`, `Boolean`对象，可以使用其构造调用来获取对象
+
+  - 禁止使用的数组关键字创建数组
+
+  - 禁止使用 `try`, `catch` 关键字，可以使用 `throw` 手动抛出异常
+
+    ```
+    "Array", "ArrayBuffer", "Float32Array", "Float64Array", 
+    "Int8Array", "Int16Array", "Int32Array", "Uint8Array", 
+    "Uint8ClampedArray", "Uint16Array", "Uint32Array"
+    
+    let color = new Array(100); //编译报错
+    
+    //可以使用替代 new Array(100) 语句;
+    let color = ["red","black"]; 
+    let arr = [1,2,3,4];
+    ```
+
+  - 禁止使用的关键字
+
+    ```
+    "DataView", "decodeURI", "decodeURIComponent", "encodeURI", 
+    "encodeURIComponent", "Generator","GeneratorFunction", "Intl", 
+    "Promise", "Proxy", "Reflect", "System", "URIError", "WeakMap", 
+    "WeakSet", "Math", "Date" 
+    ```
+
+### 文本压缩
+
+ 合约文档写好之后，可以使用 JSMin 工具进行压缩，注意保存原文档，压缩是不可逆的操作。
+
+ 合约压缩工具：[jsmin.zip](https://github.com/caict-4iot-dev/BIF-Core-Doc/blob/feature/readthedocs/source/_static/tools/jsmin.zip)
+
+- 文件解压后可看到 jsmin.bat文件
+
+<img src="../_static/images/jsmin-1.png"  style="zoom: 80%;" />
+
+- 文本编解jsmin.bat，设置待压缩文件名及压缩后文件名，示例中为private.js；
+
+```
+jsmin.exe <.\private.js >.\private.min.js
+```
+
+- 点击jsmin.bat执行bat文件，即可在配置目录下看到生成好的private.min.js
+
+<img src="../_static/images/jsmin-2.png" style="zoom: 80%;" />
+
 ## 异常处理
 
 ### 主动抛出异常
 
-星火链Javascript合约禁用了try catch关键字, 但是可以调用throw来抛出异常, 当执行遇到throw异常时, 该交易判定为失败, 入链扣费但是交易不生效.
+星火链Javascript合约禁用了try catch关键字, 但是可以调用throw来抛出异常, 当执行遇到throw异常时, 该交易判定为失败, 入链扣费但是交易不生效。
 
 ### JavaScript异常
 
