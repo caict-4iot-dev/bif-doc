@@ -1,7 +1,7 @@
 星火·链网开放文档
 ===================================
 
-“星火·链网”是在工信部的领导与专项支持下，由 中国信通院牵头、联合北航、北邮、中国联通等 多家大型企事业单位建设的国家区块链新型融合 基础设施体系，是为持续推进产业数字化转型， 推动数字资产价值化，利用区块链自主创新能力 而谋划布局的数字经济“新型基础设施”
+“星火·链网”是在工信部的领导与专项支持下，由 中国信通院牵头、联合北航、北邮、中国联通等 多家大型企事业单位建设的国家区块链新型融合 基础设施体系，是为持续推进产业数字化转型， 推动数字资产价值化，利用区块链自主创新能力 而谋划布局的数字经济“新型基础设施”。
 
 星火链网介绍
 ====================================
@@ -13,20 +13,20 @@
 
 .. toctree::
    :maxdepth: 1
-   :caption:  星火·链网应用开发文档
+   :caption:  星火·链网主链应用开发指南
    :glob:
 
    app/brief
    app/quick_start
-   app/advanced
    app/javascript
    app/solidity
    app/reference
+   app/advanced
    app/faq
 
 .. toctree::
    :maxdepth: 1
-   :caption:  星火·链网业务接入手册
+   :caption:  星火·链网主链业务接入指南
    :glob:
 
    business/main_node
@@ -46,6 +46,8 @@
    tools/bifsdk
    tools/subscribeTool
    tools/explorer
+   tools/wallet
+   tools/ide
 
 .. toctree::
    :maxdepth: 1
