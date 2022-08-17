@@ -41,7 +41,7 @@ service docker start
 
 ### 2. 启动镜像，进入容器
 
-- 执行docker images查看拉取的镜像IMAGE ID
+- 执行docker images查看拉取的镜像`IMAGE ID`
   <img src="../_static/images/2022-08-01-11-17-49.png"/>
 
 - 启动Quicknode服务
@@ -53,7 +53,7 @@ service docker start
   执行结果如下：
   <img src="../_static/images/2022-07-29-17-38-24.png"/>
 
-- 查询启动的docker镜像进程信息,获取container ID
+- 查询启动的docker镜像进程信息,获取`container ID`
   <img src="../_static/images/2022-07-29-17-42-39.png"/>
 
 - exec进入容器系统启动bif服务
@@ -118,14 +118,14 @@ ps aux |grep -v grep |grep bif
 
 - 同步查询Quicknode节点高度
 
-  访问快速节点高度,host是主机ip(镜像映射到宿主机了)，port即部署时的27002
+  访问快速节点高度,host是主机ip(镜像映射到宿主机了)，port即部署时的`27002`
 
   ```http
   http请求方式：GET
   http://{host}:{port}/getLedger
   ```
 
-  获取到响应报文，查看seq字段的值，高度一致即全部同步完成。
+  获取到响应报文，查看`seq`字段的值，高度一致即全部同步完成。
 
 ## SDK下载
 
@@ -146,7 +146,7 @@ System.out.printf("privatekey %s\n", entity.getEncPrivateKey());      //账户�
 
 账户需要拥有星火令才能正常使用星火链功能, 测试网星火令可以通过如下方式获取：
 
-​    （1）通过星火插件钱包申请可信凭证获取100星火令
+​    （1）通过星火插件钱包申请可信凭证获取`100`星火令
 
 ​    （2）星火可信企业可登录服务平台申请星火令
 
@@ -379,7 +379,7 @@ if (infoRsp.getErrorCode() == 0) {
 
 ## 合约调用
 
-#### Javascript智能合约的合约调用:
+#### Javascript智能合约调用:
 
 合约成功部署并且获取到合约地址后, 就可以通过SDK发送交易调用合约接口, 我们存储一个Key-Value对到合约里:
 
@@ -432,7 +432,7 @@ if (cIvkRsp.getErrorCode() == 0) {
 }
 ```
 
-#### Solidity智能合约的合约调用:
+#### Solidity智能合约调用:
 
 合约成功部署并且获取到合约地址后, 就可以通过SDK发送交易调用合约接口, 我们存储一个Key-Value对到合约里:
 
@@ -473,7 +473,7 @@ request.setGasPrice(10L);
 
 ## 查询合约
 
-#### Javascript智能合约的合约查询:
+#### Javascript智能合约查询:
 
 不同于调用合约, 查询合约为只读操作, 因此不需要发出上链交易和耗费gas, 这里我们查询刚刚设置的key, 查询input为:
 
@@ -520,7 +520,7 @@ if (cCallRsp.getErrorCode() == 0) {
 
 
 
-#### Solidity智能合约的合约查询:
+#### Solidity智能合约查询:
 
 不同于调用合约, 查询合约为只读操作, 因此不需要发出上链交易和耗费gas, 这里我们查询刚刚设置的key, 查询input为:
 
