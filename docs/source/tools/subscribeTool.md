@@ -14,28 +14,28 @@
 ## 方法说明
 ### AddChainResponseMethod
 
-> 接口说明
+- 接口说明
 
 ```
 该接口用于接收响应消息。
 ```
 
-> 调用方法
+- 调用方法
 
-```
+```java
 BlockChainAdapter AddChainResponseMethod(Overlay.ChainMessageType.CHAIN_HELLO_VALUE,new BlockChainAdapterProc() {public void ChainMethod (byte[] msg, int length) {}});
 ```
 
-> 请求参数
+- 请求参数
 
 | 序号 | 类型                                       | 说明             |
 | ---- | ------------------------------------------ | ---------------- |
 | 1    | Overlay.ChainMessageType.CHAIN_HELLO_VALUE | hello数据类型    |
 | 2    | BlockChainAdapterProc(){}                  | 定义消息处理方法 |
 
-> 示例
+- 示例
 
-```
+```java
 //接收hello响应消息
 BlockChainAdapter.AddChainResponseMethod(Overlay.ChainMessageType.CHAIN_HELLO_VALUE, new BlockChainAdapterProc() {
             public void ChainMethod (byte[] msg, int length) {
@@ -46,28 +46,28 @@ BlockChainAdapter.AddChainResponseMethod(Overlay.ChainMessageType.CHAIN_HELLO_VA
 
 ### AddChainMethod
 
-> 接口说明
+- 接口说明
 
 ```
 该接口用于接收请求消息，请求消息是区块链实时推送的消息。
 ```
 
-> 调用方法
+- 调用方法
 
-```
+```java
 BlockChainAdapter AddChainMethod(Overlay.ChainMessageType.CHAIN_TX_ENV_STORE_VALUE,,new BlockChainAdapterProc() {public void ChainMethod (byte[] msg, int length) {}});
 ```
 
-> 请求参数
+- 请求参数
 
 | 序号 | 类型                                                         | 说明              |
 | ---- | ------------------------------------------------------------ | ----------------- |
 | 1    | Overlay.ChainMessageType.CHAIN_TX_ENV_STORE_VALUE/CHAIN_LEDGER_TXS_VALUE | 交易/区块数据类型 |
 | 2    | BlockChainAdapterProc(){}                                    | 定义消息处理方法  |
 
-> 示例
+- 示例
 
-```
+```java
  //接收区块链实时推送的消息-交易信息
         BlockChainAdapter.AddChainMethod(Overlay.ChainMessageType.CHAIN_TX_ENV_STORE_VALUE, new BlockChainAdapterProc() {
             public void ChainMethod (byte[] msg, int length) {
@@ -85,27 +85,27 @@ BlockChainAdapter AddChainMethod(Overlay.ChainMessageType.CHAIN_TX_ENV_STORE_VAL
 
 ### Send
 
-> 接口说明
+- 接口说明
 
 ```
 该接口订阅指定账号交易信息。
 ```
 
-> 调用方法
+- 调用方法
 
-```
+```java
 BlockChainAdapter Send(Overlay.ChainMessageType.CHAIN_SUBSCRIBE_TX.getNumber(), tx.build().toByteArray()));
 ```
 
-> 请求参数
+- 请求参数
 
 | 序号 | 类型                                                    | 说明              |
 | ---- | ------------------------------------------------------- | ----------------- |
 | 1    | Overlay.ChainMessageType.CHAIN_SUBSCRIBE_TX.getNumber() | 交易/区块数据类型 |
 
-> 示例
+- 示例
 
-```
+```java
 //订阅指定账号交易信息
 String srcAddress="";
 Overlay.ChainSubscribeTx.Builder tx=Overlay.ChainSubscribeTx.newBuilder();
@@ -121,9 +121,9 @@ if (!BlockChainAdapter.Send(Overlay.ChainMessageType.CHAIN_SUBSCRIBE_TX.getNumbe
 
 ​	该示例主要实现功能为订阅**did:bid:efHmvWpqfVzv5rLNSMrhEdNegLz9AcnS**账号交易信息。
 
-> 示例
+- 示例
 
-```
+```java
 
     private static chain_test chainTest;
     /**

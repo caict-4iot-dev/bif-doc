@@ -2,7 +2,7 @@
 
 Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实现。在星火链合约账户中，Solidity编译后生成的opCode指令码会存储到合约账户中，用于合约的执行。
 
-本目录的文档主要介绍在星火链合约平台中支持的 Solidity 合约的特性、语法、功能等。星火链平台支持的solidity语法基本与官方solidity基本一致，目前支持0.4.26版本，可以参考官方文档：<https://solidity.readthedocs.io/en/v0.4.26/>
+本目录的文档主要介绍在星火链合约平台中支持的 Solidity 合约的特性、语法、功能等。星火链平台支持的solidity语法基本与官方solidity基本一致，目前支持`0.4.26`版本，可以参考官方文档：<https://solidity.readthedocs.io/en/v0.4.26/>
 
 ## 星火链Solidity合约特性
 
@@ -10,7 +10,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
 1. **星火链bid地址支持**: 
 
-    星火链solidity address表示的地址，长度为24字节, 以太坊solidity中address表示的地址是20字节。
+    星火链solidity address表示的地址，长度为`24`字节, 以太坊solidity中address表示的地址是`20`字节。
 
 1. **有效地址检查**:
 
@@ -18,15 +18,15 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
 1. **指令支持**
 
-    星火链上solidity不支持STATICCALL, CALLCODE, SELFDESCTRUCT命令.
+    星火链上solidity不支持`STATICCALL`, `CALLCODE`, `SELFDESCTRUCT`命令。
 
 1. **链机制不同导致的语言diff**
 
-    星火链上solidity不支持EXTCODEHASH,COINBASE, DIFFICULT指令.
+    星火链上solidity不支持`EXTCODEHASH`,`COINBASE`,`DIFFICULT`指令。
 
 1. **函数递归深度限制**
 
-    星火链solidity函数调用递归深度最大为4层, 以太坊为1024.
+    星火链solidity函数调用递归深度最大为4层, 以太坊为`1024`。
 
 ### 星火链op支持列表
 
@@ -125,21 +125,21 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
     **基本类型：**
 
-    uint\<M>：M 位的无符号整数，0 < M <= 256、M % 8 == 0。例如：uint32，uint8，uint256。
+    `uint\<M>`：M 位的无符号整数，0 < M <= 256、M % 8 == 0。例如：`uint32`，`uint8`，`uint256`。
 
-    int\<M>：以 2 的补码作为符号的 M 位整数，0 < M <= 256、M % 8 == 0。
+    `int\<M>`：以 2 的补码作为符号的 M 位整数，0 < M <= 256、M % 8 == 0。
 
-    uint、int：uint256、int256 各自的同义词。在计算和 函数选择器 中，通常使用 uint256 和 int256。
+    `uint`、`int`：uint256、int256 各自的同义词。在计算和 函数选择器 中，通常使用 `uint256` 和 `int256`。
 
-    bool：等价于 uint8，取值限定为 0 或 1 。在计算和 函数选择器 中，通常使用 bool。
+    `bool`：等价于 uint8，取值限定为 0 或 1 。在计算和 函数选择器 中，通常使用 bool。
 
-    bytes\<M>：M 字节的二进制类型，0 < M <= 32。
+    `bytes\<M>`：M 字节的二进制类型，0 < M <= 32。
 
-    byte：等价于bytes1。
+    `byte`：等价于bytes1。
 
-    bytes：动态大小的字节序列。
+    `bytes`：动态大小的字节序列。
 
-    string：动态大小的 unicode 字符串，通常呈现为 UTF-8 编码。
+    `string`：动态大小的 unicode 字符串，通常呈现为 `UTF-8` 编码。
 
   **一维数组：**
 
@@ -170,11 +170,11 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
 ## 星火链Solidity编译器
 
-由于指令集支持和地址表示法的区别, 星火链提供了专门的编译器来编译星火链Solidity合约. 本章指导开发者使用官方编译器编译星火链智能合约.
+由于指令集支持和地址表示法的区别, 星火链提供了专门的编译器来编译星火链Solidity合约。 本章指导开发者使用官方编译器编译星火链智能合约。
 
 1. 镜像下载
 
-    ```
+    ```sh
     docker pull caictdevelop/bif-solidity:v0.4.26
     ```
 
@@ -192,9 +192,9 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
 3. 编写测试合约
 
-    用一个最简单的测试合约做例子.
+    用一个最简单的测试合约做例子。
 
-    ```
+    ```S
     pragma solidity ^0.4.26;
 
     contract test{
@@ -206,7 +206,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
 4. 编译合约
 
-    ```
+    ```shell
     # 启动镜像
     docker run -it caictdevelop/bif-solidity:v0.4.26 /bin/bash
     cd /root/solidity/build/solc
@@ -231,4 +231,4 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
 5. 部署调用
 
-    后续的合约部署调用流程参见**快速上手**章节.
+    后续的合约部署调用流程参见**快速上手**章节。
