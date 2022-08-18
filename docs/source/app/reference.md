@@ -2136,7 +2136,7 @@
 
 + **SHR合约部署**
 
-  只需要将`setInitInput`的合约类型换成SHR的即可。
+  只需要将`setInitInput`的合约类型换成`SHR`的即可。
 
   ```java
   // 初始化参数
@@ -2224,7 +2224,7 @@
   }
   ```
 
-  白名单设置和其他交易不同在于，源账户是由验证者账户触发的（必须时验证者账户否则报错），合约账户就是对应GHR，SHR以及LHS各自的合约地址，私钥就是验证者账户对应的，然后input合约函数以及参数都是GHR，SHR以及LHS对应里具体的值，然后初始化填充后调用接口发送即可将各个合约地址加入到白名单，以方便后续的管理操作。
+  白名单设置和其他交易不同在于，源账户是由验证者账户触发的（必须时验证者账户否则报错），合约账户就是对应`GHR`，`SHR`以及`LHS`各自的合约地址，私钥就是验证者账户对应的，然后input合约函数以及参数都是`GHR`，`SHR`以及`LHS`对应里具体的值，然后初始化填充后调用接口发送即可将各个合约地址加入到白名单，以方便后续的管理操作。
 
 + **标识创建**
 
@@ -2325,7 +2325,7 @@
   }
   ```
 
-  标识删除接口与标识创建的核心参数基本相同，差异在input合约调用参数里，method字段为删除操作的合约函数名，params里是要删除的zid标识名，type标识类型（GHR, SHR是`contract_address`, LHS的是URL等类型）以及opFlag值（此处为1删除标志）。
+  标识删除接口与标识创建的核心参数基本相同，差异在input合约调用参数里，method字段为删除操作的合约函数名，params里是要删除的zid标识名，type标识类型（`GHR`, `SHR`是`contract_address`, `LHS`的是URL等类型）以及opFlag值（此处为1删除标志）。
 
 ###  合约查询
 
@@ -2333,9 +2333,9 @@
 
   `Input`合约参数说明：
 
-  	`method`：对应合约的查询接口函数名（GHR的查询接口是`queryZidRecord`，SHR合约的是`queryZidRecordShr`，LHS的是`queryZidRecordLhs`）。
+  	`method`：对应合约的查询接口函数名（`GHR`的查询接口是`queryZidRecord`，`SHR`合约的是`queryZidRecordShr`，`LHS`的是`queryZidRecordLhs`）。
 		
-  	`params`：含有type类型参数(GHR以及SHR的是`contract_address`，LHS可以是URL或其他自定义类型)，以及对应zid名。
+  	`params`：含有type类型参数(`GHR`以及`SHR`的是`contract_address`，`LHS`可以是URL或其他自定义类型)，以及对应zid名。
   
   ```java
   // 初始化请求参数

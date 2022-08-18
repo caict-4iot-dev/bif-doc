@@ -232,7 +232,7 @@ if (infoRsp.getErrorCode() == 0) {
   }
   ```
 
-  该合约实现了一个简单的存储功能, 用户可以调用main接口存储自定义Key-Value信息, 然后通过query接口查询已经存入的Key-Value信息。
+  该合约实现了一个简单的存储功能, 用户可以调用main接口存储自定义`Key-Value`信息, 然后通过query接口查询已经存入的`Key-Value`信息。
 
 * 部署合约
 
@@ -309,7 +309,7 @@ if (infoRsp.getErrorCode() == 0) {
   }
   ```
 
-  did:bid:efSvDJivc2A4iqurRkUPzmpT5kB3nkNg即为刚刚创建的合约链上地址。
+  `did:bid:efSvDJivc2A4iqurRkUPzmpT5kB3nkNg`即为刚刚创建的合约链上地址。
 
 
 
@@ -375,7 +375,7 @@ if (infoRsp.getErrorCode() == 0) {
 
   查询方式同`Javascript`。
 
-  可以查询到刚刚创建的合约链上地址: did:bid:efexVGPgx8Brxmv68TnTic9TU8kAA9Hd
+  可以查询到刚刚创建的合约链上地址: `did:bid:efexVGPgx8Brxmv68TnTic9TU8kAA9Hd`
 
 ## 合约调用
 
@@ -434,7 +434,7 @@ if (cIvkRsp.getErrorCode() == 0) {
 
 #### Solidity智能合约调用:
 
-合约成功部署并且获取到合约地址后, 就可以通过SDK发送交易调用合约接口, 我们存储一个Key-Value对到合约里:
+合约成功部署并且获取到合约地址后, 就可以通过SDK发送交易调用合约接口, 我们存储一个`Key-Value`对到合约里:
 
 调用合约input如下
 
@@ -475,7 +475,7 @@ request.setGasPrice(10L);
 
 #### Javascript智能合约查询:
 
-不同于调用合约, 查询合约为只读操作, 因此不需要发出上链交易和耗费gas, 这里我们查询刚刚设置的key, 查询input为:
+不同于调用合约, 查询合约为只读操作, 因此不需要发出上链交易和耗费`gas`, 这里我们查询刚刚设置的key, 查询input为:
 
 ```json
 {
@@ -522,7 +522,7 @@ if (cCallRsp.getErrorCode() == 0) {
 
 #### Solidity智能合约查询:
 
-不同于调用合约, 查询合约为只读操作, 因此不需要发出上链交易和耗费gas, 这里我们查询刚刚设置的key, 查询input为:
+不同于调用合约, 查询合约为只读操作, 因此不需要发出上链交易和耗费`gas`, 这里我们查询刚刚设置的key, 查询input为:
 
 ```json
 {

@@ -39,7 +39,7 @@ function query(input)
 }
 ```
 
-除此之外, 星火链javascript合约对javascript语法也做了一些限定:
+除此之外, 星火链`javascript`合约对`javascript`语法也做了一些限定:
 
 * 源码开头必须添加 `"use strict;"`
 
@@ -49,7 +49,7 @@ function query(input)
 
 ## 星火链合约内置 API
 
-为JavaScript智能合约的高效执行，星火链实现了部分预编译JavaScript指令，可通过智能合约直接进行调用。
+为JavaScript智能合约的高效执行，星火链实现了部分预编译`JavaScript`指令，可通过智能合约直接进行调用。
 
 智能合约内提供了全局对象 `Chain` 和 `Utils`, 这两个对象提供了多样的方法和变量，可以获取区块链的一些信息，也可驱动账号发起交易。
 
@@ -657,7 +657,7 @@ function query(input)
   | data           | 待计算hash的原始数据，根据dataType不同，填不同格式的数据     |
   | dataType：data | data 的数据类型，整数，可选字段，默认为0。0：base16编码后的字符串，如"61626364"；1：普通原始字符串，如"abcd"；2：base64编码后的字符串,如"YWJjZA=="。如果对二进制数据hash计算，建议使用base16或者base64编码 |
 
-  返回值:  成功会hash之后的base16编码后的字符串，失败会返回 false。
+  返回值:  成功会hash之后的`base16`编码后的字符串，失败会返回 false。
 
   ```javascript
   let ret = Utils.sha256('61626364');
@@ -675,7 +675,7 @@ function query(input)
   | ----- | ------------------------------------------------------------ |
   | value | 被转换的数字，只能传入字符串，可以包含小数点，且小数点之后最多保留 8 位数字 |
 
-  返回值: 成功会返回乘以 10^8 的字符串，失败会返回 false。
+  返回值: 成功会返回乘以 `10^8` 的字符串，失败会返回 false。
 
   ```javascript
   let ret = Utils.toBaseUnit('12345678912');
@@ -722,9 +722,9 @@ function query(input)
 
 ### 检测工具
 
- 星火链提供了针对JavaScript智能合约的校验工具，可用于验证星火链智能合约语法的正确性。
+ 星火链提供了针对`JavaScript`智能合约的校验工具，可用于验证星火链智能合约语法的正确性。
 
- 星火链Spark-V8智能合约使用 `JaveScript` 语言编写，为了方便开发者更规范的，更安全的开发合约，在做合约语法检测时候，使用了 JSLint 做限制。编辑合约时候，首先需要在 JSLint 里检测通过，才可以被星火链系统检测为一个合法的合约。
+ 星火链Spark-V8智能合约使用 `JaveScript` 语言编写，为了方便开发者更规范的，更安全的开发合约，在做合约语法检测时候，使用了 JSLint 做限制。编辑合约时候，首先需要在 `JSLint` 里检测通过，才可以被星火链系统检测为一个合法的合约。
 
  合约校验工具：[jslint.zip](https://github.com/caict-4iot-dev/BIF-Core-Doc/blob/feature/readthedocs/source/_static/tools/jslint.zip)
 
@@ -777,7 +777,7 @@ function query(input)
 
 ### 文本压缩
 
- 合约文档写好之后，可以使用 JSMin 工具进行压缩，注意保存原文档，压缩是不可逆的操作。
+ 合约文档写好之后，可以使用`JSMin` 工具进行压缩，注意保存原文档，压缩是不可逆的操作。
 
  合约压缩工具：[jsmin.zip](https://github.com/caict-4iot-dev/BIF-Core-Doc/blob/feature/readthedocs/source/_static/tools/jsmin.zip)
 
@@ -799,11 +799,11 @@ jsmin.exe <.\private.js >.\private.min.js
 
 ### 主动抛出异常
 
-星火链Javascript合约禁用了try catch关键字, 但是可以调用throw来抛出异常, 当执行遇到throw异常时, 该交易判定为失败, 入链扣费但是交易不生效。
+星火链`Javascript`合约禁用了`try catch`关键字, 但是可以调用`throw`来抛出异常, 当执行遇到`throw`异常时, 该交易判定为失败, 入链扣费但是交易不生效。
 
 ### JavaScript异常
 
-当合约运行中出现未捕获的JavaScript异常时，处理规定：
+当合约运行中出现未捕获的`JavaScript`异常时，处理规定：
 
 * 本次合约执行失败，合约中做的所有交易都不会生效
 
@@ -815,7 +815,7 @@ jsmin.exe <.\private.js >.\private.min.js
 
 ## javascript合约限制
 
-由于区块链智能合约的执行机制原因, 星火链对javascript智能合约也做了如下的限制:
+由于区块链智能合约的执行机制原因, 星火链对`javascript`智能合约也做了如下的限制:
 
 * 堆大小限制: 30Mb
 * 栈大小限制: 512Kb

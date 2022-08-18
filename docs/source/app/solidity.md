@@ -1,8 +1,8 @@
 # Solidity合约说明
 
-Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实现。在星火链合约账户中，Solidity编译后生成的opCode指令码会存储到合约账户中，用于合约的执行。
+`Solidity`智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实现。在星火链合约账户中，`Solidity`编译后生成的opCode指令码会存储到合约账户中，用于合约的执行。
 
-本目录的文档主要介绍在星火链合约平台中支持的 Solidity 合约的特性、语法、功能等。星火链平台支持的solidity语法基本与官方solidity基本一致，目前支持`0.4.26`版本，可以参考官方文档：<https://solidity.readthedocs.io/en/v0.4.26/>
+本目录的文档主要介绍在星火链合约平台中支持的 `Solidity` 合约的特性、语法、功能等。星火链平台支持的`solidity`语法基本与官方`solidity`基本一致，目前支持`0.4.26`版本，可以参考官方文档：<https://solidity.readthedocs.io/en/v0.4.26/>
 
 ## 星火链Solidity合约特性
 
@@ -10,23 +10,23 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
 1. **星火链bid地址支持**: 
 
-    星火链solidity address表示的地址，长度为`24`字节, 以太坊solidity中address表示的地址是`20`字节。
+    星火链`solidity` address表示的地址，长度为`24`字节, 以太坊`solidity`中address表示的地址是`20`字节。
 
 1. **有效地址检查**:
 
-    在星火链solidity合约内向一个未激活(没有转入转出交易)的地址转账，合约会异常终止；而以太坊对此没有限制。
+    在星火链`solidity`合约内向一个未激活(没有转入转出交易)的地址转账，合约会异常终止；而以太坊对此没有限制。
 
 1. **指令支持**
 
-    星火链上solidity不支持`STATICCALL`, `CALLCODE`, `SELFDESCTRUCT`命令。
+    星火链上`solidity`不支持`STATICCALL`, `CALLCODE`, `SELFDESCTRUCT`命令。
 
 1. **链机制不同导致的语言diff**
 
-    星火链上solidity不支持`EXTCODEHASH`,`COINBASE`,`DIFFICULT`指令。
+    星火链上`solidity`不支持`EXTCODEHASH`,`COINBASE`,`DIFFICULT`指令。
 
 1. **函数递归深度限制**
 
-    星火链solidity函数调用递归深度最大为4层, 以太坊为`1024`。
+    星火链`solidity`函数调用递归深度最大为4层, 以太坊为`1024`。
 
 ### 星火链op支持列表
 
@@ -170,7 +170,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
 ## 星火链Solidity编译器
 
-由于指令集支持和地址表示法的区别, 星火链提供了专门的编译器来编译星火链Solidity合约。 本章指导开发者使用官方编译器编译星火链智能合约。
+由于指令集支持和地址表示法的区别, 星火链提供了专门的编译器来编译星火链`Solidity`合约。 本章指导开发者使用官方编译器编译星火链智能合约。
 
 1. 镜像下载
 
@@ -180,7 +180,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
 2. 选项说明
 
-    镜像下载之后，需要启动镜像进入容器中，可以使用solc --help 来查看此工具支持的参数说明。
+    镜像下载之后，需要启动镜像进入容器中，可以使用`solc --help `来查看此工具支持的参数说明。
 
     常用选项说明：
 
