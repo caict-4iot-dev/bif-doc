@@ -7,7 +7,7 @@
 
 **测试系统** 超级节点测试网络服务平台地址：[http://test-bj-baas.bitfactory.cn/](http://test-bj-baas.bitfactory.cn/)
 
-**生产系统** 超级节点区块链网络服务平台地址：[https://bj-baas.bitfactory.cn/]((https://bj-baas.bitfactory.cn/))
+**生产系统** 超级节点区块链网络服务平台地址：[https://bj-baas.bitfactory.cn/](https://bj-baas.bitfactory.cn/)
 
 ## 通用说明
 
