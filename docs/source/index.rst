@@ -29,6 +29,7 @@
    :caption:  星火·链网主链业务接入指南
    :glob:
 
+   business/dna
    business/main_node
    business/cross_chain
    business/digital_id
@@ -46,6 +47,7 @@
    tools/bifsdk
    tools/subscribeTool
    tools/explorer
+   tools/offlineapi
    tools/wallet
    tools/ide
 

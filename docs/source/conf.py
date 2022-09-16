@@ -3,7 +3,7 @@
 # -- Project information
 
 project = '星火·链网开放文档'
-copyright = '2021, 中国信息通信研究院'
+copyright = '2022, 中国信息通信研究院'
 author = '中国信息通信研究院'
 
 release = '0.1'
