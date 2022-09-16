@@ -216,7 +216,7 @@ String signBlob = HexFormat.byteToHex(signByte);
 
 ![img](../images/u81MfMEa-UoOb64QvSehFA.png)
 
-![img](D:\ljj\P0-区块链-0922\p1-2.0规划\业务系统\docs\source\images\UIXfBpwVjhhEp30RD_Bgpw.png)
+![img](../images/UIXfBpwVjhhEp30RD_Bgpw.png)
 
 
 
