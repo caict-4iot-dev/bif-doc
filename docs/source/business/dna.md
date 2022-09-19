@@ -200,11 +200,11 @@ http://localhost:8888/bifApi/v1/contract
 
 **input参数**
 
-| **字段名** | **类型** | **是否必填** | **描述**                                                     |
-| ---------- | -------- | ------------ | ------------------------------------------------------------ |
-| tokenBid   | string   | 是           | 数字资产bid，每个数字资产绑定一个主链bid作为唯一识别。调用星火链网接口获取主链bid |
-| fromBid    | string   | 是           | 用户数字资产持有者地址,保证都是应用下的账户                  |
-| toAddress  | string   | 是           | 用户接收数字资产的地址，保证都是应用下的账户                 |
+| **字段名**  | **类型** | **是否必填** | **描述**                                                     |
+| ----------- | -------- | ------------ | ------------------------------------------------------------ |
+| tokenBid    | string   | 是           | 数字资产bid，每个数字资产绑定一个主链bid作为唯一识别。调用星火链网接口获取主链bid |
+| fromAddress | string   | 是           | 用户数字资产持有者地址,保证都是应用下的账户                  |
+| toAddress   | string   | 是           | 用户接收数字资产的地址，保证都是应用下的账户                 |
 
 **响应参数**
 
@@ -273,7 +273,7 @@ http://localhost:8888/bifApi/v1/contract
 | bifAmount        | int64    | 是           | 转账金额 ，参数为 0                                          |
 | feeLimit         | int64    | 是           | 参数为200000000                                              |
 | gasPrice         | int64    | 是           | gas费，参数为200                                             |
-| nonce            | int64    | 是           | nonce  需要从链上获取，参照接口6.8                           |
+| nonce            | int64    | 是           | nonce  需要从链上获取，参照接口6.10                          |
 | input            | string   | 是           | 待触发的合约的main()入参，为调用上链交易接口的入参数<br/>销毁数字资产"input":{"{\"function\":\"burn(string)\",\"args\":\"'tokenBid'\"}"} |
 
 input参数
@@ -549,7 +549,7 @@ https://{url}//registration/api/v2/:seriesId/dna
 | **字段名** | **类型** | **是否必填** | **描述**                                                     |
 | ---------- | -------- | ------------ | ------------------------------------------------------------ |
 | retCode    | number   |              | 返回状态码，取值：200-成功，400-信息错误，500-服务错误       |
-| retMsg     | string   |              | 200-OK<br>400-accessToken必填、accessToken不正确、accessToken过期、请检查请求参数,请求参数不能为空字符串、集合id不存在<br500-服务错误 |
+| retMsg     | string   |              | 200-OK<br>400-accessToken必填、accessToken不正确、accessToken过期、请检查请求参数,请求参数不能为空字符串、集合id不存在<br>500-服务错误 |
 | total      | number   |              | 总数                                                         |
 | data       | object[] |              |                                                              |
 
@@ -1010,7 +1010,7 @@ https://{url}/registration/api/v2/dnaDetail?tokenBid
 | **字段名** | **类型** | **是否必填** | **描述**                                                     |
 | ---------- | -------- | ------------ | ------------------------------------------------------------ |
 | retCode    | number   |              | 返回状态码，取值：200-成功，400-信息错误，500-服务错误       |
-| retMsg     | string   |              | 200-OK400-accessToken必填400-accessToken不正确400-accessToken过期400-请检查请求参数,请求参数不能为空字符串400-tokenBid不存在500-服务错误 |
+| retMsg     | string   |              | 200-OK<br>400-accessToken必填、accessToken不正确、accessToken过期、请检查请求参数,请求参数不能为空字符串、tokenBid不存在<br/>500-服务错误 |
 | data       | object   |              | 对应数字资产详情                                             |
 
 Data结构如下：
@@ -1213,7 +1213,7 @@ https://{url}/registration/api/v2/chain/message/{messageId}
 | **字段名** | **类型** | **描述**                                               |
 | ---------- | -------- | ------------------------------------------------------ |
 | retCode    | number   | 返回状态码，取值：200-成功，400-信息错误，500-服务错误 |
-| retMsg     | string   | 200-OK400-不存在的消息id500-服务错误                   |
+| retMsg     | string   | 200-OK<br>400-不存在的消息id<br>500-服务错误           |
 | data       | object   | 资产数据                                               |
 
 data 结构如下:
