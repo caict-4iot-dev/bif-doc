@@ -319,7 +319,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 | code         | int    | 成功200 ,失败非200     |
 | message      | string | 错误信息               |
 | data         | object |                        |
-| data.encType | string | 加密类型,ed25519 / sm2 |
+| data.keyType | string | 加密类型,ed25519 / sm2 |
 
 示例：
 
@@ -341,7 +341,7 @@ a. 接口调用成功，则返回JSON数据示例为：
 {
     "code": 200,
     "data": {
-        "encType": "SM2"
+        "keyType": "SM2"
     },
     "message": "ok"
 }
