@@ -1094,15 +1094,15 @@ https://{url}/registration/api/v2/record/:tokenBid
 
  Data结构如下:
 
-| **字段名**    | **类型** | **是否必填** | **描述**                                                     |
-| ------------- | -------- | ------------ | ------------------------------------------------------------ |
-| dnaNumber     | string   |              | 数字资产编号，集合内不重复                                   |
-| createTime    | string   |              | 数字资产创建时间                                             |
-| txHash        | string   |              | 链上操作的hash                                               |
-| operation     | number   |              | 数字资产操作类型，0-注册、1-转移、2-销毁、3-冻结、4-metadata |
-| fromBid       | string   |              | 用户数字资产持有者地址                                       |
-| toBid         | string   |              | 用户接收数字资产的地址                                       |
-| operationDate | string   |              | 操作时间                                                     |
+| **字段名**    | **类型** | **是否必填** | **描述**                                             |
+| ------------- | -------- | ------------ | ---------------------------------------------------- |
+| dnaNumber     | string   |              | 数字资产编号，集合内不重复                           |
+| createTime    | string   |              | 数字资产创建时间                                     |
+| txHash        | string   |              | 链上操作的hash                                       |
+| operation     | number   |              | 数字资产操作类型，0-注册、1-转移、2-销毁、4-metadata |
+| fromBid       | string   |              | 用户数字资产持有者地址                               |
+| toBid         | string   |              | 用户接收数字资产的地址                               |
+| operationDate | string   |              | 操作时间                                             |
 
 **请求示例：**
 
@@ -1353,6 +1353,39 @@ Data结构如下:
 | retCode    | number   |              | 返回状态码，取值：200-成功，400-信息错误，500-服务错误       |
 | retMsg     | string   |              | 200-OK<br/>400-accessToken必填、accessToken不正确、accessToken过期、请检查请求参数,请求参数不能为空字符串、集合ID重复、集合名称不应超过50个字符、集合名称重复<br/>500-服务错误 |
 
+**请求示例：**
+
+![image-20220916162123988](../images/image-20220916162123988.png)
+
+![image-20220922151406195](../images/image-20220922151406195.png)
+
+**请求体：**
+
+```json
+{
+    "data": [
+       {
+            "seriesName": "花",
+            "seriesIssuer": "玫瑰",
+            "seriesId": ["21"],
+            "totalDNA": 5,
+            "asset_contracts": "did:bid:ef3zTQdpgnWcRRjX3x64E4a6MaRgeSi2",
+            "externalUrl": "https://www.baidu.com/",
+            "seriesDes": "我是一个花"
+        }
+        ]
+}
+```
+
+**响应示例：**
+
+```json
+{
+    "retCode": 200,
+    "retMsg": "ok"
+}
+```
+
 ### 7.3数字资产认证接口
 
 ```http
@@ -1400,6 +1433,45 @@ Data结构如下:
 | retCode    | number   |              | 返回状态码，取值：200-成功，400-信息错误，500-服务错误       |
 | retMsg     | string   |              | 200-OK<br/>400-accessToken必填、accessToken不正确、accessToken过期、请检查请求参数,请求参数不能为空字符串、tokenBID重复、资产名称不应超过50个字符、集合ID不存在、请输入正确格式的数字资产url、请输入正确格式的数字资产缩略图url<br/>500-服务错误 |
 
+**请求示例：**
+
+![image-20220916162123988](../images/image-20220916162123988.png)
+
+![image-20220922150145634](../images/image-20220922150145634.png)
+
+**请求体：**
+
+```json
+{
+    "data": [
+           {
+            "seriesId": "21",
+            "dnaName": "我的资产1",
+            "dnaNumber": "1-1",
+            "tokenBid": "did:bid:efE6X1PbTCneGX3zipFM28EpWasfKmCc",
+            "dnaType": "1",
+            "url": "https:///www.123.com/",
+            "displayUrl": "https://www.baidu.com/",
+            "hash": "1d04071bf2e5f7d14491ee67e0973332e0940ebf833c9a6c8e34a734609bc7d4",
+            "mintTime": "2022-07-14 10:29:10",
+            "owner": "bid:bid:ljcp:efPmKkmEoacVxRxB4aK1661148815779",
+            "dnaPrice": 20,
+            "dnaDes": "描述",
+            "extension": "扩展字段"
+        }
+  ]
+}
+```
+
+**响应示例：**
+
+```json
+{
+    "retCode": 200,
+    "retMsg": "ok"
+}
+```
+
 ### 7.4数字资产转移认证接口
 
 ```http
@@ -1439,6 +1511,37 @@ Data结构如下:
 | retCode    | number   |              | 返回状态码，取值：200-成功，400-信息错误，500-服务错误       |
 | retMsg     | string   |              | 200-OK<br/>400-accessToken必填、accessToken不正确、accessToken过期、请检查请求参数,请求参数不能为空字符串、txHash重复（校验同一tokenBid，不同资产可重复）、tokenBID不存在<br/>500-服务错误 |
 
+**请求示例：**
+
+![image-20220916162123988](../images/image-20220916162123988.png)
+
+![image-20220922151612990](../images/image-20220922151612990.png)
+
+**请求体：**
+
+```json
+{
+    "data": [
+        {
+            "tokenBid": "did:bid:efE6X1PbTCneGX3zipFM28EpWasfKmCc",
+            "fromBid": "did:bid:ljcp:ef3zTQdpgnWcRRjX3x64E4a6Ma646731",
+            "toBid": "did:bid:ljcp:ef3zTQdpgnWcRRjX3x64E4a6MaRgeSi5",
+            "txHash": "1d04071bf2e5f7d14491ee67e0973332e0940ebf4",
+            "Time": "2022-08-19 11:11:11"
+        }
+          ]
+}
+```
+
+**响应示例：**
+
+```json
+{
+    "retCode": 200,
+    "retMsg": "ok"
+}
+```
+
 ### 7.5数字资产销毁认证接口
 
 ```http
@@ -1476,3 +1579,34 @@ Data结构如下:
 | ---------- | -------- | ------------ | ------------------------------------------------------------ |
 | retCode    | number   |              | 返回状态码，取值：200-成功，400-信息错误，500-服务错误       |
 | retMsg     | string   |              | 200-OK<br>400-accessToken必填、accessToken不正确、accessToken过期、请检查请求参数,请求参数不能为空字符串、txHash重复（校验同一tokenBid，不同资产可重复）、tokenBID不存在<br/>500-服务错误 |
+
+**请求示例：**
+
+![image-20220916162123988](../images/image-20220916162123988.png)
+
+![image-20220922151918898](../images/image-20220922151918898.png)
+
+**请求体：**
+
+```json
+{
+    "data": [
+         {
+            "tokenBid": "did:bid:efE6X1PbTCneGX3zipFM28EpWasfKmCc",
+            "fromBid": "did:bid:ljcp:ef3zTQdpgnWcRRjX3x64E4a6Ma646731",
+            "txHash": "1d04071bf2e5f7d14491ee67e0973332e0940ebf4",
+            "Time": "2022-08-09 22:22:22"
+        }
+            ]
+}
+```
+
+**响应示例：**
+
+```json
+{
+    "retCode": 200,
+    "retMsg": "ok"
+}
+```
+
