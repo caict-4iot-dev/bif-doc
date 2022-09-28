@@ -172,7 +172,31 @@ tlog是星火链JS虚拟机（`JSVM`）日志基础设施提供的一个便利�
 
 当合约调用`tlog`时，会触发参数存储到交易的日志中,通过触发事件智能合约可以通知链外组件某个交易动作是否触发完成。
 
-## 4.Quicknode节点
+## 4.交易流程
+
+### 4.1 组装交易对象
+
+根据意愿组装交易对象`Transaction`, 不同的交易有不同的数据结构。
+
+### 4.2 序列化交易
+
+将交易对象序列化为字节流 `transaction_blob`，通过 Protobuf 对象`Transaction`的序列化方法得到。可参见[BIF-Core-SDK](https://bif-doc.readthedocs.io/zh_CN/latest/tools/bifsdk.html)章节。
+
+### 4.3 签名交易
+
+用私钥`PrivateKey`对`transaction_blob`签名得到`sign_data`。
+
+### 4.4 提交交易
+
+向BIF-Core区块链发送交易请求，触发交易的执行。
+
+### 4.5 查询交易是否执行成功
+
+通过BIF-Core-SDK [查询交易](https://bif-doc.readthedocs.io/zh_CN/latest/tools/bifsdk.html)状态以及交易内容。
+
+## 5.Quicknode节点 
+
+Quicknode节点是星火链网测试网上的快速部署节点，通过启动Quicknode docker服务与测试网节点建立连接，是接入星火开发生态的便捷途径。
 
 Quicknode节点是星火链网测试网上的快速部署节点，通过启动Quicknode docker服务与测试网节点建立连接，是接入星火开发生态的便捷途径。
 
