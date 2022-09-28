@@ -233,3 +233,12 @@ if (!BlockChainAdapter.Send(Overlay.ChainMessageType.CHAIN_SUBSCRIBE_TX.getNumbe
 
 
 
+## 附录：
+
+### 1.交易消息
+
+交易是一段发往区块链系统的请求数据，用于部署合约，调用合约接口，创建账号，进行交易等。当交易确认后会产生交易回执，[交易回执](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/api.html#gettransactionreceipt)和[交易](https://bif-doc.readthedocs.io/zh_CN/latest/tools/bifsdk.html)均保存在区块里，用于记录交易执行过程生成的信息，如结果码、事件、消耗的gas量等。用户可以使用交易哈希查询交易回执，判定交易是否完成。查询接口可参见**BIF-Core-SDK 章节 Transaction接口-1.获取指定交易相关信息**。
+
+### 2.区块消息
+
+最新的区块高度，可根据区块高度查询该区块已打包交易。查询接口可参见**BIF-Core-SDK 章节 Block接口-2.获取指定块内的交易列表**
