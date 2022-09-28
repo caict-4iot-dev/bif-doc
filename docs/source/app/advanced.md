@@ -402,23 +402,23 @@ BIFSDK sdk = BIFSDK.getInstance("http://test.bifcore.bitfactory.cn");   //星火
 
 ```json
 {
-                "actual_fee": 776000, //交易实际花费的费用
-                "close_time": 1664352470872350, //交易执行完成的时间
-                "error_code": 0, //交易的错误码，0表示交易执行成功，非0表示交易执行失败
-                "error_desc": "", //交易的错误描述
-                "hash": "0f3477d3a6708168ce7f694a7eaf87129f7373548be0b085d3422809c03ea8d1", //交易hash值
-                "ledger_seq": 932290, //交易所在的区块高度
-                "signatures": [ //签名列表
-                    {
-                        "public_key": "b0656670063fd619ae607e39187477eabb70f45a657879af8c7dfe1c0dbb105dbccf23",//公钥
-                        "sign_data": "2c212c987688c176e8b444b0e7f977d8c290ccf88a29305aadac2b693ce983827b46842e403703fd0456e23b6121cb242b1610f1926421577ee6714950dd4900" //签名数据
-                    }
-                ],
-                "transaction": { //交易内容，交易类型包括：创建账号/合约、合约调用、星火令转移、设置metadata、设置权限、记录日志
-                    .....
-                },
-                "tx_size": 776 //交易字节数
-            }
+	"actual_fee": 776000, //交易实际花费的费用
+	"close_time": 1664352470872350, //交易执行完成的时间
+	"error_code": 0, //交易的错误码，0表示交易执行成功，非0表示交易执行失败
+	"error_desc": "", //交易的错误描述
+	"hash": "0f3477d3a6708168ce7f694a7eaf87129f7373548be0b085d3422809c03ea8d1", //交易hash值
+	"ledger_seq": 932290, //交易所在的区块高度
+	"signatures": [ //签名列表
+		{
+			"public_key": "b0656670063fd619ae607e39187477eabb70f45a657879af8c7dfe1c0dbb105dbccf23", //公钥
+			"sign_data": "2c212c987688c176e8b444b0e7f977d8c290ccf88a29305aadac2b693ce983827b46842e403703fd0456e23b6121cb242b1610f1926421577ee6714950dd4900" //签名数据
+		}
+	],
+	"transaction": { //交易内容，交易类型包括：创建账号/合约、合约调用、星火令转移、设置metadata、设置权限、记录日志
+		.....
+	},
+	"tx_size": 776 //交易字节数
+}
 ```
 
 ### 4.1 创建账号
