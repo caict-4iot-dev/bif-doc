@@ -113,6 +113,8 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
 
 ### 广播交易
 
+![image-20220929104105213](../images/image-20220929104105213.png)
+
 广播交易是指通过广播的方式发起交易。广播交易包括以下步骤：
 
 1. [获取账户nonce值](#获取账户nonce值)
@@ -124,6 +126,8 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
 1. [签名交易](#签名交易)
 
 1. [提交交易](#提交交易)
+
+1. [查询交易](#查询介意)
 
    #### 获取账户nonce值
 
@@ -212,6 +216,21 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
    String transactionHash=transactionSubmitResponse.getResult().getHash();
    ```
    
+   #### 查询交易
+   
+   该接口用于向BIF-Core区块链发送查询交易请求。交易打包时间为3~5秒,通过该接口判断交易是否完成，完成则可以进行下一笔交易。
+   
+   ```java
+    BIFTransactionGetInfoRequest request = new BIFTransactionGetInfoRequest();
+           request.setHash("d098413c2882ae8cf95e384d778635909effaeb3616ce03d741726b5bc0af00a");
+   
+           BIFTransactionGetInfoResponse response = sdk.getBIFTransactionService().getTransactionInfo(request);
+           if (response.getErrorCode() == 0) {
+               System.out.println(JsonUtils.toJSONString(response.getResult()));
+           } else {
+               System.out.println(JsonUtils.toJSONString(response));
+           }
+   ```
 
 ### 账户处理接口
 
