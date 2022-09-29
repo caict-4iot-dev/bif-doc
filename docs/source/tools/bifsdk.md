@@ -1,14 +1,12 @@
 # BIF-Core-SDK
 
-<a name="RPOky"></a>
+## 各种语言的SDK
 
 | 名称                                                         | 开发语言 |
 | ------------------------------------------------------------ | -------- |
 | [BIF-Core-SDK](https://github.com/caict-4iot-dev/BIF-Core-SDK) | JAVA     |
 | [BIF-Core_SDK-JS](https://github.com/caict-4iot-dev/BIF-Core_SDK-JS) | Nodejs   |
 | [BIF-Core-SDK-Go](https://github.com/caict-4iot-dev/BIF-Core-SDK-Go) | Go       |
-
-<a name="mzYWs"></a>
 
 ## 简介
 
