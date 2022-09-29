@@ -221,12 +221,28 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
    该接口用于向BIF-Core区块链发送查询交易请求。交易打包时间为3~5秒,通过该接口判断交易是否完成，完成则可以进行下一笔交易。
    
    ```java
-    BIFTransactionGetInfoRequest request = new BIFTransactionGetInfoRequest();
+           BIFTransactionGetInfoRequest request = new BIFTransactionGetInfoRequest();
            request.setHash("d098413c2882ae8cf95e384d778635909effaeb3616ce03d741726b5bc0af00a");
    
            BIFTransactionGetInfoResponse response = sdk.getBIFTransactionService().getTransactionInfo(request);
            if (response.getErrorCode() == 0) {
                System.out.println(JsonUtils.toJSONString(response.getResult()));
+           } else {
+               System.out.println(JsonUtils.toJSONString(response));
+           }
+   ```
+
+   ####        查询交易池
+
+   该接口用于向BIF-Core区块链发送查询交易缓存池中交易内容。
+   
+   ```java
+           BIFTransactionCacheRequest cacheRequest=new BIFTransactionCacheRequest();
+           cacheRequest.setHash("d098413c2882ae8cf95e384d778635909effaeb3616ce03d741726b5bc0af00a");
+   
+           BIFTransactionCacheResponse response = sdk.getBIFTransactionService().getTxCacheData(cacheRequest);
+           if (response.getErrorCode() == 0) {
+               System.out.println("txCacheData: "+JsonUtils.toJSONString(response.getResult().getTransactions()));
            } else {
                System.out.println(JsonUtils.toJSONString(response));
            }
