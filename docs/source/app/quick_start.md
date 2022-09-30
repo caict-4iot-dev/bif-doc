@@ -379,7 +379,7 @@ if (infoRsp.getErrorCode() == 0) {
 
 ## 合约调用
 
-#### Javascript智能合约调用:
+#### Javascript智能合约调用
 
 合约成功部署并且获取到合约地址后, 就可以通过SDK发送交易调用合约接口, 我们存储一个Key-Value对到合约里:
 
@@ -432,7 +432,7 @@ if (cIvkRsp.getErrorCode() == 0) {
 }
 ```
 
-#### Solidity智能合约调用:
+#### Solidity智能合约调用
 
 合约成功部署并且获取到合约地址后, 就可以通过SDK发送交易调用合约接口, 我们存储一个`Key-Value`对到合约里:
 
@@ -473,7 +473,7 @@ request.setGasPrice(10L);
 
 ## 查询合约
 
-#### Javascript智能合约查询:
+#### Javascript智能合约查询
 
 不同于调用合约, 查询合约为只读操作, 因此不需要发出上链交易和耗费`gas`, 这里我们查询刚刚设置的key, 查询input为:
 
@@ -520,7 +520,7 @@ if (cCallRsp.getErrorCode() == 0) {
 
 
 
-#### Solidity智能合约查询:
+#### Solidity智能合约查询
 
 不同于调用合约, 查询合约为只读操作, 因此不需要发出上链交易和耗费`gas`, 这里我们查询刚刚设置的key, 查询input为:
 
