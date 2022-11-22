@@ -30,6 +30,7 @@
    :glob:
 
    business/dna
+   business/sqtx
    business/main_node
    business/cross_chain
    business/digital_id

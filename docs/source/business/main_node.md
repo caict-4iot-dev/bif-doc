@@ -23,9 +23,7 @@
 
 ### **1.3 参考文档**
 
-参考文档：《钱包使用手册》、[《星火·链网超级节点开放平台API 》](https://bif-open-api-doc.readthedocs.io/zh_CN/latest/index.html)、[《BID协议》](https://bid-resolution-protocol-doc.readthedocs.io/zh_CN/v1.9.4/)
-
-
+参考文档：《钱包使用手册》、[《星火·链网超级节点开放平台API 》](https://bif-open-api-doc.readthedocs.io/zh_CN/latest/index.html)、[《BID协议》](https://bid-resolution-protocol-doc.readthedocs.io/zh_CN/latest/)
 
 ## 2 通用说明
 
