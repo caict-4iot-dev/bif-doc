@@ -20,7 +20,7 @@
 
 ## 3.API调用说明
 
-用户通过获取`accessToken`接口获取开发者账户`token`,`token`有效期两小时, 业务接口所有api接口都需要将开发者账户token放入请求头部, api具体参数详见接口文档。
+用户通过获取`accessToken`接口获取开发者账户`token`,`token`有效期两小时, 业务接口所有api接口都需要将开发者账户`token`放入请求头部, api具体参数详见接口文档。
 
 ## 4.API接口
 
