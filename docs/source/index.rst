@@ -34,7 +34,7 @@
    business/main_node
    business/cross_chain
    business/digital_id
-   business/chanrong
+   business/isf
    business/vc
    business/bio_carbo
 
