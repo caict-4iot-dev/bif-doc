@@ -1,10 +1,76 @@
-# DNA服务网络接口
+# DNA注册认证服务
 
-## 1.简介
+## 1.前言
+
+### 1.1简介
 
 欢迎使用“星火·链网”DNA（数字原生资产）公共服务网络-DNA注册认证平台。
 
 DNA注册认证平台在星火·链网的主链，将基于DNA协议（基于`ERC721`改造的星火链网数字原生资产协议）部署的DNA合约封装为标准化`API`，提供链上注册数字资产、转移数字资产等接口服务，方便客户快速基于星火主链构建数字藏品等链上数字资产应用。<a name="FQBXC"></a>
+
+### 1.2编写目的
+
+本文档旨在指导企业接入DNA注册认证平台，包含接入流程、开发规范。接入方式**先通过DNA测试网络平台进行测试验证**，接入测试成功后再接入超级节点正式系统，进入正式网络开发时，需与业务发展部同事联系确认。
+
+### 1.3 环境
+
+1)测试网：
+
+DNA平台：[https://test-dna.bitfactory.cn/manage](https://test-dna.bitfactory.cn/manage)
+
+DNA官网：[https://test-dna.bitfactory.cn](https://test-dna.bitfactory.cn)
+
+2)正式网：
+
+DNA平台：[http://dna.bitfactory.cn/manage](http://dna.bitfactory.cn/manage)
+
+DNA官网：[http://dna.bitfactory.cn](http://dna.bitfactory.cn)
+
+## 2.接入说明
+
+第一步：创建星火账户及企业认证；安装星火通并完成星火账户创建及企业认证。具体操作指引详见[浏览器插件钱包](https://bif-doc.readthedocs.io/zh_CN/latest/tools/wallet.html)章节。
+
+第二步：签署协议及申请准入；完成相关协议签署后邮件联系运营方（邮箱），提交星火账户（BID）、企业认证材料、应用平台资料，获取apiKey及apiSecret。
+
+apiKey开发者的身份ID，可用于获取接入方的调用凭证（access_token），然后通过接口调用凭证再来访问数字资产注册认证平台API。
+
+apiSecret开发者身份ID对应的密钥，配合API_key使用能够获取接口调用凭证，同时为了安全起见这个密钥需要妥善保管。
+
+第三步：接入测试；接入测试环境进行接入测试。
+
+第四步：应用对接；用下发的apiKey/apiSecret接入正式环境，开始使用。
+
+### 2.1接入内容及流程
+
+通过星火通插件钱包，出示可信企业凭证完成签名，登录DNA注册认证平台。申请应用获取apiKey/apiSecret。
+
+第一步：登录平台
+
+![image-20221202170320496](../images/image-20221202170320496.png)
+
+第二步：出示凭证
+
+![img](../images/wps1.jpg) 
+
+第三步：创建应用
+
+![img](../images/wps2.jpg) 
+
+ 第四步：按DNA注册认证平台要求完成应用创建
+
+![img](../images/wps3.jpg) 
+
+第五步：等待审核中
+
+![img](../images/wps4.jpg) 
+
+第六步：审核通过，获取apiKey/apiSecret
+
+![img](../images/wps5.jpg) 
+
+获得数据：智能合约地址、APIkey和secret、BID签名服务。根据DNA数字资产API接口完成企业端平台对接开发工作。
+
+## 3.DNA注册认证平台接入
 
 数字资产注册认证平台提供以下接口类型：
 
@@ -27,35 +93,11 @@ DNA认证服务的应用方申请及管理需集成到DNA注册认证平台管�
 | 数字资产相关事件数据 | 资产转移认证                                                 | 应用方上传认证数字资产转移交易信息，完成资产转移认证；支持批量认证，单次不超过100；不支持更新；同步更新资产owner;不上链； |
 | 资产销毁认证         | 应用方上传认证数字资产销毁交易信息，完成资产注销认证；支持批量认证，单次不超过100；不支持更新；同步更新资产owner;不上链 |                                                              |
 
-## 2.接入说明
-
-第一步：创建星火账户及企业认证；安装星火通并完成星火账户创建及企业认证。具体操作指引详见**浏览器插件钱包**章节。
-
-第二步：签署协议及申请准入；完成相关协议签署后邮件联系运营方（邮箱），提交星火账户（BID）、企业认证材料、应用平台资料，获取apiKey及apiSecret。
-
-apiKey开发者的身份ID，可用于获取接入方的调用凭证（access_token），然后通过接口调用凭证再来访问数字资产注册认证平台API。
-
-apiSecret开发者身份ID对应的密钥，配合API_key使用能够获取接口调用凭证，同时为了安全起见这个密钥需要妥善保管。
-
-第三步：接入测试；接入测试环境进行接入测试。
-
-第四步：应用对接；用下发的apiKey/apiSecret接入正式环境，开始使用。
-
-## 3.通用说明
-
-### 3.1通用说明
-
-数字资产注册认证平台API调用遵循HTTP协议，提供生产环境和开发测试环境，接入方式先通过测试环境进行测试验证，接入测试成功后再接入数字资产注册认证平台正式环境。在正式环境发行数字资产需要用户提前至少7个工作日填报发行信息进行备案。
-
-Ø 正式环境域名为：[https://dna.bitfactory.cn](https://dna.bitfactory.cn)
-
-Ø 测试环境域名为：[https://test-dna.bitfactory.cn](https://test-dna.bitfactory.cn)
-
-### 3.2API认证机制
+### 3.1 API认证机制
 
 所有API的安全认证一律采用accessToken认证，服务端根据生成算法验证认证字符串的正确性。accessToken需要应用方通过apiKey和apiSecret调用相关平台接口获得，具有时效性，有效时间为2小时，过期后需要重新获取否则会调用接口失败，建议妥善保存并管理。
 
-### 3.3操作指引
+### 3.2操作指引
 
 l 创建企业的星火账户
 
@@ -77,9 +119,9 @@ l 转移/销毁数字资产
 
 ![image.png](../images/NoGeJLPFJCnvzam6tU_K_Q.png)
 
-## 4.接口认证及账户管理
+### 3.3.接口认证及账户管理
 
-### 4.1.获取access token
+#### 3.3.1.获取access token
 
 ```http
 https://{{url}}/registration/api/v2/getToken
@@ -118,7 +160,7 @@ https://{{url}}/registration/api/v2/getToken
 }
 ```
 
-### 4.2.生成公私钥
+#### 3.3.2.生成公私钥
 
 参照**bif-offline-api 2.1章节**
 
@@ -173,7 +215,7 @@ http://localhost:8888/bifApi/v1/createAddress
 }
 ```
 
-### 4.3.构造合约签名交易
+#### 3.3.3.构造合约签名交易
 
 参照**bif-offline-api 2.8章节**
 
@@ -195,7 +237,7 @@ http://localhost:8888/bifApi/v1/contract
 | bifAmount        | int64    | 是           | 转账金额 ，参数为 0                                          |
 | feeLimit         | int64    | 是           | 参数为200000000                                              |
 | gasPrice         | int64    | 是           | gas费，参数为200                                             |
-| nonce            | int64    | 是           | nonce  需要从链上获取，参照接口6.8                           |
+| nonce            | int64    | 是           | nonce  需要从链上获取，参照接口3.5.10                        |
 | input            | string   | 是           | 待触发的合约的main()入参，为调用上链交易接口的入参数<br/>转移数字资产"input":{"{\"function\":\"safeTransferFrom(address,address,string)\",\"args\":\"fromAddress,toAddress,'tokenBid'\"}} |
 
 **input参数**
@@ -251,7 +293,7 @@ http://localhost:8888/bifApi/v1/contract
 }
 ```
 
-### 4.4构造合约签名交易
+#### 3.3.4构造合约签名交易
 
 参照**bif-offline-api 2.8章节**
 
@@ -273,7 +315,7 @@ http://localhost:8888/bifApi/v1/contract
 | bifAmount        | int64    | 是           | 转账金额 ，参数为 0                                          |
 | feeLimit         | int64    | 是           | 参数为200000000                                              |
 | gasPrice         | int64    | 是           | gas费，参数为200                                             |
-| nonce            | int64    | 是           | nonce  需要从链上获取，参照接口6.10                          |
+| nonce            | int64    | 是           | nonce  需要从链上获取，参照接口3.5.10                        |
 | input            | string   | 是           | 待触发的合约的main()入参，为调用上链交易接口的入参数<br/>销毁数字资产"input":{"{\"function\":\"burn(string)\",\"args\":\"'tokenBid'\"}"} |
 
 input参数
@@ -327,9 +369,9 @@ input参数
 }
 ```
 
-## 5.集合操作
+### 3.4.集合操作
 
-### 5.1.创建数字资产集合
+#### 3.4.1.增加数字资产集合
 
 ```http
 https://{url}/registration/api/v2/series/add
@@ -391,7 +433,7 @@ https://{url}/registration/api/v2/series/add
 }
 ```
 
-### **5.2.查询数字资产集合列表**
+#### 3.4.2.查询数字资产集合列表
 
 ```http
 https://{url}/registration/api/v2/series/list/?pageNum=1&pageSize=20
@@ -462,7 +504,7 @@ Data结构如下:
 
 
 
-### 5.3.查询数字资产集合详情
+#### 3.4.3.查询数字资产集合详情
 
 ```http
 https://{url}/registration/api/v2/series/{seriesId}
@@ -520,7 +562,7 @@ https://{url}/registration/api/v2/series/{seriesId}
 }
 ```
 
-### 5.4.通过集合ID查询数字资产
+#### 3.4.4.通过集合ID查询数字资产
 
 ```http
 https://{url}//registration/api/v2/:seriesId/dna
@@ -602,9 +644,9 @@ Data结构如下:
 }
 ```
 
-## 6.资产操作
+### 3.5.资产操作
 
-### 6.1.注册数字资产
+#### 3.5.1.注册数字资产
 
 ```http
 https://{url}/registration/api/v2/chain/mintDNA
@@ -678,7 +720,7 @@ https://{url}/registration/api/v2/chain/mintDNA
 }
 ```
 
-### 6.2.批量注册数字资产
+#### 3.5.2.批量注册数字资产
 
 ```http
 https://{url}/registration/api/v2/chain/batchMintDNA
@@ -696,11 +738,11 @@ https://{url}/registration/api/v2/chain/batchMintDNA
 
 **请求参数**
 
-| **字段名** | **类型** | **是否必填** | **描述**              |
-| ---------- | -------- | ------------ | --------------------- |
-| data       | object[] |              | nft列表,长度不超过100 |
+| **字段名** | **类型** | **是否必填** | **描述**                |
+| ---------- | -------- | ------------ | ----------------------- |
+| data       | object[] |              | nft列表，,长度不超过100 |
 
-Data结构如下:
+Data结构如下:	
 
 | **字段名**  | **类型** | **是否必填** | **描述**                                   |
 | ----------- | -------- | ------------ | ------------------------------------------ |
@@ -775,7 +817,7 @@ Data结构如下:
 }
 ```
 
-### 6.3.转移字资产接口
+#### 3.5.3.转移字资产接口
 
 ```http
 https://{url}/registration/api/v2/chain/transferDNA
@@ -839,7 +881,7 @@ https://{url}/registration/api/v2/chain/transferDNA
 }
 ```
 
-### 6.4.销毁数字资产接口
+#### 3.5.4.销毁数字资产接口
 
 ```http
 https://{url}/registration/api/v2/chain/burnDNA
@@ -901,7 +943,7 @@ https://{url}/registration/api/v2/chain/burnDNA
 }
 ```
 
-### 6.5.通过用户bid查询数字资产
+#### 3.5.5.通过用户bid查询数字资产
 
 ```http
 https://{url}/registration/api/v2/dna/:userId
@@ -983,7 +1025,7 @@ Data结构如下:
 }
 ```
 
-### 6.6.查询数字资产详情
+#### 3.5.6.查询数字资产详情
 
 ```http
 https://{url}/registration/api/v2/dnaDetail?tokenBid
@@ -1059,7 +1101,7 @@ Data结构如下：
 }
 ```
 
-### 6.7.查询数字资产操作记录
+#### 3.5.7.查询数字资产操作记录
 
 ```http
 https://{url}/registration/api/v2/record/:tokenBid
@@ -1140,7 +1182,55 @@ https://{url}/registration/api/v2/record/:tokenBid
 }
 ```
 
-### 6.8.查询tokenbid的拥有者
+#### 3.5.8.查询上链状态
+
+```http
+https://{url}/registration/api/v2/chain/status
+```
+
+**请求方式**
+
+**GET**
+
+**Headers**
+
+| **字段名**  | **类型** | **是否必填** | **描述**            |
+| ----------- | -------- | ------------ | ------------------- |
+| accessToken | string   | 是           | 用于B端用户调用接口 |
+
+**请求参数**
+
+| **字段名** | **类型** | **是否必填** | **描述**                               |
+| ---------- | -------- | ------------ | -------------------------------------- |
+| tokenBid   | string   | 是           | 链账户身份                             |
+| type       | number   | 是           | 1 注册资产 2 转移资产 3 销毁资产       |
+| txHash     | string   | 是           | 对应注册，转移，销毁资产返回的交易hash |
+
+**响应参数**
+
+| **字段名** | **类型** | **是否必填** | **描述**                                                     |
+| ---------- | -------- | ------------ | ------------------------------------------------------------ |
+| retCode    | number   |              | 返回状态码，取值：200-成功，400-信息错误，500-服务错误       |
+| retMsg     | string   |              | 200-OK400-accessToken必填400-accessToken不正确400-accessToken过期400-请检查请求参数,请求参数不能为空字符串400-tokenBid不存在400-无效的type400-hash或该tokenid对应的type操作不存在500-服务错误 |
+| state      | number   |              | 状态 0:已提交 1：上链失败 2: 上链成功                        |
+
+**示例：**
+
+![image-20220916162123988](../images/image-20220916162123988.png)
+
+![img](../images/hVvOphwnlo6on-ZQm8q8Qg.png)
+
+响应示例**
+
+```json
+{
+    "retCode": 200,
+    "retMsg": "ok",
+    "state": 2
+}
+```
+
+#### 3.5.9.查询tokenbid的拥有者
 
 ```http
 https://{url}/registration/api/v2/chain/tokenOwnerOf/{tokenBid}
@@ -1186,7 +1276,7 @@ https://{url}/registration/api/v2/chain/tokenOwnerOf/{tokenBid}
 }
 ```
 
-### 6.9.根据消息id获取处理结果
+#### 3.5.10.根据消息id获取处理结果
 
 ```http
 https://{url}/registration/api/v2/chain/message/{messageId}
@@ -1260,7 +1350,7 @@ info 结构如下:
 }
 ```
 
-### 6.10.获取当前地址nonce值
+#### 3.5.11.获取当前地址nonce值
 
 ```http
 https://{url}/registration/api/v2/chain/nonce
@@ -1306,13 +1396,13 @@ https://{url}/registration/api/v2/chain/nonce
 }
 ```
 
-## 7.认证数字资产
+### 3.6.认证数字资产
 
-### 7.1获取access token
+#### 3.6.1获取access token
 
 此接口详见**4.1**获取access token部分。
 
-### 7.2数字资产集合信息认证接口
+#### 3.6.2数字资产集合信息认证接口
 
 ```http
 https://{url}/auth/api/v1/series
@@ -1386,7 +1476,7 @@ Data结构如下:
 }
 ```
 
-### 7.3数字资产认证接口
+#### 3.6.3数字资产认证接口
 
 ```http
 https://{url}/auth/api/v1/dna
@@ -1472,7 +1562,7 @@ Data结构如下:
 }
 ```
 
-### 7.4数字资产转移认证接口
+#### 3.6.4数字资产转移认证接口
 
 ```http
 https://{url}/auth/api/v1/dna/transfer
@@ -1542,7 +1632,7 @@ Data结构如下:
 }
 ```
 
-### 7.5数字资产销毁认证接口
+#### 3.6.5数字资产销毁认证接口
 
 ```http
 https://{url}/auth/api/v1/dna/destroy
