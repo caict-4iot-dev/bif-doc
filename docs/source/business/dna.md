@@ -1211,7 +1211,7 @@ https://{url}/registration/api/v2/chain/status
 | **字段名** | **类型** | **是否必填** | **描述**                                                     |
 | ---------- | -------- | ------------ | ------------------------------------------------------------ |
 | retCode    | number   |              | 返回状态码，取值：200-成功，400-信息错误，500-服务错误       |
-| retMsg     | string   |              | 200-OK<br/>400-accessToken必填400-accessToken不正确400-accessToken过期400-请检查请求参数,请求参数不能为空字符串400-tokenBid不存在400-无效的type400-hash或该tokenid对应的type操作不存在<br/>500-服务错误 |
+| retMsg     | string   |              | 200-OK<br/>400-accessToken必填、accessToken不正确、accessToken过期、请检查请求参数,请求参数不能为空字符串、tokenBid不存在、无效的type、hash或该tokenid对应的type操作不存在<br/>500-服务错误 |
 | state      | number   |              | 状态 0:已提交 1：上链失败 2: 上链成功                        |
 
 **示例：**
