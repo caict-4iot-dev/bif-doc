@@ -17,6 +17,7 @@
    :glob:
 
    app/brief
+   app/quick_node
    app/quick_start
    app/javascript
    app/solidity
@@ -58,7 +59,7 @@
    :caption: 星火·链网治理
    :glob:
 
-   星火·链网RFC Github <https://github.com/caict-4iot-dev/bif-rfcs>   
+   星火·链网RFC Github <https://github.com/caict-4iot-dev/bif-rfcs>
 
 .. toctree::
    :maxdepth: 1

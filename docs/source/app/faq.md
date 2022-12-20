@@ -38,7 +38,7 @@ b.通过请求`http://宿主机ip:27002/getLedger`查看部署节点的区块高
 
    通过章节 **快速上手--4）查看区块同步高度**，查询本节点与测试网区块高度是一直不同步。
 
-  分别请求`http://宿主机ip:27002/Hello`以及[http://test.bifcore.bitfactory.cn/Hello](http://test.bifcore.bitfactory.cn/Hello)接口，查看节点以及测试网返回的`chain_version`。
+  分别请求`http://宿主机ip:27002/hello`以及[http://test.bifcore.bitfactory.cn/hello](http://test.bifcore.bitfactory.cn/hello)接口，查看节点以及测试网返回的`chain_version`。
 
 详细返回值格式以及操作如下图：
 
