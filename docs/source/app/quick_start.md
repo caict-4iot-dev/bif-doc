@@ -1,7 +1,3 @@
-
-
-
-
 # 快速上手
 
 以Java SDK为例, 在星火链测试网上部署, 调用, 查询一个`Javascript`、`Solidity`智能合约。
