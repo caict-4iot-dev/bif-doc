@@ -17,7 +17,7 @@
    :glob:
 
    app/brief
-   app/quick_node
+   app/quick_start
    app/quick_start
    app/javascript
    app/solidity
