@@ -1,6 +1,10 @@
 # 快速上手
 
-以Java SDK为例, 在星火链测试网上部署, 调用, 查询一个`Javascript`、`Solidity`智能合约。
+新用户通过Quicknode在测试网上部署、调用、 查询一个`Javascript`、`Solidity`智能合约，需要完成如下工作：
+
+1. Java sdk的初始化
+2. 获取星火令来激活账户
+3. 通过Quicknode节点部署合约
 
 ## SDK下载
 

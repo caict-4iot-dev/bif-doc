@@ -69,8 +69,35 @@ service docker start
 - 启动Quicknode服务
 
   ```sh
-  # IMAGEID即上述查看的具体字段值
-  docker run -itd -p 27002:27002 {IMAGEID} /bin/bash
+  #根据拉取的镜像，启动并进入容器和启动bif服务 IMAGEID即上述查看的具体字段值
+  #设置镜像启动后映射到宿主机的bifchain目录（此目录必须是相对目录，映射后所在宿主机路径为/var/lib/docker/volumes/bifchain/）
+  
+  docker run -itd -p 27002:27002 --privileged=true --volume bifchain:/usr/local/bifchain IMAGEID /bin/bash
+  
+  #由上述命令执行后镜像启动，其服务目录就映射到了宿主机磁盘目录了
+  #在宿主机执行命令docker volume ls即可看到多了一个vlume的映射：
+  docker volume ls
+  DRIVER              VOLUME NAME
+  local               885b5be00311b37580ed74b609fd7317a8976bb34e2da728e532b0bd8859bf7d
+  local               bifchain
+  
+  #然后执行ll /var/lib/docker/volumes/bifchain/_data/
+  #即可看到镜像服务目录/usr/local/bifchain里所有映射对应数据信息：
+   ll /var/lib/docker/volumes/bifchain/_data/
+  total 48
+  -rw-r--r-- 1 root root  658 Aug 24 11:14 account.json
+  drwxr-xr-x 2 root root 4096 Aug 24 14:28 bin
+  -rw-r--r-- 1 root root 1046 Aug 24 11:14 command.sh
+  drwxr-xr-x 2 root root 4096 Aug 24 14:28 config
+  drwxr-xr-x 2 root root 4096 Aug 24 14:28 coredump
+  drwxr-xr-x 2 root root 4096 Aug 24 14:28 data
+  -rw-r--r-- 1 root root  658 Aug 24 11:14 genesis.json
+  drwxr-xr-x 2 root root 4096 Aug 24 14:28 jslib
+  drwxr-xr-x 2 root root 4096 Aug 24 14:28 log
+  -rw-r--r-- 1 root root  658 Aug 24 11:14 p2p_account.json
+  drwxr-xr-x 2 root root 4096 Aug 24 14:28 scripts
+  drwxr-xr-x 3 root root 4096 Aug 24 14:28 web
+  
   ```
   执行结果如下：
   <img src="../_static/images/2022-07-29-17-38-24.png"/>
@@ -90,7 +117,8 @@ service docker start
 
   ```shell
   chmod +x bin/*
-  nohup ./bin/bif &
+  chmod +x scripts/*
+  ./scripts/bifd start
   ```
   <img src="../_static/images/2022-07-29-17-48-27.png"/>
 
