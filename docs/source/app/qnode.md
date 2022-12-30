@@ -98,7 +98,8 @@ service docker start
   drwxr-xr-x 2 root root 4096 Aug 24 14:28 scripts
   drwxr-xr-x 3 root root 4096 Aug 24 14:28 web
   ```
-
+  
+  
 - 查询启动的docker镜像进程信息,获取`container ID`
   <img src="../_static/images/2022-07-29-17-42-39.png"/>
 
