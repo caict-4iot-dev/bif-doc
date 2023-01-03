@@ -64,6 +64,30 @@ BID编号查验：用户输入BID编号，与链上BID编号进行对比，查�
 
 ## 6.接入流程
 
+第一步：登录星火印（测试网：[https://test-stamp.bitfactory.cn](https://test-stamp.bitfactory.cn)）
+
+<img src="../_static/images/83bc931628bb580fa6aec0da6f5776a5.png">
+
+绑定手机号进入网站，联系客服线下签约或者商务申请开通API服务。
+
+第二步：进入星火印（网页地址） 密钥管理，新建密钥。
+
+<img src="../_static/images/b472304b9d1eb8cf19a2e46cad5f7c5c.png">
+
+第三步：点击进入密钥对生成工具。
+
+<img src="../_static/images/9693c887b4682768c40c0e4171e0b9bc.png">
+
+第四步：点击生成密钥对。
+
+<img src="../_static/images/4ca02e98b0410c00a9a635b57bb0008a.png">
+
+第五步：上传SM2公钥，上传成功后的结果如下：
+
+<img src="../_static/images/5afac891023b9685de53915ee46bd885.png">
+
+注意：**请保管好自己的私钥**
+
 ## 7.接口文档
 
 [《星火印平台API 》](https://xhy-docs.readthedocs.io/en/latest/)
