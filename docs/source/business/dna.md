@@ -678,7 +678,7 @@ Data结构如下:
 | url         | string   |              | 数字资产 url，建议尺寸：350*350            |
 | hash        | string   |              | 数字资产图片哈希值                         |
 | displayUrl  | string   |              | 数字资产缩略图url，建议尺寸：85*85         |
-| dnaPrice    | number   |              | 数字资产价格                               |
+| dnaPrice    | number   |              | 数字资产价格,单位：元（人民币）            |
 | dnaCategory | string   |              | 资产类型：图片、视频、音频                 |
 | extension   | string   |              | 扩展字段，用户自定义，长度不超过1024个字符 |
 | tokenBid    | string   |              | 数字资产bid                                |
@@ -816,19 +816,19 @@ https://{url}/registration/api/v2/chain/batchMintDNA
 
 Data结构如下:	
 
-| **字段名**  | **类型** | **是否必填** | **描述**                                   |
-| ----------- | -------- | ------------ | ------------------------------------------ |
-| seriesId    | string   | 是           | 集合ID                                     |
-| dnaName     | string   | 是           | 数字资产名称，不超过50个字符               |
-| dnaNumber   | string   | 是           | 数字资产编号，集合内不重复                 |
-| dnaDes      | string   | 否           | 数字资产描述，不超过200个字符              |
-| url         | string   | 是           | 数字资产 url，建议尺寸：350*350            |
-| hash        | string   | 是           | 数字资产图片哈希值                         |
-| displayUrl  | string   | 是           | 数字资产缩略图url，建议尺寸：85*85         |
-| toBid       | string   | 是           | 用户数字资产持有者地址                     |
-| dnaPrice    | number   | 是           | 数字资产价格，小数点后保留2位              |
-| dnaCategory | string   | 是           | 资产类型：图片、视频、音频                 |
-| extension   | string   | 否           | 扩展字段，用户自定义，长度不超过1024个字符 |
+| **字段名**  | **类型** | **是否必填** | **描述**                                         |
+| ----------- | -------- | ------------ | ------------------------------------------------ |
+| seriesId    | string   | 是           | 集合ID                                           |
+| dnaName     | string   | 是           | 数字资产名称，不超过50个字符                     |
+| dnaNumber   | string   | 是           | 数字资产编号，集合内不重复                       |
+| dnaDes      | string   | 否           | 数字资产描述，不超过200个字符                    |
+| url         | string   | 是           | 数字资产 url，建议尺寸：350*350                  |
+| hash        | string   | 是           | 数字资产图片哈希值                               |
+| displayUrl  | string   | 是           | 数字资产缩略图url，建议尺寸：85*85               |
+| toBid       | string   | 是           | 用户数字资产持有者地址                           |
+| dnaPrice    | number   | 是           | 数字资产价格，小数点后保留2位,单位：元（人民币） |
+| dnaCategory | string   | 是           | 资产类型：图片、视频、音频                       |
+| extension   | string   | 否           | 扩展字段，用户自定义，长度不超过1024个字符       |
 
 **响应参数**
 
