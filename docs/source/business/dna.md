@@ -746,7 +746,7 @@ https://{url}/registration/api/v2/chain/mintDNA
 | hash        | string   | 是           | 数字资产图片哈希值                         |
 | displayUrl  | string   | 是           | 数字资产缩略图url，建议尺寸：85*85         |
 | toBid       | string   | 是           | 用户数字资产持有者地址                     |
-| dnaPrice    | number   | 是           | 数字资产价格                               |
+| dnaPrice    | number   | 是           | 数字资产价格,单位：元（人民币）            |
 | dnaCategory | string   | 是           | 资产类型：图片、视频、音频                 |
 | extension   | string   | 否           | 扩展字段，用户自定义，长度不超过1024个字符 |
 
