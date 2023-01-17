@@ -476,10 +476,10 @@ public class TestSign {
                 <version>1.2.83</version>
             </dependency>
             <dependency>
-		        <groupId>commons-codec</groupId>
-		        <artifactId>commons-codec</artifactId>
-		        <version>1.15</version>
-		     </dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.15</version>
+            </dependency>
 ```
 
 ### 贸易真实性验真服务
