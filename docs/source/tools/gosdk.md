@@ -1,27 +1,51 @@
-# BIF-Core-SDK
+# 3.GO SDK使用说明
 
-## 各种语言的SDK
+## 3.1星火·链网SDK概述
 
-| 名称                                                         | 开发语言 |
-| ------------------------------------------------------------ | -------- |
-| [BIF-Core-SDK](https://github.com/caict-4iot-dev/BIF-Core-SDK) | JAVA     |
-| [BIF-Core_SDK-JS](https://github.com/caict-4iot-dev/BIF-Core_SDK-JS) | Nodejs   |
-| [BIF-Core-SDK-Go](https://github.com/caict-4iot-dev/BIF-Core-SDK-Go) | Go       |
-
-## 简介
-
-BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台公私钥对生成、星火链网-底层区块链平台私钥签名公钥验签、账号服务、区块服务、交易服务等接口，同时还提供了接口使用示例说明，开发者可以调用该SDK方便快捷的生成星火链网主链的快速接入。中国信通院秉持开源开放的理念，将星火“BID-Core-SDK”面向社区和公众完全开源，助力全行业伙伴提升数据价值流通的效率，实现数据价值转化。
+星火·链网SDK（BIF-Core-SDK）通过API调用的方式提供了星火链网-底层区块链平台公私钥对生成、星火链网-底层区块链平台私钥签名公钥验签、账号服务、区块服务、交易服务等接口，同时还提供了接口使用示例说明，开发者可以调用该SDK方便快捷的生成星火链网主链的快速接入。中国信通院秉持开源开放的理念，将星火“BID-Core-SDK”面向社区和公众完全开源，助力全行业伙伴提升数据价值流通的效率，实现数据价值转化。
 
 <img src="../_static/images/image-20211012184224056.png" alt="image-20211012184224056" style="zoom:80%;" />
 
 <center>图1 BIF-Core-SDK 逻辑架构图</center>
 
+## 1.2 环境准备
 
-## SDK 离线API
+### 1.2.1 软件依赖
+
+**java**
+
+> j1.8.0_131或以下
+
+下载地址：https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
+
+若已安装，请通过命令查看版本：
+
+```sh
+$ java -version
+java version "1.8.0_131"
+```
+
+### 1.2.2 下载安装
+
+```sh
+$ git clone -b 1.0.0 https://github.com/caict-4iot-dev/BIF-Core-SDK.git
+```
+
+### 1.2.3  jar包依赖
+
+需将`sdk`中依赖的`jar`包导入本地工程中。
+
+## 1.3 怎么使用SDK
+
+### 1.3.1 应用demo
+
+java sdk应用示例，请参考[ bif-chain-sdk-example](https://github.com/caict-4iot-dev/BIF-Core-SDK/tree/1.0.0/bif-chain-sdk-example)
+
+### 1.3.2 SDK 离线API
 
 离线API主要是账户和密码学相关API, 不需要连接星火链网RPC接口也能工作。 主要接口如下:
 
-### 账户生成
+#### 1.3.2.1 账户生成
 
 1. 接口 ` KeyPairEntity.getBidAndKeyPair`
 
@@ -44,7 +68,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
     ```
 
 
-### 加密私钥生成keystore
+#### 1.3.2.2 加密私钥生成keystore
 
 1. 接口 `KeyStore.generateKeyStore`
 
@@ -95,11 +119,11 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
     }
     ```
 
-## SDK 在线API
+### 1.3.3 SDK 在线API
 
 在线API主要用于向星火链上发出交易和查询合约, 需要初始化SDK连接后使用。
 
-### 初始化SDK
+#### 1.3.3.1 初始化SDK
 
 1. 示例
 
@@ -109,7 +133,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
     BIFSDK sdk = BIFSDK.getInstance(SDK_INSTANCE_URL);   //SDK_INSTANCE_URL为星火链RPC地址
     ```
 
-### 广播交易
+#### 1.3.3.2 广播交易
 
 ![image-20220929104105213](../images/image-20220929104105213.png)
 
@@ -127,7 +151,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
 
 1. [查询交易](#查询介意)
 
-   #### 获取账户nonce值
+   **获取账户nonce值**
 
    开发者可自己维护各个账户`nonce`，在提交完一个交易后，自动为`nonce`值递增1，这样可以在短时间内发送多笔交易，否则，必须等上一个交易执行完成后，账户的`nonce`值才会加1。调用如下：
 
@@ -147,7 +171,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
    }
    ```
 
-   #### 构建操作
+   **构建操作**
 
    这里的操作是指在交易中做的一些动作，便于序列化交易和评估费用。例如，构建创建账号操作(BIFAccountActivateOperation)，接口调用如下：
    
@@ -160,7 +184,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
    operation.setInitBalance(initBalance);
    ```
    
-   #### 序列化交易
+   **序列化交易**
    
    该接口用于序列化交易，并生成交易Blob串，便于网络传输。其中nonce和operation是上面接口得到的。调用如下：
    
@@ -187,7 +211,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
 
    ```
    
-   #### 签名交易
+   **签名交易**
    
    该接口用于交易发起者使用其账户私钥对交易进行签名。其中transactionBlob是上面接口得到的。调用如下：
    
@@ -198,7 +222,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
    
    ```
 
-   #### 提交交易
+   **提交交易**
 
    该接口用于向BIF-Core区块链发送交易请求，触发交易的执行。其中transactionBlob和signBytes是上面接口得到的。调用如下：
 
@@ -214,7 +238,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
    String transactionHash=transactionSubmitResponse.getResult().getHash();
    ```
    
-   #### 查询交易
+   **查询交易**
    
    该接口用于向BIF-Core区块链发送查询交易请求。交易打包时间为3~5秒,通过该接口判断交易是否完成，完成则可以进行下一笔交易。
    
@@ -230,7 +254,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
            }
    ```
 
-   ####        查询交易池
+   **查询交易池**
 
    该接口用于向BIF-Core区块链发送查询交易缓存池中交易内容。
    
@@ -246,7 +270,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
            }
    ```
 
-### 账户处理接口
+#### 1.3.3 账户处理接口
 
 1. 查询账户信息
 
@@ -315,7 +339,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
         }
         ```
 
-### Block相关接口
+#### 1.3.4 Block相关接口
 
 1. 获取当前块高度
 
@@ -396,7 +420,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
         }
         ```
 
-### Transaction相关接口
+#### 1.3.5 Transaction相关接口
 
 1. 获取指定交易相关信息
 
@@ -452,7 +476,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
         }
         ```
 
-### 合约相关接口
+#### 1.3.6 合约相关接口
 
 1. 部署合约
 

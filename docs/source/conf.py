@@ -3,11 +3,11 @@
 # -- Project information
 
 project = '星火·链网开放文档'
-copyright = '2022, 中国信息通信研究院'
+copyright = '2023, 中国信息通信研究院'
 author = '中国信息通信研究院'
 
-release = '0.1'
-version = '1.0.0'
+release = '2.0.0'
+version = '2.0.0'
 
 # -- General configuration
 

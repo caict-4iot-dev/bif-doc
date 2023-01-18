@@ -1,4 +1,4 @@
-# BIF-OFFLINE-API
+# 3.BIF-OFFLINE-API
 
 离线API主要是账户和密码学相关API, 不需要连接星火链网RPC接口也能工作。具体操作、接口如下:
 
