@@ -2,7 +2,7 @@
 
 <a name="RPOky"></a>
 
-**GitHub地址：[https://github.com/caict-4iot-dev/BID-SDK-JAVA](https://github.com/caict-4iot-dev/BID-SDK-JAVA/tree/release/1.0.0)**
+**GitHub地址：[https://github.com/caict-4iot-dev/BID-SDK-JAVA](https://github.com/caict-4iot-dev/BID-SDK-JAVA)**
 
 <a name="mzYWs"></a>
 

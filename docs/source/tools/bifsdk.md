@@ -4,8 +4,8 @@
 
 | 名称                                                         | 开发语言 |
 | ------------------------------------------------------------ | -------- |
-| [BIF-Core-SDK](https://github.com/caict-4iot-dev/BIF-Core-SDK/tree/1.0.0) | JAVA     |
-| [BIF-Core_SDK-JS](https://github.com/caict-4iot-dev/BIF-Core_SDK-JS/tree/release/1.0.1) | Nodejs   |
+| [BIF-Core-SDK](https://github.com/caict-4iot-dev/BIF-Core-SDK) | JAVA     |
+| [BIF-Core_SDK-JS](https://github.com/caict-4iot-dev/BIF-Core_SDK-JS) | Nodejs   |
 | [BIF-Core-SDK-Go](https://github.com/caict-4iot-dev/BIF-Core-SDK-Go) | Go       |
 
 ## 简介
