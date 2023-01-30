@@ -36,7 +36,7 @@
    business/cross_chain
    business/digital_id
    business/isf
-   business/vc
+   business/cap
    business/bio_carbo
 
 .. toctree::

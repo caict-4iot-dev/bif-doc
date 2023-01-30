@@ -1,6 +1,6 @@
 # 快速上手
 
-新用户通过Quicknode在测试网上部署、调用、 查询一个`Javascript`、`Solidity`智能合约，需要完成如下工作：
+新用户在测试网上部署、调用、 查询一个`Javascript`、`Solidity`智能合约，需要完成如下工作：
 
 1. Java sdk的初始化
 2. 获取星火令来激活账户
@@ -12,7 +12,7 @@
 
 ## 账号创建
 
-调用JavaSDK接口离线创建一个账户.
+调用JavaSDK接口离线创建一个账户。
 
 ```java
 import cn.bif.model.crypto.KeyPairEntity;
@@ -36,6 +36,8 @@ System.out.printf("privatekey %s\n", entity.getEncPrivateKey());      //账户�
 ## 初始化SDK
 
 通过配置星火链RPC地址连接SDK到星火链, 本次demo里链接到星火链测试网。
+
+**注**：如果使用**quicknode**节点，RPC为`http://{host}:{port}`，`host`是主机`ip`(镜像映射到宿主机了)，port即部署时的`27002`
 
 ```java
 import cn.bif.api.BIFSDK;
