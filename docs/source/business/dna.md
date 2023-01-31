@@ -20,11 +20,15 @@ DNA平台：[https://test-dna.bitfactory.cn/manage](https://test-dna.bitfactory.
 
 DNA官网：[https://test-dna.bitfactory.cn](https://test-dna.bitfactory.cn)
 
+DNA浏览器：[https://test-dnascan.bitfactory.cn](https://test-dnascan.bitfactory.cn)
+
 2)正式网：
 
-DNA平台：[http://dna.bitfactory.cn/manage](http://dna.bitfactory.cn/manage)
+DNA平台：[https://dna.bitfactory.cn/manage](https://dna.bitfactory.cn/manage)
 
-DNA官网：[http://dna.bitfactory.cn](http://dna.bitfactory.cn)
+DNA官网：[https://dna.bitfactory.cn](https://dna.bitfactory.cn)
+
+DNA浏览器：[https://dnascan.bitfactory.cn](https://dnascan.bitfactory.cn)
 
 ## 2.接入说明
 
@@ -217,7 +221,7 @@ http://localhost:8888/bifApi/v1/createAddress
 
 #### 3.3.3.构造合约签名交易
 
-参照**bif-offline-api 2.8章节**
+参照**bif-offline-api 2.9章节**
 
 ```http
 http://localhost:8888/bifApi/v1/contract
@@ -295,7 +299,7 @@ http://localhost:8888/bifApi/v1/contract
 
 #### 3.3.4构造合约签名交易
 
-参照**bif-offline-api 2.8章节**
+参照**bif-offline-api 2.9章节**
 
 ```http
 http://localhost:8888/bifApi/v1/contract
