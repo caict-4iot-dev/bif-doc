@@ -40,7 +40,7 @@ DNA浏览器：[http://dnascan.bitfactory.cn](http://dnascan.bitfactory.cn)
 
 注意：测试阶段需要在“星火测试网”创建星火通账户并完成企业认证；应用对接阶段需要重新在“星火主网”创建星火通账户并完成企业认证。
 
-![img](../_static/images//clip_image002.png)
+![img](../_static/images/clip_image002.png)
 
 第二步：签署协议及申请准入。
 
