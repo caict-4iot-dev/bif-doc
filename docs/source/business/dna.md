@@ -16,29 +16,51 @@ DNA注册认证平台在星火·链网的主链，将基于DNA协议（基于`ER
 
 1)测试网：
 
-DNA平台：[https://test-dna.bitfactory.cn/manage](https://test-dna.bitfactory.cn/manage)
+DNA注册认证平台：[https://test-dna.bitfactory.cn/manage](https://test-dna.bitfactory.cn/manage)
 
 DNA官网：[https://test-dna.bitfactory.cn](https://test-dna.bitfactory.cn)
 
+DNA浏览器：[https://test-dnascan.bitfactory.cn](https://test-dnascan.bitfactory.cn)
+
 2)正式网：
 
-DNA平台：[http://dna.bitfactory.cn/manage](http://dna.bitfactory.cn/manage)
+DNA注册认证平台：[http://dna.bitfactory.cn/manage](http://dna.bitfactory.cn/manage)
 
 DNA官网：[http://dna.bitfactory.cn](http://dna.bitfactory.cn)
 
+DNA浏览器：[http://dnascan.bitfactory.cn](http://dnascan.bitfactory.cn)
+
 ## 2.接入说明
 
-第一步：创建星火账户及企业认证；安装星火通并完成星火账户创建及企业认证。具体操作指引详见[浏览器插件钱包](https://bif-doc.readthedocs.io/zh_CN/latest/tools/wallet.html)章节。
+接入说明：
 
-第二步：签署协议及申请准入；完成相关协议签署后邮件联系运营方（邮箱），提交星火账户（BID）、企业认证材料、应用平台资料，获取apiKey及apiSecret。
+第一步：创建星火账户及企业认证。
 
-apiKey开发者的身份ID，可用于获取接入方的调用凭证（access_token），然后通过接口调用凭证再来访问数字资产注册认证平台API。
+安装星火通，通过星火通账户创建星火企业账户，并完成企业认证。具体操作指引详见[浏览器插件钱包](https://bif-doc.readthedocs.io/zh_CN/latest/tools/wallet.html)章节。
 
-apiSecret开发者身份ID对应的密钥，配合API_key使用能够获取接口调用凭证，同时为了安全起见这个密钥需要妥善保管。
+注意：测试阶段需要在“星火测试网”创建星火通账户并完成企业认证；应用对接阶段需要重新在“星火主网”创建星火通账户并完成企业认证。
 
-第三步：接入测试；接入测试环境进行接入测试。
+![img](../_static/images/clip_image002.png)
 
-第四步：应用对接；用下发的apiKey/apiSecret接入正式环境，开始使用。
+第二步：签署协议及申请准入。
+
+完成相关协议签署后邮件联系运营方（邮箱），通过”DNA注册认证服务平台”提交星火账户（BID）、企业认证材料、应用平台资料，获取apiKey及apiSecret。
+
+注意：
+
+1.apiKey开发者的身份ID，可用于获取接入方的调用凭证（access_token），然后通过接口调用凭证再来访问数字资产注册认证平台API。
+
+2.apiSecret开发者身份ID对应的密钥，配合API_key使用能够获取接口调用凭证，同时为了安全起见这个密钥需要妥善保管。
+
+3.测试阶段登录测试网的DNA注册认证平台，应用对接阶段登录正式网的DNA注册认证平台。
+
+第三步：接入测试。
+
+在测试网进行应用接入测试，调用DNA相关接口。
+
+第四步：应用对接。
+
+通过正式网的DNA注册认证平台申请应用，获取apiKey/apiSecret，完成应用在正式环境对接。
 
 ### 2.1接入内容及流程
 
@@ -133,10 +155,10 @@ https://{{url}}/registration/api/v2/getToken
 
 **请求参数**
 
-| **字段名** | **类型** | **是否必填** | **描述**                               |
-| ---------- | -------- | ------------ | -------------------------------------- |
-| apiKey     | string   | 是           | 应用审批通过后，每个应用对应一个apiKey |
-| apiSecret  | string   | 是           | apiSecret                              |
+| **字段名** | **类型** | **是否必填** | **描述**                                                |
+| ---------- | -------- | ------------ | ------------------------------------------------------- |
+| apiKey     | string   | 是           | 应用审批通过后，每个应用对应一个apiKey，该字段为bid格式 |
+| apiSecret  | string   | 是           | 应用审批通过后，每个应用对应一个私钥apiKey              |
 
 **响应参数**
 
@@ -144,7 +166,7 @@ https://{{url}}/registration/api/v2/getToken
 | ----------- | -------- | ------------ | ------------------------------------------------------------ |
 | retCode     | number   |              | 返回状态码，取值：200-成功，400-信息错误，500-服务错误       |
 | retMsg      | string   |              | 200-OK<br/>400-apiKey必填、apiSecret必填、apiKey或apiSecret不正确<br/>500-服务错误 |
-| accessToken | string   |              | 用于B端用户调用接口                                          |
+| accessToken | string   |              | 用于应用运营方用户（B端用户）调用接口                        |
 
 **请求示例：**
 
@@ -217,7 +239,7 @@ http://localhost:8888/bifApi/v1/createAddress
 
 #### 3.3.3.构造合约签名交易
 
-参照**bif-offline-api 2.8章节**
+参照**bif-offline-api 2.9 章节**
 
 ```http
 http://localhost:8888/bifApi/v1/contract
@@ -237,15 +259,15 @@ http://localhost:8888/bifApi/v1/contract
 | bifAmount        | int64    | 是           | 转账金额 ，参数为 0                                          |
 | feeLimit         | int64    | 是           | 参数为200000000                                              |
 | gasPrice         | int64    | 是           | gas费，参数为200                                             |
-| nonce            | int64    | 是           | nonce  需要从链上获取，参照接口3.5.10                        |
+| nonce            | int64    | 是           | nonce  需要从链上获取，参照接口3.5.11                        |
 | input            | string   | 是           | 待触发的合约的main()入参，为调用上链交易接口的入参数<br/>转移数字资产"input":{"{\"function\":\"safeTransferFrom(address,address,string)\",\"args\":\"fromAddress,toAddress,'tokenBid'\"}} |
 
 **input参数**
 
 | **字段名**  | **类型** | **是否必填** | **描述**                                                     |
 | ----------- | -------- | ------------ | ------------------------------------------------------------ |
-| tokenBid    | string   | 是           | 数字资产bid，每个数字资产绑定一个主链bid作为唯一识别。调用星火链网接口获取主链bid |
 | fromAddress | string   | 是           | 用户数字资产持有者地址,保证都是应用下的账户                  |
+| tokenBid    | string   | 是           | 数字资产bid，每个数字资产绑定一个主链bid作为唯一识别。调用星火链网接口获取主链bid |
 | toAddress   | string   | 是           | 用户接收数字资产的地址，保证都是应用下的账户                 |
 
 **响应参数**
@@ -295,7 +317,7 @@ http://localhost:8888/bifApi/v1/contract
 
 #### 3.3.4构造合约签名交易
 
-参照**bif-offline-api 2.8章节**
+参照**bif-offline-api 2.9 章节**
 
 ```http
 http://localhost:8888/bifApi/v1/contract
@@ -315,7 +337,7 @@ http://localhost:8888/bifApi/v1/contract
 | bifAmount        | int64    | 是           | 转账金额 ，参数为 0                                          |
 | feeLimit         | int64    | 是           | 参数为200000000                                              |
 | gasPrice         | int64    | 是           | gas费，参数为200                                             |
-| nonce            | int64    | 是           | nonce  需要从链上获取，参照接口3.5.10                        |
+| nonce            | int64    | 是           | nonce  需要从链上获取，参照接口3.5.11                        |
 | input            | string   | 是           | 待触发的合约的main()入参，为调用上链交易接口的入参数<br/>销毁数字资产"input":{"{\"function\":\"burn(string)\",\"args\":\"'tokenBid'\"}"} |
 
 input参数
@@ -381,9 +403,9 @@ https://{url}/registration/api/v2/account/upload
 
 **Headers**
 
-| **字段名**  | **类型** | **是否必填** | **描述**            |
-| ----------- | -------- | ------------ | ------------------- |
-| accessToken | string   | 是           | 用于B端用户调用接口 |
+| **字段名**  | **类型** | **是否必填** | **描述**                              |
+| ----------- | -------- | ------------ | ------------------------------------- |
+| accessToken | string   | 是           | 用于应用运营方用户（B端用户）调用接口 |
 
 **请求参数**
 
@@ -393,17 +415,17 @@ https://{url}/registration/api/v2/account/upload
 
 **Data结构如下**
 
-| **字段名** | **类型** | **是否必填** | **描述**        |
-| ---------- | -------- | ------------ | --------------- |
-| phone      | string   | 是           | 手机hash256字符 |
-| bid        | string   | 是           | c端用户账户     |
+| **字段名** | **类型** | **是否必填** | **描述**                                             |
+| ---------- | -------- | ------------ | ---------------------------------------------------- |
+| phone      | string   | 是           | 手机号码使用sha256算法计算出来的hash值，应为64个字符 |
+| bid        | string   | 是           | 应用的用户账户（C端用户）                            |
 
 **响应参数**
 
 | **字段名** | **类型** | **是否必填** | **描述**                                                     |
 | ---------- | -------- | ------------ | ------------------------------------------------------------ |
 | retCode    | number   |              | 返回状态码，取值：200-成功，400-信息错误，500-服务错误       |
-| retMsg     | string   |              | 200-OK<br/>400-第1个账号phone不是有效的hash256字符、第1个账号Bid地址格式不正确<br/>500-服务错误 |
+| retMsg     | string   |              | 200-OK<br/>400-第1个账号phone不是有效的hash256字符，或者第1个账号Bid地址格式不正确<br/>500-服务错误 |
 
 **请求示例：**
 
@@ -669,20 +691,20 @@ https://{url}//registration/api/v2/:seriesId/dna
 
 Data结构如下:
 
-| **字段名**  | **类型** | **是否必填** | **描述**                                   |
-| ----------- | -------- | ------------ | ------------------------------------------ |
-| seriesId    | string   |              | 集合ID                                     |
-| dnaName     | string   |              | 数字资产名称，不超过50个字符               |
-| dnaNumber   | string   |              | 数字资产编号，集合内不重复                 |
-| dnaDes      | string   |              | 数字资产描述，不超过200个字符              |
-| url         | string   |              | 数字资产 url，建议尺寸：350*350            |
-| hash        | string   |              | 数字资产图片哈希值                         |
-| displayUrl  | string   |              | 数字资产缩略图url，建议尺寸：85*85         |
-| dnaPrice    | number   |              | 数字资产价格,单位：元（人民币）            |
-| dnaCategory | string   |              | 资产类型：图片、视频、音频                 |
-| extension   | string   |              | 扩展字段，用户自定义，长度不超过1024个字符 |
-| tokenBid    | string   |              | 数字资产bid                                |
-| createTime  | string   |              | 创建时间                                   |
+| **字段名**  | **类型** | **是否必填** | **描述**                                                     |
+| ----------- | -------- | ------------ | ------------------------------------------------------------ |
+| seriesId    | string   |              | 集合ID                                                       |
+| dnaName     | string   |              | 数字资产名称，不超过50个字符                                 |
+| dnaNumber   | string   |              | 数字资产编号，集合内不重复                                   |
+| dnaDes      | string   |              | 数字资产描述，不超过200个字符                                |
+| url         | string   |              | 数字资产 url，**建议尺寸**：350px*350px                      |
+| hash        | string   |              | 数字资产的hash值，建议采用sha256算法                         |
+| displayUrl  | string   |              | 数字资产缩略图url，**建议尺寸**：85px*85px                   |
+| dnaPrice    | number   |              | 数字资产价格,单位：元（人民币）                              |
+| dnaCategory | string   |              | 资产类型：图片、音频、视频、品牌、会员资格、域名、社交、音乐、艺术品、PFP、3D |
+| extension   | string   |              | 扩展字段，用户自定义，长度不超过1024个字符                   |
+| tokenBid    | string   |              | 数字资产bid                                                  |
+| createTime  | string   |              | 创建时间                                                     |
 
 **请求示例：**
 
@@ -736,19 +758,19 @@ https://{url}/registration/api/v2/chain/mintDNA
 
 **请求参数**
 
-| **字段名**  | **类型** | **是否必填** | **描述**                                   |
-| ----------- | -------- | ------------ | ------------------------------------------ |
-| seriesId    | string   | 是           | 集合ID                                     |
-| dnaName     | string   | 是           | 数字资产名称，不超过50个字符               |
-| dnaNumber   | string   | 是           | 数字资产编号，集合内不重复                 |
-| dnaDes      | string   | 否           | 数字资产描述，不超过200个字符              |
-| url         | string   | 是           | 数字资产 url，建议尺寸：350*350            |
-| hash        | string   | 是           | 数字资产图片哈希值                         |
-| displayUrl  | string   | 是           | 数字资产缩略图url，建议尺寸：85*85         |
-| toBid       | string   | 是           | 用户数字资产持有者地址                     |
-| dnaPrice    | number   | 是           | 数字资产价格,单位：元（人民币）            |
-| dnaCategory | string   | 是           | 资产类型：图片、视频、音频                 |
-| extension   | string   | 否           | 扩展字段，用户自定义，长度不超过1024个字符 |
+| **字段名**  | **类型** | **是否必填** | **描述**                                                     |
+| ----------- | -------- | ------------ | ------------------------------------------------------------ |
+| seriesId    | string   | 是           | 集合ID                                                       |
+| dnaName     | string   | 是           | 数字资产名称，不超过50个字符                                 |
+| dnaNumber   | string   | 是           | 数字资产编号，集合内不重复                                   |
+| dnaDes      | string   | 否           | 数字资产描述，不超过200个字符                                |
+| url         | string   | 是           | 数字资产 url，**建议尺寸**：350px*350px                      |
+| hash        | string   | 是           | 数字资产的hash值，建议采用sha256算法                         |
+| displayUrl  | string   | 是           | 数字资产缩略图url，**建议尺寸**：85px*85px                   |
+| toBid       | string   | 是           | 用户数字资产持有者地址                                       |
+| dnaPrice    | number   | 是           | 数字资产价格,单位：元（人民币）                              |
+| dnaCategory | string   | 是           | 资产类型：图片、音频、视频、品牌、会员资格、域名、社交、音乐、艺术品、PFP、3D |
+| extension   | string   | 否           | 扩展字段，用户自定义，长度不超过1024个字符                   |
 
 **响应参数**
 
@@ -816,19 +838,19 @@ https://{url}/registration/api/v2/chain/batchMintDNA
 
 Data结构如下:	
 
-| **字段名**  | **类型** | **是否必填** | **描述**                                         |
-| ----------- | -------- | ------------ | ------------------------------------------------ |
-| seriesId    | string   | 是           | 集合ID                                           |
-| dnaName     | string   | 是           | 数字资产名称，不超过50个字符                     |
-| dnaNumber   | string   | 是           | 数字资产编号，集合内不重复                       |
-| dnaDes      | string   | 否           | 数字资产描述，不超过200个字符                    |
-| url         | string   | 是           | 数字资产 url，建议尺寸：350*350                  |
-| hash        | string   | 是           | 数字资产图片哈希值                               |
-| displayUrl  | string   | 是           | 数字资产缩略图url，建议尺寸：85*85               |
-| toBid       | string   | 是           | 用户数字资产持有者地址                           |
-| dnaPrice    | number   | 是           | 数字资产价格，小数点后保留2位,单位：元（人民币） |
-| dnaCategory | string   | 是           | 资产类型：图片、视频、音频                       |
-| extension   | string   | 否           | 扩展字段，用户自定义，长度不超过1024个字符       |
+| **字段名**  | **类型** | **是否必填** | **描述**                                                     |
+| ----------- | -------- | ------------ | ------------------------------------------------------------ |
+| seriesId    | string   | 是           | 集合ID                                                       |
+| dnaName     | string   | 是           | 数字资产名称，不超过50个字符                                 |
+| dnaNumber   | string   | 是           | 数字资产编号，集合内不重复                                   |
+| dnaDes      | string   | 否           | 数字资产描述，不超过200个字符                                |
+| url         | string   | 是           | 数字资产 url，建议尺寸：350*350                              |
+| hash        | string   | 是           | 数字资产图片哈希值                                           |
+| displayUrl  | string   | 是           | 数字资产缩略图url，建议尺寸：85*85                           |
+| toBid       | string   | 是           | 用户数字资产持有者地址                                       |
+| dnaPrice    | number   | 是           | 数字资产价格，小数点后保留2位,单位：元（人民币）             |
+| dnaCategory | string   | 是           | 资产类型：图片、音频、视频、品牌、会员资格、域名、社交、音乐、艺术品、PFP、3D |
+| extension   | string   | 否           | 扩展字段，用户自定义，长度不超过1024个字符                   |
 
 **响应参数**
 
@@ -912,9 +934,9 @@ https://{url}/registration/api/v2/chain/transferDNA
 | tokenBid      | string   | 是           | 数字资产bid，每个数字资产绑定一个主链bid作为唯一识别。调用星火链网接口获取主链bid |
 | fromBid       | string   | 是           | 用户数字资产持有者地址,保证都是应用下的账户                  |
 | toBid         | string   | 是           | 用户接收数字资产的地址，保证都是应用下的账户                 |
-| serialization | string   | 是           | 序列化的交易数据                                             |
-| signData      | string   | 是           | 交易签名数据                                                 |
-| publicKey     | string   | 是           | 公钥                                                         |
+| serialization | string   | 是           | 序列化的交易数据，通过调用3.3.3接口获取                      |
+| signData      | string   | 是           | 交易签名数据，通过调用3.3.3接口获取                          |
+| publicKey     | string   | 是           | 公钥，通过调用3.3.3接口获取                                  |
 
 **响应参数**
 
@@ -1050,20 +1072,20 @@ https://{url}/registration/api/v2/dna/:userId
 
 Data结构如下:
 
-| **字段名**  | **类型** | **是否必填** | **描述**                                   |
-| ----------- | -------- | ------------ | ------------------------------------------ |
-| seriesId    | string   |              | 集合ID                                     |
-| dnaName     | string   |              | 数字资产名称，不超过50个字符               |
-| dnaNumber   | string   |              | 数字资产编号，集合内不重复                 |
-| dnaDes      | string   |              | 数字资产描述，不超过200个字符              |
-| url         | string   |              | 数字资产 url，建议尺寸：350*350            |
-| hash        | string   |              | 数字资产图片哈希值                         |
-| displayUrl  | string   |              | 数字资产缩略图url，建议尺寸：85*85         |
-| dnaPrice    | number   |              | 数字资产价格                               |
-| dnaCategory | string   |              | 资产类型：图片、视频、音频                 |
-| extension   | string   |              | 扩展字段，用户自定义，长度不超过1024个字符 |
-| tokenBid    | string   |              | 数字资产bid                                |
-| createTime  | string   |              | 创建时间                                   |
+| **字段名**  | **类型** | **是否必填** | **描述**                                                     |
+| ----------- | -------- | ------------ | ------------------------------------------------------------ |
+| seriesId    | string   |              | 集合ID                                                       |
+| dnaName     | string   |              | 数字资产名称，不超过50个字符                                 |
+| dnaNumber   | string   |              | 数字资产编号，集合内不重复                                   |
+| dnaDes      | string   |              | 数字资产描述，不超过200个字符                                |
+| url         | string   |              | 数字资产 url，建议尺寸：350*350                              |
+| hash        | string   |              | 数字资产图片哈希值                                           |
+| displayUrl  | string   |              | 数字资产缩略图url，建议尺寸：85*85                           |
+| dnaPrice    | number   |              | 数字资产价格                                                 |
+| dnaCategory | string   |              | 资产类型：图片、音频、视频、品牌、会员资格、域名、社交、音乐、艺术品、PFP、3D |
+| extension   | string   |              | 扩展字段，用户自定义，长度不超过1024个字符                   |
+| tokenBid    | string   |              | 数字资产bid                                                  |
+| createTime  | string   |              | 创建时间                                                     |
 
 **请求示例：**
 
@@ -1129,20 +1151,20 @@ https://{url}/registration/api/v2/dnaDetail?tokenBid
 
 Data结构如下：
 
-| **字段名**  | **类型** | **是否必填** | **描述**                                   |
-| ----------- | -------- | ------------ | ------------------------------------------ |
-| seriesId    | string   |              | 集合ID                                     |
-| dnaName     | string   |              | 数字资产名称，不超过50个字符               |
-| dnaNumber   | string   |              | 数字资产编号，集合内不重复                 |
-| dnaDes      | string   |              | 数字资产描述，不超过500个字符              |
-| url         | string   |              | 数字资产 url，建议尺寸：350*350            |
-| hash        | string   |              | 数字资产图片哈希值                         |
-| displayUrl  | string   |              | 数字资产缩略图url，建议尺寸：85*85         |
-| dnaPrice    | number   |              | 数字资产价格                               |
-| dnaCategory | string   |              | 资产类型：图片、视频、音频                 |
-| extension   | string   |              | 扩展字段，用户自定义，长度不超过1024个字符 |
-| tokenBid    | string   |              | 数字资产bid                                |
-| createTime  | string   |              | 创建时间                                   |
+| **字段名**  | **类型** | **是否必填** | **描述**                                                     |
+| ----------- | -------- | ------------ | ------------------------------------------------------------ |
+| seriesId    | string   |              | 集合ID                                                       |
+| dnaName     | string   |              | 数字资产名称，不超过50个字符                                 |
+| dnaNumber   | string   |              | 数字资产编号，集合内不重复                                   |
+| dnaDes      | string   |              | 数字资产描述，不超过500个字符                                |
+| url         | string   |              | 数字资产 url，建议尺寸：350*350                              |
+| hash        | string   |              | 数字资产图片哈希值                                           |
+| displayUrl  | string   |              | 数字资产缩略图url，建议尺寸：85*85                           |
+| dnaPrice    | number   |              | 数字资产价格                                                 |
+| dnaCategory | string   |              | 资产类型：图片、音频、视频、品牌、会员资格、域名、社交、音乐、艺术品、PFP、3D |
+| extension   | string   |              | 扩展字段，用户自定义，长度不超过1024个字符                   |
+| tokenBid    | string   |              | 数字资产bid                                                  |
+| createTime  | string   |              | 创建时间                                                     |
 
 **请求示例：**
 
@@ -1272,11 +1294,11 @@ https://{url}/registration/api/v2/chain/status
 
 **请求参数**
 
-| **字段名** | **类型** | **是否必填** | **描述**                               |
-| ---------- | -------- | ------------ | -------------------------------------- |
-| tokenBid   | string   | 是           | 链账户身份                             |
-| type       | number   | 是           | 1 注册资产 2 转移资产 3 销毁资产       |
-| txHash     | string   | 是           | 对应注册，转移，销毁资产返回的交易hash |
+| **字段名** | **类型** | **是否必填** | **描述**                                                     |
+| ---------- | -------- | ------------ | ------------------------------------------------------------ |
+| tokenBid   | string   | 是           | 数据资产bid（或者数字资产对应主链上账户身份）                |
+| type       | number   | 是           | 1 注册资产 2 转移资产 3 销毁资产                             |
+| txHash     | string   | 是           | 对应注册，转移，销毁资产返回的交易hash，该字段可通过3.5.10接口获取 |
 
 **响应参数**
 
@@ -1380,20 +1402,20 @@ https://{url}/registration/api/v2/chain/message/{messageId}
 
 data 结构如下:
 
-| **字段名** | **类型** | **描述**                                  |
-| ---------- | -------- | ----------------------------------------- |
-| state      | number   | 上链状态: 0 -已提交 1-上链失败 2-上链成功 |
-| info       | object[] | 资产信息数组                              |
-| txHash     | string   | 链上操作的hash                            |
+| **字段名** | **类型** | **描述**                                   |
+| ---------- | -------- | ------------------------------------------ |
+| state      | number   | 上链状态: 0 -已提交 1-上链失败 2-上链成功  |
+| info       | object[] | 资产信息数组                               |
+| txHash     | string   | 链上操作的hash，该字段可通过3.5.10接口获取 |
 
 info 结构如下:
 
 | **字段名** | **类型** | **描述**     |
 | ---------- | -------- | ------------ |
 | seriesId   | string   | 集合id       |
-| tokenBid   | string   | 数据资产bid  |
+| tokenBid   | string   | 数字资产bid  |
 | message    | string   | 错误信息     |
-| dnaNumber  | string   | 数据资产编号 |
+| dnaNumber  | string   | 数字资产编号 |
 
 **请求示例：**
 
@@ -1440,9 +1462,9 @@ https://{url}/registration/api/v2/chain/nonce
 
 **请求参数**
 
-| **字段名** | **类型** | **是否必填** | **描述**   |
-| ---------- | -------- | ------------ | ---------- |
-| userBid    | string   | 是           | 链账户身份 |
+| **字段名** | **类型** | **是否必填** | **描述**               |
+| ---------- | -------- | ------------ | ---------------------- |
+| userBid    | string   | 是           | 应用运营方的链账户身份 |
 
 **响应参数**
 
@@ -1469,6 +1491,8 @@ https://{url}/registration/api/v2/chain/nonce
 ```
 
 ### 3.6.认证数字资产
+
+**须知：本部分面向非主链用户，主链用户无需关注**。
 
 #### 3.6.1获取access token
 
