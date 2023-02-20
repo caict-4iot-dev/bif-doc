@@ -1,0 +1,122 @@
+# 附录
+
+## 1. 序列化
+
+很多地方都要用到序列化的功能。比如我们要对一笔交易签名，其实我们只能对字节串签名，这时就需要将交易序列化为字节串；还有我们需要存储交易，也需要序列化为字节流才能存储。我们选择了google的protocol buffer 3协议进行序列化。由此我们的所有数据结构的定义都是用protocol buffer 3 定义的。protocol buffer 3的优点是速度快，占用空间小，有多种语言支持。本文中我们统一用SerializeAsString表示对一个protocol buffer对象的序列化操作。
+
+## 2. MerkelTrie
+
+MerkelTrie树是一种将merkel(默克尔属性)和trie(前缀属性)相结合的树结构。
+
+merkel树是对一个(K,V)结构的集合的运算。其中K,V都是字节串。它的特性是：
+
+- 根hash的结果只与树中数据的集合有关，与插入顺序无关。我们利用这个特性可以快速判断两个数据集合是否相同。
+
+- 对于数据集合中的每一条(K,V)来说，K决定了一条数据在树中的位置，V决定了hash。(K,V)数据集合共同决定了根hash。
+
+- 当修改、添加、或删除树中的数据时，只需要重算变化节点所在的路径即可。
+
+- 修改任何一条数据必然引起根hash的变化，这是默克尔树的基本特征。
+
+trie树又称为字典树，在trie树中，节点的key就是节点的路径，是一种用于快速检索的多叉树结构。对于trie树：
+
+- 根节点不包含字符，除根节点外的每一个子节点都包含一个字符。
+
+- 从根节点到某一个节点，路径上经过的字符连接起来，为该节点对应的key。
+
+- 每个节点的所有子节点包含的字符互不相同。
+
+将merkel和trie结合，可以同时提高树的对比、校验和查找速度。
+
+MerkelTrie树原理图：
+
+<img src="../_static/images/10.2-1Merkle Trie.png">
+
+## 3. 星火EVM指令表
+
+| 指令表         | 星火链是否支持 | 以太坊是否支持 |
+| -------------- | -------------- | -------------- |
+| CREATE2        | 否             | 是             |
+| CREATE         | 是             | 是             |
+| DELEGATECALL   | 是             | 是             |
+| STATICCALL     | 否             | 是             |
+| CALL           | 是             | 是             |
+| CALLCODE       | 否             | 是             |
+| RETURN         | 是             | 是             |
+| REVERT         | 是             | 是             |
+| SELFDESTRUCT   | 否             | 是             |
+| STOP           | 是             | 是             |
+| MLOAD          | 是             | 是             |
+| MSTORE         | 是             | 是             |
+| MSTORE8        | 是             | 是             |
+| SHA3           | 是             | 是             |
+| LOG0           | 是             | 是             |
+| LOG1           | 是             | 是             |
+| LOG2           | 是             | 是             |
+| LOG3           | 是             | 是             |
+| LOG4           | 是             | 是             |
+| EXP            | 是             | 是             |
+| ADD            | 是             | 是             |
+| MUL            | 是             | 是             |
+| SUB            | 是             | 是             |
+| DIV            | 是             | 是             |
+| SDIV           | 是             | 是             |
+| MOD            | 是             | 是             |
+| SMOD           | 是             | 是             |
+| NOT            | 是             | 是             |
+| LT             | 是             | 是             |
+| GT             | 是             | 是             |
+| SLT            | 是             | 是             |
+| SGT            | 是             | 是             |
+| EQ             | 是             | 是             |
+| ISZERO         | 是             | 是             |
+| AND            | 是             | 是             |
+| OR             | 是             | 是             |
+| XOR            | 是             | 是             |
+| BYTE           | 是             | 是             |
+| SHL            | 是             | 是             |
+| SHR            | 是             | 是             |
+| SAR            | 是             | 是             |
+| ADDMOD         | 是             | 是             |
+| MULMOD         | 是             | 是             |
+| SIGNEXTEND     | 是             | 是             |
+| ADDRESS        | 是             | 是             |
+| ORIGIN         | 是             | 是             |
+| BALANCE        | 是             | 是             |
+| CALLER         | 是             | 是             |
+| CALLVALUE      | 是             | 是             |
+| CALLDATALOAD   | 是             | 是             |
+| CALLDATASIZE   | 是             | 是             |
+| RETURNDATASIZE | 是             | 是             |
+| CODESIZE       | 是             | 是             |
+| EXTCODESIZE    | 是             | 是             |
+| CALLDATACOPY   | 是             | 是             |
+| RETURNDATACOPY | 是             | 是             |
+| EXTCODEHASH    | 否             | 是             |
+| CODECOPY       | 是             | 是             |
+| EXTCODECOPY    | 是             | 是             |
+| GASPRICE       | 是             | 是             |
+| BLOCKHASH      | 是             | 是             |
+| COINBASE       | 否             | 是             |
+| TIMESTAMP      | 是             | 是             |
+| NUMBER         | 是             | 是             |
+| DIFFICULTY     | 否             | 是             |
+| GASLIMIT       | 是             | 是             |
+| CHAINID        | 是             | 是             |
+| SELFBALANCE    | 是             | 是             |
+| POP            | 是             | 是             |
+| PUSHC          | 否             | 是             |
+| PUSH1/32       | 是             | 是             |
+| JUMP           | 是             | 是             |
+| JUMPI          | 是             | 是             |
+| JUMPC          | 否             | 是             |
+| JUMPCI         | 否             | 是             |
+| DUP1/16        | 是             | 是             |
+| SWAP1/16       | 是             | 是             |
+| SLOAD          | 是             | 是             |
+| SSTORE         | 是             | 是             |
+| PC             | 是             | 是             |
+| MSIZE          | 是             | 是             |
+| GAS            | 是             | 是             |
+| JUMPDEST       | 是             | 是             |
+| INVALID        | 是             | 是             |

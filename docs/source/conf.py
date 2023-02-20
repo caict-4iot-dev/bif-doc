@@ -2,7 +2,7 @@
 
 # -- Project information
 
-project = '星火·链网开放文档'
+project = '星火链使用指南2.0'
 copyright = '2023, 中国信息通信研究院'
 author = '中国信息通信研究院'
 
@@ -31,6 +31,8 @@ html_static_path = ['_static']
 # -- Options for HTML output
 
 html_theme = 'sphinx_rtd_theme'
+
+html_logo = './_static/favicon.ico'
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
