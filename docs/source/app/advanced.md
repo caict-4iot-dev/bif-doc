@@ -425,7 +425,7 @@ BIFSDK sdk = BIFSDK.getInstance("http://test.bifcore.bitfactory.cn");   //星火
 
 ```json
 {
-  "source_address":"adxSn8xpL7c2xkxwbreVCs6EZ7KZbBvtDaLtV",//交易源账号，即交易的发起方
+  "source_address":"did:bid:efEB8Lvnzw8pzDCWUmqe1XJfNZMAYRvR",//交易源账号，即交易的发起方
   "nonce":2, //交易源账户的nonce值
   "fee_limit" : 1000000, //愿为交易花费的手续费
   "gas_price": 1000,//gas价格(不小于配置的最低值)
@@ -434,10 +434,10 @@ BIFSDK sdk = BIFSDK.getInstance("http://test.bifcore.bitfactory.cn");   //星火
   "operations":[
     {
       "type": 1, // 创建账户操作类型
-      "source_address": "adxSn8xpL7c2xkxwbreVCs6EZ7KZbBvtDaLtV",//可选，操作源账户，即操作的执行方
+      "source_address": "did:bid:efEB8Lvnzw8pzDCWUmqe1XJfNZMAYRvR",//可选，操作源账户，即操作的执行方
       "metadata": "0123456789abcdef",//可选，用户自定义给交易的备注，16进制格式
       "create_account": {
-        "dest_address": "adxSgCwYLWoCZnP6s2WXtQCwhxuFxhvsr375z",//待创建的目标账户地址
+        "dest_address": "did:bid:ef9nCb6Ge1Pj2wv7XW3hnzka6G2MkPZs",//待创建的目标账户地址
         "init_balance": 100000,//目标账户的初始化余额
         "priv":  {
           "master_weight": 1,//目标账户拥有的权力值
@@ -455,7 +455,7 @@ BIFSDK sdk = BIFSDK.getInstance("http://test.bifcore.bitfactory.cn");   //星火
 
 ```json
 {
-  "source_address":"adxSn8xpL7c2xkxwbreVCs6EZ7KZbBvtDaLtV",//交易源账号，即交易的发起方
+  "source_address":"did:bid:efEB8Lvnzw8pzDCWUmqe1XJfNZMAYRvR",//交易源账号，即交易的发起方
   "nonce":2, //交易源账户的nonce值
   "fee_limit" : 1000000, //愿为交易花费的手续费
   "gas_price": 1000,//gas价格(不小于配置的最低值)
@@ -464,7 +464,7 @@ BIFSDK sdk = BIFSDK.getInstance("http://test.bifcore.bitfactory.cn");   //星火
   "operations":[
     {
       "type": 1, // 创建账户操作类型
-      "source_address": "adxSn8xpL7c2xkxwbreVCs6EZ7KZbBvtDaLtV",//可选，操作源账户，即操作的执行方
+      "source_address": "did:bid:efEB8Lvnzw8pzDCWUmqe1XJfNZMAYRvR",//可选，操作源账户，即操作的执行方
       "metadata": "0123456789abcdef",//可选，用户自定义给交易的备注，16进制格式
       "create_account": {
         "contract": { //合约
@@ -546,7 +546,7 @@ BIFSDK sdk = BIFSDK.getInstance("http://test.bifcore.bitfactory.cn");   //星火
 
 ```json
 {
-  "source_address":"adxSn8xpL7c2xkxwbreVCs6EZ7KZbBvtDaLtV",//交易源账号，即交易的发起方
+  "source_address":"did:bid:efEB8Lvnzw8pzDCWUmqe1XJfNZMAYRvR",//交易源账号，即交易的发起方
   "nonce":2, //交易源账户的nonce值
   "fee_limit" : 1000000, //愿为交易花费的手续费
   "gas_price": 1000,//gas价格(不小于配置的最低值)
@@ -555,7 +555,7 @@ BIFSDK sdk = BIFSDK.getInstance("http://test.bifcore.bitfactory.cn");   //星火
   "operations":[
     {
       "type": 4,//设置 metadata 操作类型
-      "source_address": "adxSn8xpL7c2xkxwbreVCs6EZ7KZbBvtDaLtV",//可选，操作源账户，即操作的执行方
+      "source_address": "did:bid:efEB8Lvnzw8pzDCWUmqe1XJfNZMAYRvR",//可选，操作源账户，即操作的执行方
       "metadata": "0123456789abcdef",//可选，用户自定义给交易的备注，16进制格式
       "set_metadata": {
         "key": "abc",//metadata关键字
@@ -571,7 +571,7 @@ BIFSDK sdk = BIFSDK.getInstance("http://test.bifcore.bitfactory.cn");   //星火
 
 ```json
 {
-  "source_address":"adxSn8xpL7c2xkxwbreVCs6EZ7KZbBvtDaLtV",//交易源账号，即交易的发起方
+  "source_address":"did:bid:efEB8Lvnzw8pzDCWUmqe1XJfNZMAYRvR",//交易源账号，即交易的发起方
   "nonce":2, //交易源账户的nonce值
   "fee_limit" : 1000000, //愿为交易花费的手续费
   "gas_price": 1000,//gas价格(不小于配置的最低值)
@@ -580,14 +580,14 @@ BIFSDK sdk = BIFSDK.getInstance("http://test.bifcore.bitfactory.cn");   //星火
   "operations":[
     {
       "type": 9,//设置权限操作类型
-      "source_address": "adxSn8xpL7c2xkxwbreVCs6EZ7KZbBvtDaLtV",//可选，操作源账户，即操作的执行方
+      "source_address": "did:bid:efEB8Lvnzw8pzDCWUmqe1XJfNZMAYRvR",//可选，操作源账户，即操作的执行方
       "metadata": "0123456789abcdef",//可选，用户自定义给交易的备注，16进制格式
       "set_privilege": {
         "master_weight": "10",//可选，当前账户的自身权力值
         "signers"://可选，需要操作的签名者列表
         [
           {
-            "address": "adxSj9kGyXR2YpyxwZVMrnGcLWoG3Hf9qXne8",//需要操作的签名者地址
+            "address": "did:bid:ef9nCb6Ge1Pj2wv7XW3hnzka6G2MkPZs",//需要操作的签名者地址
             "weight": 8 //可选，签名者的权力值
           }
         ],
