@@ -272,9 +272,13 @@ public class TransactionDemo {
      "threshold": 8 //可选，该操作需要的权力值
    },
    {
-     "type": 2,//发行资产操作类型
+     "type": 4,//设置metadata需要权利值
      "threshold": 9 //可选该操作需要的权力值
-   }
+   },
+    {
+         "type": 7,//设置转移星火令需要权利值
+         "threshold": 10 //可选该操作需要的权力值
+    }
  ]
       }
 ```
