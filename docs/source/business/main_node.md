@@ -105,7 +105,7 @@ String signBlob = HexFormat.byteToHex(signByte);
 
 3）底层链锚定：开放平台API调用权限申请通过后，通过该接口向主链锚定 骨干链/子链 的底层链信息，包含：链基础信息同步、链状态信息同步、链节点信息同步、链的区块信息同步、合约信息同步、交易信息同步。参考[《星火·链网超级节点开放平台API 》](https://bif-open-api-doc.readthedocs.io/zh_CN/latest/index.html)中 [底层链锚定章节](https://bif-open-api-doc.readthedocs.io/zh_CN/latest/docs/API接口/4-底层链锚定.html) 进行开发。
 
-4）同步业务数据：开放平台API调用权限申请通过后，通过该接口向主链同步链上业务统计数据。由于不同链上业务数据不同，需提前和信通院沟通确定同步的数据字段。参考[《星火·链网超级节点开放平台API 》](https://bif-open-api-doc.readthedocs.io/zh_CN/latest/index.html)中 链应用服务信息同步 接口实现。
+4）同步业务数据：开放平台API调用权限申请通过后，通过该接口向主链同步链上业务统计数据。由于不同链上业务数据不同，需提前和信通院沟通确定同步的数据字段。参考[《星火·链网超级节点开放平台API 》](https://bif-open-api-doc.readthedocs.io/zh_CN/latest/docs/API%E6%8E%A5%E5%8F%A3/3-%E5%BA%95%E5%B1%82%E9%93%BE%E4%B8%9A%E5%8A%A1%E6%8E%A5%E5%85%A5.html#id14)中 **链应用服务信息同步** 接口实现。
 
 5）BID标识应用于实际业务：
 
