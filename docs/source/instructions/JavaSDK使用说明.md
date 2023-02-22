@@ -1,29 +1,47 @@
 # 1.Java SDK使用说明
 
-<a name="RPOky"></a>
-
-| 名称                                                         | 开发语言 |
-| ------------------------------------------------------------ | -------- |
-| [BIF-Core-SDK](https://github.com/caict-4iot-dev/BIF-Core-SDK) | JAVA     |
-| [BIF-Core_SDK-JS](https://github.com/caict-4iot-dev/BIF-Core_SDK-JS) | Nodejs   |
-| [BIF-Core-SDK-Go](https://github.com/caict-4iot-dev/BIF-Core-SDK-Go) | Go       |
-
-<a name="mzYWs"></a>
-
-## 简介
+## 1.1 SDK概述
 
 BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台公私钥对生成、星火链网-底层区块链平台私钥签名公钥验签、账号服务、区块服务、交易服务等接口，同时还提供了接口使用示例说明，开发者可以调用该SDK方便快捷的生成星火链网主链的快速接入。中国信通院秉持开源开放的理念，将星火“BID-Core-SDK”面向社区和公众完全开源，助力全行业伙伴提升数据价值流通的效率，实现数据价值转化。
+
+星火链提供了多种语言的`SDK`，包括：`Go SDK`、`Java SDK`、`Nodejs SDK`方便开发者根据需要进行选用。
 
 <img src="../_static/images/image-20211012184224056.png" alt="image-20211012184224056" style="zoom:80%;" />
 
 <center>图1 BIF-Core-SDK 逻辑架构图</center>
 
+## 1.2  环境准备
 
-## SDK 离线API
+### 1.2.1 软件依赖
+
+**java**：版本jdk 1.8.0_202或以下
+
+下载地址：https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
+
+若已安装，请通过命令查看版本：
+
+```sh
+$ java -version
+java version "1.8.0_202"
+```
+
+### 2.2.2 下载安装
+
+```sh
+$ git clone -b release/1.0.1  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK.git
+```
+
+## 1.3  怎么使用SDK
+
+### 1.3.1 应用demo
+
+java sdk应用示例，请参考[ bif-chain-sdk-example](https://github.com/caict-4iot-dev/BIF-Core-SDK/tree/release/1.0.1/bif-chain-sdk-example)
+
+### 1.3.2 SDK 离线API
 
 离线API主要是账户和密码学相关API, 不需要连接星火链网RPC接口也能工作. 主要接口如下:
 
-### 账户生成
+#### 账户生成
 
 1. 接口 ` KeyPairEntity.getBidAndKeyPair`
 
@@ -46,7 +64,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
     ```
 
 
-### 加密私钥生成keystore
+#### 加密私钥生成keystore
 
 1. 接口 `KeyStore.generateKeyStore`
 
@@ -97,11 +115,11 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
     }
     ```
 
-## SDK 在线API
+### 1.3.3 SDK 在线API
 
 在线API主要用于向星火链上发出交易和查询合约, 需要初始化SDK连接后使用.
 
-### 初始化SDK
+#### 初始化SDK
 
 1. 示例
 
@@ -111,7 +129,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
     BIFSDK sdk = BIFSDK.getInstance(SDK_INSTANCE_URL);   //SDK_INSTANCE_URL为星火链RPC地址
     ```
 
-### 广播交易
+#### 广播交易
 
 广播交易是指通过广播的方式发起交易。广播交易包括以下步骤：
 
@@ -125,7 +143,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
 
 1. [提交交易](#提交交易)
 
-   #### 获取账户nonce值
+   ##### 获取账户nonce值
 
    开发者可自己维护各个账户`nonce`，在提交完一个交易后，自动为`nonce`值递增1，这样可以在短时间内发送多笔交易，否则，必须等上一个交易执行完成后，账户的`nonce`值才会加1。调用如下：
 
@@ -145,7 +163,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
 }
    ```
 
-   #### 构建操作
+   ##### 构建操作
 
    这里的操作是指在交易中做的一些动作，便于序列化交易和评估费用。例如，构建创建账号操作(BIFAccountActivateOperation)，接口调用如下：
    
@@ -158,7 +176,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
 operation.setInitBalance(initBalance);
    ```
 
-   #### 序列化交易
+   ##### 序列化交易
 
    该接口用于序列化交易，并生成交易Blob串，便于网络传输。其中nonce和operation是上面接口得到的。调用如下：
    
@@ -185,7 +203,7 @@ operation.setInitBalance(initBalance);
 
    ```
 
-   #### 签名交易
+   ##### 签名交易
    
    该接口用于交易发起者使用其账户私钥对交易进行签名。其中transactionBlob是上面接口得到的。调用如下：
    
@@ -196,7 +214,7 @@ operation.setInitBalance(initBalance);
 
    ```
 
-   #### 提交交易
+   ##### 提交交易
    
    该接口用于向BIF-Core区块链发送交易请求，触发交易的执行。其中transactionBlob和signBytes是上面接口得到的。调用如下：
    
@@ -212,9 +230,8 @@ operation.setInitBalance(initBalance);
    String transactionHash=transactionSubmitResponse.getResult().getHash();
    ```
    
-   
 
-### 账户处理接口
+#### 账户处理接口
 
 1. 查询账户信息
 
@@ -225,7 +242,7 @@ operation.setInitBalance(initBalance);
         用来获取一个账户当前信息
 
     1. 示例
-        ```
+        ```java
         String accountAddress = "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2";
         BIFAccountGetInfoRequest request = new BIFAccountGetInfoRequest();
         request.setAddress(accountAddress);
@@ -248,7 +265,7 @@ operation.setInitBalance(initBalance);
         用来获取一个账户当前nonce值, 有关nonce含义, 请参照星火链开发基础章节.
 
     1. 示例:
-        ```
+        ```java
         String accountAddress = "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2";
         BIFAccountGetNonceRequest request = new BIFAccountGetNonceRequest();
         request.setAddress(accountAddress);
@@ -283,7 +300,7 @@ operation.setInitBalance(initBalance);
         }
         ```
 
-### Block相关接口
+#### Block相关接口
 
 1. 获取当前块高度
 
@@ -295,7 +312,7 @@ operation.setInitBalance(initBalance);
 
     1. 示例:
 
-        ```
+        ```java
         BIFBlockGetNumberResponse response = sdk.getBIFBlockService().getBlockNumber();
         System.out.println(JsonUtils.toJSONString(response));
         ```
@@ -310,7 +327,7 @@ operation.setInitBalance(initBalance);
 
     1. 示例:
 
-        ```
+        ```java
         Long blockNumber = 1L;
         BIFBlockGetTransactionsRequest request = new BIFBlockGetTransactionsRequest();
         request.setBlockNumber(blockNumber);
@@ -332,7 +349,7 @@ operation.setInitBalance(initBalance);
 
     1. 示例:
 
-        ```
+        ```java
          BIFBlockGetInfoRequest blockGetInfoRequest = new BIFBlockGetInfoRequest();
         blockGetInfoRequest.setBlockNumber(10L);
         BIFBlockGetInfoResponse lockGetInfoResponse = sdk.getBIFBlockService().getBlockInfo(blockGetInfoRequest);
@@ -354,7 +371,7 @@ operation.setInitBalance(initBalance);
 
     1. 示例:
 
-        ```
+        ```java
         BIFBlockGetLatestInfoResponse lockGetLatestInfoResponse = sdk.getBIFBlockService().getBlockLatestInfo();
         if (lockGetLatestInfoResponse.getErrorCode() == 0) {
             BIFBlockGetLatestInfoResult lockGetLatestInfoResult = lockGetLatestInfoResponse.getResult();
@@ -364,7 +381,7 @@ operation.setInitBalance(initBalance);
         }
         ```
 
-### Transaction相关接口
+#### Transaction相关接口
 
 1. 获取指定交易相关信息
 
@@ -376,7 +393,7 @@ operation.setInitBalance(initBalance);
 
     1. 示例:
 
-        ```
+        ```java
         BIFTransactionGetInfoRequest request = new BIFTransactionGetInfoRequest();
         request.setHash("8f3d53f0dfb5ae652d6ed93ca9512f57c2203fe0ffefdc7649908945ad96a730");
         BIFTransactionGetInfoResponse response = sdk.getBIFTransactionService().getTransactionInfo(request);
@@ -398,7 +415,7 @@ operation.setInitBalance(initBalance);
 
     1. 示例:
 
-        ```
+        ```java
         // 初始化参数
         String senderPrivateKey = "priSPKkWVk418PKAS66q4bsiE2c4dKuSSafZvNWyGGp2sJVtXL";
         //序列化交易
@@ -420,7 +437,7 @@ operation.setInitBalance(initBalance);
         }
         ```
 
-### 合约相关接口
+#### 合约相关接口
 
 1. 部署合约
 
@@ -432,7 +449,7 @@ operation.setInitBalance(initBalance);
 
     1. 示例:
 
-        ```
+        ```java
         String senderAddress = "did:bid:ef21AHDJWnFfYQ3Qs3kMxo64jD2KATwBz";
         String senderPrivateKey = "priSPKkL8XpxHiRLuNoxph2ThSbexeRUGEETprvuVHkxy2yBDp";
         String payload = "\"use strict\";function init(bar){/*init whatever you want*/return;}function main(input){let para = JSON.parse(input);if (para.do_foo)\n            {\n              let x = {\n                \'hello\' : \'world\'\n              };\n            }\n          }\n          \n          function query(input)\n          { \n            return input;\n          }\n        ";
@@ -466,7 +483,7 @@ operation.setInitBalance(initBalance);
 
     1. 示例
 
-        ```
+        ```java
         // Init request
         String hash = "ff6a9d1a0c0011fbb9f51cfb99e4cd5e7c31380046fda3fd6e0daae44d1d4648";
         BIFContractGetAddressRequest request = new BIFContractGetAddressRequest();
@@ -491,7 +508,7 @@ operation.setInitBalance(initBalance);
 
     1. 示例
 
-        ```
+        ```java
         // Init request
         BIFContractGetInfoRequest request = new BIFContractGetInfoRequest();
         request.setContractAddress("did:bid:efiBacNvVSnr5QxgB282XGWkg4RXLLxL");
@@ -515,7 +532,7 @@ operation.setInitBalance(initBalance);
 
     1. 示例:
 
-        ```
+        ```java
         // Init variable
         // Contract address
         String contractAddress = "did:bid:ef2gAT82SGdnhj87wQWb9suPKLbnk9NP";
@@ -544,7 +561,7 @@ operation.setInitBalance(initBalance);
 
     1. 示例:
 
-        ```
+        ```java
         String senderAddress = "did:bid:efVmotQW28QDtQyupnKTFvpjKQYs5bxf";
         String contractAddress = "did:bid:ef2gAT82SGdnhj87wQWb9suPKLbnk9NP";
         String senderPrivateKey = "priSPKnDue7AJ42gt7acy4AVaobGJtM871r1eukZ2M6eeW5LxG";

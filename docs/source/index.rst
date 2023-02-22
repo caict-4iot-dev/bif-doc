@@ -22,8 +22,8 @@ BIF-Core（星火·链网底层链，以下简称星火链），是中国信息�
    :glob:
 
    instructions/JavaSDK使用说明
-   instructions/NodejsSDK使用说明
    instructions/GoSDK使用说明
+   instructions/NodejsSDK使用说明
    instructions/订阅服务使用说明
    instructions/离线API服务使用说明
    instructions/区块链浏览器使用说明
@@ -34,7 +34,7 @@ BIF-Core（星火·链网底层链，以下简称星火链），是中国信息�
    :glob:
 
    contract/智能合约开发整体介绍
-   contract/Javascript合约介绍
+   contract/Javascript合约说明
    contract/Solidity合约介绍
    contract/智能合约示例
    contract/智能合约IDE使用说明
@@ -55,7 +55,7 @@ BIF-Core（星火·链网底层链，以下简称星火链），是中国信息�
    :caption:  星火链网BID体系
    :glob:
 
-   bid/BID协议
+   1.BID协议 <https://bid-resolution-protocol-doc.readthedocs.io/zh_CN/latest/>
    bid/BID-SDK
    bid/数字身份服务
    bid/浏览器插件钱包
@@ -72,7 +72,7 @@ BIF-Core（星火·链网底层链，以下简称星火链），是中国信息�
    bifChain/共识
    bifChain/对等网络
    bifChain/存储设计
-   bifChain/跨链服务
+   bifChain/跨链
    bifChain/附录
 
 .. toctree::
@@ -81,3 +81,22 @@ BIF-Core（星火·链网底层链，以下简称星火链），是中国信息�
    :glob:
 
    instructions/版本迭代说明
+
+.. toctree::
+   :maxdepth: 1
+   :caption:  星火链治理
+   :glob:
+
+   1.星火·链网RFC Github <https://github.com/caict-4iot-dev/bif-rfcs>
+
+.. toctree::
+   :maxdepth: 1
+   :caption:  其他说明
+   :titlesonly:
+   :glob:
+
+   1.星火·链网 Github <https://github.com/caict-4iot-dev>
+   other/开发者社区
+   other/星火链微信公众号
+   other/应用案例集
+   other/反馈与支持

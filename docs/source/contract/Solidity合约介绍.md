@@ -4,9 +4,9 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
 本目录的文档主要介绍在星火链合约平台中支持的 Solidity 合约的特性、语法、功能等。星火链平台支持的solidity语法基本与官方solidity基本一致，目前支持0.4.26版本，可以参考官方文档：<https://solidity.readthedocs.io/en/v0.4.26/>
 
-## 星火链Solidity合约特性
+## 3.1 星火链Solidity合约特性
 
-### 星火链Solidity和以太坊solidity区别
+### 3.1.1 星火链Solidity和以太坊solidity区别
 
 1. **星火链bid地址支持**: 
 
@@ -28,7 +28,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 
     星火链solidity函数调用递归深度最大为4层, 以太坊为1024.
 
-### 星火链op支持列表
+### 3.1.2 星火链op支持列表
 
 | 指令表         | 星火链是否支持 | 以太坊是否支持 |
 | -------------- | -------------- | -------------- |
@@ -117,9 +117,9 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
 | JUMPDEST       | 是             | 是             |
 | INVALID        | 是             | 是             |
 
-## 星火链Solidity合约规范
+## 3.2 星火链Solidity合约规范
 
-### 数据类型
+### 3.2.1 数据类型
 
 + **星火链交易支持的数据类型**
 
@@ -168,7 +168,7 @@ Solidity智能合约使用Spark-Evm引擎，脱胎于原生以太坊EVM架构实
     | enum                 | enum a {a,b,c}             | 是               | 否               |
     | struct               | struct a { string name;}   | 是               | 否               |
 
-## 星火链Solidity编译器
+## 3.3 星火链Solidity编译器
 
 由于指令集支持和地址表示法的区别, 星火链提供了专门的编译器来编译星火链Solidity合约. 本章指导开发者使用官方编译器编译星火链智能合约.
 

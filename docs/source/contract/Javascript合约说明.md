@@ -1,6 +1,6 @@
 # 2.Javascript合约说明
 
-## Javascript合约规范
+## 2.1 Javascript合约规范
 
 JavaScript智能合约是一段 JavaScript 代码，标准(ECMAScript as specified in ECMA-262)，使用Spark-V8引擎。
 
@@ -47,13 +47,13 @@ function query(input)
 
 * 使用 +=, -=, 禁用 ++ 和 -- .
 
-## 星火链合约内置 API
+## 2.2 星火链合约内置 API
 
 为JavaScript智能合约的高效执行，星火链实现了部分预编译JavaScript指令，可通过智能合约直接进行调用。
 
 智能合约内提供了全局对象 `Chain` 和 `Utils`, 这两个对象提供了多样的方法和变量，可以获取区块链的一些信息，也可驱动账号发起交易。
 
-### Chain对象
+### 2.2.1 Chain对象
 
 
 * Chain对象方法列表
@@ -484,7 +484,7 @@ function query(input)
 
 
 
-### Utils对象
+### 2.2.2 Utils对象
 
 * Utils对象方法列表
 
@@ -722,9 +722,9 @@ function query(input)
   
   ```
 
-## 合约开发工具
+## 2.3 合约开发工具
 
-### 检测工具
+### 2.3.1 检测工具
 
  星火链提供了针对JavaScript智能合约的校验工具，可用于验证星火链智能合约语法的正确性。
 
@@ -779,7 +779,7 @@ function query(input)
     "WeakSet", "Math", "Date" 
     ```
 
-### 文本压缩
+### 2.3.2 文本压缩
 
  合约文档写好之后，可以使用 JSMin 工具进行压缩，注意保存原文档，压缩是不可逆的操作。
 
@@ -799,13 +799,13 @@ jsmin.exe <.\private.js >.\private.min.js
 
 <img src="../_static/images/jsmin-2.png" style="zoom: 80%;" />
 
-## 异常处理
+## 2.4 异常处理
 
-### 主动抛出异常
+### 2.4.1 主动抛出异常
 
 星火链Javascript合约禁用了try catch关键字, 但是可以调用throw来抛出异常, 当执行遇到throw异常时, 该交易判定为失败, 入链扣费但是交易不生效。
 
-### JavaScript异常
+### 2.4.2 JavaScript异常
 
 当合约运行中出现未捕获的JavaScript异常时，处理规定：
 
@@ -817,7 +817,7 @@ jsmin.exe <.\private.js >.\private.min.js
 
     合约中可以执行多个交易，只要有一个交易失败，就会抛出异常，导致整个交易失败
 
-## javascript合约限制
+## 2.5 javascript合约限制
 
 由于区块链智能合约的执行机制原因, 星火链对javascript智能合约也做了如下的限制:
 
