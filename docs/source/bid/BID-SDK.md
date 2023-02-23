@@ -6,13 +6,13 @@
 
 <a name="mzYWs"></a>
 
-## **简介**
+## 2.1 简介
 
 2020年2月，中国信通院制定的BID方法被纳入`W3C`凭证社区工作组（Credentials Community Group）分布式标识（DID）规范。BID面向实体（包括人、物、组织）和数字对象，可用于拥有者证明其对BID的控制权及身份验证功能，而不需要依赖其他外部组织。BID标识目前应用于“星火链网”，由公钥经过一系列的算法后编码生成，支持`ed25519`、国密`sm2`、`secp256k1`等常用非对称加密算法生成的公钥；编码算法支持`base58`、 `base64`、`betch32`等常用的编码算法。BID实现了拥有者对标识的自我控制和管理，同时，通过密码学算法实现了隐私保护、安全可靠。
 
 BID-SDK通过API调用的方式提供了“星火链网”公私钥对生成、“星火链网”私钥签名公钥验签、BID标识生成、BID标识验证等接口，同时还提供了接口使用示例说明，开发者可以调用该SDK方便快捷的生成星火链网公私钥对和BID地址，实现BID标识合法性的校验及主链的快速接入。中国信通院秉持开源开放的理念，将星火“BID-SDK”面向社区和公众完全开源，助力全行业伙伴提升数据价值流通的效率，实现数据价值转化。<a name="FQBXC"></a>
 
-## 基本概念介绍
+## 2.2 基本概念介绍
 
 BID开发工具包，主要是为了方便开发者可以快速加入到星火主链的生态建设中，有以下功能：  
 
@@ -24,13 +24,13 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
 
 - BID标识工具：创建BID文档模板、创建BID文档、查询BID文档、校验BID文档。     
 
-## 参考文档
+## 2.3 参考文档
 
 参考文档：[《BID协议》](https://bid-resolution-protocol-doc.readthedocs.io/zh_CN/latest/)
 
-## 离线API
+## 2.4 离线API
 
-### 获取版本号
+### 2.4.1 获取版本号
 
 1. 接口 ` getSdkVersion()`
 
@@ -47,7 +47,7 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
        System.out.println(sdkVersion);
    ```
 
-### 账户生成
+### 2.4.2 账户生成
 
 1. 接口 ` getBidAndKeyPair()`
 
@@ -69,7 +69,7 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
        System.out.println(bid);
    ```
 
-### 根据编码类型生成账户
+### 2.4.3 根据编码类型生成账户
 
 1. 接口 ` getBidAndKeyPair(KeyType)`
 
@@ -91,7 +91,7 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
        System.out.println(bid);
    ```
 
-### 根据编解码类型和ChainCode生成账户
+### 2.4.4 根据编解码类型和ChainCode生成账户
 
 1. 接口 ` getBidAndKeyPair(KeyType,chaincode)`
 
@@ -113,9 +113,9 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
        System.out.println(bid);
    ```
 
-## 在线API
+## 2.5 在线API
 
-### 获取BID文档模板
+### 2.5.1 获取BID文档模板
 
 1. 接口 ` getBIDTemplate()`
 
@@ -132,7 +132,7 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
        System.out.println(result);
    ```
 
-### 创建BID文档
+### 2.5.2 创建BID文档
 
 1. 接口 ` createBIDByTemplate(bidDocument)`
 
@@ -150,7 +150,7 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
         System.out.println(result);
    ```
 
-### 解析BID文档
+### 2.5.2 解析BID文档
 
 1. 接口 `resolverBid(bid)`
 
@@ -167,5 +167,3 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
       Result result = sdk.resolverBid(bid);
       System.out.println(result);
    ```
-
-### 
