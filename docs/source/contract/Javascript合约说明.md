@@ -2,15 +2,15 @@
 
 ## 2.1 Javascript合约规范
 
-JavaScript智能合约是一段 `JavaScript` 代码，标准(ECMAScript as specified in ECMA-262)，使用Spark-V8引擎。
+`JavaScript`智能合约是一段 `JavaScript` 代码，标准(`ECMAScript as specified in ECMA-262`)，使用`Spark-V8`引擎。
 
 合约结构分为三段。合约上链部署完成后，合约文本会直接存储到合约账户结构中。 
 
-* 合约的初始化函数是 `init`, 合约部署时自动由虚拟机引擎直接调用init进行合约账户数据的初始化。
+* 合约的初始化函数是 `init`, 合约部署时自动由虚拟机引擎直接调用`init`进行合约账户数据的初始化。
 
-* 合约执行的入口函数是 `main`函数，main中可实现不同的功能接口，并通过参数字符串input选择不同接口。main函数入口仅支持合约调用者以**星火交易**方式进行调用，内部功能接口可实现合约数据存储相关操作。（可实现读写功能）
+* 合约执行的入口函数是 `main`函数，`main`中可实现不同的功能接口，并通过参数字符串`input`选择不同接口。`main`函数入口仅支持合约调用者以**星火交易**方式进行调用，内部功能接口可实现合约数据存储相关操作。（可实现读写功能）
 
-* 合约查询接口是 `query`函数，query中可实现不同的查询功能接口，并通过参数字符串input选择不同接口。query函数入口仅支持合约调用者以**查询接口**进行调用，内部功能接口可用于合约账户中数据的读取，禁止进行合约数据存储相关操作。调用过程不需消耗星火令。(只读功能)
+* 合约查询接口是 `query`函数，`query`中可实现不同的查询功能接口，并通过参数字符串`input`选择不同接口。`query`函数入口仅支持合约调用者以**查询接口**进行调用，内部功能接口可用于合约账户中数据的读取，禁止进行合约数据存储相关操作。调用过程不需消耗星火令。(只读功能)
 
 下面是一个简单的例子：
 
@@ -49,7 +49,7 @@ function query(input)
 
 ## 2.2 星火链合约内置 API
 
-为JavaScript智能合约的高效执行，星火链实现了部分预编译`JavaScript`指令，可通过智能合约直接进行调用。
+为`JavaScript`智能合约的高效执行，星火链实现了部分预编译`JavaScript`指令，可通过智能合约直接进行调用。
 
 智能合约内提供了全局对象 `Chain` 和 `Utils`, 这两个对象提供了多样的方法和变量，可以获取区块链的一些信息，也可驱动账号发起交易。
 
@@ -165,7 +165,7 @@ function query(input)
 
   `Chain.getAccountMetadata(account_address, metadata_key);`
 
-  获取指定账号的metadata
+  获取指定账号的metadatas
 
   | 参数            | 说明          |
   | --------------- | ------------- |
@@ -724,7 +724,7 @@ function query(input)
 
  星火链提供了针对`JavaScript`智能合约的校验工具，可用于验证星火链智能合约语法的正确性。
 
- 星火链Spark-V8智能合约使用 `JaveScript` 语言编写，为了方便开发者更规范的，更安全的开发合约，在做合约语法检测时候，使用了 JSLint 做限制。编辑合约时候，首先需要在 `JSLint` 里检测通过，才可以被星火链系统检测为一个合法的合约。
+ 星火链`Spark-V8`智能合约使用 `JaveScript` 语言编写，为了方便开发者更规范的，更安全的开发合约，在做合约语法检测时候，使用了 JSLint 做限制。编辑合约时候，首先需要在 `JSLint` 里检测通过，才可以被星火链系统检测为一个合法的合约。
 
  合约校验工具：[jslint.zip](https://github.com/caict-4iot-dev/BIF-Core-Doc/blob/feature/readthedocs/source/_static/tools/jslint.zip)
 
