@@ -172,7 +172,7 @@ input参数格式校验，需校验JSON规范。
 
 ### 6.7.2 如何存储对象数据？
 
-链上以key-value的键值对形式保存数据，可以使用Chain.store(id,JSON.stringify(str)) 其中参数str可以是一个json格式的字符串。
+链上以`key-value`的键值对形式保存数据，可以使用`Chain.store(id,JSON.stringify(str))` 其中参数`str`可以是一个`json`格式的字符串。
 
 ### 6.7.3 关于账号可信认证问题
 
