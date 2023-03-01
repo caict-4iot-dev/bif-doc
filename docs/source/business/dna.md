@@ -911,7 +911,7 @@ Data结构如下:
 }
 ```
 
-#### 3.5.3.转移字资产接口
+#### 3.5.3.转移数字资产接口
 
 ```http
 https://{url}/registration/api/v2/chain/transferDNA
