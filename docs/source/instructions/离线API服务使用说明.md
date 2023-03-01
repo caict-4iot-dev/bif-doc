@@ -1,12 +1,12 @@
 # 5.离线API服务使用说明
 
-离线API主要是账户和密码学相关API, 不需要连接星火链网RPC接口也能工作。具体操作、接口如下:
+离线API主要是账户和密码学相关API, 不需要连接星火链网RPC接口也能工作。具体部署操作、接口调用如下:
 
 ## 5.1 部署服务
 
 ### 5.1.1 获取镜像
 
-```shell
+```http
 docker pull caictdevelop/bif-offline-api:v1.0.0 
 ```
 
@@ -50,7 +50,7 @@ CONTAINER ID   IMAGE                                 COMMAND   CREATED          
 
 （1）请求示例：
 
-```plain
+```http
 http请求方式：POST
 https://{url}/bifApi/v1/createAddress
 {
@@ -107,7 +107,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```http
 http请求方式：POST
 https://{url}/bifApi/v1/getAddressByPrivateKey
 {
@@ -163,7 +163,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```http
 http请求方式：POST
 https://{url}/bifApi/v1/getAddressByPublicKey
 {
@@ -218,7 +218,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```http
 http请求方式：POST
 https://{url}/bifApi/v1/getRawPrivateKey
 {
@@ -272,7 +272,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```http
 http请求方式：POST
 https://{url}/bifApi/v1/getRawPublicKey
 {
@@ -325,7 +325,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```http
 http请求方式：POST
 https://{url}/bifApi/v1/getEncryptionTypeByPubK
 {
@@ -380,7 +380,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```http
 http请求方式：POST
 https://{url}/bifApi/v1/getEncPrivateKeyByRaw
 {
@@ -437,7 +437,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```http
 http请求方式：POST
 https://{url}/bifApi/v1/getEncPublicKeyByRaw
 {
@@ -501,7 +501,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```http
 http请求方式：POST
 https://{url}/bifApi/v1/contract
 {
@@ -566,7 +566,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```http
 http请求方式：POST
 https://{url}/bifApi/v1/sign
 {
@@ -624,7 +624,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```http
 http请求方式：POST
 https://{url}/bifApi/v1/verifySign
 {
@@ -684,7 +684,7 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 （1）请求示例：
 
-```plain
+```http
 http请求方式：POST
 https://{url}/bifApi/v1/deserialization
 {
@@ -728,5 +728,3 @@ b. 接口调用失败，则返回JSON数据示例为：
     "message": "Invalid serialization"
 }
 ```
-
-#### 

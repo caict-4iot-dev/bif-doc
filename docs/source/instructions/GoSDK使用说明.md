@@ -23,8 +23,8 @@ go version go1.16 linux/amd64
 
 ### 2.2.2 下载安装
 
-```sh
-$ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-Go.git
+```http
+$ git clone -b main  --depth=1 http://github.com/caict-4iot-dev/BIF-Core-SDK-Go.git
 ```
 
 ## 2.3  怎么使用SDK
@@ -49,14 +49,14 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-Go
     )
         
         keyPair, err := GetBidAndKeyPair()
-    	if err != nil {
-    		t.Error(err)
+        if err != nil {
+            t.Error(err)
     	}
-    	encAddress := keyPair.GetEncAddress()
-    	encPublicKey := keyPair.GetEncPublicKey()
-    	encPrivateKey := keyPair.GetEncPrivateKey()
-    	rawPublicKey := keyPair.GetRawPublicKey()
-    	rawPrivateKey := keyPair.GetRawPrivateKey()
+        encAddress := keyPair.GetEncAddress()
+        encPublicKey := keyPair.GetEncPublicKey()
+        encPrivateKey := keyPair.GetEncPrivateKey()
+        rawPublicKey := keyPair.GetRawPublicKey()
+        rawPrivateKey := keyPair.GetRawPrivateKey()
     ```
 
 
@@ -75,19 +75,19 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-Go
 	"github.com/caict-4iot-dev/BIF-Core-SDK-Go/module/encryption/key"
     )
     
-      encPrivateKey := "priSPKrR4w6H89kRXaC2XZT5Lmj7XoCoBdvTuv7ySXSCDDGaZZ"
-	password := "123456"
-    	n := 16384
-    	r := 8
-    	p := 1
-    	version := 32
-    	encPrivateKey, keyStore := key.GenerateKeyStore(encPrivateKey, password, n, r, p, version)
-    	dataByte, err := json.Marshal(keyStore)
-    	if err != nil {
-    		t.Error(err)
-    	}
-    	fmt.Println("encPrivateKey: ", encPrivateKey)
-    	fmt.Println("keyStore: ", string(dataByte))
+        encPrivateKey := "priSPKrR4w6H89kRXaC2XZT5Lmj7XoCoBdvTuv7ySXSCDDGaZZ"
+	    password := "123456"
+        n := 16384
+        r := 8
+        p := 1
+        version := 32
+        encPrivateKey, keyStore := key.GenerateKeyStore(encPrivateKey, password, n, r, p, version)
+        dataByte, err := json.Marshal(keyStore)
+        if err != nil {
+            t.Error(err)
+        }
+        fmt.Println("encPrivateKey: ", encPrivateKey)
+        fmt.Println("keyStore: ", string(dataByte))
     ```
 
 ### 2.3.2 SDK 在线API
@@ -99,7 +99,7 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-Go
 示例
 
 ```go
- url := "http://test-bif-core.xinghuo.space"
+ url := "http://test.bifcore.bitfactory.cn"
  sdk, err := GetInstance(url)  //SDK_INSTANCE_URL为星火链RPC地址
 ```
 
@@ -116,22 +116,22 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-Go
     1. 示例
         ```go
             as := GetAccountInstance(SDK_INSTANCE_URL)
-        	// 初始化请求参数
-        	accountAddress := "did:bid:ef21AHDJWnFfYQ3Qs3kMxo64jD2KATwBz"
-        	r := request.BIFAccountGetInfoRequest{
-        		Address: accountAddress,
-    	     }
-        	res := as.GetAccount(r)
-        	if res.ErrorCode != 0 {
-        		t.Error(res.ErrorDesc)
-        	}
+            // 初始化请求参数
+            accountAddress := "did:bid:ef21AHDJWnFfYQ3Qs3kMxo64jD2KATwBz"
+            r := request.BIFAccountGetInfoRequest{
+                Address: accountAddress,
+    	    }
+            res := as.GetAccount(r)
+            if res.ErrorCode != 0 {
+                t.Error(res.ErrorDesc)
+            }
         
-        	dataByte, err := json.Marshal(res)
-        	if err != nil {
-        		t.Error(err)
-        	}
+            dataByte, err := json.Marshal(res)
+            if err != nil {
+                t.Error(err)
+            }
         
-        	fmt.Println("res: ", string(dataByte))
+            fmt.Println("res: ", string(dataByte))
         ```
 
 1. 获取账户nonce
@@ -174,10 +174,10 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-Go
     1. 示例:
 
         ```go
-        as := GetAccountInstance(SDK_INSTANCE_URL)
+            as := GetAccountInstance(SDK_INSTANCE_URL)
             // 初始化请求参数
             accountAddress := "did:bid:ef21AHDJWnFfYQ3Qs3kMxo64jD2KATwBz"
-        r := request.BIFAccountGetBalanceRequest{
+            r := request.BIFAccountGetBalanceRequest{
                 Address: accountAddress,
             }
             res := as.GetAccountBalance(r)
@@ -315,12 +315,12 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-Go
 
     1. 用途:
 
-        提交交易到星火链网
+        提交交易到星火链
 
     1. 示例:
 
         ```go
-        submitRequest := request.BIFTransactionSubmitRequest{
+            submitRequest := request.BIFTransactionSubmitRequest{
                 Serialization: hex.EncodeToString(blob),
                 SignData:      hex.EncodeToString(signData),
                 PublicKey:     pubKey,
@@ -356,7 +356,7 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-Go
             var r request.BIFContractCreateRequest
             senderAddress := "did:bid:efzewQxg38x2Tmb1cpxSC1ZWwMZUxUeV"
             senderPrivateKey := "priSPKhTMRa7SsQLc4wXUDrEZW5wSeKN68Xy5LuCYQmndS75SZ"
-        payload := "\"use strict\"; function init(bar){return;} function main(input){let para = JSON.parse(input);if(para.do_foo){let x = {'hello' : 'world'};}} function query(input){return input;}"
+            payload := "\"use strict\"; function init(bar){return;} function main(input){let para = JSON.parse(input);if(para.do_foo){let x = {'hello' : 'world'};}} function query(input){return input;}"
             r.SenderAddress = senderAddress
             r.PrivateKey = senderPrivateKey
             r.Metadata = "create contract"
@@ -394,7 +394,7 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-Go
             var r request.BIFContractGetAddressRequest
             r.Hash = "ff6a9d1a0c0011fbb9f51cfb99e4cd5e7c31380046fda3fd6e0daae44d1d4648"
             res := bs.GetContractAddress(r)
-        if res.ErrorCode != 0 {
+            if res.ErrorCode != 0 {
                 t.Error(res.ErrorDesc)
             }
             
@@ -420,7 +420,7 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-Go
             bs := GetContractInstance(SDK_INSTANCE_URL)
             var r request.BIFContractGetInfoRequest
             r.ContractAddress = "did:bid:efWVypEKTQoVTunsdBDw8rp4uoG5Lsy5"
-        res := bs.GetContractInfo(r)
+            res := bs.GetContractInfo(r)
             if res.ErrorCode != 0 {
                 t.Error(res.ErrorDesc)
             }

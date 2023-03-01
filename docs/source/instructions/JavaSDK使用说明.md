@@ -8,7 +8,7 @@ BIF-Core-SDK通过API调用的方式提供了星火链网-底层区块链平台�
 
 <img src="../_static/images/image-20211012184224056.png" alt="image-20211012184224056" style="zoom:80%;" />
 
-<center>图1 BIF-Core-SDK 逻辑架构图</center>
+<center style="font-weight:bold;">图1 BIF-Core-SDK 逻辑架构图</center>
 
 ## 1.2  环境准备
 
@@ -27,8 +27,8 @@ java version "1.8.0_202"
 
 ### 2.2.2 下载安装
 
-```sh
-$ git clone -b release/1.0.1  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK.git
+```http
+$ git clone -b release/1.0.1  --depth=1 http://github.com/caict-4iot-dev/BIF-Core-SDK.git
 ```
 
 ## 1.3  怎么使用SDK
@@ -54,13 +54,13 @@ java sdk应用示例，请参考[ bif-chain-sdk-example](https://github.com/caic
     ```java
     import cn.bif.model.crypto.KeyPairEntity;
 
-    KeyPairEntity keypair = KeyPairEntity.getBidAndKeyPair();
-    String encAddress = keypair.getEncAddress();
-    String encPublicKey = keypair.getEncPublicKey();
-    String encPrivateKey = keypair.getEncPrivateKey();
-    byte[] rawPublicKey = keypair.getRawPublicKey();
-    byte[] rawPrivateKey = keypair.getRawPrivateKey();
-    System.out.println(JsonUtils.toJSONString(keypair))
+       KeyPairEntity keypair = KeyPairEntity.getBidAndKeyPair();
+          String encAddress = keypair.getEncAddress();
+          String encPublicKey = keypair.getEncPublicKey();
+          String encPrivateKey = keypair.getEncPrivateKey();
+          byte[] rawPublicKey = keypair.getRawPublicKey();
+          byte[] rawPrivateKey = keypair.getRawPrivateKey();
+       System.out.println(JsonUtils.toJSONString(keypair))
     ```
 
 
@@ -126,6 +126,7 @@ java sdk应用示例，请参考[ bif-chain-sdk-example](https://github.com/caic
     ```java
     import cn.bif.api.BIFSDK;
 
+    String SDK_INSTANCE_URL="http://test.bifcore.bitfactory.cn";
     BIFSDK sdk = BIFSDK.getInstance(SDK_INSTANCE_URL);   //SDK_INSTANCE_URL为星火链RPC地址
     ```
 
@@ -148,38 +149,39 @@ java sdk应用示例，请参考[ bif-chain-sdk-example](https://github.com/caic
    开发者可自己维护各个账户`nonce`，在提交完一个交易后，自动为`nonce`值递增1，这样可以在短时间内发送多笔交易，否则，必须等上一个交易执行完成后，账户的`nonce`值才会加1。调用如下：
 
    ```java
-   // 初始化请求参数
-   String senderAddress = "did:bid:efqhQu9YWEWpUKQYkAyGevPGtAdD1N6p";
-   BIFAccountGetNonceRequest request = new BIFAccountGetNonceRequest();
-   request.setAddress(senderAddress);
-   // 调用getNonce接口
-   Long nonce=0L;
-   BIFAccountGetNonceResponse response = sdk.getBIFAccountService().getNonce(request);
-   if (0 == response.getErrorCode()) {
-       nonce=response.getResult().getNonce();
-       System.out.println("Account nonce:" + response.getResult().getNonce());
-   }else {
-       System.out.println(JsonUtils.toJSONString(response));
-}
+      // 初始化请求参数
+      String senderAddress = "did:bid:efqhQu9YWEWpUKQYkAyGevPGtAdD1N6p";
+      BIFAccountGetNonceRequest request = new BIFAccountGetNonceRequest();
+      request.   setAddress(senderAddress);
+      // 调用getNonce接口
+      Long nonce=0L;
+      BIFAccountGetNonceResponse response = sdk.getBIFAccountService().getNonce(request);
+       if (0 == response.getErrorCode()) {
+          nonce=response.getResult().getNonce();
+          System.out.println("Account nonce:" + response.getResult().getNonce());
+       }else {
+          System.out.println(JsonUtils.toJSONString(response));
+       }
    ```
-
-   ##### 构建操作
-
-   这里的操作是指在交易中做的一些动作，便于序列化交易和评估费用。例如，构建创建账号操作(BIFAccountActivateOperation)，接口调用如下：
    
+##### 构建操作
+
+这里的操作是指在交易中做的一些动作，便于序列化交易和评估费用。例如，构建创建账号操作(BIFAccountActivateOperation)，接口调用如下：
+
    ```java
-    Long initBalance = ToBaseUnit.ToUGas("0.01");
+   // 初始化变量
+   Long initBalance = ToBaseUnit.ToUGas("0.01");
    String destAddress = "did:bid:ef3LqNzb4ssNf2vqwNwBfqngrA3Sx8yD";
    
    BIFAccountActivateOperation operation = new BIFAccountActivateOperation();
-   operation.setDestAddress(destAddress);
-operation.setInitBalance(initBalance);
+      operation.setDestAddress(destAddress);
+      operation.setInitBalance(initBalance);
    ```
 
-   ##### 序列化交易
+##### 序列化交易
 
-   该接口用于序列化交易，并生成交易Blob串，便于网络传输。其中nonce和operation是上面接口得到的。调用如下：
-   
+该接口用于序列化交易，并生成交易Blob串，便于网络传输。其中nonce和operation是上面接口得到的。调用如下：
+
    ```java
    // 初始化变量
    String senderAddress = "did:bid:efqhQu9YWEWpUKQYkAyGevPGtAdD1N6p";
@@ -198,27 +200,28 @@ operation.setInitBalance(initBalance);
     BIFTransactionSerializeResponse serializeResponse = sdk.getBIFTransactionService().BIFSerializable(serializeRequest);
            if (!serializeResponse.getErrorCode().equals(Constant.SUCCESS)) {
                throw new SDKException(serializeResponse.getErrorCode(), serializeResponse.getErrorDesc());
-        }
+     }
     String transactionBlob = serializeResponse.getResult().getTransactionBlob();
-
+   
    ```
 
-   ##### 签名交易
-   
-   该接口用于交易发起者使用其账户私钥对交易进行签名。其中transactionBlob是上面接口得到的。调用如下：
-   
-   ```java
+##### 签名交易
+
+该接口用于交易发起者使用其账户私钥对交易进行签名。其中transactionBlob是上面接口得到的。调用如下：
+
+```java
    // 初始化请求参数
- String senderPrivateKey = "priSPKqru2zMzeb14XWxPNM1sassFeqyyUZotCAYcvCjhNof7t";
-    byte[] signBytes = PrivateKeyManager.sign(HexFormat.hexToByte(transactionBlob), senderPrivateKey); 
-
-   ```
-
-   ##### 提交交易
+   String senderPrivateKey = "priSPKqru2zMzeb14XWxPNM1sassFeqyyUZotCAYcvCjhNof7t";
+   byte[] signBytes = PrivateKeyManager.sign(HexFormat.hexToByte(transactionBlob), senderPrivateKey); 
    
-   该接口用于向BIF-Core区块链发送交易请求，触发交易的执行。其中transactionBlob和signBytes是上面接口得到的。调用如下：
-   
+```
+
+##### 提交交易
+
+该接口用于向BIF-Core区块链发送交易请求，触发交易的执行。其中transactionBlob和signBytes是上面接口得到的。调用如下：
+
    ```java
+   // 初始化参数
    String publicKey = PrivateKeyManager.getEncPublicKey(senderPrivateKey);
    BIFTransactionSubmitRequest submitRequest = new BIFTransactionSubmitRequest();
      submitRequest.setSerialization(transactionBlob);
@@ -229,7 +232,7 @@ operation.setInitBalance(initBalance);
    //交易hash
    String transactionHash=transactionSubmitResponse.getResult().getHash();
    ```
-   
+
 
 #### 账户处理接口
 
@@ -243,18 +246,19 @@ operation.setInitBalance(initBalance);
 
     1. 示例
         ```java
-        String accountAddress = "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2";
-        BIFAccountGetInfoRequest request = new BIFAccountGetInfoRequest();
-        request.setAddress(accountAddress);
-        // 调用getAccount接口
-        BIFAccountGetInfoResponse response = sdk.getBIFAccountService().getAccount(request);
-
-        if (response.getErrorCode() == 0) {
-            System.out.println(JsonUtils.toJSONString(response.getResult()));
-        } else {
-            System.out.println(JsonUtils.toJSONString(response));
-        }
-        ```
+           // 初始化参数
+           String accountAddress = "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2";
+           BIFAccountGetInfoRequest request = new BIFAccountGetInfoRequest();
+              request.setAddress(accountAddress);
+           // 调用getAccount接口
+       BIFAccountGetInfoResponse response = sdk.getBIFAccountService().getAccount(request);
+        
+           if (response.getErrorCode() == 0) {
+               System.out.println(JsonUtils.toJSONString(response.getResult()));
+           } else {
+               System.out.println(JsonUtils.toJSONString(response));
+           }
+       ```
 
 1. 获取账户nonce
 
@@ -262,19 +266,20 @@ operation.setInitBalance(initBalance);
 
     1. 用途:
 
-        用来获取一个账户当前nonce值, 有关nonce含义, 请参照星火链开发基础章节.
+        用来获取一个账户当前nonce值, 有关nonce含义, 请参照**星火链开发入门**章节
 
     1. 示例:
         ```java
-        String accountAddress = "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2";
-        BIFAccountGetNonceRequest request = new BIFAccountGetNonceRequest();
-        request.setAddress(accountAddress);
-        BIFAccountGetNonceResponse response = sdk.getBIFAccountService().getNonce(request);
-        if (0 == response.getErrorCode()) {
-            System.out.println("Account nonce:" + response.getResult().getNonce());
-        }else {
-            System.out.println(JsonUtils.toJSONString(response));
-        }
+           // 初始化参数
+           String accountAddress = "did:bid:efnVUgqQFfYeu97ABf6sGm3WFtVXHZB2";
+           BIFAccountGetNonceRequest request = new BIFAccountGetNonceRequest();
+              request.setAddress(accountAddress);
+           BIFAccountGetNonceResponse response = sdk.getBIFAccountService().getNonce(request);
+           if (0 == response.getErrorCode()) {
+               System.out.println("Account nonce:" + response.getResult().getNonce());
+           }else {
+               System.out.println(JsonUtils.toJSONString(response));
+           }
         ```
 
 1. 获取账户余额
@@ -288,16 +293,17 @@ operation.setInitBalance(initBalance);
     1. 示例:
 
         ```java
-        String accountAddress = "did:bid:efzE8AcDgWUeNbgujA5hK3oUeuG9k19b";
-        BIFAccountGetBalanceRequest request = new BIFAccountGetBalanceRequest();
-        request.setAddress(accountAddress);
-
-        BIFAccountGetBalanceResponse response = sdk.getBIFAccountService().getAccountBalance(request);
-        if (0 == response.getErrorCode()) {
-            System.out.println("Gas balance：" + ToBaseUnit.ToGas(response.getResult().getBalance().toString()) + "Gas");
-        }else {
-            System.out.println(JsonUtils.toJSONString(response));
-        }
+           // 初始化参数
+           String accountAddress = "did:bid:efzE8AcDgWUeNbgujA5hK3oUeuG9k19b";
+           BIFAccountGetBalanceRequest request = new BIFAccountGetBalanceRequest();
+           request.setAddress(accountAddress);
+        
+           BIFAccountGetBalanceResponse response = sdk.getBIFAccountService().getAccountBalance(request);
+           if (0 == response.getErrorCode()) {
+               System.out.println("Gas balance：" +         ToBaseUnit.ToGas(response.getResult().getBalance().toString()) + "Gas");
+           }else {
+               System.out.println(JsonUtils.toJSONString(response));
+           }
         ```
 
 #### Block相关接口
@@ -313,8 +319,8 @@ operation.setInitBalance(initBalance);
     1. 示例:
 
         ```java
-        BIFBlockGetNumberResponse response = sdk.getBIFBlockService().getBlockNumber();
-        System.out.println(JsonUtils.toJSONString(response));
+           BIFBlockGetNumberResponse response = sdk.getBIFBlockService().getBlockNumber();
+           System.out.println(JsonUtils.toJSONString(response));
         ```
 
 1. 获取指定块内的交易列表
@@ -328,15 +334,16 @@ operation.setInitBalance(initBalance);
     1. 示例:
 
         ```java
-        Long blockNumber = 1L;
-        BIFBlockGetTransactionsRequest request = new BIFBlockGetTransactionsRequest();
-        request.setBlockNumber(blockNumber);
-        BIFBlockGetTransactionsResponse response = sdk.getBIFBlockService().getTransactions(request);
-        if (0 == response.getErrorCode()) {
-            System.out.println(JsonUtils.toJSONString(response.getResult()));
-        } else {
-            System.out.println(JsonUtils.toJSONString(response));
-        }
+           // 初始化参数
+           Long blockNumber = 1L;
+           BIFBlockGetTransactionsRequest request = new BIFBlockGetTransactionsRequest();
+              request.setBlockNumber(blockNumber);
+           BIFBlockGetTransactionsResponse response = sdk.getBIFBlockService().getTransactions(request);
+              if (0 == response.getErrorCode()) {
+                  System.out.println(JsonUtils.toJSONString(response.getResult()));
+              } else {
+                  System.out.println(JsonUtils.toJSONString(response));
+              }
         ```
 
 1. 获取指定块的统计信息
@@ -345,20 +352,21 @@ operation.setInitBalance(initBalance);
 
     1. 用途:
 
-        给定block号, 查询指定block的信息.
+        给定block号, 查询指定block的信息
 
     1. 示例:
 
         ```java
-         BIFBlockGetInfoRequest blockGetInfoRequest = new BIFBlockGetInfoRequest();
-        blockGetInfoRequest.setBlockNumber(10L);
-        BIFBlockGetInfoResponse lockGetInfoResponse = sdk.getBIFBlockService().getBlockInfo(blockGetInfoRequest);
-        if (lockGetInfoResponse.getErrorCode() == 0) {
-            BIFBlockGetInfoResult lockGetInfoResult = lockGetInfoResponse.getResult();
-            System.out.println(JsonUtils.toJSONString(lockGetInfoResult));
-        } else {
-            System.out.println(JsonUtils.toJSONString(lockGetInfoResponse));
-        }
+           // 初始化参数
+           BIFBlockGetInfoRequest blockGetInfoRequest = new BIFBlockGetInfoRequest();
+              blockGetInfoRequest.setBlockNumber(10L);
+           BIFBlockGetInfoResponse lockGetInfoResponse =   sdk.getBIFBlockService().getBlockInfo(blockGetInfoRequest);
+           if (lockGetInfoResponse.getErrorCode() == 0) {
+               BIFBlockGetInfoResult lockGetInfoResult = lockGetInfoResponse.getResult();
+               System.out.println(JsonUtils.toJSONString(lockGetInfoResult));
+           } else {
+               System.out.println(JsonUtils.toJSONString(lockGetInfoResponse));
+           }
         ```
 
 1. 查询最新块的信息
@@ -372,13 +380,14 @@ operation.setInitBalance(initBalance);
     1. 示例:
 
         ```java
-        BIFBlockGetLatestInfoResponse lockGetLatestInfoResponse = sdk.getBIFBlockService().getBlockLatestInfo();
-        if (lockGetLatestInfoResponse.getErrorCode() == 0) {
-            BIFBlockGetLatestInfoResult lockGetLatestInfoResult = lockGetLatestInfoResponse.getResult();
-            System.out.println(JsonUtils.toJSONString(lockGetLatestInfoResult));
-        } else {
-            System.out.println(JsonUtils.toJSONString(lockGetLatestInfoResponse));
-        }
+           // 初始化参数
+           BIFBlockGetLatestInfoResponse lockGetLatestInfoResponse =         sdk.getBIFBlockService().getBlockLatestInfo();
+           if (lockGetLatestInfoResponse.getErrorCode() == 0) {
+               BIFBlockGetLatestInfoResult lockGetLatestInfoResult = lockGetLatestInfoResponse.getResult();
+               System.out.println(JsonUtils.toJSONString(lockGetLatestInfoResult));
+           } else {
+               System.out.println(JsonUtils.toJSONString(lockGetLatestInfoResponse));
+           }
         ```
 
 #### Transaction相关接口
@@ -394,14 +403,15 @@ operation.setInitBalance(initBalance);
     1. 示例:
 
         ```java
-        BIFTransactionGetInfoRequest request = new BIFTransactionGetInfoRequest();
-        request.setHash("8f3d53f0dfb5ae652d6ed93ca9512f57c2203fe0ffefdc7649908945ad96a730");
-        BIFTransactionGetInfoResponse response = sdk.getBIFTransactionService().getTransactionInfo(request);
-        if (response.getErrorCode() == 0) {
-            System.out.println(JsonUtils.toJSONString(response.getResult()));
-        } else {
-            System.out.println(JsonUtils.toJSONString(response));
-        }
+           // 初始化参数
+           BIFTransactionGetInfoRequest request = new BIFTransactionGetInfoRequest();
+           request.setHash("8f3d53f0dfb5ae652d6ed93ca9512f57c2203fe0ffefdc7649908945ad96a730");
+           BIFTransactionGetInfoResponse response = sdk.getBIFTransactionService().getTransactionInfo(request);
+           if (response.getErrorCode() == 0) {
+               System.out.println(JsonUtils.toJSONString(response.getResult()));
+           } else {
+               System.out.println(JsonUtils.toJSONString(response));
+           }
         ```
 
 
@@ -416,25 +426,25 @@ operation.setInitBalance(initBalance);
     1. 示例:
 
         ```java
-        // 初始化参数
-        String senderPrivateKey = "priSPKkWVk418PKAS66q4bsiE2c4dKuSSafZvNWyGGp2sJVtXL";
-        //序列化交易
-        String serialization ="";
-        //签名
-        byte[] signBytes = PrivateKeyManager.sign(HexFormat.hexToByte(serialization), senderPrivateKey);
-        String publicKey = PrivateKeyManager.getEncPublicKey(senderPrivateKey);
-        //提交交易
-        BIFTransactionSubmitRequest submitRequest = new BIFTransactionSubmitRequest();
-        submitRequest.setSerialization(serialization);
-        submitRequest.setPublicKey(publicKey);
-        submitRequest.setSignData(HexFormat.byteToHex(signBytes));
-        // 调用bifSubmit接口
-        BIFTransactionSubmitResponse response = sdk.getBIFTransactionService().BIFSubmit(submitRequest);
-        if (response.getErrorCode() == 0) {
-            System.out.println(JsonUtils.toJSONString(response.getResult()));
-        } else {
-            System.out.println("error: " + response.getErrorDesc());
-        }
+           // 初始化参数
+           String senderPrivateKey = "priSPKkWVk418PKAS66q4bsiE2c4dKuSSafZvNWyGGp2sJVtXL";
+           //序列化交易
+           String serialization ="";
+           //签名
+           byte[] signBytes = PrivateKeyManager.sign(HexFormat.hexToByte(serialization), senderPrivateKey);
+           String publicKey = PrivateKeyManager.getEncPublicKey(senderPrivateKey);
+           //提交交易
+           BIFTransactionSubmitRequest submitRequest = new BIFTransactionSubmitRequest();
+              submitRequest.setSerialization(serialization);
+              submitRequest.setPublicKey(publicKey);
+              submitRequest.setSignData(HexFormat.byteToHex(signBytes));
+           // 调用bifSubmit接口
+           BIFTransactionSubmitResponse response = sdk.getBIFTransactionService().BIFSubmit(submitRequest);
+           if (response.getErrorCode() == 0) {
+               System.out.println(JsonUtils.toJSONString(response.getResult()));
+           } else {
+               System.out.println("error: " + response.getErrorDesc());
+           }
         ```
 
 #### 合约相关接口
@@ -450,28 +460,29 @@ operation.setInitBalance(initBalance);
     1. 示例:
 
         ```java
-        String senderAddress = "did:bid:ef21AHDJWnFfYQ3Qs3kMxo64jD2KATwBz";
-        String senderPrivateKey = "priSPKkL8XpxHiRLuNoxph2ThSbexeRUGEETprvuVHkxy2yBDp";
-        String payload = "\"use strict\";function init(bar){/*init whatever you want*/return;}function main(input){let para = JSON.parse(input);if (para.do_foo)\n            {\n              let x = {\n                \'hello\' : \'world\'\n              };\n            }\n          }\n          \n          function query(input)\n          { \n            return input;\n          }\n        ";
-        Long initBalance = ToBaseUnit.ToUGas("1");
-
-        BIFContractCreateRequest request = new BIFContractCreateRequest();
-        request.setSenderAddress(senderAddress);
-        request.setPrivateKey(senderPrivateKey);
-        request.setInitBalance(initBalance);
-        request.setPayload(payload);
-        request.setRemarks("create contract");
-        request.setType(1);
-        request.setFeeLimit(10000000000L);
-
-        // 调用bifContractCreate接口
-        BIFContractCreateResponse response = sdk.getBIFContractService().contractCreate(request);
-        if (response.getErrorCode() == 0) {
-            System.out.println(JsonUtils.toJSONString(response.getResult()));
-        } else {
-            System.out.println(JsonUtils.toJSONString(response));
-        }
-        ```
+            // 初始化参数
+           String senderAddress = "did:bid:ef21AHDJWnFfYQ3Qs3kMxo64jD2KATwBz";
+           String senderPrivateKey = "priSPKkL8XpxHiRLuNoxph2ThSbexeRUGEETprvuVHkxy2yBDp";
+           String payload = "\"use strict\";function init(bar){/*init whatever you want*/return;}function main(input){let para = JSON.parse(input);if (para.do_foo)\n            {\n              let x = {\n                \'hello\' : \'world\'\n              };\n            }\n          }\n          \n          function query(input)\n          { \n            return input;\n          }\n        ";
+           Long initBalance = ToBaseUnit.ToUGas("1");
+        
+           BIFContractCreateRequest request = new BIFContractCreateRequest();
+              request.setSenderAddress(senderAddress);
+              request.setPrivateKey(senderPrivateKey);
+              request.setInitBalance(initBalance);
+              request.setPayload(payload);
+              request.setRemarks("create contract");
+              request.setType(1);
+              request.setFeeLimit(10000000000L);
+        
+           // 调用bifContractCreate接口
+           BIFContractCreateResponse response = sdk.getBIFContractService().contractCreate(request);
+           if (response.getErrorCode() == 0) {
+               System.out.println(JsonUtils.toJSONString(response.getResult()));
+           } else {
+               System.out.println(JsonUtils.toJSONString(response));
+           }
+       ```
 
 1. 从部署交易中获取合约地址
 
@@ -484,18 +495,18 @@ operation.setInitBalance(initBalance);
     1. 示例
 
         ```java
-        // Init request
-        String hash = "ff6a9d1a0c0011fbb9f51cfb99e4cd5e7c31380046fda3fd6e0daae44d1d4648";
-        BIFContractGetAddressRequest request = new BIFContractGetAddressRequest();
-        request.setHash(hash);
+           // 初始化参数
+           String hash = "ff6a9d1a0c0011fbb9f51cfb99e4cd5e7c31380046fda3fd6e0daae44d1d4648";
+           BIFContractGetAddressRequest request = new BIFContractGetAddressRequest();
+           request.setHash(hash);
 
-        // Call getAddress
-        BIFContractGetAddressResponse response = sdk.getBIFContractService().getContractAddress(request);
-        if (response.getErrorCode() == 0) {
-            System.out.println(JsonUtils.toJSONString(response.getResult()));
-        } else {
-            System.out.println(JsonUtils.toJSONString(response));
-        }
+           // Call getAddress
+           BIFContractGetAddressResponse response = sdk.getBIFContractService().getContractAddress(request);
+           if (response.getErrorCode() == 0) {
+               System.out.println(JsonUtils.toJSONString(response.getResult()));
+           } else {
+                  System.out.println(JsonUtils.toJSONString(response));
+           }
         ```
 
 1. 获取合约相关信息
@@ -504,22 +515,22 @@ operation.setInitBalance(initBalance);
 
     1. 用途:
 
-        指定合约地址, 获取合约相关信息.
+        指定合约地址, 获取合约相关信息
 
     1. 示例
 
         ```java
-        // Init request
-        BIFContractGetInfoRequest request = new BIFContractGetInfoRequest();
-        request.setContractAddress("did:bid:efiBacNvVSnr5QxgB282XGWkg4RXLLxL");
+           //初始化参数
+           BIFContractGetInfoRequest request = new BIFContractGetInfoRequest();
+           request.setContractAddress("did:bid:efiBacNvVSnr5QxgB282XGWkg4RXLLxL");
 
-        // Call getContractInfo
-        BIFContractGetInfoResponse response = sdk.getBIFContractService().getContractInfo(request);
-        if (response.getErrorCode() == 0) {
-            System.out.println(JsonUtils.toJSONString(response.getResult()));
-        } else {
-            System.out.println(JsonUtils.toJSONString(response));
-        }
+           // Call getContractInfo
+           BIFContractGetInfoResponse response = sdk.getBIFContractService().getContractInfo(request);
+           if (response.getErrorCode() == 0) {
+               System.out.println(JsonUtils.toJSONString(response.getResult()));
+           } else {
+               System.out.println(JsonUtils.toJSONString(response));
+           }
         ```
 
 1. 查询合约
@@ -533,22 +544,22 @@ operation.setInitBalance(initBalance);
     1. 示例:
 
         ```java
-        // Init variable
-        // Contract address
-        String contractAddress = "did:bid:ef2gAT82SGdnhj87wQWb9suPKLbnk9NP";
+           // 初始化参数
+           // Contract address 合约地址
+           String contractAddress = "did:bid:ef2gAT82SGdnhj87wQWb9suPKLbnk9NP";
 
-        // Init request
-        BIFContractCallRequest request = new BIFContractCallRequest();
-        request.setContractAddress(contractAddress);
+           // Init request
+           BIFContractCallRequest request = new BIFContractCallRequest();
+           request.setContractAddress(contractAddress);
 
-        // Call contractQuery
-        BIFContractCallResponse response = sdk.getBIFContractService().contractQuery(request);
-        if (response.getErrorCode() == 0) {
-            BIFContractCallResult result = response.getResult();
-            System.out.println(JsonUtils.toJSONString(result));
-        } else {
-            System.out.println(JsonUtils.toJSONString(response));
-        }  
+           // Call contractQuery
+           BIFContractCallResponse response = sdk.getBIFContractService().contractQuery(request);
+           if (response.getErrorCode() == 0) {
+               BIFContractCallResult result = response.getResult();
+               System.out.println(JsonUtils.toJSONString(result));
+           } else {
+               System.out.println(JsonUtils.toJSONString(response));
+           }  
         ```
 
 1. 调用合约
@@ -562,23 +573,24 @@ operation.setInitBalance(initBalance);
     1. 示例:
 
         ```java
-        String senderAddress = "did:bid:efVmotQW28QDtQyupnKTFvpjKQYs5bxf";
-        String contractAddress = "did:bid:ef2gAT82SGdnhj87wQWb9suPKLbnk9NP";
-        String senderPrivateKey = "priSPKnDue7AJ42gt7acy4AVaobGJtM871r1eukZ2M6eeW5LxG";
-        Long amount = 0L;
-
-        BIFContractInvokeRequest request = new BIFContractInvokeRequest();
-        request.setSenderAddress(senderAddress);
-        request.setPrivateKey(senderPrivateKey);
-        request.setContractAddress(contractAddress);
-        request.setBIFAmount(amount);
-        request.setRemarks("contract invoke");
-
-        // 调用 bifContractInvoke 接口
-        BIFContractInvokeResponse response = sdk.getBIFContractService().contractInvoke(request);
-        if (response.getErrorCode() == 0) {
-            System.out.println(JsonUtils.toJSONString(response.getResult()));
-        } else {
-            System.out.println(JsonUtils.toJSONString(response));
-        }
+           // 初始化参数
+           String senderAddress = "did:bid:efVmotQW28QDtQyupnKTFvpjKQYs5bxf";
+           String contractAddress = "did:bid:ef2gAT82SGdnhj87wQWb9suPKLbnk9NP";
+           String senderPrivateKey = "priSPKnDue7AJ42gt7acy4AVaobGJtM871r1eukZ2M6eeW5LxG";
+           Long amount = 0L;
+        
+           BIFContractInvokeRequest request = new BIFContractInvokeRequest();
+              request.setSenderAddress(senderAddress);
+              request.setPrivateKey(senderPrivateKey);
+              request.setContractAddress(contractAddress);
+              request.setBIFAmount(amount);
+              request.setRemarks("contract invoke");
+        
+           // 调用 bifContractInvoke 接口
+           BIFContractInvokeResponse response = sdk.getBIFContractService().contractInvoke(request);
+           if (response.getErrorCode() == 0) {
+               System.out.println(JsonUtils.toJSONString(response.getResult()));
+           } else {
+               System.out.println(JsonUtils.toJSONString(response));
+           }
         ```

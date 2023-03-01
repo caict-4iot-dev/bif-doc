@@ -4,7 +4,7 @@
 
 为更好的服务星火生态合作伙伴，加速星火生态的开放进程，星火链网制定了主链测试网准入新机制，并开发了测试网节点Quicknode的镜像包。开发者通过Docker部署节点镜像包，即可在本地并参与维护测试网络正常运行，而无需调用RPC接入测试网，实现了节点的自主可控。
 
-![image-20221219205857431](../_static/images/image-20221219205857431.png)
+<p style="text-align: center;"><img alt="image-20221219205857431" src="../_static/images/image-20221219205857431.png"></p>
 
 ##  Quicknode节点部署
 
@@ -143,7 +143,7 @@ ps aux |grep -v grep |grep bif
 
   响应报文：
 
-  ```json
+  ```javascript
   {
   	error_code: 0,
   	result: {

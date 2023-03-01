@@ -4,13 +4,13 @@
 
 ### 6.1.1 星火令申领
 
- 通过星火服务平台申请凭证获取星火令。具体申请操作参见[浏览器插件钱包]()章节
+ 通过星火服务平台申请凭证获取星火令。具体申请操作参见**星火链标识体系 - 5.浏览器插件钱包**章节
 
-**测试网**：
+**测试网访问地址**：
 
-北京：[http://test-bj-baas.bitfactory.cn/](http://test-bj-baas.bitfactory.cn/)
+​	北京：[http://test-bj-baas.bitfactory.cn/](http://test-bj-baas.bitfactory.cn/)
 
-重庆：[http://test-cq-baas.bitfactory.cn/](http://test-cq-baas.bitfactory.cn/)
+​	重庆：[http://test-cq-baas.bitfactory.cn/](http://test-cq-baas.bitfactory.cn/)
 
 ## 6.2 节点相关
 

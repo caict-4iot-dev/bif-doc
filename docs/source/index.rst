@@ -18,7 +18,7 @@ BIF-Core（星火·链网底层链，以下简称星火链），是中国信息�
 
 .. toctree::
    :maxdepth: 1
-   :caption:  如何使用星火链网工具
+   :caption:  如何使用星火链工具
    :glob:
 
    instructions/JavaSDK使用说明
@@ -41,10 +41,10 @@ BIF-Core（星火·链网底层链，以下简称星火链），是中国信息�
 
 .. toctree::
    :maxdepth: 1
-   :caption:  星火链网进阶使用
+   :caption:  星火链进阶使用
    :glob:
 
-   manage/典型场景示例
+   manage/如何设计上链服务
    manage/如何保障账号交易异步上链
    manage/如何进行账号权限托管
    manage/如何减少交易频率，降低交易费
@@ -52,7 +52,7 @@ BIF-Core（星火·链网底层链，以下简称星火链），是中国信息�
 
 .. toctree::
    :maxdepth: 1
-   :caption:  星火链网BID体系
+   :caption:  星火链BID体系
    :glob:
 
    1.BID协议 <https://bid-resolution-protocol-doc.readthedocs.io/zh_CN/latest/>
@@ -87,7 +87,7 @@ BIF-Core（星火·链网底层链，以下简称星火链），是中国信息�
    :caption:  星火链治理
    :glob:
 
-   1.星火·链网RFC Github <https://github.com/caict-4iot-dev/bif-rfcs>
+   1.星火·链RFC Github <https://github.com/caict-4iot-dev/bif-rfcs>
 
 .. toctree::
    :maxdepth: 1

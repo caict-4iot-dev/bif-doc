@@ -33,8 +33,8 @@ v14.0.0
 
 ### 3.2.2 下载安装
 
-```sh
-$ git clone -b release/1.0.1  --depth=1 https://github.com/caict-4iot-dev/BIF-Core_SDK-JS.git
+```http
+$ git clone -b release/1.0.1  --depth=1 http://github.com/caict-4iot-dev/BIF-Core_SDK-JS.git
 ```
 
 ## 3.3  怎么使用SDK
@@ -43,7 +43,7 @@ $ git clone -b release/1.0.1  --depth=1 https://github.com/caict-4iot-dev/BIF-Co
 
 示例
 
-```go
+```javascript
 const BIFCoreSDK = require('bifcore-sdk-nodejs');
 const sdk = new BIFCoreSDK({
     host: 'http://test.bifcore.bitfactory.cn' //host为星火链RPC地址
@@ -125,7 +125,7 @@ const sdk = new BIFCoreSDK({
 
     1. 示例:
         ```javascript
-        	// 初始化请求参数
+            // 初始化请求参数
             let param = {
                 address: 'did:bid:eft6d191modv1cxBC43wjKHk85VVhQDc'
             }
@@ -350,7 +350,7 @@ const sdk = new BIFCoreSDK({
 
         ```javascript
             // 初始化请求参数
-        	let param = {
+            let param = {
                 sourceAddress:'',
                 contractAddress:'did:bid:efL7d2Ak1gyUpU4eiM3C9oxvbkhXr4Mu',
                 input:'',
@@ -373,7 +373,7 @@ const sdk = new BIFCoreSDK({
 
         ```javascript
             // 初始化请求参数
-        	let param = {
+            let param = {
                 sourceAddress:'did:bid:efQMuPahc3zm7abBUBfj22xZokhZ7rED',
                 privateKey:'priSPKqSR8vTVJ1y8Wu1skBNWMHPeu8nkaerZNKEzkRq3KJix4',
                 contractAddress:'did:bid:efL7d2Ak1gyUpU4eiM3C9oxvbkhXr4Mu',

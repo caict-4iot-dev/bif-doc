@@ -1,8 +1,8 @@
-# 2.Javascript合约说明
+# 2.Javascript合约介绍
 
 ## 2.1 Javascript合约规范
 
-JavaScript智能合约是一段 JavaScript 代码，标准(ECMAScript as specified in ECMA-262)，使用Spark-V8引擎。
+JavaScript智能合约是一段 `JavaScript` 代码，标准(ECMAScript as specified in ECMA-262)，使用Spark-V8引擎。
 
 合约结构分为三段。合约上链部署完成后，合约文本会直接存储到合约账户结构中。 
 
@@ -39,17 +39,17 @@ function query(input)
 }
 ```
 
-除此之外, 星火链javascript合约对javascript语法也做了一些限定:
+除此之外, 星火链`javascript`合约对`javascript`语法也做了一些限定:
 
-* 源码开头必须添加 "use strict;".
+* 源码开头必须添加 `"use strict;"`
 
-* 使用 === 和 !==, 禁用 == 和 != .
+* 使用` === `和 `!==`, 禁用 `== `和 `!=` 
 
-* 使用 +=, -=, 禁用 ++ 和 -- .
+* 使用 `+=`,` -=`, 禁用 `++` 和` --` 
 
 ## 2.2 星火链合约内置 API
 
-为JavaScript智能合约的高效执行，星火链实现了部分预编译JavaScript指令，可通过智能合约直接进行调用。
+为JavaScript智能合约的高效执行，星火链实现了部分预编译`JavaScript`指令，可通过智能合约直接进行调用。
 
 智能合约内提供了全局对象 `Chain` 和 `Utils`, 这两个对象提供了多样的方法和变量，可以获取区块链的一些信息，也可驱动账号发起交易。
 
@@ -77,155 +77,152 @@ function query(input)
 
 * Chain对象方法详细说明:
 
-  ```
   `Chain.load(key);`
-  
+
   读取该合约内Key对应的存储数据.
-  
-  | 参数         | 说明          |
-  | ------------ | ------------- |
-  | key | metadata的key |
-  
-  ​```
+
+  | 参数 | 说明          |
+  | ---- | ------------- |
+  | key  | metadata的key |
+
+  ```javascript
   let value = Chain.load('test');
   /*
       权限：只读
       返回：成功返回字符串，如 'values', 失败返回false
   */
   
-  ​```
-  
+  ```
+
   `Chain.store(key, metadata_value);`
-  
+
   在合约内按key为索引存储数据.
-  
+
   | 参数           | 说明              |
   | -------------- | ----------------- |
   | metadata_key   | metadata的key     |
   | metadata_value | metadata 的 value |
-  
-  ​```
+
+  ```javascript
   Chain.store('test', 'values');
   /*
       权限：可写
       返回：成功返回true, 失败抛异常
   */
   
-  ​```
-  
+  ```
+
   `Chain.del(key);`
-  
+
   删除合约内key对应的数据
-  
-  | 参数         | 说明          |
-  | ------------ | ------------- |
-  | key | data的key |
-  
-  ​```
+
+  | 参数 | 说明      |
+  | ---- | --------- |
+  | key  | data的key |
+
+  ```javascript
   Chain.del('abc');
   /*
       权限：可写
       返回：成功返回true, 失败抛异常
   */
   
-  ​```
   ```
 
-  ```
   `Chain.getBlockHash(offset_seq);`
-  
+
   获取指定区块的Hash值
-  
+
   | 参数       | 说明                                     |
   | ---------- | ---------------------------------------- |
   | offset_seq | 距离最后一个区块的偏移量，范围：[0,1024) |
-  
-  ​```
+
+  ```javascript
   let ledger = Chain.getBlockHash(4);
   /*
       权限：只读
       返回：成功返回字符串，如 'c2f6892eb934d56076a49f8b01aeb3f635df3d51aaed04ca521da3494451afb3'，失败返回 false
   */
   
-  ​```    
-  
+  ```
+
   `Chain.tlog(topic,args...);`
-  
-  记录event log事件, event log会与交易一起存储在链上供查询.
-  
+
+  记录event log事件, event log会与交易一起存储在链上供查询。
+
   | 参数    | 说明                                                         |
   | ------- | ------------------------------------------------------------ |
   | topic   | 日志主题，必须为字符串类型,参数长度(0,128]                   |
   | args... | 最多可以包含5个参数，参数类型可以是字符串、数值或者布尔类型,每个参数长度(0,1024] |
-  
-  ​```
+
+  ```javascript
   Chain.tlog('transfer',sender +' transfer 1000',true);
   /*
       权限：可写
       返回：成功返回 true，失败抛异常
   */
-  ​```
-  
+  ```
+
   `Chain.getAccountMetadata(account_address, metadata_key);`
-  
+
   获取指定账号的metadata
-  
+
   | 参数            | 说明          |
   | --------------- | ------------- |
   | account_address | 账号地址      |
   | metadata_key    | metadata的key |
-  
-  ​```
+
+  ```javascript
   let value = Chain.getAccountMetadata('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK', 'abc');
   
   /*
       权限：只读
       返回：成功返回字符串，如 'values', 失败返回false
   */
-  ​```
-  
+  ```
+
   `Chain.getBalance(address);`
-  
+
   查询指定账号的XHT余额
-  
+
   | 参数    | 说明     |
   | ------- | -------- |
   | address | 账号地址 |
-  
-  ​```
+
+  ```
   let balance = Chain.getBalance('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
   /*
       权限：只读
       返回：字符串格式数字 '9999111100000'
   */
-  ​```
-  
+  ```
+
   `Chain.getAccountPrivilege(account_address);`
-  
+
   获取指定账号的权限信息
-  
+
   | 参数            | 说明     |
   | --------------- | -------- |
   | account_address | 账号地址 |
-  
-  ​```
+
+  ```javascript
   let privilege = Chain.getAccountPrivilege('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
   
   /*
       权限：只读
       返回：成功返回权限json字符串如'{"master_weight":1,"thresholds":{"tx_threshold":1}}'，失败返回 falses
   */
-  ​```
-  
+  ```
+
   `Chain.getContractProperty(contract_address);`
-  
+
   获取指定账号是否为合约账号, 如果为合约账号则返回更多详细信息.
-  
+
   | 参数             | 说明     |
   | ---------------- | -------- |
   | contract_address | 合约地址 |
-  
-  ​```
+
+  ```javascript
   let value = Chain.getContractProperty('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK');
   
   /*
@@ -233,130 +230,129 @@ function query(input)
       返回：成功返回JSON对象，如 {"type":0, "length" : 416},  type 指合约类型， length 指合约代码长度，如果该账户不是合约则，length 为0.
       失败返回false
   */
-  ​```
-  
+  ```
+
   `Chain.payCoin(address, amount[, input], [, metadata]);`
-  
+
   从当前账号向指定账户转账
-  
-  | 参数     | 说明                                                         |
-  | -------- | ------------------------------------------------------------ |
-  | address  | 发送星火令的目标地址                                             |
-  | amount   | 发送星火令的数量                                                 |
-  | input    | 可选，合约参数，如果用户未填入，默认为空字符串               |
+
+  | 参数     | 说明                                                 |
+  | -------- | ---------------------------------------------------- |
+  | address  | 发送星火令的目标地址                                 |
+  | amount   | 发送星火令的数量                                     |
+  | input    | 可选，合约参数，如果用户未填入，默认为空字符串       |
   | metadata | 可选，转账备注，显示为十六进制字符串，需要转换为明文 |
-  
-  ​```
+
+  ```javascript
   Chain.payCoin("did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK", "10000", "", "vote reward");
   /*
       权限：可写
       返回：成功返回 true，失败抛异常  
   */
-  ​```
-  
+  ```
+
   `Chain.delegateCall(contractAddress, input);`
-  
+
   委托调用
-  
+
   | 参数            | 说明             |
   | --------------- | ---------------- |
   | contractAddress | 被调用的合约地址 |
   | input           | 调用参数         |
-  
+
   `Chain.delegateCall` 函数会触发被调用的合约`main`函数入口，并且把当前合约的执行环境赋予被调用的合约。如合约A委托调用合约B，即执行B(main入口)的代码，读写A的数据。
-  
-  ​```
+
+  ```javascript
   let ret = Chain.delegateCall('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，'{}');
   /*
       权限：可写
       返回：成功会返回被委托者合约main函数执行的结果，失败抛出异常
   */
   
-  ​```
-  
+  ```
+
   `Chain.delegateQuery(contractAddress, input);`
-  
+
   委托查询
-  
+
   | 参数            | 说明             |
   | --------------- | ---------------- |
   | contractAddress | 被调用的合约地址 |
   | input           | 调用参数         |
-  
+
   `Chain.delegateQuery` 函数会触发被调用的合约`query`函数入口，且把当前合约的执行环境赋予被调用的合约。如合约A委托查询合约B，即执行B(query入口)的代码，读取A的数据。
-  
-  ​```
+
+  ```javascript
   let ret = Chain.delegateQuery('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，"");
   /*
       权限：只读
       返回：调用成功则返回JSON对象 {"result":"4"}，其中 result 字段的值即查询的具体结果，调用失败返回JSON对象 {"error":true} 。
   */
   
-  ​```
-  
-  - 调用合约
-  
+  ```
+
   `Chain.contractCall(contractAddress, asset, amount, input);`
-  
+
+  调用合约
+
   | 参数            | 说明                       |
   | --------------- | -------------------------- |
   | contractAddress | 被调用的合约地址           |
   | asset           | 仅支持传入true，代表星火令 |
   | amount          | 星火令数量                 |
   | input           | 调用参数                   |
-  
+
   `Chain.contractCall` 函数会触发被调用的合约`main`函数入口。
-  
-  ​```
+
+  ```javascript
   let ret = Chain.contractCall('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，true, toBaseUnit("10"), "");
   /*
       权限：可写
       返回：如果目标账户为普通账户，则返回true，如果目标账户为合约，成功会返回被委托者合约main函数执行的结果，调用失败则抛出异常
   */
   
-  ​```
-  
-  - 查询合约
-  
+  ```
+
   `Chain.contractQuery(contractAddress, input);`
-  
+
+  查询合约
+
   | 参数            | 说明             |
   | --------------- | ---------------- |
   | contractAddress | 被调用的合约地址 |
   | input           | 调用参数         |
-  
+
   `Chain.contractQuery` 会调用合约的查询接口。
-  
-  ​```
+
+  ```javascript
   let ret = Chain.contractQuery('did:bid:efAsXt5zM2Hsq6wCYRMZBS5Q9HvG2EmK'，"");
   /*
       权限：只读
       返回：调用成功则返回JSON对象 {"result":"xxx"}，其中 result 字段的值即查询的具体结果，调用失败返回JSON对象 {"error":true}。
   */
   
-  ​```
-  
+  ```
+
   `Chain.contractCreate(balance, type, code, input);`
-  
-  - 创建合约
-  
+
+  创建合约
+
   | 参数        | 说明                                   |
   | ----------- | -------------------------------------- |
   | balance     | 字符串类型，转移给被创建的合约的星火令 |
   | type        | 整型，0代表javascript                  |
   | code        | 字符串类型， 合约代码                  |
   | input：init | init函数初始化参数                     |
-  
+
   `Chain.contractCreate` 创建合约。
-  
-  ​```
+
+  ```javascript
   let ret = Chain.contractCreate(toBaseUnit("10"), 0, "'use strict';function init(input){return input;} function main(input){return input;} function query(input){return input;} ", "");
   /*
       权限：可写
       返回：创建成功返回合约地址字符串，失败则抛出异常
   */
   
-  ​```
   ```
 
 * Chain对象属性列表
@@ -462,7 +458,7 @@ function query(input)
 
         例如某账号A发起了一笔交易tx0，tx0中第0（从0开始计数）个操作是给某个合约账户转移星火令（调用合约），那么`Chain.msg.operationIndex`的值就是0。
 
-        ```
+        ```javascript
         let bar = Chain.msg.operationIndex;
         /* bar 是一个非负整数*/
         ```
@@ -475,7 +471,7 @@ function query(input)
 
         例如账号x发起了一笔交易调用合约Y，本次执行过程中，该值就是Y合约账号的地址。
 
-        ```text
+        ```java
         let bar = Chain.msg.thisAddress;
         /*
         bar的值是Y合约的账号地址。
@@ -515,11 +511,11 @@ function query(input)
   | ---- | -------- |
   | info | 日志内容 |
 
-  ```
+  ```javascript
   let ret = Utils.log('hello');
   /*
     权限：只读
-    返回：成功无返回值，会在对应的合约执行进程里，输出一段Trace级别的日志.
+    返回：成功无返回值，会在对应的合约执行进程里，输出一段Trace级别的日志。
     如 V8contract log[bid:did:zfadxSZ7m6pkcWNb6rnMZncyTVHSb:hello]；失败返回 false。
   */
   ```
@@ -532,7 +528,7 @@ function query(input)
   | --------- | -------------- |
   | strNumber | 字符串数字参数 |
 
-  ```
+  ```javascript
   let ret = Utils.stoI64Check('12345678912345');
   /*
     权限：只读
@@ -548,7 +544,7 @@ function query(input)
   | left_value  | 左值 |
   | right_value | 右值 |
 
-  ```
+  ```javascript
   let ret = Utils.int64Add('12345678912345', 1);
   /*
     权限：只读
@@ -564,7 +560,7 @@ function query(input)
   | left_value  | 左值 |
   | right_value | 右值 |
 
-  ```
+  ```javascript
   let ret = Utils.int64Sub('12345678912345', 1);
   /*
     权限：只读
@@ -580,7 +576,7 @@ function query(input)
   | left_value  | 左值 |
   | right_value | 右值 |
 
-  ```
+  ```javascript
   let ret = Utils.int64Mul('12345678912345', 2);
   /*
     权限：只读
@@ -596,7 +592,7 @@ function query(input)
   | left_value  | 左值 |
   | right_value | 右值 |
 
-  ```
+  ```javascript
   let ret = Utils.int64Mod('12345678912345', 2);
   /*
     权限：只读
@@ -612,7 +608,7 @@ function query(input)
   | left_value  | 左值 |
   | right_value | 右值 |
 
-  ```
+  ```javascript
   let ret = Utils.int64Div('12345678912345', 2);
   /*
     权限：只读
@@ -630,7 +626,7 @@ function query(input)
 
   返回值：  1：左值大于右值； 0：等于； -1 ：小于。
 
-  ```
+  ```javascript
   let ret = Utils.int64Compare('12345678912345', 2);
   /*
     权限：只读
@@ -646,7 +642,7 @@ function query(input)
   | condition | 断言变量                 |
   | message   | 可选，失败时抛出异常的消 |
 
-  ```
+  ```javascript
   Utils.assert(1===1, "Not valid");
   /*
     权限：只读
@@ -661,9 +657,9 @@ function query(input)
   | data           | 待计算hash的原始数据，根据dataType不同，填不同格式的数据     |
   | dataType：data | data 的数据类型，整数，可选字段，默认为0。0：base16编码后的字符串，如"61626364"；1：普通原始字符串，如"abcd"；2：base64编码后的字符串,如"YWJjZA=="。如果对二进制数据hash计算，建议使用base16或者base64编码 |
 
-  返回值:  成功会hash之后的base16编码后的字符串，失败会返回 false。
+  返回值:  成功会hash之后的`base16`编码后的字符串，失败会返回 false。
 
-  ```
+  ```javascript
   let ret = Utils.sha256('61626364');
   /*
     权限：只读
@@ -679,9 +675,9 @@ function query(input)
   | ----- | ------------------------------------------------------------ |
   | value | 被转换的数字，只能传入字符串，可以包含小数点，且小数点之后最多保留 8 位数字 |
 
-  返回值: 成功会返回乘以 10^8 的字符串，失败会返回 false。
+  返回值: 成功会返回乘以 `10^8` 的字符串，失败会返回 false。
 
-  ```
+  ```javascript
   let ret = Utils.toBaseUnit('12345678912');
   /*
     权限：只读
@@ -696,7 +692,7 @@ function query(input)
   | ------- | ---------------- |
   | address | 地址参数，字符串 |
 
-  ```
+  ```javascript
   let ret = Utils.addressCheck('bid:did:zfadxSio3m7C7D84GzgmtTXa9azQB');
   /*
     权限：只读
@@ -713,7 +709,7 @@ function query(input)
 
   返回值：成功，返回账号地址；失败返回false。
 
-  ```
+  ```javascript
   let ret = Utils.toAddress('b0014e067cdae290c47a558cd0438e6361d11b2cf48863be1cde030fe0a41ae23eff8e1533a1');
   /*
     权限：只读
@@ -726,9 +722,9 @@ function query(input)
 
 ### 2.3.1 检测工具
 
- 星火链提供了针对JavaScript智能合约的校验工具，可用于验证星火链智能合约语法的正确性。
+ 星火链提供了针对`JavaScript`智能合约的校验工具，可用于验证星火链智能合约语法的正确性。
 
- 星火链Spark-V8智能合约使用 `JaveScript` 语言编写，为了方便开发者更规范的，更安全的开发合约，在做合约语法检测时候，使用了 JSLint 做限制。编辑合约时候，首先需要在 JSLint 里检测通过，才可以被星火链系统检测为一个合法的合约。
+ 星火链Spark-V8智能合约使用 `JaveScript` 语言编写，为了方便开发者更规范的，更安全的开发合约，在做合约语法检测时候，使用了 JSLint 做限制。编辑合约时候，首先需要在 `JSLint` 里检测通过，才可以被星火链系统检测为一个合法的合约。
 
  合约校验工具：[jslint.zip](https://github.com/caict-4iot-dev/BIF-Core-Doc/blob/feature/readthedocs/source/_static/tools/jslint.zip)
 
@@ -758,7 +754,7 @@ function query(input)
 
   - 禁止使用 `try`, `catch` 关键字，可以使用 `throw` 手动抛出异常
 
-    ```
+    ```javascript
     "Array", "ArrayBuffer", "Float32Array", "Float64Array", 
     "Int8Array", "Int16Array", "Int32Array", "Uint8Array", 
     "Uint8ClampedArray", "Uint16Array", "Uint32Array"
@@ -772,7 +768,7 @@ function query(input)
 
   - 禁止使用的关键字
 
-    ```
+    ```javascript
     "DataView", "decodeURI", "decodeURIComponent", "encodeURI", 
     "encodeURIComponent", "Generator","GeneratorFunction", "Intl", 
     "Promise", "Proxy", "Reflect", "System", "URIError", "WeakMap", 
@@ -781,7 +777,7 @@ function query(input)
 
 ### 2.3.2 文本压缩
 
- 合约文档写好之后，可以使用 JSMin 工具进行压缩，注意保存原文档，压缩是不可逆的操作。
+ 合约文档写好之后，可以使用`JSMin` 工具进行压缩，注意保存原文档，压缩是不可逆的操作。
 
  合约压缩工具：[jsmin.zip](https://github.com/caict-4iot-dev/BIF-Core-Doc/blob/feature/readthedocs/source/_static/tools/jsmin.zip)
 
@@ -789,9 +785,9 @@ function query(input)
 
 <img src="../_static/images/jsmin-1.png"  style="zoom: 80%;" />
 
-- 文本编解jsmin.bat，设置待压缩文件名及压缩后文件名，示例中为private.js；
+- 文本编解jsmin.bat，设置待压缩文件名及压缩后文件名，示例中为private.js
 
-```
+```text
 jsmin.exe <.\private.js >.\private.min.js
 ```
 
@@ -803,15 +799,15 @@ jsmin.exe <.\private.js >.\private.min.js
 
 ### 2.4.1 主动抛出异常
 
-星火链Javascript合约禁用了try catch关键字, 但是可以调用throw来抛出异常, 当执行遇到throw异常时, 该交易判定为失败, 入链扣费但是交易不生效。
+星火链`Javascript`合约禁用了`try catch`关键字, 但是可以调用`throw`来抛出异常, 当执行遇到`throw`异常时, 该交易判定为失败, 入链扣费但是交易不生效。
 
 ### 2.4.2 JavaScript异常
 
-当合约运行中出现未捕获的JavaScript异常时，处理规定：
+当合约运行中出现未捕获的`JavaScript`异常时，处理规定：
 
-* 本次合约执行失败，合约中做的所有交易都不会生效。
+* 本次合约执行失败，合约中做的所有交易都不会生效
 
-* 触发本次合约的这笔交易为失败。错误代码为`151`。
+* 触发本次合约的这笔交易为失败。错误代码为`151`
 
 - 执行交易失败
 
@@ -819,7 +815,7 @@ jsmin.exe <.\private.js >.\private.min.js
 
 ## 2.5 javascript合约限制
 
-由于区块链智能合约的执行机制原因, 星火链对javascript智能合约也做了如下的限制:
+由于区块链智能合约的执行机制原因, 星火链对`javascript`智能合约也做了如下的限制:
 
 * 堆大小限制: 30Mb
 * 栈大小限制: 512Kb
@@ -828,7 +824,7 @@ jsmin.exe <.\private.js >.\private.min.js
 * 合约字节限制: 256Kb
 * 去除函数: Data, Random 
 * 禁用关键字: 
-    ```
+    ```javascript
     "DataView", "decodeURI", "decodeURIComponent", "encodeURI",
     "encodeURIComponent", "Generator","GeneratorFunction", "Intl", "Promise",
     "Proxy", "Reflect", "System", "URIError", "WeakMap", "WeakSet", "Math",
