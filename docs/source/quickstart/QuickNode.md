@@ -69,7 +69,7 @@ service docker start
 - 启动Quicknode服务
 
   ```sh
-  #根据拉取的镜像，启动并进入容器和启动bif服务 IMAGEID即上述查看的具体字段值
+  #根据拉取的镜像，启动并进入容器和启动bifchain服务 IMAGEID即上述查看的具体字段值
   #设置镜像启动后映射到宿主机的bifchain目录（此目录必须是相对目录，映射后所在宿主机路径为/var/lib/docker/volumes/bifchain/）
   
   docker run -itd -p 27002:27002 --privileged=true --volume bifchain:/usr/local/bifchain IMAGEID /bin/bash
@@ -103,7 +103,7 @@ service docker start
 - 查询启动的docker镜像进程信息,获取`container ID`
   <img src="../_static/images/2022-07-29-17-42-39.png"/>
 
-- exec进入容器系统启动bif服务
+- exec进入容器系统启动`bifchain`服务
 
   ```sh
   # 2657705f9199 即是上述查询到的container ID
@@ -122,7 +122,7 @@ service docker start
 
 ### 4. 查看节点进程是否启动
 
-在镜像系统中执行上述命令后查看`bif`服务，如果查询不到进程，执行`exit`命令在宿主机再执行 **启动Quicknode服务**操作
+在镜像系统中执行上述命令后查看`bifchain`服务，如果查询不到进程，执行`exit`命令在宿主机再执行 **启动Quicknode服务**操作
 
 ```shell
 ps aux |grep -v grep |grep bif
