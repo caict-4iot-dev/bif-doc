@@ -145,22 +145,22 @@ ps aux |grep -v grep |grep bif
 
   ```javascript
   {
-  	error_code: 0,
-  	result: {
-  		header: {
-  			account_tree_hash: "4c9a11f712331f5815a24dbab5fee7cff905953dee71e48549ddac00d3648372",
-  			close_time: 1658995885587070,
-  			consensus_value_hash: "dba4e31ce39a1297fd24478d5da58687a67a56275da01aa95cf6535f57d3e9a7",
-  			fees_hash: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  			hash: "162beecd20a70c5dc6794e66981448466f48fc0e377a63118199cd39b52bc293",
-  			previous_hash: "dd5130951b1982c55d4e52ce379d882465fe322a5f6881b91016f2272acd3d06",
-  			seq: 1172057,   //seq即是测试网的区块高度值
-  			tx_count: 797679,
-  			validators_hash: "b8ebfb79b0aed24cd9122c4545c88b8f9c7c6c7b01d1f0f55f2d3c036064eefd",
-  			version: 1003
-  		},
-  		ledger_length: 227
-  	}
+    error_code: 0,
+    result: {
+      header: {
+          account_tree_hash: "4c9a11f712331f5815a24dbab5fee7cff905953dee71e48549ddac00d3648372",
+          close_time: 1658995885587070,
+          consensus_value_hash: "dba4e31ce39a1297fd24478d5da58687a67a56275da01aa95cf6535f57d3e9a7",
+          fees_hash: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          hash: "162beecd20a70c5dc6794e66981448466f48fc0e377a63118199cd39b52bc293",
+          previous_hash: "dd5130951b1982c55d4e52ce379d882465fe322a5f6881b91016f2272acd3d06",
+          seq: 1172057,   //seq即是测试网的区块高度值
+          tx_count: 797679,
+          validators_hash: "b8ebfb79b0aed24cd9122c4545c88b8f9c7c6c7b01d1f0f55f2d3c036064eefd",
+          version: 1003
+      },
+      ledger_length: 227
+    }
   }
   ```
 

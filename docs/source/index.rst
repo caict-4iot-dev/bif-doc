@@ -41,10 +41,9 @@
    :caption:  星火链进阶使用
    :glob:
 
+   manage/交易如何上链
    manage/如何设计上链服务
-   manage/如何保障账号交易异步上链
    manage/如何进行账号权限托管
-   manage/如何减少交易频率，降低交易费
    manage/如何解析交易结构
 
 .. toctree::
