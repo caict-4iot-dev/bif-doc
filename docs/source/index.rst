@@ -1,9 +1,7 @@
-星火链
+文档导航
 ===================================
 
-BIF-Core（星火·链网底层链，以下简称星火链），是中国信息通信研究院基于区块链技术打造的一条许可公有链，是实现“星火·链网”这一国家级区块链与工业互联网协同创新新型基础设施的关键技术。星火·链网立足安全、自主、可控的原则，面向各行业领域开放，赋能全行业开发者，共建生态繁荣。
-
-===================================
+点击此处跳转至文档页面
 
 .. toctree::
     :maxdepth: 1
@@ -13,7 +11,6 @@ BIF-Core（星火·链网底层链，以下简称星火链），是中国信息�
     quickstart/星火链开发入门
     quickstart/QuickNode
     quickstart/快速上手
-    quickstart/部署示例合约
     quickstart/FAQ
 
 .. toctree::
@@ -55,7 +52,8 @@ BIF-Core（星火·链网底层链，以下简称星火链），是中国信息�
    :caption:  星火链BID体系
    :glob:
 
-   1.BID协议 <https://bid-resolution-protocol-doc.readthedocs.io/zh_CN/latest/>
+   bid/星火链BID体系介绍
+   2.BID解析协议 <https://bid-resolution-protocol-doc.readthedocs.io/zh_CN/latest/>
    bid/BID-SDK
    bid/数字身份服务
    bid/浏览器插件钱包
@@ -66,14 +64,8 @@ BIF-Core（星火·链网底层链，以下简称星火链），是中国信息�
    :caption:  星火链技术细节讲解
    :glob:
 
-   bifChain/交易处理
-   bifChain/区块处理
-   bifChain/虚拟机
-   bifChain/共识
-   bifChain/对等网络
-   bifChain/存储设计
-   bifChain/跨链
-   bifChain/附录
+   bifChain/星火链技术细节讲解
+
 
 .. toctree::
    :maxdepth: 1

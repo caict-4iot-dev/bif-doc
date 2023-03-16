@@ -2,7 +2,7 @@
 
 # -- Project information
 
-project = '星火链使用指南2.0'
+project = '星火链开发指南2.0'
 copyright = '2023, 中国信息通信研究院'
 author = '中国信息通信研究院'
 
