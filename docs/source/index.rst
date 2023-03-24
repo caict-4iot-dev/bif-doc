@@ -10,7 +10,7 @@
     quickstart/星火链底层区块链平台介绍
     quickstart/星火链开发入门
     quickstart/快速搭建体验节点
-    quickstart/快速上手
+    quickstart/快速接入星火链
     quickstart/FAQ
 
 .. toctree::
