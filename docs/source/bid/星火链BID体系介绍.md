@@ -37,15 +37,15 @@
 
 ## 1.2 实现
 
-- [BID标识符]()
-- [BID文档]()
+- [BID标识符](https://bif-doc.readthedocs.io/zh_CN/2.0.0/bid/BID%E6%A0%87%E8%AF%86%E7%AC%A6.html)
+- [BID文档](https://bif-doc.readthedocs.io/zh_CN/2.0.0/bid/BID%E6%96%87%E6%A1%A3.html)
 - [BID解析协议](https://bid-resolution-protocol-doc.readthedocs.io/zh_CN/latest/doc/%E6%98%9F%E7%81%AB%C2%B7%E9%93%BE%E7%BD%91BID%E5%8D%8F%E8%AE%AE.html#id5)
-- [BID数字身份服务]()
+- [BID数字身份服务](https://bif-doc.readthedocs.io/zh_CN/2.0.0/bid/%E6%95%B0%E5%AD%97%E8%BA%AB%E4%BB%BD%E6%9C%8D%E5%8A%A1.html)
 
 ## 1.3 其他说明
 
-- [BID-SDK]()
+- [BID-SDK](https://bif-doc.readthedocs.io/zh_CN/2.0.0/bid/BID-SDK.html)
 
-- [浏览器插件钱包]()
+- [浏览器插件钱包](https://bif-doc.readthedocs.io/zh_CN/2.0.0/bid/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6%E9%92%B1%E5%8C%85.html)
 
-- [BID标识查询服务]()
+- [BID标识查询服务](https://bif-doc.readthedocs.io/zh_CN/2.0.0/bid/BID%E6%A0%87%E8%AF%86%E6%9F%A5%E8%AF%A2.html)

@@ -166,8 +166,8 @@ BID文档遵循DID Document规范，并在之基础上做了一定的扩展。BI
 		"serviceEndpoint": "192.168.1.23",
 		"port": 8080
 	}],
-	"created": "2021-05-10T06:23:38Z",
-	"updated": "2021-05-10T06:23:38Z",
+	"created": "2022-05-10T06:23:38Z",
+	"updated": "2022-05-10T06:23:38Z",
 	"proof": {
 		"creator": "did:bid:efJgt44mNDewKK1VEN454R17cjso3mSG#key-1",
 		"signatureValue": "9E07CD62FE6CE0A843497EBD045C0AE9FD6E1845414D0ED251622C66D9CC927CC21DB9C09DFF628DC042FCBB7D8B2B4901E7DA9774C20065202B76D4B1C15900"
