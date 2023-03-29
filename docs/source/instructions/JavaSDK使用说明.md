@@ -28,7 +28,7 @@ java version "1.8.0_202"
 ### 1.2.2 下载安装
 
 ```http
-$ git clone -b release/1.0.1  --depth=1 http://github.com/caict-4iot-dev/BIF-Core-SDK.git
+$ git clone -b release/1.0.2  --depth=1 http://github.com/caict-4iot-dev/BIF-Core-SDK.git
 ```
 
 ### 1.2.3 maven中央仓库
