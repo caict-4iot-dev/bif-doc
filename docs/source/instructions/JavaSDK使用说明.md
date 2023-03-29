@@ -25,10 +25,20 @@ $ java -version
 java version "1.8.0_202"
 ```
 
-### 2.2.2 下载安装
+### 1.2.2 下载安装
 
 ```http
 $ git clone -b release/1.0.1  --depth=1 http://github.com/caict-4iot-dev/BIF-Core-SDK.git
+```
+
+### 1.2.3 maven中央仓库
+
+```java
+<dependency>
+    <groupId>cn.bitfactory</groupId>
+    <artifactId>bif-chain-sdk</artifactId>
+    <version>1.0.2</version>
+</dependency>
 ```
 
 ## 1.3  怎么使用SDK
