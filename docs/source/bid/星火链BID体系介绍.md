@@ -44,8 +44,6 @@
 
 ## 1.3 其他说明
 
-- [BID-SDK](https://bif-doc.readthedocs.io/zh_CN/2.0.0/bid/BID-SDK.html)
-
 - [浏览器插件钱包](https://bif-doc.readthedocs.io/zh_CN/2.0.0/bid/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6%E9%92%B1%E5%8C%85.html)
-
+- [BID-SDK](https://bif-doc.readthedocs.io/zh_CN/2.0.0/bid/BID-SDK.html)
 - [BID标识查询服务](https://bif-doc.readthedocs.io/zh_CN/2.0.0/bid/BID%E6%A0%87%E8%AF%86%E6%9F%A5%E8%AF%A2.html)

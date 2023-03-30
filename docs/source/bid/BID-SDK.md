@@ -1,4 +1,4 @@
-# 6.BID-SDK
+# 7.BID-SDK
 
 <a name="RPOky"></a>
 
@@ -6,13 +6,13 @@
 
 <a name="mzYWs"></a>
 
-## 6.1 简介
+## 7.1 简介
 
 BID-SDK通过API调用的方式提供了“星火链网”公私钥对生成、“星火链网”私钥签名公钥验签、`BID`标识生成、`BID`标识验证等接口，同时还提供了接口使用示例说明，开发者可以调用该SDK方便快捷的生成星火链网公私钥对和`BID`地址，实现`BID`标识合法性的校验及主链的快速接入。中国信通院秉持开源开放的理念，将星火“BID-SDK”面向社区和公众完全开源，助力全行业伙伴提升数据价值流通的效率，实现数据价值转化。<a name="FQBXC"></a>
 
-## 6.2  环境准备
+## 7.2  环境准备
 
-### 6.2.1 软件依赖
+### 7.2.1 软件依赖
 
 **java**：版本jdk 1.8.0_202或以下
 
@@ -25,13 +25,13 @@ $ java -version
 java version "1.8.0_202"
 ```
 
-### 6.2.2 下载安装
+### 7.2.2 下载安装
 
 ```http
 $ git clone -b release/1.0.0  --depth=1 https://github.com/caict-4iot-dev/BID-SDK-JAVA.git
 ```
 
-## 6.3 基本概念介绍
+## 7.3 基本概念介绍
 
 BID开发工具包，主要是为了方便开发者可以快速加入到星火主链的生态建设中，有以下功能：  
 
@@ -43,13 +43,13 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
 
 - BID标识工具：创建`BID`文档模板、创建`BID`文档、查询`BID`文档、校验`BID`文档。     
 
-## 6.4 参考文档
+## 7.4 参考文档
 
 参考文档：[《BID解析协议》](https://bid-resolution-protocol-doc.readthedocs.io/zh_CN/latest/)
 
-## 6.5 离线API
+## 7.5 离线API
 
-### 6.5.1 获取版本号
+### 7.5.1 获取版本号
 
 1. 接口 ` getSdkVersion()`
 
@@ -66,7 +66,7 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
        System.out.println(sdkVersion);
    ```
 
-### 6.5.2 账户生成
+### 7.5.2 账户生成
 
 1. 接口 ` getBidAndKeyPair()`
 
@@ -88,7 +88,7 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
        System.out.println(bid);
    ```
 
-### 6.5.3 根据编码类型生成账户
+### 7.5.3 根据编码类型生成账户
 
 1. 接口 ` getBidAndKeyPair(KeyType)`
 
@@ -110,7 +110,7 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
        System.out.println(bid);
    ```
 
-### 6.5.4 根据编解码类型和ChainCode生成账户
+### 7.5.4 根据编解码类型和ChainCode生成账户
 
 1. 接口 ` getBidAndKeyPair(KeyType,chaincode)`
 
@@ -132,9 +132,9 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
        System.out.println(bid);
    ```
 
-## 6.6 在线API
+## 7.6 在线API
 
-### 6.6.1 获取BID文档模板
+### 7.6.1 获取BID文档模板
 
 1. 接口 ` getBIDTemplate()`
 
@@ -151,7 +151,7 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
        System.out.println(result);
    ```
 
-### 6.6.2 创建BID文档
+### 7.6.2 创建BID文档
 
 1. 接口 ` createBIDByTemplate(bidDocument)`
 
@@ -169,7 +169,7 @@ BID开发工具包，主要是为了方便开发者可以快速加入到星火�
         System.out.println(result);
    ```
 
-### 6.6.2 解析BID文档
+### 7.6.2 解析BID文档
 
 1. 接口 `resolverBid(bid)`
 

@@ -4,6 +4,8 @@
 
 ## 5.1 部署服务
 
+**GitHub地址：[https://github.com/caict-4iot-dev/bif-offline-api](https://github.com/caict-4iot-dev/bif-offline-apil)**
+
 ### 5.1.1 获取镜像
 
 ```http
