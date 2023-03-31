@@ -1,4 +1,4 @@
-# 3.Solidity合约说明
+# 3.Solidity合约介绍
 
 `Solidity`智能合约使用`Spark-Evm`引擎，脱胎于原生以太坊`EVM`架构实现。在星火链合约账户中，`Solidity`编译后生成的`opCode`指令码会存储到合约账户中，用于合约的执行。
 
