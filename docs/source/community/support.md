@@ -1,2 +1,0 @@
-# 反馈与支持
-如果对星火链后面的建设有想法、改进建议、思路、设计标准和实现方案，欢迎在我们的rfc上进行反馈:[https://github.com/caict-4iot-dev/bif-rfcs](https://github.com/caict-4iot-dev/bif-rfcs),或者联系技术支持冯老师（fengyuan@caict.ac.cn）,感谢大家对星火链的支持！
