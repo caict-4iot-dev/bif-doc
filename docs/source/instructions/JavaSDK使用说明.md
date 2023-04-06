@@ -237,8 +237,8 @@ java sdk应用示例，请参考[ bif-chain-sdk-example](https://github.com/caic
      submitRequest.setSerialization(transactionBlob);
      submitRequest.setPublicKey(publicKey);
      submitRequest.setSignData(HexFormat.byteToHex(signBytes));
-        // 调用bifSubmit接口
-     BIFTransactionSubmitResponse transactionSubmitResponse =                       sdk.getBIFTransactionService().BIFSubmit(submitRequest);
+   // 调用bifSubmit接口
+     BIFTransactionSubmitResponse transactionSubmitResponse = sdk.getBIFTransactionService().BIFSubmit(submitRequest);
    //交易hash
    String transactionHash=transactionSubmitResponse.getResult().getHash();
    ```
@@ -261,7 +261,7 @@ java sdk应用示例，请参考[ bif-chain-sdk-example](https://github.com/caic
            BIFAccountGetInfoRequest request = new BIFAccountGetInfoRequest();
               request.setAddress(accountAddress);
            // 调用getAccount接口
-       BIFAccountGetInfoResponse response = sdk.getBIFAccountService().getAccount(request);
+          BIFAccountGetInfoResponse response = sdk.getBIFAccountService().getAccount(request);
         
            if (response.getErrorCode() == 0) {
                System.out.println(JsonUtils.toJSONString(response.getResult()));
@@ -310,7 +310,7 @@ java sdk应用示例，请参考[ bif-chain-sdk-example](https://github.com/caic
         
            BIFAccountGetBalanceResponse response = sdk.getBIFAccountService().getAccountBalance(request);
            if (0 == response.getErrorCode()) {
-               System.out.println("Gas balance：" + ToBaseUnit.ToGas(response.getResult().getBalance().toString()) + "Gas");
+               System.out.println("Gas balance：" +        ToBaseUnit.ToGas(response.getResult().getBalance().toString()) + "Gas");
            }else {
                System.out.println(JsonUtils.toJSONString(response));
            }
