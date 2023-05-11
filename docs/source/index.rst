@@ -21,6 +21,7 @@
    instructions/JavaSDK使用说明
    instructions/GoSDK使用说明
    instructions/NodejsSDK使用说明
+   instructions/CSDK使用说明
    instructions/订阅服务使用说明
    instructions/离线API服务使用说明
    instructions/区块链浏览器使用说明
