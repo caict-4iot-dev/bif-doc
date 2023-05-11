@@ -42,9 +42,9 @@
 
 ### 4.2.2 下载安装
 
-```http
+  ```http
 $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-C.git
-```
+  ```
 
 ## 4.3  怎么使用SDK
 
@@ -66,12 +66,12 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-C.
         KeyPairEntity key_pair_entity;
 	    memset(&key_pair_entity, 0,sizeof(KeyPairEntity));
     
-    	int ret = get_bid_and_key_pair(&key_pair_entity);
-    	key_pair_entity.enc_address;
-    	key_pair_entity.enc_public_key;
-    	key_pair_entity.enc_private_key;
-    	key_pair_entity.raw_public_key;
-    	key_pair_entity.raw_private_key;
+        int ret = get_bid_and_key_pair(&key_pair_entity);
+        key_pair_entity.enc_address;
+        key_pair_entity.enc_public_key;
+        key_pair_entity.enc_private_key;
+        key_pair_entity.raw_public_key;
+        key_pair_entity.raw_private_key;
     ```
 
 
@@ -221,10 +221,10 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-C.
     1. 示例:
 
         ```c
-          	// 初始化请求参数
-        	char bif_url[64] = "http://test.bifcore.bitfactory.cn"; 
+            // 初始化请求参数
+            char bif_url[64] = "http://test.bifcore.bitfactory.cn"; 
         
-        	BifBlockGetTransactionsRequest req_tranction;
+            BifBlockGetTransactionsRequest req_tranction;
             BifBlockGetTransactionsResponse *res_tranction;
             memset(&req_tranction, 0, sizeof(BifBlockGetTransactionsRequest));
         
@@ -251,7 +251,7 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-C.
             // 初始化请求参数
             char bif_url[64] = "http://test.bifcore.bitfactory.cn"; 
         
-        	BifBlockGetInfoRequest req_block_get_info;
+            BifBlockGetInfoRequest req_block_get_info;
             BifBlockGetInfoResponse *res_block_get_info;
             memset(&req_block_get_info, 0, sizeof(BifBlockGetInfoRequest));
         
@@ -476,8 +476,8 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-C.
     1. 示例:
 
         ```c
-          	// 初始化请求参数
-        	char bif_url[64] = "http://test.bifcore.bitfactory.cn";
+            // 初始化请求参数
+            char bif_url[64] = "http://test.bifcore.bitfactory.cn";
         
             BifContractGetInfoResponse *res_contract_query;
             BifContractCallRequest req_contract_query;
@@ -488,19 +488,19 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-C.
         
             input_sds_initialize(&req_contract_query.input,
                                init_input); // 初始化赋值给sds类型的变量接口
-          	strcpy(req_contract_query.contract_address,
+            strcpy(req_contract_query.contract_address,
                  "did:bid:efoyBUQzHSCeCj3VQk4uSxiZW9GRYcJv");
-          	strcpy(req_contract_query.source_address,
+            strcpy(req_contract_query.source_address,
                  "did:bid:ef2AuAJid1dB22rk3M6vB6cUc1ENnpfEe");
         
-          	res_contract_query = contract_query(req_contract_query, bif_url);
-          	if (res_contract_query->baseResponse.code != 0)
+            res_contract_query = contract_query(req_contract_query, bif_url);
+            if (res_contract_query->baseResponse.code != 0)
             	printf("code:%d,msg:%s\n", res_contract_query->baseResponse.code,res_contract_query->baseResponse.msg);
-          	else
+            else
             	printf("%s\n", res_contract_query->value);
-          	contract_info_response_release(res_contract_query);
-          	// 释放请求体中sds类型的内存变量
-          	contract_sds_request_release(req_contract_query.input);
+            contract_info_response_release(res_contract_query);
+            // 释放请求体中sds类型的内存变量
+            contract_sds_request_release(req_contract_query.input);
         ```
     
 1. 调用合约
@@ -541,7 +541,7 @@ $ git clone -b main  --depth=1 https://github.com/caict-4iot-dev/BIF-Core-SDK-C.
            res_contract_invoke->baseResponse.msg);
             else
             	printf("%s\n", res_contract_invoke->value);
-          	contract_info_response_release(res_contract_invoke);
+            contract_info_response_release(res_contract_invoke);
             // 释放请求体中sds类型的内存变量
             contract_sds_request_release(req_contract_invoke.input);
         ```
