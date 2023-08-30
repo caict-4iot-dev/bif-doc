@@ -257,7 +257,7 @@ http://localhost:8888/bifApi/v1/contract
 | senderPrivateKey | string   | 是           | 交易源账户私钥                                               |
 | contractAddress  | string   | 是           | 合约账户地址xxxxxxxxx                                        |
 | bifAmount        | int64    | 是           | 转账金额 ，参数为 0                                          |
-| feeLimit         | int64    | 是           | 参数为200000000                                              |
+| feeLimit         | int64    | 是           | 参数为20000000                                               |
 | gasPrice         | int64    | 是           | gas费，参数为200                                             |
 | nonce            | int64    | 是           | nonce  需要从链上获取，参照接口3.5.11                        |
 | input            | string   | 是           | 待触发的合约的main()入参，为调用上链交易接口的入参数<br/>转移数字资产"input":{"{\"function\":\"safeTransferFrom(address,address,string)\",\"args\":\"fromAddress,toAddress,'tokenBid'\"}} |
@@ -335,7 +335,7 @@ http://localhost:8888/bifApi/v1/contract
 | senderPrivateKey | string   | 是           | 交易源账户私钥                                               |
 | contractAddress  | string   | 是           | 合约账户地址xxxxxxxxx                                        |
 | bifAmount        | int64    | 是           | 转账金额 ，参数为 0                                          |
-| feeLimit         | int64    | 是           | 参数为200000000                                              |
+| feeLimit         | int64    | 是           | 参数为20000000                                               |
 | gasPrice         | int64    | 是           | gas费，参数为200                                             |
 | nonce            | int64    | 是           | nonce  需要从链上获取，参照接口3.5.11                        |
 | input            | string   | 是           | 待触发的合约的main()入参，为调用上链交易接口的入参数<br/>销毁数字资产"input":{"{\"function\":\"burn(string)\",\"args\":\"'tokenBid'\"}"} |
