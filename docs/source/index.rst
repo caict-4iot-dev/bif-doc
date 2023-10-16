@@ -25,6 +25,7 @@
    instructions/订阅服务使用说明
    instructions/离线API服务使用说明
    instructions/区块链浏览器使用说明
+   instructions/开发工具包使用说明
 
 .. toctree::
    :maxdepth: 1
