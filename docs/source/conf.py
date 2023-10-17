@@ -39,4 +39,4 @@ epub_show_urls = 'footnote'
 # 启用构建缓存
 html_use_smartypants = True
 # 禁用生成 PDF
-latex_documents = []
+latex_documents = {'pointsize': '12pt'}
