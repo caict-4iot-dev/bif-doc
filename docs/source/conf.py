@@ -36,3 +36,5 @@ html_logo = './_static/favicon.ico'
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
+# 启用构建缓存
+html_use_smartypants = True
