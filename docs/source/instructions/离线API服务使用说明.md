@@ -477,16 +477,16 @@ b. 接口调用失败，则返回JSON数据示例为：
 
 请求参数：
 
-| 字段名           | 类型   | 是否必填 | 描述                                     |
-| ---------------- | ------ | -------- | ---------------------------------------- |
-| senderAddress    | string | 必填     | 交易源账号，即交易的发起方               |
-| senderPrivateKey | string | 必填     | 交易源账户私钥                           |
-| contractAddress  | string | 必填     | 合约账户地址                             |
-| input            | string | 必填     | 待触发的合约的main()入参                 |
-| nonce            | Long   | 必填     | 账户交易序列号                           |
-| feeLimit         | Long   | 选填     | 交易花费的手续费(单位是PT)，默认1000000L |
-| bifAmount        | Long   | 选填     | 转账金额,大小限制[0, Long.MAX_VALUE]     |
-| GasPrice         | Long   | 选填     | 打包费用 (单位是PT)，默认100L            |
+| 字段名           | 类型   | 是否必填 | 描述                                                         |
+| ---------------- | ------ | -------- | ------------------------------------------------------------ |
+| senderAddress    | string | 必填     | 交易源账号，即交易的发起方                                   |
+| senderPrivateKey | string | 必填     | 交易源账户私钥                                               |
+| contractAddress  | string | 必填     | 合约账户地址                                                 |
+| input            | string | 必填     | 待触发的合约的main()入参                                     |
+| nonce            | Long   | 必填     | 账户交易序列号                                               |
+| feeLimit         | Long   | 选填     | 交易花费的手续费(单位是glowstone)，1 星火令(XHT) = 10^8 星火萤(glowstone)，默认1000000L |
+| bifAmount        | Long   | 选填     | 转账金额,大小限制[0, Long.MAX_VALUE]                         |
+| GasPrice         | Long   | 选填     | 打包费用 (单位是glowstone)，1 星火令(XHT) = 10^8 星火萤(glowstone)，默认100L |
 
 响应参数：
 
