@@ -19,6 +19,7 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
     'sphinx_rtd_theme',
+    'alabaster',
 ]
 
 intersphinx_mapping = {
@@ -31,7 +32,7 @@ templates_path = ['_templates']
 html_static_path = ['_static']
 # -- Options for HTML output
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'alabaster'
 
 html_logo = './_static/favicon.ico'
 
