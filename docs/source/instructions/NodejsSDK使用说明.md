@@ -34,7 +34,7 @@ v14.0.0
 ### 3.2.2 下载安装
 
 ```http
-$ git clone -b release/1.0.1  --depth=1 http://github.com/caict-4iot-dev/BIF-Core_SDK-JS.git
+$ git clone -b release/1.0.3  --depth=1 http://github.com/caict-4iot-dev/BIF-Core_SDK-JS.git
 ```
 
 ## 3.3  怎么使用SDK
