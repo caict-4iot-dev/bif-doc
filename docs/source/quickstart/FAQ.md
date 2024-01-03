@@ -6,7 +6,7 @@
 
  通过星火服务平台申请凭证获取星火令。具体申请操作参见**星火链BID体系 - 4.浏览器插件钱包**章节
 
-**测试网访问地址**：
+**体验网访问地址**：
 
 ​	北京：[http://test-bj-baas.bitfactory.cn/](http://test-bj-baas.bitfactory.cn/)
 
@@ -34,7 +34,7 @@ a.进入docker镜像容器中查看服务错误日志
 
 <img src="../_static/images/2022-07-29-18-10-04.png"  />
 
-b.通过请求`http://宿主机ip:27002/getLedger`查看部署节点的区块高度是否变化以及和测试网差别是否很大判断节点运行是否正常。
+b.通过请求`http://宿主机ip:27002/getLedger`查看部署节点的区块高度是否变化以及和体验网差别是否很大判断节点运行是否正常。
 
 以上任一方法失败代表网络不通，及时通知运维处理公网问题。
 
@@ -49,17 +49,17 @@ b.通过请求`http://宿主机ip:27002/getLedger`查看部署节点的区块高
 
     详细步骤截图已在上述进镜像启动服务相关章节
 
-- **测试网节点版本升级导致版本差别数据不同步**
+- **体验网节点版本升级导致版本差别数据不同步**
 
-  查询本节点与测试网区块高度是一直不同步。
+  查询本节点与体验网区块高度是一直不同步。
 
-  分别请求`http://宿主机ip:27002/hello`以及[http://test.bifcore.bitfactory.cn/hello](http://test.bifcore.bitfactory.cn/hello)接口，查看节点以及测试网返回的`chain_version`。
+  分别请求`http://宿主机ip:27002/hello`以及[http://test.bifcore.bitfactory.cn/hello](http://test.bifcore.bitfactory.cn/hello)接口，查看节点以及体验网返回的`chain_version`。
 
   详细返回值格式以及操作如下图：
 
   <img src="../_static/images/2022-08-01-10-35-47.png"  />
 
-  综上所述的两点如果区块高度一直不同步并且版本不一致则此时需要进行升级节点版本，根据测试网接口返回的chain_version在宿主机重新执行第一步的拉取命令如`docker pull caictdevelop/bif-core:v1.2.1-4`重新升级部署即可(最后的`v1.2.1-4`就是拼接的上述接口返回的测试网中版本号保持一致即可，所有升级部署如最开始步骤，区别在于此处版本号不同，具体不在赘述)。
+  综上所述的两点如果区块高度一直不同步并且版本不一致则此时需要进行升级节点版本，根据体验网接口返回的chain_version在宿主机重新执行第一步的拉取命令如`docker pull caictdevelop/bif-core:v1.2.1-4`重新升级部署即可(最后的`v1.2.1-4`就是拼接的上述接口返回的体验网中版本号保持一致即可，所有升级部署如最开始步骤，区别在于此处版本号不同，具体不在赘述)。
 
 - **机器磁盘满导致服务异常**
 
@@ -72,7 +72,7 @@ b.通过请求`http://宿主机ip:27002/getLedger`查看部署节点的区块高
 
   <img src="../_static/images/2022-07-29-18-31-27.png"  />
 
-  根据上述查看部署节点的区块高度以及测试网高度一直差别很大并且不在同步了或者上述的问题排查后再查看`bifchain`进程已不存在了。
+  根据上述查看部署节点的区块高度以及体验网高度一直差别很大并且不在同步了或者上述的问题排查后再查看`bifchain`进程已不存在了。
 
 ## 5.3 BIF-Core-SDK相关
 
@@ -184,7 +184,7 @@ input参数格式校验，需校验JSON规范。
 
 #### 访问星火网区块链浏览器
 
-测试网：[http://test-explorer.bitfactory.cn](http://test-explorer.bitfactory.cn)
+体验网：[http://test-explorer.bitfactory.cn](http://test-explorer.bitfactory.cn)
 
 正式网：[https://explorer.bitfactory.cn](https://explorer.bitfactory.cn)
 
@@ -208,4 +208,4 @@ input参数格式校验，需校验JSON规范。
 
 ### 5.7.3 关于账号可信认证问题
 
- 账户没有经过可信认证的话就不能发交易，测试网现在是放开的，正式网必须通过认证才可以发交易。
+ 账户没有经过可信认证的话就不能发交易，体验网现在是放开的，正式网必须通过认证才可以发交易。
