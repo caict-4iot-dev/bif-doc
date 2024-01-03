@@ -130,6 +130,10 @@ Transaction(0f3c99381b7bca967bcad2b55d396ff33b375c9aea1cda024f7b705aea1a2e5c) si
 
  sdk中`gasprice`默认值`100`,如果需要覆盖上笔交易，需调整设置 `>= 100*1.1`，基于许可的考虑，目前创建合约是基础创建操作消耗的星火令 + 合约消耗的星火令，使用完再申请就可以了。
 
+### 5.3.11 remarks长度问题
+
+ sdk中`remarks`为选填字段，长度[0,256k]。
+
 ## 5.4 智能合约相关
 
 ### 5.4.1 智能合约支持什么语言？
@@ -148,9 +152,37 @@ input参数格式校验，需校验JSON规范。
 
 合约之间调用需要消耗星火令，`JavaScript`合约中`Chain.payCoin(address, amount[, input])`,支持合约账号余额的转账。
 
-## 5.5 交易查询
+###  5.4.3 错误响应说明
 
-### 访问星火网区块链浏览器
+- `key`的长度超过`1024Byte`限制,详情参考[智能合约开发整体介绍](https://bif-doc.readthedocs.io/zh-cn/2.0.0/contract/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91%E6%95%B4%E4%BD%93%E4%BB%8B%E7%BB%8D.html)
+
+  ```javascript
+  "Length of the key should be between [1,1024].key=XXXXX...XXXXX",key.length=1248
+  ```
+
+- `value`的长度超过`256KB`限制,详情参考[智能合约开发整体介绍](https://bif-doc.readthedocs.io/zh-cn/2.0.0/contract/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91%E6%95%B4%E4%BD%93%E4%BB%8B%E7%BB%8D.html)
+
+  ```javascript
+  Length of the value should be between [0, 262144]. key=XXXX...XXX,value.length=307200
+  ```
+
+- 合约循环处理深度超过`1024`限制,详情参考[智能合约开发整体介绍](https://bif-doc.readthedocs.io/zh-cn/2.0.0/contract/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91%E6%95%B4%E4%BD%93%E4%BB%8B%E7%BB%8D.html)
+
+  ```javascript
+  Step exceeding limit
+  ```
+
+- 合约递归调用深度超过`4`层限制,详情参考[智能合约开发整体介绍](https://bif-doc.readthedocs.io/zh-cn/2.0.0/contract/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91%E6%95%B4%E4%BD%93%E4%BB%8B%E7%BB%8D.html)
+
+  ```javascript
+  Too many recursion.
+  ```
+
+## 5.5 交易相关
+
+### 5.5.1 交易查询
+
+#### 访问星火网区块链浏览器
 
 测试网：[http://test-explorer.bitfactory.cn](http://test-explorer.bitfactory.cn)
 

@@ -36,7 +36,7 @@
    contract/Javascript合约介绍
    contract/Solidity合约介绍
    contract/智能合约示例
-   contract/智能合约IDE使用说明
+   contract/Remix合约IDE星火插件使用说明
 
 .. toctree::
    :maxdepth: 1
