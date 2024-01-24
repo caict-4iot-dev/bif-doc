@@ -37,7 +37,7 @@ $ git clone -b release/1.0.3  --depth=1 http://github.com/caict-4iot-dev/BIF-Cor
 <dependency>
     <groupId>cn.bitfactory</groupId>
     <artifactId>bif-chain-sdk</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.3.3</version>
 </dependency>
 ```
 
