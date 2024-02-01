@@ -1,3 +1,15 @@
-.wy-nav-content {
-    max-width: 99%; /* 或根据你的需求调整 */
+/* 调整侧边栏宽度 */
+.wy-nav-side {
+    width: 300px; /* 或根据你的需求调整 */
 }
+
+/* 确保主内容区域左边距正确调整，以避免重叠 */
+.wy-nav-content-wrap {
+    margin-left: 300px; /* 应与侧边栏宽度相同 */
+}
+
+/* 增加右侧导航栏的宽度 */
+.wy-menu-vertical .wy-menu {
+    padding: 1em 2em; /* 调整内边距增加宽度 */
+}
+请确
