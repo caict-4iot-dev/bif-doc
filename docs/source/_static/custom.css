@@ -3,10 +3,10 @@
 }
 /* 调整左侧导航栏的宽度 */
 .wy-nav-side {
-    width: 300px; /* 默认值通常是 250px，您可以根据需要调整这个值 */
+    width: 500px; /* 默认值通常是 250px，您可以根据需要调整这个值 */
 }
 
 /* 确保主内容区域的左边距与导航栏的宽度相匹配 */
 .wy-nav-content-wrap {
-    margin-left: 300px; /* 将此值调整为与 .wy-nav-side 的宽度相同 */
+    margin-left: 500px; /* 将此值调整为与 .wy-nav-side 的宽度相同 */
 }
