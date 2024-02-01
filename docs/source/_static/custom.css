@@ -46,47 +46,6 @@ p {
 
 /* Side navigation bar */
 
-.wy-side-nav-search {
-    background-color: #184596;
-}
-
-.wy-side-nav-search a.icon-home {
-    background-repeat: no-repeat;
-    background-size: Auto 20px;
-    background-position: center top;
-    height: 20px;
-    width: 100%
-}
-
-ul.wy-breadcrumbs a.icon.icon-home::after {
-    content: " FISCO BCOS 2.0";
-}
-
-.wy-side-nav-search img {
-    display: block;
-    margin: auto auto .809em auto;
-    padding: 5px;
-    border-radius: unset
-}
-
-.wy-side-nav-search input[type=text] {
-    border-radius: 5px
-}
-
-.wy-menu-vertical a:hover {
-    background-color: #ADAFB3;
-    color: #FFF
-}
-
-.wy-nav-content {
-    background-color: #fff;
-    max-width: 1200px !important;
-}
-
-.wy-nav-side {
-    background-color: #184596;
-}
-
 
 /* Navigation headers */
 
