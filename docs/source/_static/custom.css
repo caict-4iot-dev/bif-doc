@@ -1,3 +1,6 @@
 .wy-nav-content {
     max-width: 80%; /* 或根据你的需求调整 */
 }
+.wy-nav-side {
+    max-width: 20%;/* 默认值通常是 250px，您可以根据需要调整这个值 */
+}
