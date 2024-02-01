@@ -1,4 +1,6 @@
 version: 2
+sphinx:
+  configuration: docs/conf.py
 formats:
   - htmlzip
 # Set the version of Python and other tools you might need
