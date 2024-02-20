@@ -12,22 +12,22 @@
     border-radius: 4px; /* 设置边框圆角 */
 }
 /* 针对代码块中的注释样式 */
-.highlight .c1 { /* 假设注释使用的类名为.c1 */
-    font-weight: normal; /* 设置字体为正常体 */
-    font-style: normal; /* 确保注释不是斜体 */
-    color: #006400; /* 深绿色，您可以根据需要调整颜色代码 */
+.highlight .c1 { /* 仅针对代码高亮块中的注释 */
+    font-weight: normal;
+    font-style: normal;
+    color: #006400;
 }
 /* 设置段落的行距 */
 p {
     line-height: 1.6; /* 行距为字体大小的1.6倍 */
+    margin-top: 12px; /* 段落顶部的空间 */
 }
 
 /* 设置标题的下边距 */
 h1, h2, h3, h4, h5, h6 {
     margin-bottom: 24px; /* 标题下方的空间 */
 }
-
-/* 设置段落的上边距 */
-p {
-    margin-top: 12px; /* 段落顶部的空间 */
+li {
+    list-style: none;
+    margin-bottom: 10px;
 }
