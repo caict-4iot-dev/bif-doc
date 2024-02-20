@@ -14,7 +14,7 @@
 
 /* 针对注释的特定设置 */
 .highlight .comment, code .comment {
-    color: #00008B; /* 将注释的字体颜色设置为深蓝色 */
+    color: #6a9955; /* 将注释的字体颜色设置为深蓝色 */
     font-style: normal; /* 确保注释不使用斜体 */
 }
 
