@@ -12,11 +12,6 @@
     border-radius: 4px; /* 设置边框圆角 */
 }
 
-/* 针对注释的特定设置 */
-.highlight .comment, code .comment {
-    font-style: normal; /* 确保注释不使用斜体 */
-}
-
 /* 设置段落的行距 */
 p {
     line-height: 1.6; /* 行距为字体大小的1.6倍 */
