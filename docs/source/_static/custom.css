@@ -7,9 +7,10 @@
 }
 
 .highlight, code {
-    background-color: #fff9db; /* 设定背景色 */
-    padding: 5px; /* 添加内边距 */
-    border-radius: 4px; /* 设置边框圆角 */
+   background-color: #F0FFF0; /* 浅绿色，蜜露色 */
+    padding: 10px; /* 添加一些内边距以便于阅读 */
+    border-radius: 5px; /* 添加轻微的圆角以优化视觉效果 */
+    border: 1px solid #E0EEE0; /* 添加一个与背景色相近但稍深的边框 */
 }
 /* 针对代码块中的注释样式 */
 .highlight .c1 { /* 仅针对代码高亮块中的注释 */
