@@ -7,12 +7,12 @@
 }
 
 /* 针对代码块中的注释样式 */
-.highlight.c1{ 
+.highlight .c1{ 
     font-weight: normal;
     font-style: normal;
     color: #006400;
 }
-.highlight,code {
+.highlight, code {
    background-color: #FFF8DC; /* 浅绿色，蜜露色 */
     padding: 10px; /* 添加一些内边距以便于阅读 */
     border-radius: 5px; /* 添加轻微的圆角以优化视觉效果 */
