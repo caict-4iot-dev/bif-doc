@@ -11,9 +11,11 @@
     padding: 5px; /* 添加内边距 */
     border-radius: 4px; /* 设置边框圆角 */
 }
-.highlight .c1 { /* 仅针对代码高亮块中的注释 */
-    font-weight: bold;
-    color: #00008B;
+/* 针对代码块中的注释样式 */
+.highlight .c1 { /* 假设注释使用的类名为.c1 */
+    font-weight: normal; /* 设置字体为正常体 */
+    font-style: normal; /* 确保注释不是斜体 */
+    color: #006400; /* 深绿色，您可以根据需要调整颜色代码 */
 }
 /* 设置段落的行距 */
 p {
