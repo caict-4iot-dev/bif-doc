@@ -5,16 +5,17 @@
 .wy-nav-side {
     max-width: 30%;/* 默认值通常是 250px，您可以根据需要调整这个值 */
 }
-/* 设置代码段的背景色为浅黄色 */
+
 .highlight, code {
-   background-color:  #005CAB; /* 浅黄色背景 */
-   padding: 5px; /* 添加一些内边距 */
-   border-radius: 4px; /* 轻微的圆角边框 */
+    background-color: #005CAB; /* 设定背景色 */
+    padding: 5px; /* 添加内边距 */
+    border-radius: 4px; /* 设置边框圆角 */
 }
 
-/* 设置代码注释的字体样式为正常，并将颜色设置为深蓝色 */
-code .comment {
-    color: #00008B !important; /* 仅强制应用于文字颜色 */
+/* 针对注释的特定设置 */
+.highlight .comment, code .comment {
+    color: #00008B; /* 将注释的字体颜色设置为深蓝色 */
+    font-style: normal; /* 确保注释不使用斜体 */
 }
 
 /* 设置段落的行距 */
