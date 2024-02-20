@@ -6,14 +6,14 @@
     max-width: 30%;/* 默认值通常是 250px，您可以根据需要调整这个值 */
 }
 
-.highlight.pre {
+.highlight {
    background-color: #F0FFF0; /* 浅绿色，蜜露色 */
     padding: 10px; /* 添加一些内边距以便于阅读 */
     border-radius: 5px; /* 添加轻微的圆角以优化视觉效果 */
     border: 1px solid #E0EEE0; /* 添加一个与背景色相近但稍深的边框 */
 }
 /* 针对代码块中的注释样式 */
-.highlight{ /* 仅针对代码高亮块中的注释 */
+.highlight.c1{ /* 仅针对代码高亮块中的注释 */
     font-weight: normal;
     font-style: normal;
     color: #006400;
