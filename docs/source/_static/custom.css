@@ -11,7 +11,9 @@
     padding: 5px; /* 添加内边距 */
     border-radius: 4px; /* 设置边框圆角 */
 }
-
+pre .comment { /* 针对预格式化的代码块中的注释 */
+    font-style: normal; /* 取消斜体样式 */
+}
 /* 设置段落的行距 */
 p {
     line-height: 1.6; /* 行距为字体大小的1.6倍 */
