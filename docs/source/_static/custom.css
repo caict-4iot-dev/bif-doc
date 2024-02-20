@@ -6,7 +6,7 @@
     max-width: 30%;/* 默认值通常是 250px，您可以根据需要调整这个值 */
 }
 
-.highlight, code {
+.highlight.pre {
    background-color: #F0FFF0; /* 浅绿色，蜜露色 */
     padding: 10px; /* 添加一些内边距以便于阅读 */
     border-radius: 5px; /* 添加轻微的圆角以优化视觉效果 */
