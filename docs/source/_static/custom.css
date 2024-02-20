@@ -1,6 +1,60 @@
-.wy-nav-content {
-    max-width: 80%; /* 或根据你的需求调整 */
+/* 侧边导航菜单 */
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
 }
-/* 调整左侧导航栏的宽度 */
-.wy-nav-side {
-    max-width: 30%;/* 默认值通常是 250px，您可以根据需要调整这个值 */
+
+/* 侧边栏链接 */
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+}
+
+/* 活动/当前链接 */
+.sidebar a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* 鼠标悬停链接 */
+.sidebar a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+/* 页面内容。margin-left 属性的值应该与侧边栏的 width 属性的值匹配 */
+div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px; /* 根据实际页面高度调整 */
+}
+
+/* 在宽度小于 700px 的屏幕上，将侧边栏变成顶部栏 */
+@media screen and (max-width: 700px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    .sidebar a {
+        float: left;
+    }
+    div.content {
+        margin-left: 0;
+    }
+}
+
+/* 在小于 400px 的屏幕上，垂直显示栏，而不是水平显示 */
+@media screen and (max-width: 400px) {
+    .sidebar a {
+        text-align: center;
+        float: none;
+    }
+}
