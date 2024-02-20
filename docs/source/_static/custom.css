@@ -7,9 +7,15 @@
 }
 /* 设置代码段的背景色为浅黄色 */
 .highlight, code {
-    background-color: #fff9db; /* 浅黄色背景 */
-    padding: 5px; /* 添加一些内边距 */
-    border-radius: 4px; /* 轻微的圆角边框 */
+   /* background-color:  #005CAB; *//* 浅黄色背景 */
+  /*  padding: 5px;*/ /* 添加一些内边距 */
+/*    border-radius: 4px;*/ /* 轻微的圆角边框 */
+    min-width: 100%;
+    display: block;
+    background: #005CAB;
+    color: white;
+    padding: 10px 0;
+    margin: 0 0 -1px 0;
 }
 
 /* 设置段落的行距 */
