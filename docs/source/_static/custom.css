@@ -13,10 +13,8 @@
 }
 
 /* 设置代码注释的字体样式为正常，并将颜色设置为深蓝色 */
-code .comment, /* 针对内嵌代码块中的注释 */
-pre .comment { /* 针对预格式化的代码块中的注释 */
-    font-style: normal; /* 取消斜体样式 */
-    color: #00008B; /* 深蓝色 */
+code .comment {
+    color: #00008B !important; /* 仅强制应用于文字颜色 */
 }
 
 /* 设置段落的行距 */
