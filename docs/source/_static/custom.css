@@ -19,15 +19,17 @@
 }
 /* 设置段落的行距 */
 p {
-    line-height: 1.6; /* 行距为字体大小的1.6倍 */
-    margin-top: 12px; /* 段落顶部的空间 */
+   line-height: 1.6;
+   margin-bottom: 10px;
+   margin-top: 10px;
 }
 
 /* 设置标题的下边距 */
 h1, h2, h3, h4, h5, h6 {
-    margin-bottom: 24px; /* 标题下方的空间 */
+    margin-bottom: 15px; /* 标题下方的空间 */
 }
 li {
     list-style: none;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
