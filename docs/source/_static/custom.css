@@ -35,3 +35,23 @@ li {
     margin-bottom: 10px;
     margin-top: 10px;
 }
+
+
+
+.admonition-important {
+    background-color: #fff3cd; /* 浅黄色背景，用于突出显示 */
+    border: 1px solid #ffeeba; /* 浅黄色边框 */
+    padding: 15px; /* 内边距 */
+    border-radius: 5px; /* 圆角边框 */
+    margin-bottom: 20px; /* 底部外边距 */
+    title: 重要
+}
+
+.admonition-note {
+    background-color: #f0f8ff; /* 浅蓝色背景 */
+    border: 1px solid #e0e0e0; /* 灰色边框 */
+    padding: 15px; /* 内边距 */
+    border-radius: 5px; /* 圆角边框 */
+    margin-bottom: 20px; /* 底部外边距 */
+    title: 注意
+}
