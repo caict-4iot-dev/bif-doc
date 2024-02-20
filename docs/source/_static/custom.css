@@ -13,7 +13,7 @@
     border: 1px solid #E0EEE0; /* 添加一个与背景色相近但稍深的边框 */
 }
 /* 针对代码块中的注释样式 */
-.highlight .c1 { /* 仅针对代码高亮块中的注释 */
+.highlight{ /* 仅针对代码高亮块中的注释 */
     font-weight: normal;
     font-style: normal;
     color: #006400;
