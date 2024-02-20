@@ -1,20 +1,13 @@
-/* 左侧导航栏样式 */
-.sidebar {
-    width: 200px;
-    float: left;
-    /* 添加其他样式，例如背景颜色、边框等 */
+.wy-nav-content {
+    max-width: 80%; /* 或根据你的需求调整 */
 }
-
-/* 右侧目录栏样式 */
-.toc {
-    width: 200px;
-    float: right;
-    /* 添加其他样式，例如背景颜色、边框等 */
+/* 调整左侧导航栏的宽度 */
+.wy-nav-side {
+    max-width: 30%;/* 默认值通常是 250px，您可以根据需要调整这个值 */
 }
-
-/* 中间内容区域样式 */
-.content {
-    margin-left: 220px; /* 留出一些空间给导航栏和目录栏 */
-    margin-right: 220px;
-    /* 添加其他样式，例如字体、行高、背景颜色等 */
+/* 设置代码段的背景色为浅黄色 */
+.highlight, code {
+    background-color: #fff9db; /* 浅黄色背景 */
+    padding: 5px; /* 添加一些内边距 */
+    border-radius: 4px; /* 轻微的圆角边框 */
 }
