@@ -36,6 +36,10 @@ li {
     margin-top: 10px;
 }
 
+/*表格宽度*/
+table {
+    width: 100%;
+}
 
 
 .admonition-important {
