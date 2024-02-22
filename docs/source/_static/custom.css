@@ -1,5 +1,5 @@
 .wy-nav-content {
-    max-width: 80%; /* 或根据你的需求调整 */
+    max-width: 80%; /* 调整右侧内容部分的宽度，根据你的需求调整 */
 }
 /* 调整左侧导航栏的宽度 */
 .wy-nav-side {
@@ -10,7 +10,7 @@
 .highlight .c1{ 
     font-weight: normal;
     font-style: normal;
-    color: #006400;
+    color: #006400;/*深绿色*/
 }
 .highlight, code {
    background-color: #FFF8DC; /* 浅绿色，蜜露色 */
