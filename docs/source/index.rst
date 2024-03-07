@@ -8,7 +8,7 @@
     :caption:  快速入门
 
     quickstart/星火链底层区块链平台介绍
-    quickstart/星火链开发入门(必读)
+    quickstart/星火链开发入门
     quickstart/快速接入星火链
     quickstart/常见问题解答
 
