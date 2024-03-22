@@ -12,7 +12,7 @@ Remix合约IDE星火插件是“星火·链网”研发团队联合Remix中文�
 
 remix官方地址：[https://remix.ethereum.org](https://remix.ethereum.org)
 
-remix 国内镜像：[https://remix.learnblockchain.cn](https://remix.learnblockchain.cn)
+remix 国内镜像：[http://remix.learnblockchain.cn](http://remix.learnblockchain.cn)
 
 <img src="../_static/images/image-20231228164849692.png" alt="image-20231228164849692" style="zoom: 33%;" />
 
