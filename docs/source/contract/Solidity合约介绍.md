@@ -172,11 +172,24 @@
 
 由于指令集支持和地址表示法的区别, 星火链提供了专门的编译器来编译星火链`Solidity`合约. 本章指导开发者使用官方编译器编译星火链智能合约。
 
-1. 镜像下载
+npm包地址：https://www.npmjs.com/package/@bifproject/solc-bif 
 
-    ```javascript
-    docker pull caictdevelop/bif-solidity:v0.4.26
+1. 下载
+
+    需要电脑上安装nodejs 且版本号>=10.0.0
+
+    ```shell
+    npm i -g @bifproject/solc-bif
+    npm i -g bs58
     ```
+
+    验证是否安装成功,执行下面的命令不报错
+
+    ```shell
+    solcjs --help
+    ```
+
+    ![image-20240326091913209](C:\Users\zhang\AppData\Roaming\Typora\typora-user-images\image-20240326091913209.png)
 
 2. 选项说明
 
@@ -196,7 +209,7 @@
 
     ```js
     pragma solidity ^0.4.26;
-
+    
     contract test{
         function testfun() public returns(string){
             return "hello world";
@@ -211,7 +224,7 @@
     docker run -it caictdevelop/bif-solidity:v0.4.26 /bin/bash
     cd /root/solidity/build/solc
     ./solc --bin test.sol
-
+    
     ======= test.sol:test =======
     Binary: 
     608060405234801561001057600080fd5b5061013f8061002060003960

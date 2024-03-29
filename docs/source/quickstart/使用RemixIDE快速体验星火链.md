@@ -283,8 +283,8 @@ if (response.getErrorCode() == 0) {
         {
             "result":
                 {
-                    "type":"string",
-                    "value":"test"
+                    "type":"string",//返回查询字段的类型，如果该字段不存在，则type 为bool类型
+                    "value":"test"//返回查询字段的值，如果该字段不存在，则type 为false
                 }
         }
     ]
