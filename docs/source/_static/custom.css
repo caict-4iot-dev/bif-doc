@@ -51,15 +51,14 @@ table {
     border-left: 4px solid #31708f; /* 左边边框颜色 */
     display: flex; /* 使用flex布局 */
     align-items: center; /* 垂直居中对齐 */
-    min-height: 45px; /* 标题栏最小高度 */
+    min-height: 40px; /* 标题栏最小高度 */
     position: relative; /* 为伪元素定位做准备 */
     font-weight: bold; /* 加粗字体 */
 }
 
 /* 使用 ::before 伪元素添加感叹号图标 */
 .important-box-title::before {
-   /* content: "⚠";*/ /* 这里是你想要的图标或符号，可以是Unicode字符或者字符实体 */
-    content: "\2757";
+    content: "⚠"; /* 这里是你想要的图标或符号，可以是Unicode字符或者字符实体 */
     color: #ffffff; /* 图标颜色 */
     margin-right: 10px; /* 图标和标题文本之间的空间 */
     font-size: 1.4em; /* 感叹号图标的大小 */
@@ -74,4 +73,5 @@ table {
     padding: 20px; /* 调整内容内边距 */
     border-left: 4px solid #31708f; /* 左边边框颜色，和标题一致 */
     min-height: 50px; /* 内容区域的最小高度 */
+	align-items: center; /* 垂直居中对齐 */
 }
