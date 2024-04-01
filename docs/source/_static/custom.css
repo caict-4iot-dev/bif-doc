@@ -44,27 +44,19 @@ table {
 }
 
 
-.admonition-important {
-    background-color: #fff3cd; /* 浅黄色背景，用于突出显示 */
-    border: 1px solid #ffeeba; /* 浅黄色边框 */
-    padding: 15px; /* 内边距 */
-    border-radius: 5px; /* 圆角边框 */
-    margin-bottom: 20px; /* 底部外边距 */
-    title: 重要
+/* 标题部分的样式 */
+.important-box-title {
+    background-color: #5b9bd5; /* 标题背景颜色 */
+    color: #ffffff; /* 标题文字颜色 */
+    padding: 0.5rem; /* 标题内边距 */
+    border-left: 4px solid #31708f; /* 左侧边框颜色 */
 }
 
-.admonition-note {
-    background-color: #f0f8ff; /* 浅蓝色背景 */
-    border: 1px solid #e0e0e0; /* 灰色边框 */
-    padding: 15px; /* 内边距 */
-    border-radius: 5px; /* 圆角边框 */
-    margin-bottom: 20px; /* 底部外边距 */
-    title: 注意
-}
-
-div.important {
-    background-color: #ffdd57; /* 浅黄色背景 */
-    padding: 15px; /* 内边距 */
-    border-left: 5px solid #ff6f00; /* 左边有一条橙色边框 */
-    margin-bottom: 20px; /* 下方外边距 */
+/* 内容部分的样式 */
+.important-box-content {
+    background-color: #d9edf7; /* 内容背景颜色 */
+    color: #31708f; /* 内容文字颜色 */
+    padding: 0.5rem; /* 内容内边距 */
+    border-left: 4px solid #31708f; /* 左侧边框颜色 */
+    opacity: 0.7; /* 内容背景颜色透明度 */
 }
