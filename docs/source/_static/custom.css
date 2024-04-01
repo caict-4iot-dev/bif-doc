@@ -54,6 +54,7 @@ table {
     min-height: 40px; /* 标题栏最小高度 */
     position: relative; /* 为伪元素定位做准备 */
     font-weight: bold; /* 加粗字体 */
+	margin-bottom: 0; /* 移除标题和内容之间的空隙 */
 }
 
 /* 使用 ::before 伪元素添加感叹号图标 */
@@ -69,9 +70,10 @@ table {
 /* 内容部分的样式 */
 .important-box-content {
     background-color: #ebf5fc; /* 内容背景颜色，更淡的色调 */
-    color: #31708f; /* 内容文字颜色 */
+    color:  #000; /* 内容文字颜色 */
     padding: 20px; /* 调整内容内边距 */
     border-left: 4px solid #31708f; /* 左边边框颜色，和标题一致 */
     min-height: 50px; /* 内容区域的最小高度 */
 	align-items: center; /* 垂直居中对齐 */
+	margin-top: 0; /* 移除标题和内容之间的空隙 */
 }
