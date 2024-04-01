@@ -48,15 +48,22 @@ table {
 .important-box-title {
     background-color: #5b9bd5; /* 标题背景颜色 */
     color: #ffffff; /* 标题文字颜色 */
-    padding: 0.5rem; /* 标题内边距 */
+    padding: 0.4rem 0.5rem; /* 标题内边距，上下稍微少一点 */
     border-left: 4px solid #31708f; /* 左侧边框颜色 */
+    display: flex; /* 使用flex布局，便于内部元素水平对齐 */
+    align-items: center; /* 垂直居中对齐 */
+}
+
+/* 标题前面的感叹号图标 */
+.important-box-icon {
+    margin-right: 0.5rem; /* 图标和标题文字之间的间隔 */
 }
 
 /* 内容部分的样式 */
 .important-box-content {
     background-color: #d9edf7; /* 内容背景颜色 */
     color: #31708f; /* 内容文字颜色 */
-    padding: 0.5rem; /* 内容内边距 */
+    padding: 0.6rem 0.5rem; /* 内容内边距，上下稍微多一点 */
     border-left: 4px solid #31708f; /* 左侧边框颜色 */
     opacity: 0.7; /* 内容背景颜色透明度 */
 }
