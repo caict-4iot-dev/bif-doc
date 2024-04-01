@@ -55,6 +55,7 @@ table {
     position: relative; /* 为伪元素定位做准备 */
     font-weight: bold; /* 加粗字体 */
 	margin-bottom: 0; /* 移除标题和内容之间的空隙 */
+	margin-top:10px ;
 }
 
 /* 使用 ::before 伪元素添加感叹号图标 */
@@ -76,4 +77,5 @@ table {
     min-height: 50px; /* 内容区域的最小高度 */
 	align-items: center; /* 垂直居中对齐 */
 	margin-top: 0; /* 移除标题和内容之间的空隙 */
+	margin-bottom:10px
 }
