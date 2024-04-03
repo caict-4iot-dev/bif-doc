@@ -168,7 +168,8 @@ if (infoRsp.getErrorCode() == 0) {
   	request.setType(0);
 	//feelimit设置要小于账户的balance
   	request.setFeeLimit(100060000L);
-  
+    request.setNonceType(1);
+
   	// 调用contractCreate接口
   	BIFContractCreateResponse response = sdk.getBIFContractService().contractCreate(request);
   	if (response.getErrorCode() == 0) {
@@ -271,6 +272,7 @@ request.setContractAddress(contractAddress);
 request.setBIFAmount(amount);
 request.setRemarks("contract invoke");
 request.setInput(input);
+request.setNonceType(1);
 
 // 调用contractInvoke 接口
 BIFContractInvokeResponse response = sdk.getBIFContractService().contractInvoke(request);
@@ -425,7 +427,8 @@ if (response.getErrorCode() == 0) {
   //type，javascript合约type为0，solidity合约type为1
   request.setType(1);
   request.setFeeLimit(100189100L);//根据实际情况调整
-  
+  request.setNonceType(1);
+       
   // 调用contractCreate接口
   BIFContractCreateResponse response = sdk.getBIFContractService().contractCreate(request);
   if (response.getErrorCode() == 0) {
@@ -490,6 +493,7 @@ request.setContractAddress(contractAddress);
 request.setBIFAmount(amount);
 request.setRemarks("contract invoke");
 request.setInput(input);
+request.setNonceType(1);
 
 // 调用contractInvoke 接口
 BIFContractInvokeResponse response = sdk.getBIFContractService().contractInvoke(request);
