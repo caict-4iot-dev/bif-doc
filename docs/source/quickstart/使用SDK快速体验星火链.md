@@ -14,7 +14,7 @@
 <dependency>
 	<groupId>cn.bitfactory</groupId>
 	<artifactId>bif-chain-sdk</artifactId>
-	<version>1.0.3.2</version>
+	<version>1.1.0</version>
 </dependency>
 ```
 
