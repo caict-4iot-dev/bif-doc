@@ -10,8 +10,19 @@
     quickstart/星火链底层区块链平台介绍
     quickstart/星火链开发入门
     quickstart/使用SDK快速体验星火链
-	quickstart/使用RemixIDE快速体验星火链
     quickstart/常见问题解答
+
+.. toctree::
+   :maxdepth: 1
+   :caption:  进行智能合约开发
+   :glob:
+
+   contract/智能合约开发整体介绍
+   contract/Javascript合约介绍
+   contract/Solidity合约介绍
+   contract/智能合约示例
+   contract/Remix合约IDE星火插件使用说明
+
 
 .. toctree::
    :maxdepth: 1
@@ -27,16 +38,6 @@
    instructions/区块链浏览器使用说明
    instructions/开发工具包使用说明
 
-.. toctree::
-   :maxdepth: 1
-   :caption:  如何进行智能合约开发
-   :glob:
-
-   contract/智能合约开发整体介绍
-   contract/Javascript合约介绍
-   contract/Solidity合约介绍
-   contract/智能合约示例
-   contract/Remix合约IDE星火插件使用说明
 
 .. toctree::
    :maxdepth: 1
