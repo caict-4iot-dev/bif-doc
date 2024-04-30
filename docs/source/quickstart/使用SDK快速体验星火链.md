@@ -327,7 +327,7 @@ Java查询代码如下:
 ```java
 // 初始化参数
 String contractAddress = "did:bid:ef6ZAWV315UracvhKARdHz5CbQ6dULPp";
-String callInput = " "{\"method\":\"get\",\"params\":{\"key\":\"test\"}}"";
+String callInput = "{\"method\":\"get\",\"params\":{\"key\":\"test\"}}"";
 BIFContractCallRequest request = new BIFContractCallRequest();
 request.setContractAddress(contractAddress);
 request.setInput(callInput);
