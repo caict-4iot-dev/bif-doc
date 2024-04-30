@@ -147,20 +147,20 @@ if (infoRsp.getErrorCode() == 0) {
   	//发起交易的账户，使用上面生成的账户地址
 	String senderAddress = "did:bid:efzE8AcDgWUeNbgujA5hK3oUeuG9k19b";
   	//发起交易的账户的私钥，用上面生成的私钥
-  	String senderPrivateKey = "priSPKiwJR7PwjN3bGPRvXRoC6Dny1H5H3kASHgTEugjtUDknW";
+	String senderPrivateKey = "priSPKiwJR7PwjN3bGPRvXRoC6Dny1H5H3kASHgTEugjtUDknW";
   	//合约代码，注意双引号转义
-    String   payload =  "\"use strict\"; function init(input) {     const {key, value} = JSON.parse(input);     Chain.store(key, String(value));     Chain.tlog('Log', key, String(value));     return; } function store({key, value}) {     Chain.store(key, String(value));     Chain.tlog('Log', key, String(value)); }  function del({key}) {     Chain.del(key); }  function main(input) {     let {method, params} = JSON.parse(input);     if (method === 'store')     {         store(params);     } else if (method === 'del') {         del(params);     } }  function get({key}) {     return Chain.load(key); } function query(input) {     let {method, params} = JSON.parse(input);     if (method === 'get') {         return get(params);     } }";
+	String   payload =  "\"use strict\"; function init(input) {     const {key, value} = JSON.parse(input);     Chain.store(key, String(value));     Chain.tlog('Log', key, String(value));     return; } function store({key, value}) {     Chain.store(key, String(value));     Chain.tlog('Log', key, String(value)); }  function del({key}) {     Chain.del(key); }  function main(input) {     let {method, params} = JSON.parse(input);     if (method === 'store')     {         store(params);     } else if (method === 'del') {         del(params);     } }  function get({key}) {     return Chain.load(key); } function query(input) {     let {method, params} = JSON.parse(input);     if (method === 'get') {         return get(params);     } }";
   
 	//给合约账户的初始化金额，如无需求可以设置为0
-  	Long initBalance = ToBaseUnit.ToUGas("0");
+	Long initBalance = ToBaseUnit.ToUGas("0");
 
-  	BIFContractCreateRequest request = new BIFContractCreateRequest();
-  	request.setSenderAddress(senderAddress);
+	BIFContractCreateRequest request = new BIFContractCreateRequest();
+	request.setSenderAddress(senderAddress);
 	
 	//SDK本地内部
-  	request.setPrivateKey(senderPrivateKey);
-  	request.setInitBalance(initBalance);
-  	request.setPayload(payload);
+	request.setPrivateKey(senderPrivateKey);
+	request.setInitBalance(initBalance);
+	request.setPayload(payload);
     request.setInitInput("{\"key\":\"test\",\"value\":2}");
 	//备注，选填
   	request.setRemarks("create contract");
@@ -168,7 +168,7 @@ if (infoRsp.getErrorCode() == 0) {
   	request.setType(0);
 	//feelimit设置要小于账户的balance
   	request.setFeeLimit(100060000L);
-    request.setNonceType(1);
+	request.setNonceType(1);
 
   	// 调用contractCreate接口
   	BIFContractCreateResponse response = sdk.getBIFContractService().contractCreate(request);
@@ -222,23 +222,24 @@ if (infoRsp.getErrorCode() == 0) {
   `did:bid:ef6ZAWV315UracvhKARdHz5CbQ6dULPp`即为刚刚创建的合约链上地址。
 * 交易信息和合约地址查询
    用SDK根据合约地址查询合约账户的内容：
+   
    ```java
    BIFContractGetInfoRequest request = new BIFContractGetInfoRequest();
    //上面返回的合约地址
    request.setContractAddress("did:bid:efXkBsC2nQN6PJLjT9nv3Ah7S3zJt2WW");
-   BIFContractGetInfoResponse response = sdk.getBIFContractService().getContractInfo(request);
-	if (response.getErrorCode() == 0) {
-      System.out.println(JsonUtils.toJSONString(response.getResult()));
-	} else {
+	BIFContractGetInfoResponse response = sdk.getBIFContractService().getContractInfo(request);
+   if (response.getErrorCode() == 0) {
+	   System.out.println(JsonUtils.toJSONString(response.getResult()));
+   } else {
       System.out.println(JsonUtils.toJSONString(response));
    }
    ```
    查询内容结果如下：
-   ```json
+	```json
 	{
 		"contract":{
 		"type":0,
-		"payload":"\"use strict\"; function init(input) {     const {key, value} = JSON.parse(input);     Chain.store(key, String(value));     Chain.tlog('Log', key, String(value));     return; } function store({key, value}) {     Chain.store(key, String(value));     Chain.tlog('Log', key, String(value)); }  function del({key}) {     Chain.del(key); }  function main(input) {     let {method, params} = JSON.parse(input);     if (method === 'store')     {         store(params);     } else if (method === 'del') {         del(params);     } }  function get({key}) {     return Chain.load(key); } function query(input) {     let {method, params} = JSON.parse(input);     if (method === 'get') {         return get(params);     } }"
+   	"payload":"\"use strict\"; function init(input) {     const {key, value} = JSON.parse(input);     Chain.store(key, String(value));     Chain.tlog('Log', key, String(value));     return; } function store({key, value}) {     Chain.store(key, String(value));     Chain.tlog('Log', key, String(value)); }  function del({key}) {     Chain.del(key); }  function main(input) {     let {method, params} = JSON.parse(input);     if (method === 'store')     {         store(params);     } else if (method === 'del') {         del(params);     } }  function get({key}) {     return Chain.load(key); } function query(input) {     let {method, params} = JSON.parse(input);     if (method === 'get') {         return get(params);     } }"
    	}
    }
    ```
