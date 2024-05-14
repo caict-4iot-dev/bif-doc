@@ -1,43 +1,50 @@
-# 3.使用SDK快速体验星火链
+# 4.使用RemixIDE快速体验星火链
 
-本章带大家使用Java SDK 在星火链网**体验网**上分别部署、调用、 查询一个`Javascript`、`Solidity`智能合约，需要完成如下工作：
+本章带大家使用RemixIDE在星火链网体验网上分别部署、调用、 查询一个`Javascript`、`Solidity`智能合约，需要完成如下工作：
 
 1. 获取星火令来激活账户
-2. Java sdk的初始化
+2. 加载RemixIDE星火插件
 3. 通过体验网部署合约
 
-## 3.1 SDK使用
+## 4.1  创建账号并获取星火令
 
-通过maven引入星火链Java SDK.
+### 4.1.1 创建账号
 
-```java
-<dependency>
-	<groupId>cn.bitfactory</groupId>
-	<artifactId>bif-chain-sdk</artifactId>
-	<version>1.1.0</version>
-</dependency>
-```
-
-## 3.2 账号创建
-
-调用JavaSDK接口离线创建一个账户。
-
-```java
-import cn.bif.model.crypto.KeyPairEntity;
-KeyPairEntity entity = KeyPairEntity.getBidAndKeyPair();                //离线创建一个新账号
-System.out.printf("BID address %s\n", entity.getEncAddress());          //账户地址, 可以公开
-System.out.printf("privatekey %s\n", entity.getEncPrivateKey());      //账户私钥, 请妥善保管
-```
-
-## 3.3 获取星火令
-
-账户需要拥有星火令才能正常使用星火链功能, 体验网星火令可以通过如下方式获取：
-
-- 通过星火插件钱包申请可信凭证获取`100`星火令(需要等待2-3天工作人员审批，着急的话可以在技术交流群找工作人员加急审核，技术交流群见第一章二维码)
+用户可以通过浏览器插件钱包创建一个账号，并领取星火令。
 
 星火插件钱包下载地址：[https://bitfactory.cn/szsf.html](https://bitfactory.cn/szsf.html)
 
-## 3.4 初始化SDK
+### 4.1.2 领取星火令
+
+通过星火插件钱包申请可信凭证获取`100`星火令(需要等待2-3天工作人员审批，着急的话可以在技术交流群找工作人员加急审核，技术交流群见第一章二维码)
+
+星火插件钱包创建账号并领取星火令教程：https://bif-doc.readthedocs.io/zh-cn/1.0.0/tools/wallet.html
+
+### 4.2.3 导出私钥
+
+目前RemixIDE还不支持星火链插件钱包，因此需要导出私钥明文。流程如下：
+
+第一步：点击右上方的三个点
+
+<img src="..\_static\images\image-20240430145741518.png" alt="image-20240430145741518" style="zoom: 50%;" />
+
+第二步：点击【导出私钥】按钮
+
+<img src="..\_static\images\image-20240430145824347.png" alt="image-20240430145824347" style="zoom:50%;" />
+
+第三步：输入钱包密码，点击【确认】按钮
+
+<img src="..\_static\images\image-20240430145916194.png" alt="image-20240430145916194" style="zoom:50%;" />
+
+第四步：点击【完成】按钮，私钥即可复制到剪切板
+
+<img src="..\_static\images\image-20240430150036941.png" alt="image-20240430150036941" style="zoom:50%;" />
+
+## 4.2 部署调用Js合约
+
+### 4.2.1 访问Remix IDE网址
+
+
 
 通过配置星火链RPC地址连接SDK到星火链, 本次演示的demo里链接到星火链体验网。
 
@@ -136,7 +143,7 @@ if (infoRsp.getErrorCode() == 0) {
       }
   }
   ```
-  
+
   该合约实现了一个简单的存储功能, 用户可以调用main接口存储自定义`Key-Value`信息, 然后通过查询接口查询已经存入的`Key-Value`信息。
 
 ### 3.6.2 部署合约
@@ -205,9 +212,9 @@ if (infoRsp.getErrorCode() == 0) {
       System.out.println(JsonUtils.toJSONString(response));
   }
   ```
-  
+
   合约部署信息示例如下:
-  
+
   ```json
   {
       "contract_address_infos":[
@@ -218,31 +225,34 @@ if (infoRsp.getErrorCode() == 0) {
       ]
   }
   ```
-  
+
   `did:bid:ef6ZAWV315UracvhKARdHz5CbQ6dULPp`即为刚刚创建的合约链上地址。
+
 * 交易信息和合约地址查询
-   用SDK根据合约地址查询合约账户的内容：
-   
-   ```java
-   BIFContractGetInfoRequest request = new BIFContractGetInfoRequest();
-   //上面返回的合约地址
-   request.setContractAddress("did:bid:efXkBsC2nQN6PJLjT9nv3Ah7S3zJt2WW");
-	BIFContractGetInfoResponse response = sdk.getBIFContractService().getContractInfo(request);
-   if (response.getErrorCode() == 0) {
-	   System.out.println(JsonUtils.toJSONString(response.getResult()));
-   } else {
-      System.out.println(JsonUtils.toJSONString(response));
-   }
-   ```
-   查询内容结果如下：
-	```json
-	{
-		"contract":{
-		"type":0,
-   	"payload":"\"use strict\"; function init(input) {     const {key, value} = JSON.parse(input);     Chain.store(key, String(value));     Chain.tlog('Log', key, String(value));     return; } function store({key, value}) {     Chain.store(key, String(value));     Chain.tlog('Log', key, String(value)); }  function del({key}) {     Chain.del(key); }  function main(input) {     let {method, params} = JSON.parse(input);     if (method === 'store')     {         store(params);     } else if (method === 'del') {         del(params);     } }  function get({key}) {     return Chain.load(key); } function query(input) {     let {method, params} = JSON.parse(input);     if (method === 'get') {         return get(params);     } }"
-   	}
-   }
-   ```
+  用SDK根据合约地址查询合约账户的内容：
+
+  ```java
+  BIFContractGetInfoRequest request = new BIFContractGetInfoRequest();
+  //上面返回的合约地址
+  request.setContractAddress("did:bid:efXkBsC2nQN6PJLjT9nv3Ah7S3zJt2WW");
+  BIFContractGetInfoResponse response = sdk.getBIFContractService().getContractInfo(request);
+  if (response.getErrorCode() == 0) {
+     System.out.println(JsonUtils.toJSONString(response.getResult()));
+  } else {
+     System.out.println(JsonUtils.toJSONString(response));
+  }
+  ```
+
+  查询内容结果如下：
+
+  ```json
+  {
+  	"contract":{
+  	"type":0,
+  	"payload":"\"use strict\"; function init(input) {     const {key, value} = JSON.parse(input);     Chain.store(key, String(value));     Chain.tlog('Log', key, String(value));     return; } function store({key, value}) {     Chain.store(key, String(value));     Chain.tlog('Log', key, String(value)); }  function del({key}) {     Chain.del(key); }  function main(input) {     let {method, params} = JSON.parse(input);     if (method === 'store')     {         store(params);     } else if (method === 'del') {         del(params);     } }  function get({key}) {     return Chain.load(key); } function query(input) {     let {method, params} = JSON.parse(input);     if (method === 'get') {         return get(params);     } }"
+  	}
+  }
+  ```
 
 ### 3.6.3 合约调用
 
@@ -327,7 +337,7 @@ Java查询代码如下:
 ```java
 // 初始化参数
 String contractAddress = "did:bid:ef6ZAWV315UracvhKARdHz5CbQ6dULPp";
-String callInput = "{\"method\":\"get\",\"params\":{\"key\":\"test\"}}";
+String callInput = "{\"method\":\"get\",\"params\":{\"key\":\"test\"}}"";
 BIFContractCallRequest request = new BIFContractCallRequest();
 request.setContractAddress(contractAddress);
 request.setInput(callInput);
@@ -388,9 +398,9 @@ if (response.getErrorCode() == 0) {
     }
   }
   ```
-  
+
   该合约实现了一个简单的存储功能, 用户可以调用`setById`接口存储自定义`Key-Value`信息, 然后通过`queryById`接口查询已经存入的`Key-Value`信息。
-  
+
 ### 3.7.2 智能合约编译
 
  星火链对的EVM虚拟机进行了定制化的修改，因此提供了专门的编译器来编译星火链`Solidity`合约. 下载地址及使用方式见[星火链solidity编译器]()。
@@ -558,3 +568,13 @@ if (response.getErrorCode() == 0) {
 	}]
 }
 ```
+
+## 3.8 查看交易信息
+
+每次部署或者调用合约，都会返回一个交易哈希，并且在链上记录交易信息，您可以在区块链浏览器的交易详情里查看具体信息。
+
+体验网浏览器地址：[http://test-explorer.bitfactory.cn/](http://test-explorer.bitfactory.cn/)
+
+<img src="D:/project/bif-doc/docs/source/_static/images/image-20230118170722157.png"/>
+
+至此我们就完成了一个链上合约从部署到操作的全过程, 有关星火链开发的更多教程, 请参见后续专栏。
