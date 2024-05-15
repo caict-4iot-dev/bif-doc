@@ -393,7 +393,7 @@ if (response.getErrorCode() == 0) {
   
 ### 3.7.2 智能合约编译
 
- 星火链对的EVM虚拟机进行了定制化的修改，因此提供了专门的编译器来编译星火链`Solidity`合约. 下载地址及使用方式见[星火链solidity编译器]()。
+ 星火链对的EVM虚拟机进行了定制化的修改，因此提供了专门的编译器来编译星火链`Solidity`合约. 下载地址及使用方式见[星火链solidity编译器](../contract/Solidity合约介绍.md#$solidity_solc)。
 
 编译后的bytecode 为：
 
@@ -402,6 +402,8 @@ if (response.getErrorCode() == 0) {
 ```
 
 ###  3.7.3 部署合约
+
+<a id="deploy_solidity"></a>
 
   合约编写完毕后, 需要将合约部署到链上, **注意这里需要账户内有足够的XHT**, 部署代码如下:
 
