@@ -59,7 +59,7 @@ npm包地址：https://www.npmjs.com/package/@bifproject/solc-bif
    solcjs --help
    ```
 
-   ![image-20240326091913209](..\_static\images\image-20240326091913209.png)
+   <img src="..\_static\images\image-20240326091913209.png" style="zoom:100%;" />
 
 2. 编写测试合约
 
@@ -85,11 +85,7 @@ npm包地址：https://www.npmjs.com/package/@bifproject/solc-bif
 
    执行成功后结果如下，没有Error信息，警告可以忽略
 
-   <img src="..\_static\images\星火智能合约开发建议-第 2 页_uH75krGpXq.png" style="zoom:67%;" />
-   
    <img src="..\_static\images\image-20240514155457977.png"  style="zoom:100%;" />
-   
-   
 
 执行完后会生成两个文件：
 
