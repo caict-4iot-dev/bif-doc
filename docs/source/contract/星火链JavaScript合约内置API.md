@@ -1,4 +1,6 @@
-### 2.2.1 Chain对象
+# 6. 星火链JavaScript合约内置API
+
+## 6.1 Chain对象
 
 
 * Chain对象方法列表
@@ -389,7 +391,7 @@
 
 
 
-### 2.2.2 Utils对象
+## 6.2 Utils对象
 
 * Utils对象方法列表
 

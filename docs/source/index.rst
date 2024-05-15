@@ -21,10 +21,8 @@
    contract/Solidity合约介绍
    contract/Solidity合约事件介绍
    contract/Openzeppelin合约模板
-   contract/Remix合约IDE星火插件介绍
    contract/Javascript合约介绍
-   contract/智能合约示例
-
+   contract/JavaScript合约内置API
 
 
 .. toctree::

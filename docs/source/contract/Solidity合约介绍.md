@@ -114,7 +114,7 @@ test_sol_test.bin
 
 ### 2.1.3 Openzeppelin 合约模板
 
-OpenZeppelin是一套用Solidity语言编写, 基于EVM架构的**智能合约模板库**。星火链根据许可有的特性，提供了自己的Opnezeppelin合约模板。开发者可以基于星火链的Openzeppelin合约模板开发DAPP, 详见[OpenZeppelin](./Openzeppelin.md)
+OpenZeppelin是一套用Solidity语言编写, 基于EVM架构的**智能合约模板库**。星火链根据许可有的特性，提供了自己的Opnezeppelin合约模板。开发者可以基于星火链的Openzeppelin合约模板开发DAPP, 详见[OpenZeppelin合约模板](./Openzeppelin合约模板.md)
 
 ### 2.1.4 Remix 合约IDE
 
