@@ -85,7 +85,7 @@ npm包地址：https://www.npmjs.com/package/@bifproject/solc-bif
 
    执行成功后结果如下，没有Error信息，警告可以忽略
 
-   ![image-20240514155457977](C:\Users\zhang\AppData\Roaming\Typora\typora-user-images\image-20240514155457977.png)
+   ![image-20240514155457977](..\_static\images\image-20240514155457977.png)
 
 执行完后会生成两个文件：
 
