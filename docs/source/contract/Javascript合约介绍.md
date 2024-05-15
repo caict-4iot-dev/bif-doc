@@ -6,7 +6,7 @@
 
 合约的固定结构分为三段。合约上链部署完成后，合约文本会直接存储到合约账户结构中。 
 
-* **初始化接口。**合约的初始化函数是 `init`, 合约部署时自动由虚拟机引擎直接调用`init`进行合约账户数据的初始化。
+* **初始化接口**。合约的初始化函数是 `init`, 合约部署时自动由虚拟机引擎直接调用`init`进行合约账户数据的初始化。
 
 * **执行接口**。合约执行的入口函数是 `main`函数，`main`中可实现不同的功能接口，并通过参数字符串`input`选择不同接口。`main`内部功能接口可实现合约数据存储相关操作。（写功能）
 
@@ -73,8 +73,9 @@ function query(input)
 
 - 禁止使用的数组关键字创建数组
 
-  ```javascript
   示例：
+
+  ```javascript
   let color = new Array(100); //编译报错
   
   //可以使用替代 new Array(100) 语句;
@@ -184,7 +185,7 @@ func getRecord(){
 
 - 文本编解jsmin.bat，设置待压缩文件名及压缩后文件名，示例中为private.js
 
-```text
+```powershell
 jsmin.exe <.\private.js >.\private.min.js
 ```
 
