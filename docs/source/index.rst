@@ -18,8 +18,8 @@
    :glob:
 
    contract/智能合约开发整体介绍
-   contract/Javascript合约介绍
    contract/Solidity合约介绍
+   contract/Javascript合约介绍
    contract/智能合约示例
    contract/Remix合约IDE星火插件使用说明
 
