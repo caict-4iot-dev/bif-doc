@@ -1,5 +1,8 @@
 version: 2
-formats: all
+sphinx:
+  configuration: docs/source/conf.py
+formats:
+  - htmlzip
 # Set the version of Python and other tools you might need
 build:
   os: ubuntu-20.04
