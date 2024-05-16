@@ -34,3 +34,12 @@ html_theme = 'sphinx_rtd_theme'
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
+# 启用构建缓存
+html_use_smartypants = True
+# 禁用生成 PDF
+latex_elements = {
+    'pointsize': '12pt',
+    'figure_align': 'htbp',
+    'printindex': '',
+    'makeindex': '',
+}
