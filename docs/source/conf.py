@@ -2,12 +2,12 @@
 
 # -- Project information
 
-project = '星火链开发指南3.0'
-copyright = '2024, 中国信息通信研究院'
+project = '星火链网BID介绍'
+copyright = '2023, 中国信息通信研究院'
 author = '中国信息通信研究院'
 
-release = '3.0.0'
-version = '3.0.0'
+release = '1.0.0'
+version = '1.0.0'
 
 # -- General configuration
 
