@@ -11,6 +11,7 @@
  :header: "版本", "语言", "查看文档"
  :widths: 15, 10, 30
 
+ "v3.0.0", "中文",`点击查看 <https://bif-doc.readthedocs.io/zh_CN/3.0.0/>`_
  "v2.0.0", "中文",`点击查看 <https://bif-doc.readthedocs.io/zh_CN/2.0.0/>`_
 
 .. csv-table:: **星火产品应用开放文档**
