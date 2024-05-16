@@ -2,12 +2,12 @@
 
 # -- Project information
 
-project = '星火链开发指南2.0'
-copyright = '2023, 中国信息通信研究院'
+project = '星火链开发指南3.0'
+copyright = '2024, 中国信息通信研究院'
 author = '中国信息通信研究院'
 
-release = '2.0.0'
-version = '2.0.0'
+release = '3.0.0'
+version = '3.0.0'
 
 # -- General configuration
 
@@ -29,6 +29,9 @@ intersphinx_disabled_domains = ['std']
 
 templates_path = ['_templates']
 html_static_path = ['_static']
+html_css_files = [
+    'custom.css',
+]
 # -- Options for HTML output
 
 html_theme = 'sphinx_rtd_theme'

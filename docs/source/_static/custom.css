@@ -1,0 +1,81 @@
+@import "theme.css";
+
+.wy-nav-content {
+    max-width: 80%; /* 调整右侧内容部分的宽度，根据你的需求调整 */
+}
+/* 调整左侧导航栏的宽度 */
+.wy-nav-side {
+    max-width: 30%;/* 默认值通常是 250px，您可以根据需要调整这个值 */
+}
+
+/* 针对代码块中的注释样式 */
+.highlight .c1{ 
+    font-weight: normal;
+    font-style: normal;
+    color: #006400;/*深绿色*/
+}
+.highlight, code {
+   background-color: #FFF8DC; /* 浅绿色，蜜露色 */
+    padding: 10px; /* 添加一些内边距以便于阅读 */
+    border-radius: 5px; /* 添加轻微的圆角以优化视觉效果 */
+    border: 1px solid #E0EEE0; /* 添加一个与背景色相近但稍深的边框 */
+}
+
+/* 设置段落的行距 */
+p {
+   line-height: 1.6;
+   margin-bottom: 10px;
+   margin-top: 10px;
+}
+
+/* 设置标题的下边距 */
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 10px; /* 标题下方的空间 */
+}
+li {
+    list-style: none;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+/*表格宽度*/
+table {
+    width: 100%;
+}
+
+/* 标题部分的样式 */
+.important-box-title {
+    background-color: #5b9bd5; /* 标题背景颜色 */
+    color: #ffffff; /* 标题文字颜色 */
+    padding: 10px 20px; /* 调整标题内边距 */
+    border-left: 4px solid #31708f; /* 左边边框颜色 */
+    display: flex; /* 使用flex布局 */
+    align-items: center; /* 垂直居中对齐 */
+    min-height: 40px; /* 标题栏最小高度 */
+    position: relative; /* 为伪元素定位做准备 */
+    font-weight: bold; /* 加粗字体 */
+	margin-bottom: 0; /* 移除标题和内容之间的空隙 */
+	margin-top:10px ;
+}
+
+/* 使用 ::before 伪元素添加感叹号图标 */
+.important-box-title::before {
+    content: "⚠"; /* 这里是你想要的图标或符号，可以是Unicode字符或者字符实体 */
+    color: #ffffff; /* 图标颜色 */
+    margin-right: 10px; /* 图标和标题文本之间的空间 */
+    font-size: 1.4em; /* 感叹号图标的大小 */
+    display: flex; /* 为了让图标垂直居中 */
+    align-items: center;
+}
+
+/* 内容部分的样式 */
+.important-box-content {
+    background-color: #ebf5fc; /* 内容背景颜色，更淡的色调 */
+    color:  #000; /* 内容文字颜色 */
+    padding: 20px; /* 调整内容内边距 */
+    border-left: 4px solid #31708f; /* 左边边框颜色，和标题一致 */
+    min-height: 50px; /* 内容区域的最小高度 */
+	align-items: center; /* 垂直居中对齐 */
+	margin-top: 0; /* 移除标题和内容之间的空隙 */
+	margin-bottom:10px
+}
