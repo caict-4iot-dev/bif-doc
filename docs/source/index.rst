@@ -25,4 +25,4 @@
  :header: "版本", "语言", "查看文档"
  :widths: 15, 10, 30
 
- "v2.0.0", "中文", `点击查看 <https://bif-doc.readthedocs.io/zh_CN/bid/>`_
+ "v1.0.0", "中文", `点击查看 <https://bif-doc.readthedocs.io/zh_CN/bid/>`_
