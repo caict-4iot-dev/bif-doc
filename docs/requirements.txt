@@ -1,2 +1,4 @@
 attrs==21.4.0
-myst-parser==0.17.0
+myst-parser>=0.14
+sphinx-rtd-theme
+Sphinx>=5.0
