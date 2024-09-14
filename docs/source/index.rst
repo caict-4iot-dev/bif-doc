@@ -38,7 +38,6 @@
    instructions/订阅服务使用说明
    instructions/离线API服务使用说明
    instructions/区块链浏览器使用说明
-   instructions/开发工具包使用说明
 
 
 .. toctree::
@@ -48,7 +47,6 @@
 
    manage/交易如何上链
    manage/如何设计上链服务
-   manage/如何进行账号权限托管
    manage/如何解析交易结构
    manage/如何实现跨链
 

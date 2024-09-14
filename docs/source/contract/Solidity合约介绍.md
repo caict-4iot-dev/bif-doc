@@ -104,13 +104,9 @@ test_sol_test.bin
 
    星火链提供了专用的abi编解码工具[ethereumjs-abi](https://www.npmjs.com/package/@bifproject/ethereumjs-abi)。
 
-2. SDK
-
-   星火链的SDK支持solidity合约abi编解码功能，见[SDK abi编解码]()。
-
 3. 离线API
 
-   星火链的离线API服务支持调用本地API接口实现abi编解码功能，见[离线API abi编解码接口]()。
+   星火链的离线API服务支持调用本地API接口实现abi编解码功能，见[离线API abi编解码接口](../instructions/离线API服务使用说明.md)。
 
 ### 2.1.3 Openzeppelin 合约模板
 
