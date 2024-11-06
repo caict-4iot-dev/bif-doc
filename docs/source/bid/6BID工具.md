@@ -758,7 +758,7 @@ provider.reslover({bid})
 ### 6.4.1 工作流程
 
 1. 登录:采用钱包登录
-2. 凭证查询:用户去发证方进行凭证查询
+2. 凭证查询:用户去发证方查询支持的凭证类型
 3. 凭证申请:用户向指定的发证方提交可验证声明申请，并提供相关材料 
 4. 颁发证书:发证方审核完材料后，给用户颁发可验证声明
 5. 凭证列表:展示持证者申请的可验证凭证
@@ -766,13 +766,13 @@ provider.reslover({bid})
 7. 返回核验结果:验证方核验后，返回用户凭证的核验结果
 8. `BID`解析: 获取公钥,agent地址等信息
 
-<img src="../_static/images/image-20240904151309065.png" alt="image-20240904151309065" style="zoom:150%;" />
+<img src="../_static/images/image-20240904151309065.png" alt="image-20240904151309065" style="zoom:200%;" />
 
 ### 6.4.2 角色说明
 
 **BID wallet web**
 
-`BID wallet web`（钱包 web 端），作为用户端，方便用户（`Holder`）进行凭证的管理。
+BID wallet web（钱包 web 端），作为用户端，方便用户（`Holder`）进行凭证的管理。
 
 具备以下功能：
 
@@ -810,18 +810,24 @@ provider.reslover({bid})
 
 ### 6.4.3 使用说明
 
-#### 6.4.3.1 Holder
+#### 6.4.3.1 系统部署
 
-##### 服务说明：
+###### 项目地址：
 
-|      | 服务名       | 端口 |
-| ---- | ------------ | ---- |
-| 前端 | holder-web   | 8888 |
-| 后端 | holder-agent | 7001 |
+[https://github.com/caict-4iot-dev/DIDCore-Identity-Matrix/tree/demo](https://github.com/caict-4iot-dev/DIDCore-Identity-Matrix/tree/demo)
 
-##### 项目配置
+##### 6.4.3.1.1 Holder
 
-###### 前端
+###### 服务说明：
+
+|      | 服务名         | 端口 |
+| ---- | -------------- | ---- |
+| 前端 | holder-fe      | 8888 |
+| 后端 | holder-backend | 7001 |
+
+###### 项目配置:
+
+**前端**
 
 1. node环境
 
@@ -829,237 +835,277 @@ provider.reslover({bid})
 
 2. 后端接口地址配置
 
-   ![image-20240903165329888](../_static/images/i24.png)
-
-3. 启动项目
-
-```
-cd holder-web
-npm install
-npm run serve
-```
-
-###### 后端
-
-1. node环境
-
-	`18.17.0`
-
-2. 项目配置
-
-	端口号配置
-
-![image-20240904142205545](../_static/images/i44.png)
-
-数据库配置
-
-![image-20240829145440204](../_static/images/i3.png)
-
-3. 启动项目
-
-```
-cd holder-agent
-npm install
-npm run dev
-```
-
-##### 项目说明
-
-###### 访问地址
-
-` http://localhost:8888/login-scan`
-
-1. 进入登录页面点击登录 使用钱包登录
-
-![image-20240903175114447](../_static/images/i31.png)
-
-2. 进入系统后 首先展示的是凭证的展示页面
-
-![image-20240903175147736](../_static/images/i32.png)
-
-3. 凭证申请
-
-![image-20240903180738112](../_static/images/i34.png)
-
-申请之后 需要到`issuer`系统进行审核，并颁发凭证
-
-4. 申请成功后，进行查看
-
-![image-20240903174638477](../_static/images/i26.png)
-
-5. 点击验证凭证 可以查看凭证的信息并进行验证
-
-![image-20240903174823491](../_static/images/i28.png)
-
-6. 弹窗可以展示凭证的信息 以及可以发送到验证方进行凭证验证
-
-![image-20240903174733873](../_static/images/i27.png)
-
-可以输入验证方地址 将自己的凭证发给验证方进行验证 之后需要到`verifier`系统进行凭证的验证
-
-![image-20240903174850570](../_static/images/i29.png)
-
-7. 可以进行bid的解析
-
-![image-20240903180804997](../_static/imagesi35.png)
-
-8. 文档的信息展示
-
-![image-20240903180825025](../_static/images/i36.png)
-
-9. 创建文档数据
-
-   1）首先输入私钥 来生产文档模版 
-
-![image-20240903180849094](../_static/images/i37.png)
-
-![image-20240903171646309](../_static/images/i25.png)
-
-	2）创建文档
-
-![image-20240903174952566](../_static/images/i30.png)
-
-
-
-10. 修改文档 数据
-
-![image-20240903180909657](../_static/images/i38.png)
-
-agent 为 后续`issuer`系统推送凭证到当前`holder`系统的agent地址
-
-![image-20240903180932442](../_static/images/i39.png)
-
-
-
-11. 验证文档
-
-![image-20240903180955975](../_static/images/i40.png)
-
-
-
-#### 6.4.3.2 Issuer
-
-##### 服务说明：
-
-|      | 服务名       | 端口 |
-| ---- | ------------ | ---- |
-| 前端 | issuer-web   | 8889 |
-| 后端 | issuer-agent | 7002 |
-
-##### 项目配置
-
-###### 前端
-
-1. node环境
-
-	`18.17.0`
-
-2. 接口后端地址配置
-
    ![image-20240904141813984](../_static/images/i42.png)
 
 3. 启动项目
 
-```
-cd issuer-web
-npm install
-npm run serve
-```
+   ```
+   cd holder/fe
+   npm install 
+   npm run serve
+   ```
 
-###### 后端
+**后端**
 
 1. node环境
 
-	`18.17.0`
+​	`18.17.0`
 
 2. 项目配置
 
-	端口号配置
+​	端口号配置
 
-![image-20240829145347209](../_static/images/i2.png)
+![image-20240904142205545](../_static/images/i441.png)
 
-数据库配置
+​    数据库配置
 
-![image-20240829145440204](../_static/images/i300.png)
+![image-20240829145440204](../_static/images/i311.png)
 
-3. 启动项目
+​	docker镜像包位置:
 
-```
-cd issuer-agent
-npm install
-npm run dev
-```
+![image-20240920162700531](../_static/images/i521.png)
 
-##### 项目说明
+​	docker 数据库配置
 
-###### 访问地址
+![image-20240920162853634](../_static/images/i531.png)
 
-` http://localhost:8889/auditList`
+3. 启动mysql镜像
 
-###### 凭证审核
+   ```
+   docker load -i mysql.tar  //加载镜像
+   docker-compose -f docker-compose.yml up -d // 运行mysql镜像
+   ```
 
-![image-20240903104032348](../_static/images/i20.png)
+4. 启动项目
 
-#### 6.4.3.3 Verifier
+   ```
+   cd holder/backend
+   npm install
+   npm run dev
+   ```
 
-##### 服务说明：
+##### 6.4.3.1.2 Issuer
 
-|      | 服务名         | 端口 |
-| ---- | -------------- | ---- |
-| 前端 | verifier-web   | 8890 |
-| 后端 | verifier-agent | 7003 |
+###### 服务说明：
 
-##### 项目配置
+|      | 服务名  | 端口 |
+| ---- | ------- | ---- |
+| 前端 | fe      | 8889 |
+| 后端 | backend | 7002 |
 
-###### 前端
+###### 项目配置:
+
+**前端**
 
 1. node环境
 
-	`18.17.0`
+​	`18.17.0`
 
 2. 接口后端地址配置
 
-   ![image-20240904141735463](../_static/images/i41.png)
+   ![image-20240904141813984](../_static/images/i422.png)
 
 3. 启动项目
 
-```
-cd verifier-web
-npm install
-npm run serve
-```
+   ```
+   cd issuer/fe
+   npm install
+   npm run serve
+   ```
 
-###### 后端
+**后端**
 
 1. node环境
 
-	`18.17.0`
+​	`18.17.0`
 
 2. 项目配置
 
-	端口号配置
+​	端口号配置
 
-![image-20240904142131056](../_static/images/i43.png)
+![image-20240829145347209](../_static/images/i22.png)
 
-数据库配置
+​	数据库配置
 
-![image-20240829145440204](../_static/images/i301.png)
+![image-20240829145440204](../_static/images/i322.png)
+
+​	docker 镜像包位置:
+
+![image-20240920162700531](../_static/images/i522.png)
+
+​	docker 数据库配置
+
+![image-20240920162853634](../_static/images/i532.png)
+
+3. 启动mysql镜像
+
+   ```
+   docker load -i mysql.tar  //加载镜像
+   docker-compose -f docker-compose.yml up -d // 运行mysql镜像
+   ```
+
+4. 启动项目
+
+   ```
+   cd issuer/backend
+   npm install
+   npm run dev
+   ```
+
+##### 6.4.3.1.3 Verifier
+
+###### 服务说明：
+
+|      | 服务名  | 端口 |
+| ---- | ------- | ---- |
+| 前端 | fe      | 8890 |
+| 后端 | backend | 7003 |
+
+###### 项目配置
+
+**前端**
+
+1. node环境
+
+​	`18.17.0`
+
+2. 接口后端地址配置
+
+![image-20240904141735463](../_static/images/i413.png)
 
 3. 启动项目
 
-```
-cd verifier-agent
-npm install
-npm run dev
-```
+   ```
+   cd verifier/fe
+   npm install
+   npm run serve
+   ```
 
-##### 项目说明
+**后端**
 
-###### 访问地址
+1. node环境
 
-` http://localhost:8890/verification`
+​	`18.17.0`
 
-###### 凭证核验
+2. 项目配置
 
-![image-20240903171334660](../_static/images/i21.png)
+​	端口号配置
 
+![image-20240904142131056](../_static/images/i433.png)
+
+​	数据库配置
+
+![image-20240829145440204](../_static/images/i33.png)
+
+​	docker镜像包位置:
+
+![image-20240920162700531](../_static/images/i523.png)
+
+​	docker 数据库配置
+
+![image-20240920162853634](../_static/images/i533.png)
+
+3. 启动mysql镜像
+
+   ```
+   docker load -i mysql  //加载镜像
+   docker-compose -f docker-compose.yml up -d // 运行mysql镜像
+   ```
+
+4. 启动项目
+
+   ```
+   cd verifier/backend
+   npm install
+   npm run dev
+   ```
+
+#### 6.4.3.2 系统使用
+
+##### 6.4.3.2.1 Holder
+
+**访问地址**
+
+ [http://localhost:8888/login-scan]( http://localhost:8888/login-scan)
+
+1. **进入登录页面点击登录 使用钱包登录**
+
+   ![image-20240903175114447](../_static/images/i314.png)
+
+2. **进入系统后 首先展示的是凭证的展示页面**
+
+   ![image-20240911154711129](../_static/images/i494.png)
+
+3. **凭证申请**
+
+   ![image-20240903180738112](../_static/images/i344.png)
+
+   申请之后 需要到`issuer`系统进行审核，并颁发凭证
+
+4. **申请成功后，进行查看**
+
+   ![image-20240911154853063](../_static/images/i51.png)
+
+5. **点击验证凭证 可以查看凭证的信息并进行验证**
+
+   ![image-20240911154529188](../_static/images/i46.png)
+
+   6. **弹窗可以展示凭证的信息 以及可以发送到验证方进行凭证验证**
+
+      ![image-20240911154631050](../_static/images/i48.png)
+
+      可以输入验证方地址 将自己的凭证发给验证方进行验证 之后需要到`verifier`系统进行凭证的验证
+
+      ![image-20240903174850570](../_static/images/i47.png)
+
+   7. **可以进行bid的解析**
+
+      ![image-20240903180804997](../_static/images/i354.png)
+
+   8. **文档信息的展示**
+
+      ![image-20240903180825025](../_static/images/i364.png)
+
+   9. **创建文档数据**
+
+      1）首先输入私钥 来生产文档模版 
+
+      ![image-20240903180849094](../_static/images/i374.png)
+
+      ![image-20240903171646309](../_static/images/i254.png)
+
+      2）创建文档
+
+      ![image-20240903174952566](../_static/images/i304.png)
+
+   10. **修改文档数据**
+
+       ![image-20240903180909657](../_static/images/i384.png)
+
+       agent 为 后续`issuer`系统推送凭证到当前`holder`系统的后端地址
+
+       ![image-20240903180932442](../_static/images/i394.png)
+
+   11. **文档验证**
+
+       ![image-20240903180955975](../_static/images/i404.png)
+
+##### 6.4.3.2.2 Issuer
+
+**访问地址**
+
+[http://localhost:8889/auditList](http://localhost:8889/auditList)
+
+1. **凭证审核**
+
+   ![image-20240903104032348](../_static/images/i205.png)
+
+##### 6.4.3.2.3 Verifier
+
+**访问地址**
+
+[http://localhost:8890/verification](http://localhost:8890/verification)
+
+1. **凭证核验**
+
+   ![image-20240903171334660](../_static/images/i216.png)
