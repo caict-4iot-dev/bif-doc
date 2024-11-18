@@ -39,7 +39,7 @@ Openzeppelin是一套用Solidity语言编写, 基于EVM架构的**智能合约�
    <img src="..\_static\images\image-20240515152331414.png"  style="zoom:100%;" />
 
 2. 从github下载源码到本地，合约里填相对路径。
-3. 使用星火链的hardhat工具，见[Hardhat 星火插件](../Hardhat星火插件使用说明.md)。
+3. 使用星火链的hardhat工具，见[Hardhat 星火插件](./Hardhat星火插件使用说明.md)。
 
 ## 4.3 合约示例
 
