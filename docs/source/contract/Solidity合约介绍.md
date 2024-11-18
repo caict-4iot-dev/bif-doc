@@ -118,4 +118,4 @@ OpenZeppelin是一套用Solidity语言编写, 基于EVM架构的**智能合约�
 
 ### 2.1.5 Hardhat
 
-待开放。
+Hardhat作为以太坊开发者生态中的明星工具，是构建智能合约和去中心化应用（DApps）的重要基石，我们结合 Hardhat 的插件式架构，为开发者提供了[Hardhat 星火插件](../instructions/Hardhat星火插件使用说明.md)，覆盖从合约开发到部署的全流程，从而缩短合约开发周期，提高合约开发体验，提升合约开发效率。

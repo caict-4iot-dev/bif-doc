@@ -25,6 +25,7 @@
    contract/Javascript合约介绍
    contract/JavaScript合约内置API
    contract/RemixIDE星火插件
+   contract/Hardhat星火插件
 
 .. toctree::
    :maxdepth: 1
