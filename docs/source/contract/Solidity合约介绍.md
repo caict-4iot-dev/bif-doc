@@ -66,7 +66,7 @@ npm包地址：[https://www.npmjs.com/package/@bifproject/solc-bif](https://www.
    用一个最简单的测试合约做例子。
 
    ```
-   pragma solidity 0.8.21;
+   pragma solidity ^0.8.20;
    
    contract test{
        function testfun() public returns(string){
@@ -114,8 +114,8 @@ OpenZeppelin是一套用Solidity语言编写, 基于EVM架构的**智能合约�
 
 ### 2.1.4 Remix 合约IDE
 
-`Remix` 是用于智能合约开发的Web端集成开发环境 (IDE)。由于其操作简单、功能强大，成为智能合约开发者的首选开发工具，在区块链，特别是以太坊生态中有举足轻重的地位。**Remix合约IDE星火插件**是基于`Remix` IDE的星火链插件，基于此插件，开发者可以更加直观、便捷地在星火链上开发、测试和部署智能合约。详见[Remix IDE 介绍](../RemixIDE星火插件.md)。
+`Remix` 是用于智能合约开发的Web端集成开发环境 (IDE)。由于其操作简单、功能强大，成为智能合约开发者的首选开发工具，在区块链，特别是以太坊生态中有举足轻重的地位。**Remix合约IDE星火插件**是基于`Remix` IDE的星火链插件，基于此插件，开发者可以更加直观、便捷地在星火链上开发、测试和部署智能合约。详见[Remix IDE 介绍](./RemixIDE星火插件.md)。
 
 ### 2.1.5 Hardhat
 
-Hardhat作为以太坊开发者生态中的明星工具，是构建智能合约和去中心化应用（DApps）的重要基石，我们结合 Hardhat 的插件式架构，为开发者提供了[Hardhat 星火插件](../instructions/Hardhat星火插件使用说明.md)，覆盖从合约开发到部署的全流程，从而缩短合约开发周期，提高合约开发体验，提升合约开发效率。
+Hardhat作为以太坊开发者生态中的明星工具，是构建智能合约和去中心化应用（DApps）的重要基石，我们结合 Hardhat 的插件式架构，为开发者提供了[Hardhat 星火插件](./Hardhat星火插件使用说明.md)，覆盖从合约开发到部署的全流程，从而缩短合约开发周期，提高合约开发体验，提升合约开发效率。

@@ -32,7 +32,7 @@ npx hardhat init
 
 选择创建一个`hardhat.config.js`空文件
 
-![image-20241115170734294](./hardhat使用.assets/image-20241115170734294.png)
+![image-20241115170734294](..\_static\images\image-20241115170734294.png)
 
 ### 引入插件
 
@@ -183,7 +183,7 @@ npx hardhat compile
 
 编译过程中会有一些警告，可以忽略
 
-![image-20241118111628029](./hardhat使用.assets/image-20241118111628029.png)
+![image-20241118111628029](..\_static\images\image-20241118111628029.png)
 
 ### 部署合约
 
@@ -243,7 +243,7 @@ task("deploy", "合约部署", async (taskArgs, hre) => {
 
 合约部署成功且返回合约地址：
 
-![image-20241118161453949](./hardhat使用.assets/image-20241118161453949.png)
+![image-20241118161453949](..\_static\images\image-20241118161453949.png)
 
 如果执行失败可以打开执行日志查看详细报错信息
 
@@ -284,7 +284,7 @@ task("transfer", "调用合约转账", async (taskArgs, hre) => {
 
 执行完成
 
-![image-20241118165351247](./hardhat使用.assets/image-20241118165351247.png)
+![image-20241118165351247](..\_static\images\image-20241118165351247.png)
 
 ### 查询合约
 
@@ -315,7 +315,7 @@ npx hardhat balanceOf --network bifchain
 
 查询成功
 
-![image-20241118170146981](./hardhat使用.assets/image-20241118170146981.png)
+![image-20241118170146981](..\_static\images\image-20241118170146981.png)
 
 
 
@@ -347,7 +347,7 @@ npx hardhat filter --network bifchain
 
 执行结果
 
-![image-20241118202247516](./hardhat使用.assets/image-20241118202247516.png)
+![image-20241118202247516](..\_static\images\image-20241118202247516.png)
 
 ### 其他任务
 
