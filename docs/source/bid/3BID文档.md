@@ -36,23 +36,22 @@ BID的协议元数据为BID文档。BID文档遵循DID Document规范，并在�
     * signatureValue: 使用相应私钥对publicKey字段的签名。
   * type: 必填字段。BID文档的属性类型，取值见附录属性类型。
 
-* attributes: 必填字段。一组属性，属性为如下结构：
+  * attributes: 必填字段。一组属性，属性为如下结构：
 
-  | 字段名  | 描述                                        |
-  | ------- | ------------------------------------------- |
-  | key     | 属性的关键字                                |
-  | desc    | 选填。属性描述                              |
-  | encrypt | 选填。是否加密，0非加密，1加密              |
-  | format  | 选填。image、text、video、mixture等数据类型 |
-  | value   | 选填。属性自定义value                       |
+    | 字段名  | 描述                                        |
+    | ------- | ------------------------------------------- |
+    | key     | 属性的关键字                                |
+    | desc    | 选填。属性描述                              |
+    | encrypt | 选填。是否加密，0非加密，1加密              |
+    | format  | 选填。image、text、video、mixture等数据类型 |
+    | value   | 选填。属性自定义value                       |
 
-* acsns:选填字段。一组子链AC号，只有BID文档类型不是凭证类型且文档是主链上的BID文档才可能有该字段，存放当前BID拥有的所有AC号。
+  * acsns:选填字段。一组子链AC号，只有BID文档类型不是凭证类型且文档是主链上的BID文档才可能有该字段，存放当前BID拥有的所有AC号。
 
-* verifiableCredentials:选填字段。凭证列表，包含id和type两个字段。
+  * verifiableCredentials:选填字段。凭证列表，包含id和type两个字段。
 
-  * id:可验证声明的BID。
-  * type：凭证类型。详见附录凭证类型。
-
+    * id:可验证声明的BID。
+    * type：凭证类型。详见附录凭证类型。
 * service：选填字段。一组服务地址，包括id，type，serviceEndpoint三个必填字段。
 
   * id: 服务地址的ID。
