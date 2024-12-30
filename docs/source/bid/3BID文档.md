@@ -12,7 +12,7 @@ BID的协议元数据为BID文档。BID文档遵循DID Document规范，并在�
 
 * id：必填字段。文档的BID。
 
-* publicKey：选填字段。一组公钥，包含id，type，controller,publicKeyHex四个字段，凭证类的BID文档不包含该字段。
+* publicKey：选填字段。一组公钥，包含id，type，controller,publicKeyHex四个字段。
 
   * id:公钥的ID。
   * type：字符串，代表公钥的加密算法类型，具体支持的类型见附录公钥类型章节。
@@ -47,11 +47,6 @@ BID的协议元数据为BID文档。BID文档遵循DID Document规范，并在�
     | value   | 选填。属性自定义value                       |
 
   * acsns:选填字段。一组子链AC号，只有BID文档类型不是凭证类型且文档是主链上的BID文档才可能有该字段，存放当前BID拥有的所有AC号。
-
-  * verifiableCredentials:选填字段。凭证列表，包含id和type两个字段。
-
-    * id:可验证声明的BID。
-    * type：凭证类型。详见附录凭证类型。
 * service：选填字段。一组服务地址，包括id，type，serviceEndpoint三个必填字段。
 
   * id: 服务地址的ID。
